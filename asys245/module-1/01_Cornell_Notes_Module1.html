@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ASYS 245 Theory of Flight Notes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+</head>
+<body>
+<style>
+:root{
+  --bg:#F4F6F8; --surface:#FFFFFF; --cue:#E6EDF3; --line:#CBD5DE; --ink:#16232E; --muted:#526170;
+  --accent:#1D5C8F; --accent-ink:#FFFFFF; --formula:#B8690F; --formula-bg:#FFF4E3;
+  --ok:#2E7D4F; --ok-bg:#E4F3EA; --bad:#B3402B; --bad-bg:#FBE8E3; --shadow:0 1px 2px rgba(22,35,46,.08);
+  --dia-bg:#F9FBFC; --dia-line:#3A4A58; --dia-fill:#D6E4F0; --dia-hi:#E7A34A;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F171E; --surface:#182430; --cue:#1F2E3B; --line:#33475A; --ink:#E6EDF3; --muted:#9FB0BF;
+    --accent:#6FB0E8; --accent-ink:#0F171E; --formula:#F0B35B; --formula-bg:#2C2416;
+    --ok:#6CCB8F; --ok-bg:#16301F; --bad:#F08A72; --bad-bg:#3A1C15; --shadow:none;
+    --dia-bg:#131E27; --dia-line:#C4D2DE; --dia-fill:#2B4257; --dia-hi:#F0B35B;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F171E; --surface:#182430; --cue:#1F2E3B; --line:#33475A; --ink:#E6EDF3; --muted:#9FB0BF;
+  --accent:#6FB0E8; --accent-ink:#0F171E; --formula:#F0B35B; --formula-bg:#2C2416;
+  --ok:#6CCB8F; --ok-bg:#16301F; --bad:#F08A72; --bad-bg:#3A1C15; --shadow:none;
+  --dia-bg:#131E27; --dia-line:#C4D2DE; --dia-fill:#2B4257; --dia-hi:#F0B35B;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+h2{font-size:1.6rem;font-weight:700;letter-spacing:.01em}
+h3{font-size:1.2rem;font-weight:600}
+.wrap{max-width:960px;margin:0 auto}
+.eyebrow{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--accent)}
+header.top{padding-block:2rem 1.25rem;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;justify-content:space-between}
+header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
+.meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted);letter-spacing:.02em}
+/* toolbar */
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:.6rem;display:flex;flex-wrap:wrap;gap:.5rem .9rem;align-items:center;margin-inline:-16px;padding-inline:16px}
+.bar .grow{flex:1 1 10rem}
+.progress{height:6px;background:var(--cue);border-radius:3px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.bar label{font-size:.9rem;display:inline-flex;gap:.4rem;align-items:center;cursor:pointer;user-select:none}
+.bar input{accent-color:var(--accent);width:1.1rem;height:1.1rem}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.35rem .8rem;border-radius:4px;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn:focus-visible,.bar input:focus-visible,details summary:focus-visible,.opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* cornell grid */
+.notes{margin-top:1.5rem;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+.row{display:grid;grid-template-columns:minmax(150px,30%) 1fr;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.cue{background:var(--cue);padding:1rem;border-right:1px solid var(--line)}
+.cue h3{color:var(--ink)}
+.cue .q{margin:.5rem 0 0;font-weight:600;font-style:italic;color:var(--muted);font-size:.95rem}
+.cue .tag{display:inline-block;margin-top:.6rem;font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;color:var(--accent);text-transform:uppercase}
+.body{padding:1rem 1.25rem;min-width:0}
+.body ul{margin:0;padding-left:1.15rem}
+.body li{margin:.25rem 0}
+.body li+li{margin-top:.35rem}
+.f{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;color:var(--formula);background:var(--formula-bg);padding:.05em .35em;border-radius:3px;white-space:nowrap}
+.big{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:1.35rem;color:var(--formula);background:var(--formula-bg);padding:.25rem .7rem;border-radius:4px;margin:.4rem 0}
+.fig{margin:.9rem 0 .3rem;background:var(--dia-bg);border:1px solid var(--line);border-radius:4px;padding:.5rem;overflow-x:auto}
+.fig svg{display:block;max-width:100%;height:auto;margin:0 auto;font-family:"Source Sans 3",sans-serif}
+.cap{font-size:.8rem;color:var(--muted);margin:.2rem 0 0;font-style:italic}
+details.more{margin-top:.8rem;border-left:3px solid var(--accent);padding-left:.8rem}
+details.more summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:.92rem;list-style:none}
+details.more summary::before{content:"+ ";font-family:"JetBrains Mono",monospace}
+details.more[open] summary::before{content:"– "}
+details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
+/* study mode */
+.study .body>*:not(.reveal){display:none}
+.reveal{display:none}
+.study .reveal{display:block;text-align:left}
+.study .body.open>*{display:block}
+.study .body.open>.reveal{display:none}
+.study .body.open>ul{display:block}
+.study .body.open>.fig{display:block}
+.reveal button{width:100%;text-align:left;font:600 1rem "Source Sans 3",sans-serif;background:transparent;border:1px dashed var(--line);border-radius:4px;color:var(--muted);padding:1rem;cursor:pointer}
+.reveal button:hover{border-color:var(--accent);color:var(--accent)}
+.check{display:inline-flex;align-items:center;gap:.4rem;margin-top:.7rem;font-size:.85rem;color:var(--muted);cursor:pointer}
+.check input{accent-color:var(--ok)}
+/* summary + terms */
+.box{margin-top:1.5rem;background:var(--surface);border:1px solid var(--line);padding:1.25rem;box-shadow:var(--shadow)}
+.box.sum{border-left:6px solid var(--accent)}
+.terms{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem 1.5rem;margin-top:.8rem}
+.terms div{padding:.4rem 0;border-bottom:1px dotted var(--line)}
+.terms b{display:block;font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.05rem;letter-spacing:.02em}
+/* quiz */
+.qz{margin-top:1rem;display:grid;gap:.9rem}
+.qcard{border:1px solid var(--line);border-radius:4px;padding:.9rem 1rem;background:var(--surface)}
+.qcard p{margin:0 0 .5rem;font-weight:600}
+.opts{display:grid;gap:.4rem}
+.opt{text-align:left;font:1rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:.5rem .7rem;border-radius:4px;cursor:pointer}
+.opt:hover{border-color:var(--accent)}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ink)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--ink)}
+.fb{margin-top:.5rem;font-size:.92rem;display:none}
+.fb.show{display:block}
+.fb.good{color:var(--ok)} .fb.bad{color:var(--bad)}
+.score{margin-top:1rem;font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.3rem}
+.flag{font-size:.85rem;color:var(--muted);margin-top:1.5rem}
+@media (max-width:620px){
+  .row{grid-template-columns:1fr}
+  .cue{border-right:0;border-bottom:1px solid var(--line);padding:.8rem 1rem}
+  .body{padding:.9rem 1rem}
+}
+@media (prefers-reduced-motion:reduce){.progress i{transition:none}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">Cornell Notes · ASYS 245 · Module 1 · Day 1</div>
+    <h1>Theory of Flight: The Atmosphere</h1>
+    <p>What air is made of, how it behaves as a gas, and why that shapes a wing. Read the notes, then switch on <b>Study mode</b> to test yourself from the cue questions.</p>
+  </div>
+  <div class="meta">SAFA · Super T Aviation<br>Sept 10, 2026</div>
+</header>
+
+<div class="bar" role="toolbar" aria-label="Study tools">
+  <label><input type="checkbox" id="studyToggle"> Study mode (hide notes, recall from cues)</label>
+  <div class="grow"><div class="progress" aria-hidden="true"><i id="pbar"></i></div></div>
+  <span class="meta" id="ptext">0 / 8 sections checked</span>
+  <button class="btn" id="resetBtn" type="button">Reset</button>
+</div>
+
+<section class="notes" id="notes" aria-label="Cornell notes">
+
+<!-- 1 ATMOSPHERE -->
+<div class="row" data-sec="1">
+  <div class="cue">
+    <h3>Atmosphere</h3>
+    <p class="q">What is dry air made of?</p>
+    <span class="tag">Composition</span>
+  </div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Dry air ≈ <b>78% nitrogen</b>, <b>21% oxygen</b>, ~1% other gases (argon, CO₂).</li>
+      <li>"Dry" = water vapour not counted. Real air also carries moisture.</li>
+      <li>Air is a <b>gas</b>: it has no fixed shape, it can be squeezed, and it expands when heated.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 320 120" width="320" height="120" role="img" aria-label="Bar showing 78 percent nitrogen, 21 percent oxygen, 1 percent other">
+      <rect x="10" y="30" width="234" height="40" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+      <rect x="244" y="30" width="63" height="40" fill="var(--dia-hi)" stroke="var(--dia-line)"/>
+      <rect x="307" y="30" width="3" height="40" fill="var(--dia-line)"/>
+      <text x="127" y="56" text-anchor="middle" font-size="15" font-weight="600" fill="var(--ink)">N₂ 78%</text>
+      <text x="275" y="56" text-anchor="middle" font-size="14" font-weight="600" fill="#16232E">O₂ 21%</text>
+      <text x="300" y="95" text-anchor="end" font-size="11" fill="var(--muted)">other ≈1%</text>
+      <text x="10" y="20" font-size="11" fill="var(--muted)">Dry air by volume</text>
+    </svg></div>
+    <p class="cap">Almost 4 of every 5 molecules you breathe are nitrogen.</p>
+    <details class="more"><summary>Go deeper</summary><p>Your notes say 20% oxygen; the standard figure used in ground school (and in <i>From the Ground Up</i>) is 21%. The mix stays the same all the way up — what changes with altitude is how <i>much</i> air there is, not what it is made of. That is why pilots and engines struggle at altitude: same 21% oxygen, but far fewer molecules per breath or per cylinder.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<!-- 2 GAS PROPERTIES -->
+<div class="row" data-sec="2">
+  <div class="cue">
+    <h3>Gas (Air)</h3>
+    <p class="q">Which four properties describe the state of a gas?</p>
+    <span class="tag">State of a gas</span>
+  </div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Pressure</b> (p) – how hard the gas pushes on its container.</li>
+      <li><b>Temperature</b> (T) – how fast the molecules move.</li>
+      <li><b>Mass</b> (m) – how much gas there is.</li>
+      <li><b>Volume</b> (V) – the space that contains the gas.</li>
+      <li>Together these four <b>determine the state</b> of the gas. Change one, and at least one other changes.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 340 130" width="340" height="130" role="img" aria-label="Four properties around the word STATE">
+      <rect x="120" y="45" width="100" height="40" rx="4" fill="var(--dia-hi)" stroke="var(--dia-line)"/>
+      <text x="170" y="71" text-anchor="middle" font-size="16" font-weight="700" fill="#16232E">STATE</text>
+      <g font-size="13" font-weight="600" fill="var(--ink)" text-anchor="middle">
+        <rect x="5" y="10" width="90" height="28" rx="4" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="50" y="29">Pressure p</text>
+        <rect x="245" y="10" width="90" height="28" rx="4" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="290" y="29">Temp T</text>
+        <rect x="5" y="92" width="90" height="28" rx="4" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="50" y="111">Mass m</text>
+        <rect x="245" y="92" width="90" height="28" rx="4" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="290" y="111">Volume V</text>
+      </g>
+      <g stroke="var(--dia-line)" stroke-width="1.5" fill="none">
+        <line x1="95" y1="30" x2="120" y2="50"/><line x1="245" y1="30" x2="220" y2="50"/>
+        <line x1="95" y1="100" x2="120" y2="80"/><line x1="245" y1="100" x2="220" y2="80"/>
+      </g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>The gas laws below each hold one property steady and show how two of the others trade off. Boyle's Law holds temperature steady (pressure vs volume). Charles' Law holds pressure steady (volume vs temperature). Density ties mass and volume together.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<!-- 3 BOYLE -->
+<div class="row" data-sec="3">
+  <div class="cue">
+    <h3>Boyle's Law</h3>
+    <p class="q">If you squeeze a gas into a smaller volume, what happens to its pressure?</p>
+    <span class="tag">Temp constant</span>
+  </div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <span class="big">p × V = C</span>
+    <ul>
+      <li><b>p</b> = pressure, <b>V</b> = volume, <b>C</b> = a constant (temperature does not change).</li>
+      <li>Pressure and volume are <b>inversely</b> related: <span class="f">V ↑ = p ↓</span> and <span class="f">V ↓ = p ↑</span>.</li>
+      <li>Example: if <span class="f">pV = 10</span>, then <span class="f">2 × 5 = 10</span> or <span class="f">5 × 2 = 10</span>. Double the pressure → volume halves.</li>
+      <li>Demo: cap a syringe and push the plunger — smaller volume, the air pushes back harder (SciGuys Boyle's Law video, balloon-in-syringe).</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 400 150" width="400" height="150" role="img" aria-label="Boyle's law graph: pressure falls as volume rises, and a syringe with plunger pushed in">
+      <g stroke="var(--dia-line)" stroke-width="1.5" fill="none"><line x1="30" y1="15" x2="30" y2="125"/><line x1="30" y1="125" x2="160" y2="125"/></g>
+      <path d="M40 22 C 60 90, 110 112, 155 118" stroke="var(--dia-hi)" stroke-width="3" fill="none"/>
+      <text x="12" y="70" font-size="13" font-weight="600" fill="var(--ink)">p</text>
+      <text x="95" y="142" font-size="13" font-weight="600" fill="var(--ink)">V</text>
+      <text x="70" y="40" font-size="11" fill="var(--muted)">inverse</text>
+      <!-- syringe big -->
+      <g transform="translate(200,25)">
+        <rect x="0" y="0" width="80" height="30" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+        <rect x="80" y="10" width="20" height="10" fill="var(--dia-line)"/>
+        <rect x="-30" y="12" width="30" height="6" fill="var(--dia-line)"/>
+        <line x1="0" y1="0" x2="0" y2="30" stroke="var(--dia-line)" stroke-width="3"/>
+        <text x="40" y="20" text-anchor="middle" font-size="11" fill="var(--ink)">V = 5, p = 2</text>
+      </g>
+      <g transform="translate(200,90)">
+        <rect x="0" y="0" width="80" height="30" fill="none" stroke="var(--dia-line)" stroke-dasharray="3 3"/>
+        <rect x="40" y="0" width="40" height="30" fill="var(--dia-hi)" stroke="var(--dia-line)"/>
+        <rect x="80" y="10" width="20" height="10" fill="var(--dia-line)"/>
+        <rect x="10" y="12" width="30" height="6" fill="var(--dia-line)"/>
+        <line x1="40" y1="0" x2="40" y2="30" stroke="var(--dia-line)" stroke-width="3"/>
+        <text x="60" y="20" text-anchor="middle" font-size="11" fill="#16232E">V=2, p=5</text>
+      </g>
+      <text x="250" y="72" font-size="11" fill="var(--muted)">push plunger in ↓</text>
+    </svg></div>
+    <p class="cap">Same air, half the space → more than twice the pushing. p × V stays 10.</p>
+    <details class="more"><summary>Go deeper</summary><p>"Inversely" (a Tier 2 word) means: when one goes up, the other goes down by the same factor. Boyle's Law is why a sealed bag of chips puffs up in an aircraft cabin at altitude — cabin pressure drops, so the air trapped in the bag expands. It also explains why your ears "pop" on climb and descent.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<!-- 4 CHARLES -->
+<div class="row" data-sec="4">
+  <div class="cue">
+    <h3>Charles' Law</h3>
+    <p class="q">If you heat a gas at constant pressure, what happens to its volume?</p>
+    <span class="tag">Law of Volumes · Pressure constant</span>
+  </div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <span class="big">V = c × T</span>
+    <ul>
+      <li>At <b>constant pressure</b>, volume is <b>proportional</b> to temperature: <span class="f">T ↑ = V ↑</span>, <span class="f">T ↓ = V ↓</span>.</li>
+      <li><b>c</b> is the constant (the pressure held steady).</li>
+      <li>Warm air spreads out; cold air shrinks. A balloon in a freezer goes limp; in the sun it swells.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 400 150" width="400" height="150" role="img" aria-label="Charles' law graph: straight line, volume rises with temperature, and a balloon small when cold and large when warm">
+      <g stroke="var(--dia-line)" stroke-width="1.5" fill="none"><line x1="30" y1="15" x2="30" y2="125"/><line x1="30" y1="125" x2="160" y2="125"/></g>
+      <line x1="40" y1="118" x2="150" y2="25" stroke="var(--dia-hi)" stroke-width="3"/>
+      <text x="12" y="70" font-size="13" font-weight="600" fill="var(--ink)">V</text>
+      <text x="95" y="142" font-size="13" font-weight="600" fill="var(--ink)">T</text>
+      <text x="60" y="40" font-size="11" fill="var(--muted)">proportional</text>
+      <circle cx="230" cy="80" r="22" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+      <text x="230" y="120" text-anchor="middle" font-size="11" fill="var(--ink)">cold</text>
+      <text x="230" y="134" text-anchor="middle" font-size="11" fill="var(--muted)">↓T ↓V</text>
+      <text x="285" y="84" text-anchor="middle" font-size="16" fill="var(--muted)">→</text>
+      <circle cx="345" cy="72" r="40" fill="var(--dia-hi)" stroke="var(--dia-line)"/>
+      <text x="345" y="125" text-anchor="middle" font-size="11" fill="var(--ink)">warm</text>
+      <text x="345" y="139" text-anchor="middle" font-size="11" fill="var(--muted)">↑T ↑V</text>
+    </svg></div>
+    <p class="cap">Boyle = curve (inverse). Charles = straight line (proportional). Know the difference.</p>
+    <details class="more"><summary>Go deeper</summary><p>"Proportional" (Tier 2) means both change together in the same direction, by the same ratio: double the temperature (measured in kelvin) and you double the volume. This is the physics behind hot-air balloons — heat the air inside, it expands and becomes less dense than the air outside, so the balloon rises.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<!-- 5 DENSITY -->
+<div class="row" data-sec="5">
+  <div class="cue">
+    <h3>Density</h3>
+    <p class="q">What is density, and why do aircraft and engines perform better in cold air?</p>
+    <span class="tag">D = m ÷ V</span>
+  </div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <span class="big">D = m / V</span>
+    <ul>
+      <li>Density = <b>mass divided by volume</b> — how much "stuff" is packed into a space. (Rearranged: <span class="f">V = m / D</span>.)</li>
+      <li>Temperature chain: <span class="f">↑ Temp = ↑ Volume = ↓ Density</span> and <span class="f">↓ Temp = ↓ Volume = ↑ Density</span>.</li>
+      <li><b>Denser air</b> (cold air) = <b>more efficient</b> aircraft and <b>better performance</b> of plane and engine: more lift from the wing, more thrust from the prop, more oxygen per stroke in the engine.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 400 130" width="400" height="130" role="img" aria-label="Same mass of air in a small cold box is dense; in a large warm box it is less dense">
+      <rect x="20" y="30" width="80" height="80" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+      <g fill="var(--dia-line)">
+        <circle cx="35" cy="45" r="4"/><circle cx="60" cy="42" r="4"/><circle cx="85" cy="48" r="4"/>
+        <circle cx="40" cy="70" r="4"/><circle cx="65" cy="68" r="4"/><circle cx="88" cy="72" r="4"/>
+        <circle cx="33" cy="95" r="4"/><circle cx="58" cy="92" r="4"/><circle cx="82" cy="98" r="4"/>
+      </g>
+      <text x="60" y="22" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)">Cold: high density</text>
+      <text x="60" y="125" text-anchor="middle" font-size="11" fill="var(--muted)">↑ performance</text>
+      <text x="150" y="75" text-anchor="middle" font-size="18" fill="var(--muted)">heat →</text>
+      <rect x="200" y="10" width="180" height="100" fill="var(--formula-bg)" stroke="var(--dia-line)"/>
+      <g fill="var(--dia-line)">
+        <circle cx="220" cy="30" r="4"/><circle cx="290" cy="25" r="4"/><circle cx="360" cy="35" r="4"/>
+        <circle cx="240" cy="65" r="4"/><circle cx="300" cy="60" r="4"/><circle cx="365" cy="70" r="4"/>
+        <circle cx="215" cy="95" r="4"/><circle cx="285" cy="98" r="4"/><circle cx="350" cy="100" r="4"/>
+      </g>
+      <text x="290" y="125" text-anchor="middle" font-size="11" fill="var(--muted)">Warm: same 9 molecules, low density → ↓ performance</text>
+    </svg></div>
+    <p class="cap">Same mass, bigger volume, lower density. A wing "grabs" fewer molecules per second in warm air.</p>
+    <details class="more"><summary>Go deeper</summary><p>This is why a hot summer afternoon at a high-elevation airport is the worst case for take-off: hot air is thin, so the aircraft needs a longer run and climbs poorly. Pilots call this "high density altitude" — the air behaves as if the runway were much higher than it really is. Medicine Hat at 2,350 ft on a 30 °C day feels to the wing like an airport well above 4,000 ft.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<!-- 6 AIR PRESSURE -->
+<div class="row" data-sec="6">
+  <div class="cue">
+    <h3>Air Pressure</h3>
+    <p class="q">What is air pressure, and why does it drop as you climb?</p>
+    <span class="tag">Weight of air</span>
+  </div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Air pressure = the <b>weight of the air above</b> a given location.</li>
+      <li><span class="f">↑ altitude = ↓ air</span> — there is <b>less air above you</b> than there was at lower altitude, so less weight pressing down.</li>
+      <li><span class="f">↓ pressure = ↑ gas volume</span> — with less pressure on it, a gas expands (Boyle's Law again).</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 400 170" width="400" height="170" role="img" aria-label="Column of air over sea level, Medicine Hat at 2350 feet, and a mountain; pressure falls with height">
+      <defs><linearGradient id="airg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--dia-bg)"/><stop offset="1" stop-color="var(--dia-fill)"/></linearGradient></defs>
+      <rect x="20" y="10" width="360" height="130" fill="url(#airg)" stroke="none"/>
+      <path d="M20 140 L120 140 L200 112 L280 140 L330 60 L380 140 Z" fill="var(--dia-line)" opacity=".85"/>
+      <line x1="20" y1="140" x2="380" y2="140" stroke="var(--dia-line)" stroke-width="2"/>
+      <text x="70" y="158" text-anchor="middle" font-size="11" fill="var(--ink)">Sea level: 14.7 psi</text>
+      <text x="200" y="104" text-anchor="middle" font-size="11" font-weight="600" fill="var(--ink)">Medicine Hat 2,350 ft</text>
+      <text x="200" y="158" text-anchor="middle" font-size="11" fill="var(--muted)">≈ 13.5 psi</text>
+      <text x="330" y="52" text-anchor="middle" font-size="11" fill="var(--ink)">Mountain: less air above</text>
+      <g stroke="var(--dia-hi)" stroke-width="3" fill="none"><line x1="70" y1="15" x2="70" y2="138"/></g>
+      <text x="80" y="30" font-size="11" fill="var(--muted)">full column of air = full weight</text>
+      <g stroke="var(--dia-hi)" stroke-width="3" fill="none"><line x1="330" y1="15" x2="330" y2="58"/></g>
+      <text x="335" y="30" font-size="11" fill="var(--muted)">short column</text>
+    </svg></div>
+    <p class="cap">Pressure is the weight of the column above you. Shorter column, less weight, lower pressure.</p>
+    <details class="more"><summary>Go deeper</summary><p>Pressure drops roughly 1 inHg for every 1,000 ft in the lower atmosphere. So Medicine Hat (2,350 ft) sits at about 27.5 inHg on a standard day instead of 29.92. Half of all the atmosphere's air is below about 18,000 ft — which is why cabins are pressurized and oxygen is required at height.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<!-- 7 ISA -->
+<div class="row" data-sec="7">
+  <div class="cue">
+    <h3>International Standard Atmosphere (ISA)</h3>
+    <p class="q">What are the "standard day" numbers at sea level, and why do we need a standard?</p>
+    <span class="tag">Standard day</span>
+  </div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Standard day at sea level:</b> pressure <span class="f">14.7 psi</span> = <span class="f">29.92 inHg</span> = <span class="f">1013.2 mb (hPa)</span>; surface temperature <span class="f">15 °C</span> (<span class="f">59 °F</span>).</li>
+      <li>All three pressure values are the <b>same pressure</b> in different units. Know all three.</li>
+      <li><b>Why sea level?</b> It is <b>reproducible and consistent</b> across the world — a reference everyone can compare to. Real weather is always compared against this standard.</li>
+      <li>Local tie-in: <b>Medicine Hat airport altitude = 2,350 ft above sea level</b>, so MH is never at "sea level" conditions.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 400 120" width="400" height="120" role="img" aria-label="Standard day reference card">
+      <rect x="10" y="10" width="380" height="100" rx="6" fill="var(--dia-bg)" stroke="var(--dia-hi)" stroke-width="2"/>
+      <text x="200" y="32" text-anchor="middle" font-size="13" font-weight="700" fill="var(--ink)" letter-spacing="1">STANDARD DAY · SEA LEVEL</text>
+      <g font-size="15" font-weight="600" fill="var(--formula)" text-anchor="middle">
+        <text x="75" y="70">14.7 psi</text><text x="200" y="70">29.92 inHg</text><text x="325" y="70">1013.2 hPa</text>
+      </g>
+      <text x="140" y="70" text-anchor="middle" font-size="14" fill="var(--muted)">=</text>
+      <text x="262" y="70" text-anchor="middle" font-size="14" fill="var(--muted)">=</text>
+      <text x="200" y="98" text-anchor="middle" font-size="13" fill="var(--ink)">Temperature 15 °C / 59 °F</text>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>Check your notes: 15 °C converts to <b>59 °F</b>, not 52 °F (°F = °C × 1.8 + 32). ISA also sets a standard temperature drop of about 2 °C per 1,000 ft. On a standard day Medicine Hat would be about 15 − (2.35 × 2) ≈ 10 °C. Aircraft performance charts and altimeters are all built on ISA, which is why the number 29.92 will follow you through your whole career.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<!-- 8 BERNOULLI -->
+<div class="row" data-sec="8">
+  <div class="cue">
+    <h3>Bernoulli's Principle</h3>
+    <p class="q">What happens to pressure when a fluid speeds up, and how does an airfoil use this?</p>
+    <span class="tag">Total = Dynamic + Static</span>
+  </div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>When the <b>velocity</b> of a fluid through a <b>constricted tube</b> is <b>increased</b>, the <b>pressure within the fluid is decreased</b>.</li>
+      <li><span class="f">A × V = constant</span> — narrow the area, the fluid must speed up (continuity).</li>
+      <li><span class="big">Total pressure = Dynamic pressure + Static pressure</span><br>Total stays the same, so when dynamic (speed) goes up, static (push on the surface) goes down.</li>
+      <li><b>Shape of the airfoil is because of Bernoulli:</b> air over the curved top travels faster → <span class="f">↑ velocity = ↓ pressure</span> on top → higher pressure underneath pushes the wing up = <b>lift</b>.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 200" width="420" height="200" role="img" aria-label="Venturi tube with faster flow in the narrow part, and an airfoil with faster air and lower pressure on top">
+      <!-- venturi -->
+      <path d="M10 20 L90 20 C130 20 130 45 170 45 L250 45 C290 45 290 20 330 20 L410 20" stroke="var(--dia-line)" stroke-width="2" fill="none"/>
+      <path d="M10 95 L90 95 C130 95 130 70 170 70 L250 70 C290 70 290 95 330 95 L410 95" stroke="var(--dia-line)" stroke-width="2" fill="none"/>
+      <g stroke="var(--dia-hi)" stroke-width="2" fill="none">
+        <line x1="25" y1="57" x2="70" y2="57"/><line x1="185" y1="57" x2="240" y2="57"/><line x1="350" y1="57" x2="395" y2="57"/>
+      </g>
+      <g fill="var(--dia-hi)"><path d="M70 52 L80 57 L70 62Z"/><path d="M240 50 L254 57 L240 64Z"/><path d="M395 52 L405 57 L395 62Z"/></g>
+      <text x="50" y="14" text-anchor="middle" font-size="11" fill="var(--ink)">slow · high p</text>
+      <text x="212" y="14" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">FAST · LOW pressure</text>
+      <text x="370" y="14" text-anchor="middle" font-size="11" fill="var(--ink)">slow · high p</text>
+      <text x="212" y="108" text-anchor="middle" font-size="10" fill="var(--muted)">A × V = constant → smaller A, bigger V</text>
+      <!-- airfoil -->
+      <path d="M60 165 C 120 118, 260 118, 350 160 C 260 172, 120 172, 60 165 Z" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
+      <path d="M20 150 C 80 105, 260 100, 400 150" stroke="var(--dia-hi)" stroke-width="2" fill="none"/>
+      <path d="M20 182 C 120 186, 280 186, 400 182" stroke="var(--dia-line)" stroke-width="1.5" fill="none" stroke-dasharray="4 3"/>
+      <text x="205" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">↑ velocity · ↓ pressure</text>
+      <text x="205" y="196" text-anchor="middle" font-size="11" fill="var(--ink)">slower · higher pressure</text>
+      <g fill="var(--dia-hi)"><path d="M205 150 L199 162 L211 162Z"/></g>
+      <text x="230" y="158" font-size="10" font-weight="700" fill="var(--formula)">LIFT</text>
+    </svg></div>
+    <p class="cap">Top: the venturi tube — narrow section, faster flow, lower pressure. Bottom: the wing's curved top is a half-venturi.</p>
+    <details class="more"><summary>Go deeper</summary><p>Bernoulli explains part of lift; the wing's angle to the airflow (angle of attack) deflecting air downward is the other part — you will meet that in Module 2 (Lift and Drag). Bernoulli also runs your instruments: the airspeed indicator measures dynamic pressure (total − static) through the pitot tube, and carburetors use a venturi to draw fuel into the airstream.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+</section>
+
+<section class="box sum" aria-label="Summary">
+  <div class="eyebrow">Summary</div>
+  <p style="margin:.5rem 0 0;max-width:70ch">Air is a gas of mostly nitrogen and oxygen whose state is set by pressure, temperature, mass and volume. Boyle's Law (p × V = C) says squeezing a gas raises its pressure; Charles' Law (V = cT) says heating it makes it expand. Because density is mass ÷ volume, warm air is thin and cold air is dense — and dense air gives a wing and an engine more to work with. Air pressure is the weight of the air above you, so it falls as you climb; the International Standard Atmosphere fixes a "standard day" at sea level (14.7 psi / 29.92 inHg / 1013.2 hPa, 15 °C) so every pilot and engineer measures against the same reference. Bernoulli's principle — faster fluid, lower pressure — is why an airfoil is curved on top: faster air above, lower pressure, lift.</p>
+</section>
+
+<section class="box" aria-label="Key terms">
+  <div class="eyebrow">Key terms</div>
+  <div class="terms">
+    <div><b>Dry air</b>Air with water vapour left out: 78% N₂, 21% O₂, 1% other.</div>
+    <div><b>State of a gas</b>Its pressure, temperature, mass and volume.</div>
+    <div><b>Boyle's Law</b>p × V = C. Pressure and volume are inverse (temperature constant).</div>
+    <div><b>Charles' Law</b>V = cT. Volume is proportional to temperature (pressure constant).</div>
+    <div><b>Density</b>Mass ÷ volume. Cold air is denser than warm air.</div>
+    <div><b>Air pressure</b>Weight of the air above a location; drops with altitude.</div>
+    <div><b>ISA / Standard day</b>Sea level reference: 14.7 psi = 29.92 inHg = 1013.2 hPa at 15 °C.</div>
+    <div><b>Bernoulli's principle</b>Faster fluid → lower pressure. Total = dynamic + static.</div>
+    <div><b>Airfoil</b>The wing's cross-section shape, curved on top to speed up air and lower pressure.</div>
+    <div><b>Inversely</b>One goes up, the other goes down (Tier 2 word).</div>
+    <div><b>Proportional</b>Both rise or fall together by the same ratio (Tier 2 word).</div>
+    <div><b>Constant</b>A value that does not change in the situation (Tier 2 word).</div>
+  </div>
+</section>
+
+<section class="box" aria-label="Check yourself">
+  <div class="eyebrow">Check yourself</div>
+  <p style="margin:.4rem 0 0;color:var(--muted)">Pick an answer. You get feedback right away and can try again.</p>
+  <div class="qz" id="quiz"></div>
+  <div class="score" id="score"></div>
+</section>
+
+<p class="flag">Source: Day 1 class notes (Sept 10, 2026), ASYS 245 Module 1. Reference values follow Transport Canada / <i>From the Ground Up</i> (ISA sea level 1013.2 hPa, 29.92 inHg, 15 °C; dry air 78/21/1).</p>
+</div>
+
+<script>
+(function(){
+  var KEY='asys245-m1d1';
+  var state={done:{},study:false};
+  try{ state=Object.assign(state,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+
+  var rows=document.querySelectorAll('.row');
+  var boxes=document.querySelectorAll('.done');
+  var pbar=document.getElementById('pbar'), ptext=document.getElementById('ptext');
+  function progress(){
+    var n=0; boxes.forEach(function(b){ if(b.checked) n++; });
+    pbar.style.width=(100*n/boxes.length)+'%';
+    ptext.textContent=n+' / '+boxes.length+' sections checked';
+  }
+  boxes.forEach(function(b){
+    var id=b.closest('.row').dataset.sec;
+    b.checked=!!state.done[id];
+    b.addEventListener('change',function(){ state.done[id]=b.checked; save(); progress(); });
+  });
+  progress();
+
+  // study mode
+  var toggle=document.getElementById('studyToggle');
+  var notes=document.getElementById('notes');
+  function applyStudy(){
+    notes.classList.toggle('study',toggle.checked);
+    document.querySelectorAll('.body.open').forEach(function(b){ b.classList.remove('open'); });
+  }
+  toggle.checked=!!state.study;
+  applyStudy();
+  toggle.addEventListener('change',function(){ state.study=toggle.checked; save(); applyStudy(); });
+  document.querySelectorAll('.reveal button').forEach(function(btn){
+    btn.addEventListener('click',function(){ btn.closest('.body').classList.add('open'); });
+  });
+
+  document.getElementById('resetBtn').addEventListener('click',function(){
+    state={done:{},study:false}; save();
+    boxes.forEach(function(b){ b.checked=false; });
+    toggle.checked=false; applyStudy(); progress(); buildQuiz();
+  });
+
+  // quiz
+  var Q=[
+    {q:'Dry air is made of roughly…',o:['78% oxygen, 21% nitrogen','78% nitrogen, 21% oxygen','50% nitrogen, 50% oxygen'],a:1,
+     fb:'Nitrogen is the big one — about 4 of every 5 molecules. Oxygen is 21%.'},
+    {q:'A sealed syringe of air is pushed to half its volume (temperature unchanged). Its pressure…',o:['halves','stays the same','doubles'],a:2,
+     fb:'Boyle: p × V = C. Halve V, p must double so the product stays constant.'},
+    {q:'Which law is a straight line on its graph?',o:['Boyle\'s Law (p vs V)','Charles\' Law (V vs T)'],a:1,
+     fb:'Charles: V is proportional to T → straight line. Boyle is inverse → a curve.'},
+    {q:'Why does a plane perform better on a cold morning?',o:['Cold air is denser, so more molecules hit the wing and enter the engine','Cold air has more oxygen by percentage','Cold air has lower pressure'],a:0,
+     fb:'↓T → ↓V → ↑D. Same 21% oxygen, but more molecules per litre.'},
+    {q:'Air pressure falls as you climb because…',o:['the air gets colder','there is less air above you pressing down','the air is made of lighter gases'],a:1,
+     fb:'Pressure is the weight of the column of air above you. Shorter column, less weight.'},
+    {q:'Standard day pressure at sea level is 14.7 psi. In inches of mercury that is…',o:['1013.2 inHg','29.92 inHg','15 inHg'],a:1,
+     fb:'14.7 psi = 29.92 inHg = 1013.2 hPa (mb). Three units, one pressure. Standard temperature is 15 °C.'},
+    {q:'Air speeds up through the narrow part of a tube. The pressure there…',o:['rises','drops','is unchanged'],a:1,
+     fb:'Bernoulli: faster fluid, lower pressure. Total = dynamic + static, so more dynamic means less static.'},
+    {q:'Medicine Hat airport is about 2,350 ft above sea level. Compared to a sea-level airport on a standard day, MH has…',o:['higher pressure and denser air','the same pressure','lower pressure and thinner air'],a:2,
+     fb:'Less air above → lower pressure (~27.5 inHg) → lower density. Take-off runs are longer than at sea level.'}
+  ];
+  var quiz=document.getElementById('quiz'), score=document.getElementById('score');
+  var got={};
+  function buildQuiz(){
+    quiz.innerHTML=''; got={}; score.textContent='';
+    Q.forEach(function(item,i){
+      var card=document.createElement('div'); card.className='qcard';
+      var p=document.createElement('p'); p.textContent=(i+1)+'. '+item.q; card.appendChild(p);
+      var opts=document.createElement('div'); opts.className='opts';
+      var fb=document.createElement('div'); fb.className='fb';
+      item.o.forEach(function(text,j){
+        var b=document.createElement('button'); b.type='button'; b.className='opt'; b.textContent=text;
+        b.addEventListener('click',function(){
+          opts.querySelectorAll('.opt').forEach(function(x){ x.classList.remove('right','wrong'); });
+          if(j===item.a){ b.classList.add('right'); fb.className='fb show good'; fb.textContent='Correct. '+item.fb; got[i]=true; }
+          else { b.classList.add('wrong'); fb.className='fb show bad'; fb.textContent='Not quite — try again. Hint: '+item.fb; got[i]=false; }
+          var n=0,t=0; for(var k in got){ t++; if(got[k]) n++; }
+          score.textContent= t===Q.length ? 'Score: '+n+' / '+Q.length+(n===Q.length?' — solid. Now explain each answer to a partner.':' — reread the sections you missed, then retry.') : n+' correct so far';
+        });
+        opts.appendChild(b);
+      });
+      card.appendChild(opts); card.appendChild(fb); quiz.appendChild(card);
+    });
+  }
+  buildQuiz();
+})();
+</script>
+
+</body>
+</html>
