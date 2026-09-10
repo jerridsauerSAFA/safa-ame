@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ASYS 245 Formula Sheet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+</head>
+<body>
+<style>
+:root{--bg:#F4F6F8;--surface:#FFFFFF;--cue:#E6EDF3;--line:#CBD5DE;--ink:#16232E;--muted:#526170;--accent:#1D5C8F;--accent-ink:#FFFFFF;--formula:#B8690F;--formula-bg:#FFF4E3;--ok:#2E7D4F;--ok-bg:#E4F3EA;--shadow:0 1px 2px rgba(22,35,46,.08)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--shadow:none}}
+:root[data-theme="dark"]{--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--shadow:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+h2{font-size:1.5rem;font-weight:700}
+h3{font-size:1.15rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.wrap{max-width:960px;margin:0 auto}
+.eyebrow{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--accent)}
+header.top{padding-block:2rem 1.25rem;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;justify-content:space-between}
+header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
+.meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted)}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.4rem .9rem;border-radius:4px;cursor:pointer}
+.btn:focus-visible,input:focus-visible,details summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* reference strip */
+.ref{margin-top:1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.ref div{background:var(--surface);padding:.8rem 1rem}
+.ref .l{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ref .v{font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.45rem;white-space:nowrap;font-weight:700;color:var(--formula);font-variant-numeric:tabular-nums}
+.ref .s{font-size:.8rem;color:var(--muted)}
+/* formula cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-top:1rem}
+.fc{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column}
+.fc .head{padding:.8rem 1rem .5rem;border-bottom:1px solid var(--line)}
+.fc .head .k{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.fc .big{font-family:"JetBrains Mono",monospace;font-size:1.6rem;color:var(--formula);background:var(--formula-bg);padding:.6rem 1rem;text-align:center;font-variant-numeric:tabular-nums}
+.fc .body{padding:.8rem 1rem 1rem;display:grid;gap:.5rem;flex:1}
+.fc .body p{margin:0}
+.vars{display:grid;grid-template-columns:auto 1fr;gap:.15rem .7rem;font-size:.92rem}
+.vars b{font-family:"JetBrains Mono",monospace;font-weight:500;color:var(--formula)}
+.words{font-weight:600}
+.hold{font-size:.85rem;color:var(--muted)}
+.hold b{color:var(--ink)}
+details{border-top:1px dotted var(--line);padding-top:.5rem}
+details summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:.9rem;list-style:none}
+details summary::before{content:"+ ";font-family:"JetBrains Mono",monospace}
+details[open] summary::before{content:"– "}
+.ex{font-size:.92rem;margin:.4rem 0 0}
+.ex code{font-family:"JetBrains Mono",monospace;background:var(--cue);padding:.05em .3em;border-radius:3px}
+/* calc */
+.calc{background:var(--cue);border-radius:4px;padding:.7rem .8rem;margin-top:.4rem;display:grid;gap:.4rem}
+.calc .row{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center;font-size:.9rem}
+.calc label{display:inline-flex;align-items:center;gap:.3rem}
+.calc input{width:5.2rem;font:.95rem "JetBrains Mono",monospace;padding:.25rem .4rem;border:1px solid var(--line);border-radius:3px;background:var(--surface);color:var(--ink)}
+.calc .out{font-family:"JetBrains Mono",monospace;font-weight:500;color:var(--ok);background:var(--ok-bg);padding:.2rem .5rem;border-radius:3px;min-width:6rem;display:inline-block}
+.foot{font-size:.85rem;color:var(--muted);margin-top:2rem}
+@media print{body{background:#fff;color:#000;padding:0}.btn,details summary,.calc{display:none}details{border:0}details>*{display:block}header.top{border-bottom:2px solid #000}.fc{break-inside:avoid;border:1px solid #999}.fc .big{background:#f2f2f2;color:#000}.ref .v{color:#000}}
+</style>
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">Formula sheet · ASYS 245 · Module 1</div>
+    <h1>Theory of Flight Formulas</h1>
+    <p>Every formula and reference number from Module 1 so far, each with what the letters mean, what stays constant, the rule in plain words, and a calculator to test it. Print it for the binder; use the calculators on your phone.</p>
+  </div>
+  <div><div class="meta">SAFA · Super T Aviation<br>Updated Sept 10, 2026</div><br><button class="btn" type="button" onclick="window.print()">Print</button></div>
+</header>
+
+<h3 style="margin-top:1.5rem">Standard day at sea level (ISA)</h3>
+<div class="ref">
+  <div><div class="l">Pressure</div><div class="v">14.7 psi</div><div class="s">pounds per square inch</div></div>
+  <div><div class="l">Pressure</div><div class="v">29.92 inHg</div><div class="s">inches of mercury</div></div>
+  <div><div class="l">Pressure</div><div class="v">1013.2 hPa</div><div class="s">= 1013.2 mb</div></div>
+  <div><div class="l">Temperature</div><div class="v">15 °C</div><div class="s">= 59 °F</div></div>
+  <div><div class="l">Dry air</div><div class="v">78 / 21 / 1</div><div class="s">% N₂ / O₂ / other</div></div>
+  <div><div class="l">Medicine Hat</div><div class="v">2,350 ft</div><div class="s">above sea level</div></div>
+</div>
+
+<h3 style="margin-top:1.75rem">Gas laws</h3>
+<div class="grid">
+
+<div class="fc">
+  <div class="head"><div class="k">Boyle's Law</div><h2>Pressure ↔ Volume</h2></div>
+  <div class="big">p × V = C</div>
+  <div class="body">
+    <div class="vars"><b>p</b><span>pressure</span><b>V</b><span>volume</span><b>C</b><span>a constant</span></div>
+    <p class="words">Squeeze a gas into less space and its pressure goes up. Inverse: one up, the other down.</p>
+    <p class="hold">Held constant: <b>temperature</b>. Graph: <b>curve</b>.</p>
+    <details><summary>Worked example</summary><p class="ex">pV = 10. If p = 2 then V = 5: <code>2 × 5 = 10</code>. If p = 5 then V = 2: <code>5 × 2 = 10</code>. Double the pressure → half the volume.</p></details>
+    <div class="calc" data-calc="boyle">
+      <div class="row">Two states, same temperature: <code style="font-family:'JetBrains Mono',monospace">p₁V₁ = p₂V₂</code></div>
+      <div class="row"><label>p₁ <input type="number" id="b_p1" value="2"></label><label>V₁ <input type="number" id="b_v1" value="5"></label><label>p₂ <input type="number" id="b_p2" value="4"></label></div>
+      <div class="row">V₂ = <span class="out" id="b_out">2.5</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">Charles' Law · Law of Volumes</div><h2>Volume ↔ Temperature</h2></div>
+  <div class="big">V = c × T</div>
+  <div class="body">
+    <div class="vars"><b>V</b><span>volume</span><b>T</b><span>temperature (kelvin for the math)</span><b>c</b><span>a constant</span></div>
+    <p class="words">Heat a gas and it expands; cool it and it shrinks. Proportional: both move together.</p>
+    <p class="hold">Held constant: <b>pressure</b>. Graph: <b>straight line</b>.</p>
+    <details><summary>Worked example</summary><p class="ex">A balloon is 2.0 L at 20 °C (293 K). Warm it to 40 °C (313 K): <code>V₂ = 2.0 × 313 ÷ 293 = 2.14 L</code>. Note: use kelvin (°C + 273), or "double the temperature" gives the wrong answer.</p></details>
+    <div class="calc" data-calc="charles">
+      <div class="row"><code style="font-family:'JetBrains Mono',monospace">V₁ ÷ T₁ = V₂ ÷ T₂</code> (T in °C, converted to kelvin for you)</div>
+      <div class="row"><label>V₁ <input type="number" id="c_v1" value="2"></label><label>T₁ °C <input type="number" id="c_t1" value="20"></label><label>T₂ °C <input type="number" id="c_t2" value="40"></label></div>
+      <div class="row">V₂ = <span class="out" id="c_out">2.14</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">Density</div><h2>Mass ÷ Volume</h2></div>
+  <div class="big">D = m / V</div>
+  <div class="body">
+    <div class="vars"><b>D</b><span>density</span><b>m</b><span>mass</span><b>V</b><span>volume &nbsp;(rearranged: V = m / D)</span></div>
+    <p class="words">How tightly packed the air is. Same mass in a bigger space = lower density.</p>
+    <p class="hold">Chain to remember: <b>↑ Temp → ↑ Volume → ↓ Density</b>. Dense (cold) air = better aircraft and engine performance.</p>
+    <details><summary>Worked example</summary><p class="ex">1.2 kg of air fills 1.0 m³: <code>D = 1.2 ÷ 1.0 = 1.2 kg/m³</code> (about sea-level density). Warm it so it fills 1.1 m³: <code>1.2 ÷ 1.1 = 1.09 kg/m³</code> — thinner air.</p></details>
+    <div class="calc" data-calc="dens">
+      <div class="row"><label>m <input type="number" id="d_m" value="1.2"></label><label>V <input type="number" id="d_v" value="1.0"></label></div>
+      <div class="row">D = <span class="out" id="d_out">1.20</span></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<h3 style="margin-top:1.75rem">Airflow · Bernoulli</h3>
+<div class="grid">
+
+<div class="fc">
+  <div class="head"><div class="k">Continuity</div><h2>Area × Velocity</h2></div>
+  <div class="big">A × V = constant</div>
+  <div class="body">
+    <div class="vars"><b>A</b><span>cross-section area of the tube</span><b>V</b><span>velocity of the fluid</span></div>
+    <p class="words">Narrow the tube and the fluid must speed up to keep the same flow going through.</p>
+    <p class="hold">This is step 1 of the venturi. Bernoulli is step 2.</p>
+    <details><summary>Worked example</summary><p class="ex">Air enters at 20 m/s through area 4. The throat has area 2: <code>4 × 20 = 2 × V₂ → V₂ = 40 m/s</code>. Half the area, twice the speed.</p></details>
+    <div class="calc" data-calc="cont">
+      <div class="row"><label>A₁ <input type="number" id="a_a1" value="4"></label><label>V₁ <input type="number" id="a_v1" value="20"></label><label>A₂ <input type="number" id="a_a2" value="2"></label></div>
+      <div class="row">V₂ = <span class="out" id="a_out">40</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">Bernoulli's Principle</div><h2>Total Pressure</h2></div>
+  <div class="big">Total = Dynamic + Static</div>
+  <div class="body">
+    <div class="vars"><b>Total</b><span>stays the same along the flow</span><b>Dynamic</b><span>pressure from motion — rises with speed</span><b>Static</b><span>pressure pressing on the surface</span></div>
+    <p class="words">Faster fluid → more dynamic → less static. Speed up, pressure drops.</p>
+    <p class="hold">Why the airfoil is curved on top: faster air above → lower static pressure → <b>lift</b>. Why the airspeed indicator works: it reads Total − Static = Dynamic.</p>
+    <details><summary>Worked example</summary><p class="ex">Total pressure is 1000. Slow air: dynamic 100, so static <code>1000 − 100 = 900</code>. Over the wing the air speeds up: dynamic 300, so static <code>1000 − 300 = 700</code>. Lower static pressure on top → lift.</p></details>
+    <div class="calc" data-calc="bern">
+      <div class="row"><label>Total <input type="number" id="p_t" value="1000"></label><label>Dynamic <input type="number" id="p_d" value="300"></label></div>
+      <div class="row">Static = <span class="out" id="p_out">700</span></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<h3 style="margin-top:1.75rem">Conversions · altitude</h3>
+<div class="grid">
+
+<div class="fc">
+  <div class="head"><div class="k">Temperature</div><h2>°C ↔ °F</h2></div>
+  <div class="big">°F = °C × 1.8 + 32</div>
+  <div class="body">
+    <p class="words">Reverse: °C = (°F − 32) ÷ 1.8. Kelvin = °C + 273.</p>
+    <p class="hold">Check: 15 °C → <b>59 °F</b>. 0 °C → 32 °F. −40 is the same in both.</p>
+    <div class="calc" data-calc="temp">
+      <div class="row"><label>°C <input type="number" id="t_c" value="15"></label> → °F <span class="out" id="t_f">59.0</span></div>
+      <div class="row"><label>°F <input type="number" id="t_f2" value="59"></label> → °C <span class="out" id="t_c2">15.0</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">Pressure units</div><h2>psi · inHg · hPa</h2></div>
+  <div class="big">14.7 psi = 29.92 inHg = 1013.2 hPa</div>
+  <div class="body">
+    <p class="words">Three units, one pressure. 1 inHg ≈ 33.86 hPa ≈ 0.491 psi.</p>
+    <p class="hold">Altimeters use inHg (Canada/US) or hPa (most of the world). 1 mb = 1 hPa.</p>
+    <div class="calc" data-calc="press">
+      <div class="row"><label>inHg <input type="number" id="u_in" value="29.92" step="0.01"></label> = <span class="out" id="u_hpa">1013.2 hPa</span> = <span class="out" id="u_psi">14.70 psi</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">ISA with altitude (rule of thumb)</div><h2>Pressure &amp; temp drop as you climb</h2></div>
+  <div class="big">−1 inHg &amp; −2 °C per 1,000 ft</div>
+  <div class="body">
+    <p class="words">Less air above you → lower pressure. Standard temperature also falls with height.</p>
+    <p class="hold">Works well in the lower atmosphere (below ~10,000 ft). Medicine Hat at 2,350 ft on a standard day: about <b>27.6 inHg</b> and <b>10 °C</b>.</p>
+    <details><summary>Worked example</summary><p class="ex">Medicine Hat, 2,350 ft: <code>29.92 − 2.35 = 27.57 inHg</code>; <code>15 − (2 × 2.35) = 10.3 °C</code>.</p></details>
+    <div class="calc" data-calc="alt">
+      <div class="row"><label>Altitude ft <input type="number" id="h_ft" value="2350" step="50"></label></div>
+      <div class="row">Pressure ≈ <span class="out" id="h_p">27.57 inHg</span> &nbsp; Temp ≈ <span class="out" id="h_t">10.3 °C</span></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<p class="foot">Source: Day 1 class notes (Sept 10, 2026). Reference values per Transport Canada / <i>From the Ground Up</i>. Rule-of-thumb ISA values are approximations for ground-school use; performance charts use the full ISA tables. Formulas are added as Module 1 continues.</p>
+</div>
+
+<script>
+(function(){
+  function n(id){ return parseFloat(document.getElementById(id).value); }
+  function set(id,v){ document.getElementById(id).textContent=v; }
+  function fmt(x,d){ return isFinite(x)?(+x.toFixed(d)).toString():'—'; }
+  function calc(){
+    set('b_out', fmt(n('b_p1')*n('b_v1')/n('b_p2'),3));
+    set('c_out', fmt(n('c_v1')*(n('c_t2')+273.15)/(n('c_t1')+273.15),3));
+    set('d_out', fmt(n('d_m')/n('d_v'),3));
+    set('a_out', fmt(n('a_a1')*n('a_v1')/n('a_a2'),2));
+    set('p_out', fmt(n('p_t')-n('p_d'),2));
+    set('t_f', fmt(n('t_c')*1.8+32,1));
+    set('t_c2', fmt((n('t_f2')-32)/1.8,1));
+    var inhg=n('u_in'); set('u_hpa', fmt(inhg*33.8639,1)+' hPa'); set('u_psi', fmt(inhg*0.491154,2)+' psi');
+    var ft=n('h_ft'); set('h_p', fmt(29.92-ft/1000,2)+' inHg'); set('h_t', fmt(15-2*ft/1000,1)+' °C');
+  }
+  document.querySelectorAll('.calc input').forEach(function(i){ i.addEventListener('input',calc); });
+  calc();
+})();
+</script>
+
+</body>
+</html>
