@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ASYS 245 Lift & Drag Cards</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--bg:#F4F6F8;--surface:#FFFFFF;--cue:#E6EDF3;--line:#CBD5DE;--ink:#16232E;--muted:#526170;--accent:#1D5C8F;--accent-ink:#FFFFFF;--formula:#B8690F;--formula-bg:#FFF4E3;--ok:#2E7D4F;--ok-bg:#E4F3EA;--bad:#B3402B;--bad-bg:#FBE8E3;--shadow:0 2px 6px rgba(22,35,46,.10)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--bad:#F08A72;--bad-bg:#3A1C15;--shadow:none}}
+:root[data-theme="dark"]{--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--bad:#F08A72;--bad-bg:#3A1C15;--shadow:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+h1,h2{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+.wrap{max-width:720px;margin:0 auto}
+.eyebrow{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--accent)}
+header.top{padding-block:2rem 1rem;border-bottom:2px solid var(--ink)}
+header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
+.meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted)}
+.bar{display:flex;flex-wrap:wrap;gap:.5rem .8rem;align-items:center;padding-block:.8rem}
+.chip{font:600 .85rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.3rem .7rem;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.5rem .9rem;border-radius:4px;cursor:pointer}
+.btn.ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ink)} .btn.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--ink)}
+.btn:focus-visible,.chip:focus-visible,.card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stats{display:flex;gap:1rem 1.5rem;flex-wrap:wrap;font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--muted);padding-block:.3rem .8rem}
+.stats b{color:var(--ink);font-weight:500}
+.progress{height:6px;background:var(--cue);border-radius:3px;overflow:hidden;margin-bottom:1rem}
+.progress i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.scene{perspective:1200px}
+.card{position:relative;min-height:300px;cursor:pointer;transition:transform .45s;transform-style:preserve-3d;border:0;background:transparent;width:100%;padding:0;text-align:left;font:inherit;color:inherit}
+.card.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:1.5rem;display:flex;flex-direction:column;justify-content:center;gap:.6rem}
+.face.back{transform:rotateY(180deg);border-left:6px solid var(--accent)}
+.face .k{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);position:absolute;top:1rem;left:1.5rem}
+.face .hint{position:absolute;bottom:.9rem;right:1.2rem;font-size:.8rem;color:var(--muted)}
+.front .q{font-family:"Barlow Condensed",Arial,sans-serif;font-size:clamp(1.5rem,4.5vw,2.1rem);font-weight:700;line-height:1.15;text-wrap:balance}
+.back .a{font-size:1.15rem;line-height:1.45}
+.back .a b{font-weight:600}
+.f{font-family:"JetBrains Mono",monospace;color:var(--formula);background:var(--formula-bg);padding:.05em .35em;border-radius:3px;white-space:nowrap}
+.back .why{color:var(--muted);font-size:.95rem;border-top:1px dotted var(--line);padding-top:.5rem}
+.actions{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:1rem}
+.actions .btn{flex:1 1 9rem;padding:.7rem 1rem;font-size:1rem}
+.kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;color:var(--muted);text-align:center;margin-top:.6rem}
+.done{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:2rem;text-align:center;box-shadow:var(--shadow)}
+.done h2{font-size:1.8rem}
+.done p{color:var(--muted)}
+.foot{font-size:.85rem;color:var(--muted);margin-top:2rem}
+@media (prefers-reduced-motion:reduce){.card{transition:none}.progress i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">Flashcards · ASYS 245 · Module 2</div>
+  <h1>Lift &amp; Drag Cards</h1>
+  <p>Read the front, say the answer out loud, flip to check. Mark <b>Got it</b> or <b>Again</b> — cards you miss come back until you get them twice. Progress saves on this device.</p>
+</header>
+
+<div class="bar" role="toolbar" aria-label="Card set">
+  <button class="chip" data-set="all" aria-pressed="true" type="button">All</button>
+  <button class="chip" data-set="term" aria-pressed="false" type="button">Terms</button>
+  <button class="chip" data-set="law" aria-pressed="false" type="button">Lift &amp; drag rules</button>
+  <button class="chip" data-set="number" aria-pressed="false" type="button">Numbers</button>
+  <button class="chip" data-set="apply" aria-pressed="false" type="button">Apply it</button>
+  <span style="flex:1"></span>
+  <button class="btn" id="restart" type="button">Restart set</button>
+</div>
+<div class="stats"><span>Card <b id="pos">0</b> / <b id="tot">0</b></span><span>Mastered <b id="mast">0</b></span><span>To review <b id="rev">0</b></span></div>
+<div class="progress" aria-hidden="true"><i id="pbar"></i></div>
+
+<div class="scene" id="scene">
+  <button class="card" id="card" type="button" aria-live="polite">
+    <div class="face front"><span class="k" id="kfront"></span><div class="q" id="q"></div><span class="hint">tap to flip</span></div>
+    <div class="face back"><span class="k">Answer</span><div class="a" id="a"></div><div class="why" id="why"></div></div>
+  </button>
+</div>
+<div class="actions" id="actions">
+  <button class="btn bad" id="again" type="button">Again</button>
+  <button class="btn ok" id="got" type="button">Got it</button>
+</div>
+<div class="kbd">Space = flip · 1 = Again · 2 = Got it</div>
+<div class="done" id="done" hidden><h2>Set complete</h2><p id="doneMsg"></p><button class="btn" id="doneRestart" type="button">Go again</button></div>
+
+<p class="foot">Built from the ASYS 245 Module 2 course decks. Reference values per Transport Canada / <i>From the Ground Up</i>.</p>
+</div>
+
+<script>
+var CARDS=[
+ {t:'term',q:'The four forces of flight',a:'<b>Lift</b> (up, ⊥ flight path) · <b>Weight</b> (down) · <b>Thrust</b> (forward) · <b>Drag</b> (back)',w:'Level cruise = all four balanced.'},
+ {t:'term',q:'Lift acts through the ___; weight acts through the ___',a:'<b>Centre of pressure (CP)</b> · <b>centre of gravity (CG)</b>',w:'CP moves with angle of attack; CG moves as fuel burns.'},
+ {t:'term',q:'Define chord',a:'Straight line from the <b>leading edge to the trailing edge</b>.',w:'Angle of attack is measured from the chord.'},
+ {t:'term',q:'Define camber',a:'How <b>curved</b> the airfoil is.',w:'More camber → more air turned → more lift.'},
+ {t:'term',q:'Define angle of attack',a:'The angle between the <b>chord</b> and the <b>relative wind</b>.',w:'Relative wind = airflow opposite the flight path.'},
+ {t:'term',q:'Aerodynamic centre',a:'The point where the <b>pitching moment does not change</b> — about <b>¼ chord</b> back from the leading edge.',w:'Different from the CP, which moves.'},
+ {t:'term',q:'The three kinds of parasite drag',a:'<b>Skin friction</b>, <b>form</b> (pressure), <b>interference</b>.',w:'Parasite = all drag that is not from making lift.'},
+ {t:'term',q:'Define induced drag',a:'Drag <b>caused by making lift</b> — wingtip vortices tilt the lift vector back.',w:'"Drag due to lift."'},
+ {t:'term',q:'Boundary layer',a:'The <b>thin layer of air stuck to the surface</b>; speed is zero at the skin. <b>Laminar</b> at the front, <b>turbulent</b> farther back.',w:'The change point is the transition point.'},
+ {t:'term',q:'Aspect ratio',a:'<b>Span compared to chord</b>. Long and narrow = high aspect ratio.',w:'High AR → less induced drag. Gliders.'},
+ {t:'term',q:'Dihedral vs anhedral',a:'<b>Dihedral</b> = wings angled <b>up</b> → roll stability. <b>Anhedral</b> = angled <b>down</b> → more manoeuvrable.',w:'Cessna 172 has dihedral; a Harrier has anhedral.'},
+ {t:'term',q:'Which tail surface gives directional (yaw) stability?',a:'The <b>vertical stabilizer</b> (fin) and rudder — yaw about the <b>vertical axis</b>.',w:'Horizontal stabilizer = pitch about the lateral axis.'},
+ {t:'law',q:'Write the lift equation and name the letters',a:'<span class="f">L = C<sub>L</sub> · ½ρV² · A</span><br>C<sub>L</sub> lift coefficient · ρ density · V velocity · A wing area',w:'C<sub>L</sub> captures shape and angle of attack.'},
+ {t:'law',q:'Write the drag equation',a:'<span class="f">D = C<sub>D</sub> · ½ρV² · A</span>',w:'Same shape as the lift equation with a drag coefficient.'},
+ {t:'law',q:'Newton\'s explanation of lift, in one line',a:'The wing <b>turns the air downward</b>; the air pushes the wing <b>up</b>. <span class="f">F = m × a</span>',w:'Change the flow\'s speed or direction → you get a force.'},
+ {t:'law',q:'Bernoulli\'s explanation of lift, in one line',a:'Air over the curved top moves <b>faster</b> → <b>lower static pressure</b> on top → higher pressure below pushes up.',w:'Total = Static + Dynamic, and total stays constant.'},
+ {t:'law',q:'Speed goes up. Parasite drag ___ and induced drag ___',a:'Parasite <b>↑</b> (with V²) · Induced <b>↓</b>',w:'Total drag is a U-curve; minimum where the two cross.'},
+ {t:'law',q:'Angle of attack goes up. Lift…',a:'<b>Increases</b> — until the <b>critical angle</b>, then the flow separates and lift drops: <b>stall</b>.',w:'Stall is about angle, not speed.'},
+ {t:'law',q:'Altitude goes up. Lift…',a:'<b>Decreases</b> — density ↓ so fewer molecules hit the wing. Eventually the aircraft reaches its <b>ceiling</b>.',w:'ρ is in the lift equation.'},
+ {t:'law',q:'Total drag = ?',a:'<span class="f">Parasite + Induced</span>',w:'Parasite = skin friction + form + interference.'},
+ {t:'number',q:'Lift and drag change with the ___ of speed',a:'The <b>square</b>. Double the speed → <b>4×</b> lift and drag.',w:'V² in both equations.'},
+ {t:'number',q:'Where is the aerodynamic centre?',a:'About <b>¼ of the chord</b> back from the leading edge.',w:'Pitching moment is constant there.'},
+ {t:'number',q:'Typical critical (stall) angle of attack',a:'About <b>15–18°</b> for most general-aviation wings.',w:'Varies by airfoil; the wing stalls at that angle at any speed.'},
+ {t:'number',q:'Ground effect starts within…',a:'About <b>one wingspan</b> of the ground.',w:'Downwash squashed → less induced drag → float.'},
+ {t:'number',q:'A swept wing cuts peak drag near the speed of sound by about…',a:'<b>¼</b> of a straight wing\'s (a 4× reduction).',w:'The sweep makes the air "see" a longer chord.'},
+ {t:'apply',q:'A pilot comes in fast over the runway and the aircraft won\'t settle. Why?',a:'<b>Ground effect</b> — within one wingspan the ground cuts induced drag, so excess speed makes it <b>float</b>.',w:'Fix: fly the correct approach speed.'},
+ {t:'apply',q:'Why do airliners have winglets?',a:'They <b>block the wingtip vortex</b> → less <b>induced drag</b> → better fuel burn.',w:'The winglet\'s own small vortex forms high above the wing where it does little harm.'},
+ {t:'apply',q:'A glider has very long, narrow wings. What is the design reason?',a:'<b>High aspect ratio</b> → much less induced drag for the same lift → longer glide.',w:'Trade-off: harder to make strong, less agile.'},
+ {t:'apply',q:'One wing drops in turbulence on a Cessna 172. What brings it back level, without pilot input?',a:'<b>Dihedral</b> — the low wing meets the air at a higher AOA, makes more lift, and rolls the aircraft back.',w:'Roll (lateral) stability.'},
+ {t:'apply',q:'A pilot pulls the nose up sharply at low speed. What is the risk and why?',a:'<b>Stall</b> — exceeding the critical angle of attack separates the flow and lift collapses, regardless of speed.',w:'Recovery: lower the nose to reduce AOA.'},
+ {t:'apply',q:'A bush plane has bugs and frost on its leading edge. What does this do to drag?',a:'Rough surface moves the <b>transition point forward</b> → more turbulent boundary layer → more <b>skin friction drag</b> and an earlier stall.',w:'Clean wings matter.'},
+ {t:'apply',q:'Why does a T-tail aircraft need a heavier fin?',a:'The horizontal stabilizer sits <b>on top of the fin</b>, so the fin carries its loads and must be <b>stronger</b>.',w:'The payoff: clean air, predictable pitch at low speed.'}
+];
+(function(){
+  var KEY='asys245-cards-m2';
+  var st={set:'all',mast:{}};
+  try{ st=Object.assign(st,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} }
+  var queue=[],cur=null,flipped=false,seen=0,total=0;
+  var card=document.getElementById('card'),q=document.getElementById('q'),a=document.getElementById('a'),why=document.getElementById('why'),kf=document.getElementById('kfront');
+  var done=document.getElementById('done'),actions=document.getElementById('actions'),scene=document.getElementById('scene');
+  var labels={term:'Term',law:'Rule',number:'Number',apply:'Apply it'};
+  function pool(){ return CARDS.map(function(c,i){c.id=i;return c}).filter(function(c){return st.set==='all'||c.t===st.set}); }
+  function build(fresh){ var p=pool(); total=p.length; if(fresh){ p.forEach(function(c){ delete st.mast[c.id]; }); save(); } queue=p.filter(function(c){ return (st.mast[c.id]||0)<2; }).sort(function(){return Math.random()-.5}); seen=0; next(); }
+  function stats(){ var p=pool(); var m=p.filter(function(c){return (st.mast[c.id]||0)>=2}).length; document.getElementById('tot').textContent=total; document.getElementById('mast').textContent=m; document.getElementById('rev').textContent=queue.length+(cur?1:0); document.getElementById('pos').textContent=Math.min(seen,total); document.getElementById('pbar').style.width=(total?100*m/total:0)+'%'; }
+  function next(){ flipped=false; card.classList.remove('flipped'); if(!queue.length){ cur=null; scene.hidden=true; actions.hidden=true; done.hidden=false; document.getElementById('doneMsg').textContent='All '+total+' cards mastered twice. Try another set, or restart to run it cold.'; stats(); return; } scene.hidden=false; actions.hidden=true; done.hidden=true; cur=queue.shift(); seen++; kf.textContent=labels[cur.t]; q.innerHTML=cur.q; a.innerHTML=cur.a; why.innerHTML=cur.w; stats(); }
+  function flip(){ if(!cur) return; flipped=!flipped; card.classList.toggle('flipped',flipped); actions.hidden=!flipped; }
+  function grade(ok){ if(!cur||!flipped) return; if(ok){ st.mast[cur.id]=(st.mast[cur.id]||0)+1; if(st.mast[cur.id]<2) queue.push(cur); } else { st.mast[cur.id]=0; queue.splice(Math.min(3,queue.length),0,cur); } save(); next(); }
+  card.addEventListener('click',flip);
+  document.getElementById('got').addEventListener('click',function(){grade(true)});
+  document.getElementById('again').addEventListener('click',function(){grade(false)});
+  document.getElementById('restart').addEventListener('click',function(){build(true)});
+  document.getElementById('doneRestart').addEventListener('click',function(){build(true)});
+  document.querySelectorAll('.chip[data-set]').forEach(function(c){ c.setAttribute('aria-pressed',c.dataset.set===st.set?'true':'false'); c.addEventListener('click',function(){ st.set=c.dataset.set; save(); document.querySelectorAll('.chip[data-set]').forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false')}); build(false); }); });
+  document.addEventListener('keydown',function(e){ if(e.target.tagName==='INPUT') return; if(e.key===' '){e.preventDefault();flip();} else if(e.key==='1') grade(false); else if(e.key==='2') grade(true); });
+  build(false);
+})();
+</script>
+
+</body>
+</html>
