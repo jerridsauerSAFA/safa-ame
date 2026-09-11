@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ASYS 245 Lift & Drag Formulas</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--bg:#F4F6F8;--surface:#FFFFFF;--cue:#E6EDF3;--line:#CBD5DE;--ink:#16232E;--muted:#526170;--accent:#1D5C8F;--accent-ink:#FFFFFF;--formula:#B8690F;--formula-bg:#FFF4E3;--ok:#2E7D4F;--ok-bg:#E4F3EA;--shadow:0 1px 2px rgba(22,35,46,.08)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--shadow:none}}
+:root[data-theme="dark"]{--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--shadow:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+h2{font-size:1.5rem;font-weight:700}
+h3{font-size:1.15rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.wrap{max-width:960px;margin:0 auto}
+.eyebrow{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--accent)}
+header.top{padding-block:2rem 1.25rem;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;justify-content:space-between}
+header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
+.meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted)}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.4rem .9rem;border-radius:4px;cursor:pointer}
+.btn:focus-visible,input:focus-visible,details summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* reference strip */
+.ref{margin-top:1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.ref div{background:var(--surface);padding:.8rem 1rem}
+.ref .l{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ref .v{font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.45rem;white-space:nowrap;font-weight:700;color:var(--formula);font-variant-numeric:tabular-nums}
+.ref .s{font-size:.8rem;color:var(--muted)}
+/* formula cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-top:1rem}
+.fc{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column}
+.fc .head{padding:.8rem 1rem .5rem;border-bottom:1px solid var(--line)}
+.fc .head .k{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.fc .big{font-family:"JetBrains Mono",monospace;font-size:1.6rem;color:var(--formula);background:var(--formula-bg);padding:.6rem 1rem;text-align:center;font-variant-numeric:tabular-nums}
+.fc .body{padding:.8rem 1rem 1rem;display:grid;gap:.5rem;flex:1}
+.fc .body p{margin:0}
+.vars{display:grid;grid-template-columns:auto 1fr;gap:.15rem .7rem;font-size:.92rem}
+.vars b{font-family:"JetBrains Mono",monospace;font-weight:500;color:var(--formula)}
+.words{font-weight:600}
+.hold{font-size:.85rem;color:var(--muted)}
+.hold b{color:var(--ink)}
+details{border-top:1px dotted var(--line);padding-top:.5rem}
+details summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:.9rem;list-style:none}
+details summary::before{content:"+ ";font-family:"JetBrains Mono",monospace}
+details[open] summary::before{content:"– "}
+.ex{font-size:.92rem;margin:.4rem 0 0}
+.ex code{font-family:"JetBrains Mono",monospace;background:var(--cue);padding:.05em .3em;border-radius:3px}
+/* calc */
+.calc{background:var(--cue);border-radius:4px;padding:.7rem .8rem;margin-top:.4rem;display:grid;gap:.4rem}
+.calc .row{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center;font-size:.9rem}
+.calc label{display:inline-flex;align-items:center;gap:.3rem}
+.calc input{width:5.2rem;font:.95rem "JetBrains Mono",monospace;padding:.25rem .4rem;border:1px solid var(--line);border-radius:3px;background:var(--surface);color:var(--ink)}
+.calc .out{font-family:"JetBrains Mono",monospace;font-weight:500;color:var(--ok);background:var(--ok-bg);padding:.2rem .5rem;border-radius:3px;min-width:6rem;display:inline-block}
+.foot{font-size:.85rem;color:var(--muted);margin-top:2rem}
+@media print{body{background:#fff;color:#000;padding:0}.btn,details summary,.calc{display:none}details{border:0}details>*{display:block}header.top{border-bottom:2px solid #000}.fc{break-inside:avoid;border:1px solid #999}.fc .big{background:#f2f2f2;color:#000}.ref .v{color:#000}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">Formula sheet · ASYS 245 · Module 2</div>
+    <h1>Lift &amp; Drag Formulas</h1>
+    <p>The lift and drag equations, Newton's law, aspect ratio and the key relationships — each with what the letters mean, the rule in plain words, a worked example and a calculator. Print it for the binder.</p>
+  </div>
+  <div><div class="meta">SAFA · Super T Aviation<br>Module 2</div><br><button class="btn" type="button" onclick="window.print()">Print</button></div>
+</header>
+
+<h3 style="margin-top:1.5rem">Numbers to remember</h3>
+<div class="ref">
+  <div><div class="l">Speed rule</div><div class="v">L, D ∝ V²</div><div class="s">double speed → 4× lift &amp; drag</div></div>
+  <div><div class="l">Aerodynamic centre</div><div class="v">¼ chord</div><div class="s">from the leading edge</div></div>
+  <div><div class="l">Critical AOA</div><div class="v">≈ 15–18°</div><div class="s">typical GA wing; stall past it</div></div>
+  <div><div class="l">Ground effect</div><div class="v">1 wingspan</div><div class="s">above the ground</div></div>
+  <div><div class="l">Total drag</div><div class="v">Parasite + Induced</div><div class="s">parasite ↑ with speed, induced ↓</div></div>
+  <div><div class="l">Swept wing</div><div class="v">¼ peak drag</div><div class="s">vs a straight wing near Mach 1</div></div>
+</div>
+
+<h3 style="margin-top:1.75rem">Lift &amp; drag</h3>
+<div class="grid">
+
+<div class="fc">
+  <div class="head"><div class="k">Lift equation</div><h2>Lift</h2></div>
+  <div class="big">L = C<sub>L</sub> · ½ρV² · A</div>
+  <div class="body">
+    <div class="vars"><b>L</b><span>lift (N or lb)</span><b>C<sub>L</sub></b><span>lift coefficient — shape + angle of attack</span><b>ρ</b><span>air density</span><b>V</b><span>velocity</span><b>A</b><span>wing area</span></div>
+    <p class="words">Bigger wing, denser air, more angle of attack, and above all more speed → more lift.</p>
+    <p class="hold">½ρV² is <b>dynamic pressure</b> — the same thing the airspeed indicator measures.</p>
+    <details><summary>Worked example</summary><p class="ex">C<sub>L</sub> = 0.5, ρ = 1.225 kg/m³, V = 50 m/s, A = 16 m²: <code>L = 0.5 × 0.5 × 1.225 × 50² × 16 = 12,250 N</code> (about 1,250 kg of aircraft). At 100 m/s the same wing makes <code>49,000 N</code> — four times as much.</p></details>
+    <div class="calc" data-calc="lift">
+      <div class="row"><label>C<sub>L</sub> <input type="number" id="l_cl" value="0.5" step="0.05"></label><label>ρ <input type="number" id="l_rho" value="1.225" step="0.005"></label><label>V <input type="number" id="l_v" value="50"></label><label>A <input type="number" id="l_a" value="16"></label></div>
+      <div class="row">L = <span class="out" id="l_out">12250</span> N</div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">Drag equation</div><h2>Drag</h2></div>
+  <div class="big">D = C<sub>D</sub> · ½ρV² · A</div>
+  <div class="body">
+    <div class="vars"><b>D</b><span>drag</span><b>C<sub>D</sub></b><span>drag coefficient — found in a wind tunnel</span><b>ρ, V, A</b><span>as for lift</span></div>
+    <p class="words">Same shape as the lift equation. Drag also grows with the square of speed.</p>
+    <p class="hold">C<sub>D</sub> bundles form, skin friction and induced drag. Rearranged: <b>C<sub>D</sub> = D ÷ (½ρV²A)</b> — measure D, work backwards.</p>
+    <details><summary>Worked example</summary><p class="ex">C<sub>D</sub> = 0.03, same air, V = 50 m/s, A = 16 m²: <code>D = 0.03 × 0.5 × 1.225 × 2500 × 16 = 735 N</code>. Lift ÷ drag = 12,250 ÷ 735 ≈ <code>16.7</code> — the lift-to-drag ratio.</p></details>
+    <div class="calc" data-calc="drag">
+      <div class="row"><label>C<sub>D</sub> <input type="number" id="d_cd" value="0.03" step="0.005"></label><label>ρ <input type="number" id="d_rho" value="1.225" step="0.005"></label><label>V <input type="number" id="d_v" value="50"></label><label>A <input type="number" id="d_a" value="16"></label></div>
+      <div class="row">D = <span class="out" id="d_out">735</span> N</div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">Newton's second law</div><h2>Force = mass × acceleration</h2></div>
+  <div class="big">F = m × a</div>
+  <div class="body">
+    <div class="vars"><b>F</b><span>force</span><b>m</b><span>mass of air moved</span><b>a</b><span>how fast its velocity changes (ΔV ÷ Δt)</span></div>
+    <p class="words">The wing pushes air down; the air pushes the wing up by the same amount.</p>
+    <p class="hold">Written for airflow: <b>F = m × ΔV ÷ Δt</b>. Move more air, or change its velocity faster, and you get more lift.</p>
+    <details><summary>Worked example</summary><p class="ex">A wing deflects 500 kg of air per second downward by 25 m/s: <code>F = 500 × 25 = 12,500 N</code> of lift — the same order as the lift-equation example above.</p></details>
+    <div class="calc" data-calc="newton">
+      <div class="row"><label>m (kg) <input type="number" id="n_m" value="500"></label><label>a (m/s²) <input type="number" id="n_a" value="25"></label></div>
+      <div class="row">F = <span class="out" id="n_out">12500</span> N</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<h3 style="margin-top:1.75rem">Wing shape &amp; efficiency</h3>
+<div class="grid">
+
+<div class="fc">
+  <div class="head"><div class="k">Aspect ratio</div><h2>Span ÷ Chord</h2></div>
+  <div class="big">AR = span ÷ chord</div>
+  <div class="body">
+    <div class="vars"><b>span</b><span>wingtip to wingtip</span><b>chord</b><span>average front-to-back width</span></div>
+    <p class="words">Long and narrow = high aspect ratio = less induced drag for the same lift.</p>
+    <p class="hold">Gliders ≈ 20–30. Cessna 172 ≈ 7.3. Fighters ≈ 2–4. (For a tapered wing engineers use span² ÷ area — same idea.)</p>
+    <details><summary>Worked example</summary><p class="ex">Cessna 172: span 11.0 m, wing area 16.2 m² → average chord 1.47 m → <code>AR = 11.0 ÷ 1.47 ≈ 7.5</code>.</p></details>
+    <div class="calc" data-calc="ar">
+      <div class="row"><label>span <input type="number" id="r_s" value="11.0" step="0.1"></label><label>chord <input type="number" id="r_c" value="1.47" step="0.01"></label></div>
+      <div class="row">AR = <span class="out" id="r_out">7.5</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">Lift-to-drag ratio</div><h2>Efficiency</h2></div>
+  <div class="big">L / D</div>
+  <div class="body">
+    <div class="vars"><b>L</b><span>lift</span><b>D</b><span>total drag at that speed</span></div>
+    <p class="words">How many units of lift you get for each unit of drag. Higher = more efficient.</p>
+    <p class="hold">Best L/D is at the bottom of the total-drag U-curve, where parasite drag = induced drag. Also the best glide ratio (Module 5).</p>
+    <details><summary>Worked example</summary><p class="ex">L = 12,250 N, D = 735 N → <code>L/D = 16.7</code>. A glider might reach 40+; an airliner in cruise about 17–19.</p></details>
+    <div class="calc" data-calc="ld">
+      <div class="row"><label>L <input type="number" id="e_l" value="12250"></label><label>D <input type="number" id="e_d" value="735"></label></div>
+      <div class="row">L/D = <span class="out" id="e_out">16.7</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">Speed scaling</div><h2>The V² rule</h2></div>
+  <div class="big">L₂ = L₁ × (V₂ ÷ V₁)²</div>
+  <div class="body">
+    <div class="vars"><b>L₁, V₁</b><span>lift and speed now</span><b>L₂, V₂</b><span>lift and speed after the change</span></div>
+    <p class="words">Change the speed by a factor, and lift (and drag) change by that factor squared.</p>
+    <p class="hold">× 2 speed → × 4 lift. × 1.5 speed → × 2.25. × 0.7 speed → about half.</p>
+    <details><summary>Worked example</summary><p class="ex">Lift is 10,000 N at 60 kt. At 90 kt (1.5×): <code>10,000 × 1.5² = 22,500 N</code> — so the pilot must lower the angle of attack to keep level flight.</p></details>
+    <div class="calc" data-calc="v2">
+      <div class="row"><label>L₁ <input type="number" id="s_l" value="10000"></label><label>V₁ <input type="number" id="s_v1" value="60"></label><label>V₂ <input type="number" id="s_v2" value="90"></label></div>
+      <div class="row">L₂ = <span class="out" id="s_out">22500</span></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<p class="foot">Source: ASYS 245 Module 2 course decks. Standard values (density 1.225 kg/m³ at sea level, typical aspect ratios) per Transport Canada / <i>From the Ground Up</i>. The Module 1 sheet has Bernoulli, continuity and the gas laws.</p>
+</div>
+
+<script>
+(function(){
+  function n(id){ return parseFloat(document.getElementById(id).value); }
+  function set(id,v){ document.getElementById(id).textContent=v; }
+  function fmt(x,d){ return isFinite(x)?(+x.toFixed(d)).toLocaleString():'—'; }
+  function calc(){
+    set('l_out', fmt(n('l_cl')*0.5*n('l_rho')*n('l_v')*n('l_v')*n('l_a'),0));
+    set('d_out', fmt(n('d_cd')*0.5*n('d_rho')*n('d_v')*n('d_v')*n('d_a'),0));
+    set('n_out', fmt(n('n_m')*n('n_a'),0));
+    set('r_out', fmt(n('r_s')/n('r_c'),1));
+    set('e_out', fmt(n('e_l')/n('e_d'),1));
+    set('s_out', fmt(n('s_l')*Math.pow(n('s_v2')/n('s_v1'),2),0));
+  }
+  document.querySelectorAll('.calc input').forEach(function(i){ i.addEventListener('input',calc); });
+  calc();
+})();
+</script>
+
+</body>
+</html>
