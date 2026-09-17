@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ASYS 245 Module 4 · Reference Sheet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--bg:#F4F6F8;--surface:#FFFFFF;--cue:#E6EDF3;--line:#CBD5DE;--ink:#16232E;--muted:#526170;--accent:#1D5C8F;--accent-ink:#FFFFFF;--formula:#B8690F;--formula-bg:#FFF4E3;--ok:#2E7D4F;--ok-bg:#E4F3EA;--shadow:0 1px 2px rgba(22,35,46,.08)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--shadow:none}}
+:root[data-theme="dark"]{--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--shadow:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+h2{font-size:1.5rem;font-weight:700}
+h3{font-size:1.15rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.wrap{max-width:960px;margin:0 auto}
+.eyebrow{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--accent)}
+header.top{padding-block:2rem 1.25rem;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;justify-content:space-between}
+header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
+.meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted)}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.4rem .9rem;border-radius:4px;cursor:pointer}
+.btn:focus-visible,input:focus-visible,details summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* reference strip */
+.ref{margin-top:1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.ref div{background:var(--surface);padding:.8rem 1rem}
+.ref .l{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ref .v{font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.45rem;white-space:nowrap;font-weight:700;color:var(--formula);font-variant-numeric:tabular-nums}
+.ref .s{font-size:.8rem;color:var(--muted)}
+/* formula cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-top:1rem}
+.fc{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column}
+.fc .head{padding:.8rem 1rem .5rem;border-bottom:1px solid var(--line)}
+.fc .head .k{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.fc .big{font-family:"JetBrains Mono",monospace;font-size:1.6rem;color:var(--formula);background:var(--formula-bg);padding:.6rem 1rem;text-align:center;font-variant-numeric:tabular-nums}
+.fc .body{padding:.8rem 1rem 1rem;display:grid;gap:.5rem;flex:1}
+.fc .body p{margin:0}
+.vars{display:grid;grid-template-columns:auto 1fr;gap:.15rem .7rem;font-size:.92rem}
+.vars b{font-family:"JetBrains Mono",monospace;font-weight:500;color:var(--formula)}
+.words{font-weight:600}
+.hold{font-size:.85rem;color:var(--muted)}
+.hold b{color:var(--ink)}
+details{border-top:1px dotted var(--line);padding-top:.5rem}
+details summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:.9rem;list-style:none}
+details summary::before{content:"+ ";font-family:"JetBrains Mono",monospace}
+details[open] summary::before{content:"– "}
+.ex{font-size:.92rem;margin:.4rem 0 0}
+.ex code{font-family:"JetBrains Mono",monospace;background:var(--cue);padding:.05em .3em;border-radius:3px}
+/* calc */
+.calc{background:var(--cue);border-radius:4px;padding:.7rem .8rem;margin-top:.4rem;display:grid;gap:.4rem}
+.calc .row{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center;font-size:.9rem}
+.calc label{display:inline-flex;align-items:center;gap:.3rem}
+.calc input{width:5.2rem;font:.95rem "JetBrains Mono",monospace;padding:.25rem .4rem;border:1px solid var(--line);border-radius:3px;background:var(--surface);color:var(--ink)}
+.calc .out{font-family:"JetBrains Mono",monospace;font-weight:500;color:var(--ok);background:var(--ok-bg);padding:.2rem .5rem;border-radius:3px;min-width:6rem;display:inline-block}
+.foot{font-size:.85rem;color:var(--muted);margin-top:2rem}
+@media print{body{background:#fff;color:#000;padding:0}.btn,details summary,.calc{display:none}details{border:0}details>*{display:block}header.top{border-bottom:2px solid #000}.fc{break-inside:avoid;border:1px solid #999}.fc .big{background:#f2f2f2;color:#000}.ref .v{color:#000}}
+</style>
+</head>
+<body>
+<style>
+.tbl{width:100%;border-collapse:collapse;font-size:.95rem;margin:.75rem 0 1.25rem}
+.tbl th,.tbl td{border:1px solid var(--line,#d6dde5);padding:.45rem .6rem;text-align:left;vertical-align:top}
+.tbl th{font-family:"Barlow Condensed",sans-serif;font-size:1.05rem;letter-spacing:.02em;background:rgba(29,92,143,.08)}
+.tbl td b{color:#1D5C8F}
+</style>
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">Reference sheet · ASYS 245 · Module 4</div>
+    <h1>Flight Controls Reference</h1>
+    <p>Module 4 is a hardware module: tables of what each surface, tab and fitting does, the numbers an AME must know, and two quick calculators for tabs and cable stretch. Print it for the binder.</p>
+  </div>
+  <div><div class="meta">SAFA · Super T Aviation<br>Module 4</div><br><button class="btn" type="button" onclick="window.print()">Print</button></div>
+</header>
+
+<h3 style="margin-top:1.5rem">Numbers to remember</h3>
+<div class="ref">
+  <div><div class="l">Fairlead</div><div class="v">≤ 3°</div><div class="s">bend — more needs a pulley</div></div>
+  <div><div class="l">Turnbuckle</div><div class="v">≤ 3 threads</div><div class="s">showing, then safety it</div></div>
+  <div><div class="l">Flap rule</div><div class="v">first ~20°</div><div class="s">lift; after that mostly drag</div></div>
+  <div><div class="l">Trim tab</div><div class="v">opposite</div><div class="s">to the surface it moves</div></div>
+  <div><div class="l">Anti-servo tab</div><div class="v">same way</div><div class="s">as the stabilator — adds feel</div></div>
+  <div><div class="l">Control work</div><div class="v">CAR 571.10</div><div class="s">independent inspection</div></div>
+</div>
+
+<h3 style="margin-top:1.75rem">Control surfaces &amp; what they do</h3>
+<table class="tbl">
+  <tr><th>Surface</th><th>Where</th><th>Motion / effect</th><th>Note</th></tr>
+  <tr><td><b>Ailerons</b></td><td>outer trailing edge</td><td>Roll — move opposite ways</td><td>Adverse yaw; differential or Frise fixes</td></tr>
+  <tr><td><b>Elevator</b></td><td>horizontal stabilizer</td><td>Pitch — up = nose up</td><td>Stabilator = one-piece version</td></tr>
+  <tr><td><b>Rudder</b></td><td>vertical fin</td><td>Yaw — left = nose left</td><td>Coordinates turns, counters adverse yaw</td></tr>
+  <tr><td><b>Flaps</b></td><td>inner trailing edge</td><td>More camber → more lift and drag</td><td>Plain → Split → Slotted → Fowler</td></tr>
+  <tr><td><b>Slots / slats</b></td><td>leading edge</td><td>Delay the stall to a higher AOA</td><td>Slot fixed; slat moves</td></tr>
+  <tr><td><b>Spoilers</b></td><td>top of wing</td><td>Kill lift, add drag</td><td>Flight (roll / descent) and ground (dump lift)</td></tr>
+  <tr><td><b>Speed brakes</b></td><td>fuselage / tail</td><td>Drag only</td><td>Balanced — no pitch or roll</td></tr>
+</table>
+
+<h3 style="margin-top:1.75rem">Tabs — which way do they move?</h3>
+<table class="tbl">
+  <tr><th>Tab</th><th>Moves…</th><th>Purpose</th><th>Found on</th></tr>
+  <tr><td><b>Trim tab</b></td><td><b>Opposite</b> to the surface</td><td>Hold the surface → hands-off flight</td><td>Elevator (most), rudder, ailerons</td></tr>
+  <tr><td><b>Servo tab</b></td><td><b>Opposite</b>, driven by the pilot</td><td>Air helps move a heavy surface</td><td>Big aircraft without hydraulic boost</td></tr>
+  <tr><td><b>Balance tab</b></td><td><b>Opposite</b>, linked to the surface</td><td>Lighten control forces</td><td>Ailerons, elevators</td></tr>
+  <tr><td><b>Anti-servo tab</b></td><td><b>Same</b> direction as the surface</td><td>Add feel, stop over-controlling</td><td>Stabilators (also the trim tab)</td></tr>
+  <tr><td><b>Fixed tab</b></td><td>Bent on the ground</td><td>Cure a wing- or nose-heavy tendency</td><td>Light aircraft ailerons and rudders</td></tr>
+</table>
+<p class="hold" style="margin-top:-.5rem"><b>Memory line:</b> every tab moves <i>opposite</i> to help or hold — except the <b>anti</b>-servo tab, which moves the <i>same</i> way to resist.</p>
+
+<h3 style="margin-top:1.75rem">Flap types</h3>
+<table class="tbl">
+  <tr><th>Type</th><th>How it moves</th><th>Lift gain</th><th>Drag gain</th><th>Typical use</th></tr>
+  <tr><td><b>Plain</b></td><td>Whole trailing edge hinges down</td><td>Low</td><td>Medium</td><td>Simple light aircraft</td></tr>
+  <tr><td><b>Split</b></td><td>Bottom surface only hinges down</td><td>Low–medium</td><td>High</td><td>Steep approaches</td></tr>
+  <tr><td><b>Slotted</b></td><td>Hinges down, gap opens</td><td>High</td><td>Medium</td><td>Cessna singles</td></tr>
+  <tr><td><b>Fowler</b></td><td>Slides back and down on tracks</td><td>Highest (adds area)</td><td>Low at small settings</td><td>Airliners (double/triple slotted)</td></tr>
+</table>
+
+<h3 style="margin-top:1.75rem">Cable and rod hardware</h3>
+<table class="tbl">
+  <tr><th>Part</th><th>Job</th><th>Check</th></tr>
+  <tr><td><b>Pulley</b></td><td>Change cable direction</td><td>Guard in place; turns freely; no flat spots</td></tr>
+  <tr><td><b>Fairlead</b></td><td>Guide a cable past structure</td><td>Bend ≤ 3°; no wear grooves</td></tr>
+  <tr><td><b>Turnbuckle</b></td><td>Adjust tension</td><td>≤ 3 threads showing; safetied</td></tr>
+  <tr><td><b>Bellcrank / quadrant</b></td><td>Change direction or ratio</td><td>Bearings free; no play</td></tr>
+  <tr><td><b>Torque tube</b></td><td>Carry motion as a twist</td><td>No cracks at welds; bearings secure</td></tr>
+  <tr><td><b>Push-pull rod</b></td><td>Rigid link</td><td>Straight; jam nut tight; wire will NOT pass the check hole</td></tr>
+  <tr><td><b>Stops</b></td><td>Limit travel</td><td>Primary at the surface, secondary at the cockpit — surface stop hits first</td></tr>
+  <tr><td><b>Tensiometer</b></td><td>Measure cable tension</td><td>Correct for temperature per chart</td></tr>
+</table>
+
+<h3 style="margin-top:1.75rem">Two quick calculators</h3>
+<div class="grid">
+
+<div class="fc">
+  <div class="head"><div class="k">Why a tiny tab works</div><h2>Tab moment</h2></div>
+  <div class="big">M = F × d</div>
+  <div class="body">
+    <div class="vars"><b>M</b><span>turning moment on the control surface</span><b>F</b><span>air force on the tab</span><b>d</b><span>distance from the tab to the surface hinge</span></div>
+    <p class="words">A small force far behind the hinge makes as much turning effect as a big force close to it. That is why a trim tab a few inches wide can hold a whole elevator.</p>
+    <p class="hold">Same formula as Module 3's moment — the tab is just a second, smaller lever riding on the first.</p>
+    <details><summary>Worked example</summary><p class="ex">A 4 lb air load on a tab 14 in behind the elevator hinge: <code>M = 4 × 14 = 56 lb·in</code>. To make the same moment with a pilot force applied 2 in from the hinge you would need <code>56 ÷ 2 = 28 lb</code>.</p></details>
+    <div class="calc" data-calc="tab">
+      <div class="row"><label>F (lb) <input type="number" id="t_f" value="4" step="0.5"></label><label>d (in) <input type="number" id="t_d" value="14"></label></div>
+      <div class="row">M = <span class="out" id="t_out">56</span> lb·in</div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">Temperature correction</div><h2>Cable tension vs temperature</h2></div>
+  <div class="big">T<sub>set</sub> = T<sub>chart</sub> ± Δ</div>
+  <div class="body">
+    <div class="vars"><b>T<sub>chart</sub></b><span>tension the manual gives at the reference temperature (often 70 °F / 21 °C)</span><b>Δ</b><span>correction from the chart for today's hangar temperature</span></div>
+    <p class="words">Aluminum structure grows and shrinks more than the steel cable. Cold hangar → cable reads tighter; hot → looser. Always set tension using the chart for the temperature you are working in.</p>
+    <p class="hold">Never carry a remembered "40 lb" from one aircraft to another — the number belongs to the type and the chart.</p>
+    <details><summary>Worked example</summary><p class="ex">A chart says 40 lb at 70 °F and the correction line shows about −0.3 lb per °F below reference. In a 40 °F hangar (30 °F colder): <code>40 − 0.3 × 30 = 31 lb</code> on the tensiometer today, so that it reads 40 lb in normal conditions. (Illustrative slope — read the real chart.)</p></details>
+    <div class="calc" data-calc="tension">
+      <div class="row"><label>Chart tension <input type="number" id="c_t" value="40"></label><label>Slope (lb/°F) <input type="number" id="c_s" value="0.3" step="0.05"></label><label>Today °F <input type="number" id="c_now" value="40"></label><label>Ref °F <input type="number" id="c_ref" value="70"></label></div>
+      <div class="row">Set to <span class="out" id="c_out">31</span> lb</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<h3 style="margin-top:1.75rem">After any flight-control work</h3>
+<table class="tbl">
+  <tr><th>Step</th><th>What you confirm</th></tr>
+  <tr><td><b>1. Rig</b></td><td>Neutral positions with rigging pins; travel with a protractor; tension with the tensiometer and chart</td></tr>
+  <tr><td><b>2. Secure</b></td><td>Turnbuckles safetied, jam nuts tight, check holes pass the wire test (wire must NOT go through), pulley guards on</td></tr>
+  <tr><td><b>3. Control check</b></td><td>Correct direction · full travel to the stops · free and smooth · no fouling at full deflection</td></tr>
+  <tr><td><b>4. Independent inspection</b></td><td>Second qualified person inspects and signs — <b>CAR 571.10</b></td></tr>
+</table>
+
+<p class="foot">Source: ASYS 245 Module 4 course decks (Flight Controls Parts A and B). Fairlead, turnbuckle and inspection rules are the standard Canadian AME training values; the aircraft maintenance manual always governs a real job.</p>
+</div>
+
+<script>
+(function(){
+  function n(id){ return parseFloat(document.getElementById(id).value); }
+  function set(id,v){ document.getElementById(id).textContent=v; }
+  function fmt(x,d){ return isFinite(x)?(+x.toFixed(d)).toLocaleString():'—'; }
+  function calc(){
+    set('t_out', fmt(n('t_f')*n('t_d'),1));
+    set('c_out', fmt(n('c_t')+n('c_s')*(n('c_now')-n('c_ref')),1));
+  }
+  document.querySelectorAll('.calc input').forEach(function(i){ i.addEventListener('input',calc); });
+  calc();
+})();
+</script>
+
+</body>
+</html>
