@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ASYS 245 Module 4 · Cornell Notes · Flight Controls</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{
+  --bg:#F4F6F8; --surface:#FFFFFF; --cue:#E6EDF3; --line:#CBD5DE; --ink:#16232E; --muted:#526170;
+  --accent:#1D5C8F; --accent-ink:#FFFFFF; --formula:#B8690F; --formula-bg:#FFF4E3;
+  --ok:#2E7D4F; --ok-bg:#E4F3EA; --bad:#B3402B; --bad-bg:#FBE8E3; --shadow:0 1px 2px rgba(22,35,46,.08);
+  --dia-bg:#F9FBFC; --dia-line:#3A4A58; --dia-fill:#D6E4F0; --dia-hi:#E7A34A;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F171E; --surface:#182430; --cue:#1F2E3B; --line:#33475A; --ink:#E6EDF3; --muted:#9FB0BF;
+    --accent:#6FB0E8; --accent-ink:#0F171E; --formula:#F0B35B; --formula-bg:#2C2416;
+    --ok:#6CCB8F; --ok-bg:#16301F; --bad:#F08A72; --bad-bg:#3A1C15; --shadow:none;
+    --dia-bg:#131E27; --dia-line:#C4D2DE; --dia-fill:#2B4257; --dia-hi:#F0B35B;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F171E; --surface:#182430; --cue:#1F2E3B; --line:#33475A; --ink:#E6EDF3; --muted:#9FB0BF;
+  --accent:#6FB0E8; --accent-ink:#0F171E; --formula:#F0B35B; --formula-bg:#2C2416;
+  --ok:#6CCB8F; --ok-bg:#16301F; --bad:#F08A72; --bad-bg:#3A1C15; --shadow:none;
+  --dia-bg:#131E27; --dia-line:#C4D2DE; --dia-fill:#2B4257; --dia-hi:#F0B35B;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+h2{font-size:1.6rem;font-weight:700;letter-spacing:.01em}
+h3{font-size:1.2rem;font-weight:600}
+.wrap{max-width:960px;margin:0 auto}
+.eyebrow{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--accent)}
+header.top{padding-block:2rem 1.25rem;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;justify-content:space-between}
+header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
+.meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted);letter-spacing:.02em}
+/* toolbar */
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:.6rem;display:flex;flex-wrap:wrap;gap:.5rem .9rem;align-items:center;margin-inline:-16px;padding-inline:16px}
+.bar .grow{flex:1 1 10rem}
+.progress{height:6px;background:var(--cue);border-radius:3px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.bar label{font-size:.9rem;display:inline-flex;gap:.4rem;align-items:center;cursor:pointer;user-select:none}
+.bar input{accent-color:var(--accent);width:1.1rem;height:1.1rem}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.35rem .8rem;border-radius:4px;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn:focus-visible,.bar input:focus-visible,details summary:focus-visible,.opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* cornell grid */
+.notes{margin-top:1.5rem;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+.row{display:grid;grid-template-columns:minmax(150px,30%) 1fr;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.cue{background:var(--cue);padding:1rem;border-right:1px solid var(--line)}
+.cue h3{color:var(--ink)}
+.cue .q{margin:.5rem 0 0;font-weight:600;font-style:italic;color:var(--muted);font-size:.95rem}
+.cue .tag{display:inline-block;margin-top:.6rem;font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;color:var(--accent);text-transform:uppercase}
+.body{padding:1rem 1.25rem;min-width:0}
+.body ul{margin:0;padding-left:1.15rem}
+.body li{margin:.25rem 0}
+.body li+li{margin-top:.35rem}
+.f{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;color:var(--formula);background:var(--formula-bg);padding:.05em .35em;border-radius:3px;white-space:nowrap}
+.big{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:1.35rem;color:var(--formula);background:var(--formula-bg);padding:.25rem .7rem;border-radius:4px;margin:.4rem 0}
+.fig{margin:.9rem 0 .3rem;background:var(--dia-bg);border:1px solid var(--line);border-radius:4px;padding:.5rem;overflow-x:auto}
+.fig svg{display:block;max-width:100%;height:auto;margin:0 auto;font-family:"Source Sans 3",sans-serif}
+.cap{font-size:.8rem;color:var(--muted);margin:.2rem 0 0;font-style:italic}
+details.more{margin-top:.8rem;border-left:3px solid var(--accent);padding-left:.8rem}
+details.more summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:.92rem;list-style:none}
+details.more summary::before{content:"+ ";font-family:"JetBrains Mono",monospace}
+details.more[open] summary::before{content:"– "}
+details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
+/* study mode */
+.study .body>*:not(.reveal){display:none}
+.reveal{display:none}
+.study .reveal{display:block;text-align:left}
+.study .body.open>*{display:block}
+.study .body.open>.reveal{display:none}
+.study .body.open>ul{display:block}
+.study .body.open>.fig{display:block}
+.reveal button{width:100%;text-align:left;font:600 1rem "Source Sans 3",sans-serif;background:transparent;border:1px dashed var(--line);border-radius:4px;color:var(--muted);padding:1rem;cursor:pointer}
+.reveal button:hover{border-color:var(--accent);color:var(--accent)}
+.check{display:inline-flex;align-items:center;gap:.4rem;margin-top:.7rem;font-size:.85rem;color:var(--muted);cursor:pointer}
+.check input{accent-color:var(--ok)}
+/* summary + terms */
+.box{margin-top:1.5rem;background:var(--surface);border:1px solid var(--line);padding:1.25rem;box-shadow:var(--shadow)}
+.box.sum{border-left:6px solid var(--accent)}
+.terms{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem 1.5rem;margin-top:.8rem}
+.terms div{padding:.4rem 0;border-bottom:1px dotted var(--line)}
+.terms b{display:block;font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.05rem;letter-spacing:.02em}
+/* quiz */
+.qz{margin-top:1rem;display:grid;gap:.9rem}
+.qcard{border:1px solid var(--line);border-radius:4px;padding:.9rem 1rem;background:var(--surface)}
+.qcard p{margin:0 0 .5rem;font-weight:600}
+.opts{display:grid;gap:.4rem}
+.opt{text-align:left;font:1rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:.5rem .7rem;border-radius:4px;cursor:pointer}
+.opt:hover{border-color:var(--accent)}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ink)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--ink)}
+.fb{margin-top:.5rem;font-size:.92rem;display:none}
+.fb.show{display:block}
+.fb.good{color:var(--ok)} .fb.bad{color:var(--bad)}
+.score{margin-top:1rem;font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.3rem}
+.flag{font-size:.85rem;color:var(--muted);margin-top:1.5rem}
+@media (max-width:620px){
+  .row{grid-template-columns:1fr}
+  .cue{border-right:0;border-bottom:1px solid var(--line);padding:.8rem 1rem}
+  .body{padding:.9rem 1rem}
+}
+@media (prefers-reduced-motion:reduce){.progress i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">Cornell Notes · ASYS 245 · Module 4</div>
+    <h1>Flight Controls</h1>
+    <p>The surfaces that move the aircraft, the tabs and devices that help them, and the cables, rods and computers that connect them to the pilot. Read the notes, then switch on <b>Study mode</b> to test yourself from the cue questions.</p>
+  </div>
+  <div class="meta">SAFA · Super T Aviation<br>Module 4 · from course decks A &amp; B</div>
+</header>
+
+<div class="bar" role="toolbar" aria-label="Study tools">
+  <label><input type="checkbox" id="studyToggle"> Study mode (hide notes, recall from cues)</label>
+  <div class="grow"><div class="progress" aria-hidden="true"><i id="pbar"></i></div></div>
+  <span class="meta" id="ptext">0 / 11 sections checked</span>
+  <button class="btn" id="resetBtn" type="button">Reset</button>
+</div>
+
+<section class="notes" id="notes" aria-label="Cornell notes">
+
+<div class="row" data-sec="1">
+  <div class="cue"><h3>Primary Flight Controls</h3><p class="q">What are the three primary controls, what does each one move, and what counts as a secondary control?</p><span class="tag">Aileron · Elevator · Rudder</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Ailerons</b> (outer trailing edge of each wing) → <b>roll</b> about the longitudinal axis. They move <b>opposite</b> ways: one up, one down.</li>
+      <li><b>Elevator</b> (trailing edge of the horizontal stabilizer) → <b>pitch</b> about the lateral axis. Stick back = elevator up = nose up.</li>
+      <li><b>Rudder</b> (trailing edge of the fin) → <b>yaw</b> about the vertical axis. Left pedal = rudder left = nose left.</li>
+      <li>Every primary control works the same way: it <b>changes the camber</b> of the surface it is on → more or less lift on that side.</li>
+      <li><b>Secondary (auxiliary) controls</b> = flaps, slats, slots, spoilers, speed brakes and trim tabs. They change lift, drag or control force; they do not fly the aircraft by themselves.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 170" width="420" height="170" role="img" aria-label="Top view of an aircraft with ailerons, elevator and rudder labelled">
+      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2">
+        <path d="M210 15 L222 50 L222 120 L210 160 L198 120 L198 50 Z"/>
+        <path d="M60 70 L198 62 L198 88 L60 96 Z"/><path d="M360 70 L222 62 L222 88 L360 96 Z"/>
+        <path d="M150 128 L198 124 L198 140 L150 146 Z"/><path d="M270 128 L222 124 L222 140 L270 146 Z"/>
+      </g>
+      <g fill="var(--dia-hi)" stroke="var(--dia-line)"><rect x="60" y="88" width="55" height="8"/><rect x="305" y="88" width="55" height="8"/><rect x="150" y="140" width="48" height="6"/><rect x="222" y="140" width="48" height="6"/><rect x="204" y="140" width="12" height="20"/></g>
+      <g font-size="11" fill="var(--ink)"><text x="30" y="118">aileron</text><text x="320" y="118">aileron</text><text x="120" y="164">elevator</text><text x="250" y="164">elevator</text><text x="232" y="158" fill="var(--formula)" font-weight="700">rudder</text></g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>Think of every control surface as a small hinged flap that bends the airflow. Deflect it down and the surface it sits on makes more lift on that side; deflect it up and it makes less. Ailerons use this in opposite directions to roll; the elevator and rudder use it to push the tail up, down or sideways.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="2">
+  <div class="cue"><h3>Stabilator &amp; Anti-Servo Tab</h3><p class="q">What is a stabilator, and why does it need an anti-servo tab?</p><span class="tag">One-piece tail</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>A <b>stabilator</b> is a <b>one-piece</b> horizontal tail — the whole surface pivots instead of a fixed stabilizer plus a hinged elevator. (Piper Cherokee, many jets.)</li>
+      <li>It is very powerful, so the danger is <b>over-controlling</b>: small stick movement = big pitch change.</li>
+      <li>The <b>anti-servo tab</b> on its trailing edge moves the <b>same direction</b> as the stabilator. That adds <b>feel</b> — the pilot must push harder the further the stabilator moves.</li>
+      <li>The anti-servo tab usually doubles as the <b>trim tab</b> on these aircraft.</li>
+      <li>Compare a <b>servo tab</b>, which moves the <b>opposite</b> way to help move a heavy surface (big aircraft with no boost).</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Stabilator with anti-servo tab moving the same direction">
+      <g stroke="var(--dia-line)" stroke-width="2" fill="var(--dia-fill)"><path d="M40 70 L260 55 L260 85 L40 80 Z" transform="rotate(-8 150 70)"/><path d="M260 60 L320 52 L320 68 L260 80 Z" transform="rotate(-8 150 70)" fill="var(--dia-hi)"/></g>
+      <circle cx="150" cy="70" r="5" fill="var(--dia-line)"/>
+      <g font-size="11" fill="var(--ink)"><text x="70" y="110">stabilator pivots up (nose up)</text><text x="250" y="110" fill="var(--formula)" font-weight="700">anti-servo tab: same way</text><text x="150" y="132" text-anchor="middle" fill="var(--muted)">same direction = more force needed = "feel" · servo tab = opposite direction = helps the pilot</text></g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>Why "anti-servo"? A servo tab is a helper: it moves opposite to the surface and uses the airflow to push the surface for the pilot. An anti-servo tab does the reverse — it resists the movement so the pilot gets a natural, progressive load. Without it a stabilator would feel dangerously light, especially at high speed.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="3">
+  <div class="cue"><h3>Trim Tabs</h3><p class="q">What does a trim tab do, and which way does it move compared with the control surface?</p><span class="tag">Hands-off flight</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>A <b>trim tab</b> is a small hinged piece on the trailing edge of a control surface. Its job: hold the surface in place so the pilot can <b>fly hands-off</b>.</li>
+      <li>It moves <b>opposite</b> to the direction you want the control surface to go. Tab <b>down</b> → airflow pushes the tab up → the elevator goes <b>up</b> → nose up.</li>
+      <li><b>Adjustable trim</b> is set from the cockpit (wheel, crank or electric switch) — usually on the elevator, sometimes rudder and ailerons.</li>
+      <li><b>Fixed trim tab</b> = a small metal tab an AME <b>bends on the ground</b> to fix a wing-heavy or nose-heavy tendency. Test-fly, bend a little, test again.</li>
+      <li>Trim removes pilot effort; it does <b>not</b> add control authority.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Elevator with trim tab deflected down forcing the elevator up">
+      <g stroke="var(--dia-line)" stroke-width="2" fill="var(--dia-fill)"><path d="M30 70 L200 62 L200 78 L30 78 Z"/><path d="M200 70 L290 52 L292 62 L200 82 Z"/><path d="M290 57 L330 72 L326 80 L286 66 Z" fill="var(--dia-hi)"/></g>
+      <g stroke="var(--formula)" stroke-width="2" fill="none"><path d="M312 95 L312 115" marker-end="url(#ar)"/><path d="M250 40 L250 22"/></g>
+      <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="var(--formula)"/></marker></defs>
+      <g font-size="11" fill="var(--ink)"><text x="40" y="100">stabilizer</text><text x="215" y="105">elevator UP</text><text x="300" y="130" fill="var(--formula)" font-weight="700">tab DOWN</text><text x="350" y="60" fill="var(--muted)">air pushes tab up →</text><text x="350" y="74" fill="var(--muted)">elevator forced up</text></g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>A trim tab is a lever on a lever. The tab is tiny, but it sits at the very back of the control surface, so a small tab force makes a big turning moment on the surface. That is why a fixed tab only needs a few degrees of bend to cure a wing-heavy aircraft — bend it in small steps.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="4">
+  <div class="cue"><h3>Balancing the Controls</h3><p class="q">Name three ways designers balance a control surface, and what each one is for.</p><span class="tag">Lighter · No flutter</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Aerodynamic balance</b> = part of the surface sits <b>ahead of the hinge</b> (a <b>horn</b> at the tip, or an <b>overhang</b>). Air hits that part and helps move the surface → <b>lighter</b> controls.</li>
+      <li><b>Balance tab</b> = a tab linked so it moves <b>opposite</b> to the surface, using airflow to help the pilot. (A servo tab is the free-floating version.)</li>
+      <li><b>Balance panels</b> (big aircraft ailerons) = a panel in a sealed bay ahead of the hinge; pressure difference across it helps push the surface.</li>
+      <li><b>Mass balance</b> = a <b>weight ahead of the hinge</b> so the surface's CG sits on or in front of the hinge line. Purpose: stop <b>flutter</b> — a violent vibration that can tear the surface off.</li>
+      <li>AME rule: after repair or repaint, a control surface must be <b>re-balanced</b> to the manual's limits. Paint adds weight behind the hinge.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Horn balance and mass balance weight ahead of hinge line">
+      <g stroke="var(--dia-line)" stroke-width="2" fill="var(--dia-fill)"><path d="M20 60 L120 60 L120 30 L150 30 L150 100 L20 100 Z"/><path d="M230 45 L380 60 L380 80 L230 95 Z"/></g>
+      <g stroke="var(--dia-line)" stroke-dasharray="4 3"><line x1="120" y1="20" x2="120" y2="110"/><line x1="260" y1="30" x2="260" y2="110"/></g>
+      <circle cx="240" cy="70" r="9" fill="var(--dia-hi)" stroke="var(--dia-line)"/>
+      <g font-size="11" fill="var(--ink)"><text x="20" y="125">horn ahead of hinge = aerodynamic balance</text><text x="232" y="125">weight ahead of hinge = mass balance</text><text x="122" y="18" fill="var(--muted)">hinge</text><text x="262" y="28" fill="var(--muted)">hinge</text></g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>Flutter is the reason mass balance matters so much to maintenance. If a surface's centre of gravity is behind the hinge, a gust can start it flapping, and at speed the flapping feeds on itself. That is why the manual gives a balance limit in inch-pounds and why you weigh the surface on a balance beam after any repair or repaint.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="5">
+  <div class="cue"><h3>Flaps</h3><p class="q">Name the four flap types from simplest to most effective, and what flaps do to lift and drag.</p><span class="tag">Plain · Split · Slotted · Fowler</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Flaps are on the <b>inner trailing edge</b>. Lowering them <b>increases camber</b> → more lift <b>and</b> more drag → slower, steeper approach and shorter take-off.</li>
+      <li><b>Plain flap</b> — simple hinge, whole trailing edge bends down. Cheapest, least effective.</li>
+      <li><b>Split flap</b> — only the <b>bottom</b> surface hinges down. More drag than lift; good for steep approaches.</li>
+      <li><b>Slotted flap</b> — a <b>gap</b> opens between wing and flap; high-pressure air from below flows over the flap and keeps the flow attached → more lift, later stall.</li>
+      <li><b>Fowler flap</b> — slides <b>back and down</b> on tracks. Increases <b>wing area</b> and camber. Most lift, most complex (airliners use double- and triple-slotted Fowler flaps).</li>
+      <li>Rule of thumb: the <b>first ~20°</b> of flap gives mostly <b>lift</b> with little drag (take-off); beyond that, mostly <b>drag</b> (landing).</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Four flap types side by side">
+      <g stroke="var(--dia-line)" stroke-width="2" fill="var(--dia-fill)">
+        <path d="M15 40 Q40 25 75 42 L75 55 L15 55 Z"/><path d="M75 44 L100 62 L98 68 L74 55 Z" fill="var(--dia-hi)"/>
+        <path d="M120 40 Q145 25 180 42 L180 48 L120 55 Z"/><path d="M180 48 L200 68 L197 72 L176 55 Z" fill="var(--dia-hi)"/><path d="M176 42 L200 44 L180 48 Z"/>
+        <path d="M225 40 Q250 25 285 42 L285 55 L225 55 Z"/><path d="M292 50 L318 66 L315 72 L288 58 Z" fill="var(--dia-hi)"/>
+        <path d="M335 40 Q360 25 390 42 L390 55 L335 55 Z"/><path d="M398 56 L410 78 L406 82 L392 60 Z" fill="var(--dia-hi)"/><line x1="390" y1="55" x2="398" y2="58" stroke-dasharray="2 2"/>
+      </g>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="55" y="95" font-weight="700">Plain</text><text x="160" y="95" font-weight="700">Split</text><text x="270" y="95" font-weight="700">Slotted</text><text x="375" y="95" font-weight="700">Fowler</text>
+      <text x="55" y="110" fill="var(--muted)">hinges down</text><text x="160" y="110" fill="var(--muted)">bottom only</text><text x="270" y="110" fill="var(--muted)">gap re-energises flow</text><text x="375" y="110" fill="var(--muted)">slides back + down</text>
+      <text x="210" y="138" fill="var(--formula)" font-weight="700">← less lift  ·  more lift →</text></g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>Why does the slot help? Air under the wing is at high pressure; air over the flap is slowing down and about to separate. The slot lets the high-pressure air squirt through onto the top of the flap, giving the boundary layer new energy so it stays attached to a much steeper angle. Fowler flaps add the slot <i>and</i> extra wing area — the best of both — which is why big jets use them.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="6">
+  <div class="cue"><h3>Slots &amp; Slats</h3><p class="q">What is the difference between a slot and a slat, and what do they do to the stall?</p><span class="tag">Leading edge</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Both are <b>leading-edge</b> devices that let the wing reach a <b>higher angle of attack before stalling</b>.</li>
+      <li><b>Slot</b> = a <b>fixed</b> gap built into the leading edge. High-pressure air from below flows through onto the top surface and keeps the flow attached. Simple, but adds drag all the time.</li>
+      <li><b>Slat</b> = a <b>movable</b> piece of leading edge that slides forward (automatically by air pressure, or by the pilot/hydraulics) to open a slot only when needed.</li>
+      <li>Often placed near the <b>wingtips</b> so the tips (and ailerons) keep flying after the wing root stalls → roll control right into the stall.</li>
+      <li>Big jets: leading-edge slats + trailing-edge Fowler flaps = the full high-lift system.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 130" width="420" height="130" role="img" aria-label="Wing leading edge with slot and slat open">
+      <g stroke="var(--dia-line)" stroke-width="2" fill="var(--dia-fill)">
+        <path d="M60 60 Q100 20 190 40 L190 80 L60 85 Z"/><path d="M38 64 Q45 40 68 38 L64 48 Q52 54 50 70 Z" fill="var(--dia-hi)"/>
+        <path d="M260 60 Q300 20 400 40 L400 80 L260 85 Z"/><path d="M232 66 Q240 38 270 34 L262 48 Q248 56 246 74 Z" fill="var(--dia-hi)"/>
+      </g>
+      <g stroke="var(--formula)" stroke-width="2" fill="none"><path d="M30 78 Q50 62 70 50"/><path d="M222 82 Q244 64 266 48"/></g>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="125" y="110" font-weight="700">Slat (moves out)</text><text x="330" y="110" font-weight="700">Slot (fixed gap)</text><text x="210" y="126" fill="var(--muted)">high-pressure air flows up through the gap and keeps the top flow attached</text></g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>An automatic slat is elegant: at low speed and high angle of attack the low pressure near the leading edge simply sucks the slat forward; at cruise speed the airflow pushes it closed. No motor, no pilot action — the STOL bush planes you see around Southern Alberta often use fixed slots for the same reason.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="7">
+  <div class="cue"><h3>Spoilers &amp; Speed Brakes</h3><p class="q">What do spoilers do, how are flight spoilers different from ground spoilers, and what is a speed brake?</p><span class="tag">Kill lift · Add drag</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>A <b>spoiler</b> is a panel on the <b>top</b> of the wing that rises into the airflow. It <b>spoils lift</b> and <b>adds drag</b>.</li>
+      <li><b>Flight spoilers</b> — raise on <b>one</b> wing to help the ailerons roll (no adverse yaw), or on <b>both</b> wings to descend fast without speeding up.</li>
+      <li><b>Ground spoilers</b> — <b>all</b> panels pop up on touchdown: dump the lift so the weight goes onto the wheels → brakes work.</li>
+      <li><b>Speed brakes</b> — panels whose only job is <b>drag</b>: on the fuselage (jets) or tail cone. They are <b>balanced</b> (symmetrical) so they do not roll or pitch the aircraft.</li>
+      <li>Gliders use spoilers to control the glide path — they have no engine to throttle back.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 130" width="420" height="130" role="img" aria-label="Spoiler panel raised on top of a wing disturbing the airflow">
+      <g stroke="var(--dia-line)" stroke-width="2" fill="var(--dia-fill)"><path d="M40 70 Q120 25 300 50 L300 85 L40 90 Z"/><path d="M170 42 L200 12 L206 16 L178 46 Z" fill="var(--dia-hi)"/></g>
+      <g stroke="var(--formula)" stroke-width="2" fill="none"><path d="M60 45 Q120 25 165 33"/><path d="M210 30 Q240 8 270 40 Q250 55 290 45" stroke-dasharray="4 3"/></g>
+      <g font-size="11" fill="var(--ink)"><text x="150" y="115">spoiler up → flow separates behind it → less lift, more drag</text><text x="212" y="20" fill="var(--formula)" font-weight="700">turbulent</text></g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>Spoilers solve the adverse-yaw problem from Module 3 neatly. An aileron makes roll by <i>adding</i> lift (and drag) on the rising wing; a spoiler makes roll by <i>removing</i> lift on the dropping wing, and its drag is on the inside of the turn — exactly where you want it. That is why fast jets use spoilers for roll at high speed.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="8">
+  <div class="cue"><h3>Control System Types</h3><p class="q">Name the four ways the cockpit can be connected to the control surfaces, from simplest to newest.</p><span class="tag">Cable → Rod → Hydraulic → Wire</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Cable</b> systems — steel cables over pulleys. Light, cheap, easy to route around corners. Most light aircraft. Needs correct <b>tension</b>.</li>
+      <li><b>Push-pull rod</b> systems — rigid tubes with rod ends; no stretch, no tension checks, but heavier and must run fairly straight. Often mixed with cables (Cessna aileron rods, Piper).</li>
+      <li><b>Hydraulically assisted / powered</b> — pilot moves a valve; hydraulic actuators move the surface. Needed when air loads are too high for muscles (big jets). <b>Artificial feel</b> gives the pilot resistance.</li>
+      <li><b>Fly-by-wire</b> — no mechanical link. Pilot input → computer → electrical signal → actuator. Airbus, Boeing 777/787, most military jets.</li>
+      <li>All of them still end at the same thing: a hinge and a surface that changes camber.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 120" width="420" height="120" role="img" aria-label="Four control system types as a chain from cockpit to surface">
+      <g font-size="11" fill="var(--ink)" text-anchor="middle">
+        <rect x="10" y="20" width="90" height="34" rx="6" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="55" y="41" font-weight="700">Cable</text>
+        <rect x="112" y="20" width="90" height="34" rx="6" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="157" y="41" font-weight="700">Push-pull rod</text>
+        <rect x="214" y="20" width="90" height="34" rx="6" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="259" y="41" font-weight="700">Hydraulic</text>
+        <rect x="316" y="20" width="94" height="34" rx="6" fill="var(--dia-hi)" stroke="var(--dia-line)"/><text x="363" y="41" font-weight="700">Fly-by-wire</text>
+        <text x="55" y="75" fill="var(--muted)">pulleys, tension</text><text x="157" y="75" fill="var(--muted)">rod ends, jam nuts</text><text x="259" y="75" fill="var(--muted)">actuators, feel</text><text x="363" y="75" fill="var(--muted)">computers, signals</text>
+        <text x="210" y="105" fill="var(--formula)" font-weight="700">simpler · lighter  ←──────→  bigger · faster aircraft</text>
+      </g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>Most aircraft you will work on in this program are cable or cable-plus-rod. The maintenance skills that go with them — tensiometers, turnbuckle safety, rigging pins — are exactly the hands-on items in the AME practical exams, so the next three sections are the ones to know cold.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="9">
+  <div class="cue"><h3>Cable System Hardware</h3><p class="q">What do pulleys, fairleads, turnbuckles, bellcranks and torque tubes each do — and what are the two numbers to remember?</p><span class="tag">3° · 3 threads</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Pulleys</b> change the cable's <b>direction</b>. A <b>guard</b> stops the cable jumping off when slack.</li>
+      <li><b>Fairleads</b> (plastic or phenolic guides) keep a cable from rubbing on structure. A fairlead may bend the cable no more than <b>3°</b> — more than that needs a pulley.</li>
+      <li><b>Turnbuckles</b> adjust cable <b>tension</b>. Safe when no more than <b>3 threads</b> show outside the barrel; always <b>safetied</b> (wire or clip) after adjustment.</li>
+      <li><b>Bellcranks</b> change the direction <b>and</b> can change the ratio of the motion (lever). <b>Quadrants</b> turn cable pull into rotation.</li>
+      <li><b>Torque tubes</b> carry the motion as a <b>twist</b> — e.g. from the control column to the ailerons.</li>
+      <li><b>Cable tension</b> is measured with a <b>tensiometer</b> and corrected for <b>temperature</b> using the manual's chart — cables tighten when cold, slacken when hot.</li>
+      <li><b>Stops</b> limit travel: <b>primary</b> stops at the surface, <b>secondary</b> stops at the cockpit control.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Cable running through fairlead and around pulley to a bellcrank with a turnbuckle">
+      <g stroke="var(--dia-line)" stroke-width="2" fill="none"><path d="M20 60 L120 60"/><path d="M150 60 L230 60"/><path d="M230 60 Q262 60 262 92 L262 120"/></g>
+      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><rect x="118" y="52" width="32" height="16" rx="3"/><circle cx="262" cy="60" r="22"/><circle cx="262" cy="60" r="4" fill="var(--dia-line)"/><rect x="60" y="54" width="36" height="12" rx="6" fill="var(--dia-hi)"/></g>
+      <g stroke="var(--dia-line)" stroke-width="2" fill="var(--dia-fill)"><path d="M262 120 L340 100 L262 128 Z"/><circle cx="262" cy="124" r="4"/></g>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="78" y="85">turnbuckle</text><text x="78" y="98" fill="var(--formula)">≤ 3 threads showing</text><text x="134" y="85">fairlead</text><text x="134" y="98" fill="var(--formula)">≤ 3° bend</text><text x="262" y="25">pulley (changes direction)</text><text x="330" y="125">bellcrank</text></g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>The two numbers are exam favourites: <b>3°</b> for a fairlead, <b>3 threads</b> for a turnbuckle. Both come from the same idea — a cable is happy being pulled straight and unhappy being bent or held by too little thread. Cable tension itself varies by aircraft (a typical light aircraft is in the tens of pounds), so always use the type's chart, never a remembered number.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="10">
+  <div class="cue"><h3>Push-Pull Rods &amp; Rod Ends</h3><p class="q">How is a rod end adjusted and locked, and what is the check hole for?</p><span class="tag">Jam nut · Check hole</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>A <b>push-pull rod</b> is a tube with a threaded <b>rod end</b> (clevis or ball-bearing end) at each end. Screw the rod end in or out to set the length.</li>
+      <li>A <b>jam nut</b> is tightened against the rod end to lock the adjustment. Loose jam nut = length can change in flight = <b>rigging drifts</b>.</li>
+      <li>The <b>check hole</b> (inspection hole) in the tube shows thread engagement: if a wire or pin <b>cannot</b> pass through the hole, enough thread is screwed in. If it <b>can</b>, the rod end is not engaged far enough — unsafe.</li>
+      <li>Rod ends with <b>spherical bearings</b> allow small misalignment without binding.</li>
+      <li>Rods must be inspected for <b>bends</b>, <b>corrosion</b> inside and out (drain holes), and <b>bearing play</b>.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 110" width="420" height="110" role="img" aria-label="Push-pull rod end with jam nut and check hole">
+      <g stroke="var(--dia-line)" stroke-width="2" fill="var(--dia-fill)"><rect x="40" y="40" width="200" height="24" rx="4"/><rect x="240" y="46" width="60" height="12"/><rect x="238" y="36" width="14" height="32" fill="var(--dia-hi)"/><circle cx="330" cy="52" r="18"/><circle cx="330" cy="52" r="7" fill="var(--dia-line)"/></g>
+      <circle cx="215" cy="52" r="4" fill="var(--dia-line)"/>
+      <g stroke="var(--dia-line)" stroke-dasharray="3 2"><line x1="252" y1="52" x2="300" y2="52"/></g>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="130" y="85">rod (tube)</text><text x="215" y="90" fill="var(--formula)" font-weight="700">check hole</text><text x="245" y="25">jam nut</text><text x="330" y="90">rod end (bearing)</text><text x="215" y="104" fill="var(--muted)">wire must NOT pass through the hole = enough thread engaged</text></g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>The check hole is a one-second safety test that catches a very serious fault. A rod end held by only two or three threads can pull out under load and leave a control surface disconnected. On some rods a slot or witness mark does the same job — the manual for the type tells you which.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="11">
+  <div class="cue"><h3>Fly-by-Wire, Rigging &amp; Control Checks</h3><p class="q">What does fly-by-wire add, what does "rigging" mean, and why do control-system jobs need a second signature?</p><span class="tag">CAR 571.10</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Fly-by-wire benefits:</b> lighter (no cables/rods), <b>envelope protection</b> (the computer will not let the pilot stall, over-bank or over-stress the aircraft), smoother gust response, easier autopilot integration.</li>
+      <li><b>Risk:</b> everything depends on electrical power and software → multiple <b>redundant</b> computers and power sources; a <b>direct law</b> backup mode when protections are lost.</li>
+      <li><b>Rigging</b> = setting the control system so every surface sits in the right neutral position and moves the right amount — using <b>rigging pins</b>, <b>protractors</b>, cable tension charts and the manual's travel limits.</li>
+      <li><b>Control check</b> after any work: move each control full travel and confirm the surface moves the <b>correct direction</b>, <b>full travel</b>, <b>freely</b>, and reaches the <b>stops</b>. Reversed controls have crashed aircraft.</li>
+      <li>In Canada, work on flight controls requires an <b>independent (duplicate) inspection</b> by a second qualified person before release — <b>CAR 571.10</b>. Two signatures, no exceptions.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 120" width="420" height="120" role="img" aria-label="Control check list: direction, travel, freedom, stops, second signature">
+      <g font-size="12" fill="var(--ink)">
+        <rect x="10" y="10" width="400" height="100" rx="8" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+        <text x="25" y="32" font-weight="700">Control check — after ANY control-system work</text>
+        <text x="25" y="54">☐ correct direction  ☐ full travel to stops  ☐ free, no binding</text>
+        <text x="25" y="74">☐ cable tension per chart  ☐ turnbuckles safetied  ☐ jam nuts tight</text>
+        <text x="25" y="96" fill="var(--formula)" font-weight="700">☐ independent inspection + second signature (CAR 571.10)</text>
+      </g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>Envelope protection is the big idea behind fly-by-wire: the aircraft's limits are written into the software, so a startled pilot can pull full back on the stick and the aircraft gives maximum performance without stalling. The trade-off is that the AME now troubleshoots sensors, computers and wiring rather than pulleys. The duplicate-inspection rule exists because a single reversed cable is invisible from the cockpit and fatal on take-off.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+</section>
+
+<section class="box sum" aria-label="Summary">
+  <div class="eyebrow">Summary</div>
+  <p style="margin:.5rem 0 0;max-width:70ch">Three primary controls — ailerons (roll), elevator (pitch), rudder (yaw) — all work by changing camber. A stabilator replaces stabilizer-plus-elevator and needs an anti-servo tab for feel; trim tabs move opposite to the surface so the pilot can fly hands-off; horn, balance-tab and balance-panel designs make controls lighter, and mass balance stops flutter. Flaps add camber (plain, split, slotted, Fowler — in order of effectiveness), slots and slats delay the stall at the leading edge, spoilers kill lift and add drag, and speed brakes add drag only. Cockpit to surface is connected by cables (pulleys, fairleads ≤ 3°, turnbuckles ≤ 3 threads, tensiometer), push-pull rods (jam nut, check hole), hydraulic power with artificial feel, or fly-by-wire with envelope protection. After any control work: rig it, check direction and travel, and get the independent inspection required by CAR 571.10.</p>
+</section>
+
+<section class="box" aria-label="Key terms">
+  <div class="eyebrow">Key terms</div>
+  <div class="terms">
+    <div><b>Primary controls</b>Ailerons, elevator, rudder — roll, pitch, yaw.</div>
+    <div><b>Secondary controls</b>Flaps, slats, slots, spoilers, speed brakes, trim.</div>
+    <div><b>Stabilator</b>One-piece pivoting horizontal tail.</div>
+    <div><b>Anti-servo tab</b>Tab that moves with the surface to add feel; also the trim tab on a stabilator.</div>
+    <div><b>Servo / balance tab</b>Tab that moves opposite to the surface to help the pilot.</div>
+    <div><b>Trim tab</b>Small tab that holds a surface in place for hands-off flight; fixed tabs are bent on the ground.</div>
+    <div><b>Mass balance</b>Weight ahead of the hinge to prevent flutter.</div>
+    <div><b>Flutter</b>Self-feeding vibration of a control surface — destructive.</div>
+    <div><b>Plain / split / slotted / Fowler flap</b>Flap types in order of effectiveness; Fowler adds area.</div>
+    <div><b>Slot / slat</b>Fixed gap / movable leading-edge piece that delays the stall.</div>
+    <div><b>Spoiler</b>Top-of-wing panel that spoils lift and adds drag; flight and ground spoilers.</div>
+    <div><b>Speed brake</b>Balanced drag-only panel.</div>
+    <div><b>Fairlead</b>Cable guide; max 3° bend.</div>
+    <div><b>Turnbuckle</b>Cable tension adjuster; ≤ 3 threads showing, must be safetied.</div>
+    <div><b>Bellcrank / torque tube</b>Changes direction or ratio / carries motion as a twist.</div>
+    <div><b>Tensiometer</b>Tool that measures cable tension; correct for temperature.</div>
+    <div><b>Jam nut / check hole</b>Locks a rod end / proves thread engagement (wire must not pass).</div>
+    <div><b>Fly-by-wire</b>Computer-controlled electrical link with envelope protection.</div>
+    <div><b>Rigging</b>Setting neutral positions, travel and tension to the manual.</div>
+    <div><b>CAR 571.10</b>Independent (duplicate) inspection of flight-control work.</div>
+  </div>
+</section>
+
+<section class="box" aria-label="Check yourself">
+  <div class="eyebrow">Check yourself</div>
+  <p style="margin:.4rem 0 0;color:var(--muted)">Pick an answer. You get feedback right away and can try again.</p>
+  <div class="qz" id="quiz"></div>
+  <div class="score" id="score"></div>
+</section>
+
+<p class="flag">Source: ASYS 245 Module 4 course decks (Flight Controls Part A and Part B), condensed. Hardware limits (3° fairlead, 3 threads, CAR 571.10) are the standard values used in Canadian AME training — confirm against the aircraft manual for any real job.</p>
+</div>
+
+<script>
+(function(){
+  var KEY='asys245-m4';
+  var state={done:{},study:false};
+  try{ state=Object.assign(state,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+  var boxes=document.querySelectorAll('.done'); var pbar=document.getElementById('pbar'), ptext=document.getElementById('ptext');
+  function progress(){ var n=0; boxes.forEach(function(b){ if(b.checked) n++; }); pbar.style.width=(100*n/boxes.length)+'%'; ptext.textContent=n+' / '+boxes.length+' sections checked'; }
+  boxes.forEach(function(b){ var id=b.closest('.row').dataset.sec; b.checked=!!state.done[id]; b.addEventListener('change',function(){ state.done[id]=b.checked; save(); progress(); }); });
+  progress();
+  var toggle=document.getElementById('studyToggle'); var notes=document.getElementById('notes');
+  function applyStudy(){ notes.classList.toggle('study',toggle.checked); document.querySelectorAll('.body.open').forEach(function(b){ b.classList.remove('open'); }); }
+  toggle.checked=!!state.study; applyStudy();
+  toggle.addEventListener('change',function(){ state.study=toggle.checked; save(); applyStudy(); });
+  document.querySelectorAll('.reveal button').forEach(function(btn){ btn.addEventListener('click',function(){ btn.closest('.body').classList.add('open'); }); });
+  document.getElementById('resetBtn').addEventListener('click',function(){ state={done:{},study:false}; save(); boxes.forEach(function(b){ b.checked=false; }); toggle.checked=false; applyStudy(); progress(); buildQuiz(); });
+  var Q=[
+    {q:'Which control surface produces roll, and how do the two of them move?',o:['Elevator — both up together','Ailerons — opposite directions','Rudder — left and right'],a:1,fb:'Ailerons move opposite ways: one down (more lift) and one up (less lift) to roll the aircraft.'},
+    {q:'An anti-servo tab on a stabilator moves…',o:['opposite to the stabilator, to help the pilot','the same direction as the stabilator, to add feel','only when the trim wheel is turned'],a:1,fb:'Same direction = the pilot must push harder the further it moves. That stops over-controlling a very powerful one-piece tail.'},
+    {q:'To trim the nose UP, the elevator trim tab moves…',o:['down','up','it does not move; the elevator does'],a:0,fb:'Tab down → air pushes the tab up → the elevator is forced up → nose up. Tabs move opposite to the surface.'},
+    {q:'A weight fixed ahead of the hinge line on an aileron is there to…',o:['make the aileron heavier to move','prevent flutter','trim the aircraft wing-level'],a:1,fb:'Mass balance keeps the surface\'s CG on or ahead of the hinge so a gust cannot start a destructive flutter.'},
+    {q:'Which flap slides back and down, adding wing area as well as camber?',o:['Plain flap','Split flap','Fowler flap'],a:2,fb:'Fowler flaps run on tracks and increase area — the most effective type, used on airliners.'},
+    {q:'The first ~20° of flap gives mainly…',o:['lift with little extra drag','drag with little extra lift','no change'],a:0,fb:'That is why take-off uses a small flap setting; larger settings add mostly drag for landing.'},
+    {q:'A slat differs from a slot because a slat…',o:['is on the trailing edge','is movable and opens the gap only when needed','adds drag at cruise'],a:1,fb:'A slot is a fixed gap; a slat is a movable leading-edge piece that extends at high angle of attack.'},
+    {q:'Ground spoilers deploy on touchdown to…',o:['slow the engines','dump lift so the wheels carry the weight and brakes work','help the ailerons roll'],a:1,fb:'All panels come up together: lift is spoiled, weight goes onto the tires, and braking becomes effective.'},
+    {q:'A fairlead may bend a cable no more than…',o:['3°','10°','30°'],a:0,fb:'Beyond 3° a pulley is needed. And a turnbuckle may show no more than 3 threads outside the barrel.'},
+    {q:'A wire passes easily through the check hole of a push-pull rod. This means…',o:['the rod end is properly engaged','the rod end is NOT screwed in far enough — unsafe','the jam nut is tight'],a:1,fb:'The wire must NOT pass through. If it does, too few threads are engaged and the rod end could pull out under load.'},
+    {q:'Fly-by-wire "envelope protection" means…',o:['the aircraft is sealed against weather','the computer stops the pilot exceeding stall, bank or load limits','the cables are protected by a sleeve'],a:1,fb:'Limits are written into the software, so full stick gives maximum performance without stalling or over-stressing the aircraft.'},
+    {q:'After replacing an aileron cable in Canada, before release the work needs…',o:['a test flight only','an independent inspection and second signature (CAR 571.10)','nothing extra if the tension is correct'],a:1,fb:'Flight-control work requires a duplicate inspection by a second qualified person. A reversed control is invisible from the cockpit.'}
+  ];
+  var quiz=document.getElementById('quiz'), score=document.getElementById('score'); var got={};
+  function buildQuiz(){ quiz.innerHTML=''; got={}; score.textContent='';
+    Q.forEach(function(item,i){ var card=document.createElement('div'); card.className='qcard'; var p=document.createElement('p'); p.textContent=(i+1)+'. '+item.q; card.appendChild(p);
+      var opts=document.createElement('div'); opts.className='opts'; var fb=document.createElement('div'); fb.className='fb';
+      item.o.forEach(function(text,j){ var b=document.createElement('button'); b.type='button'; b.className='opt'; b.textContent=text;
+        b.addEventListener('click',function(){ opts.querySelectorAll('.opt').forEach(function(x){ x.classList.remove('right','wrong'); });
+          if(j===item.a){ b.classList.add('right'); fb.className='fb show good'; fb.textContent='Correct. '+item.fb; got[i]=true; } else { b.classList.add('wrong'); fb.className='fb show bad'; fb.textContent='Not quite — try again. Hint: '+item.fb; got[i]=false; }
+          var n=0,t=0; for(var k in got){ t++; if(got[k]) n++; }
+          score.textContent= t===Q.length ? 'Score: '+n+' / '+Q.length+(n===Q.length?' — solid. Now explain each answer to a partner.':' — reread the sections you missed, then retry.') : n+' correct so far'; });
+        opts.appendChild(b); });
+      card.appendChild(opts); card.appendChild(fb); quiz.appendChild(card); }); }
+  buildQuiz();
+})();
+</script>
+
+</body>
+</html>
