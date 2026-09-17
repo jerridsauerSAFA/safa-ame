@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ASYS 245 Module 3 · Reference Sheet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--bg:#F4F6F8;--surface:#FFFFFF;--cue:#E6EDF3;--line:#CBD5DE;--ink:#16232E;--muted:#526170;--accent:#1D5C8F;--accent-ink:#FFFFFF;--formula:#B8690F;--formula-bg:#FFF4E3;--ok:#2E7D4F;--ok-bg:#E4F3EA;--shadow:0 1px 2px rgba(22,35,46,.08)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--shadow:none}}
+:root[data-theme="dark"]{--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--shadow:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+h2{font-size:1.5rem;font-weight:700}
+h3{font-size:1.15rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.wrap{max-width:960px;margin:0 auto}
+.eyebrow{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--accent)}
+header.top{padding-block:2rem 1.25rem;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;justify-content:space-between}
+header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
+.meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted)}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.4rem .9rem;border-radius:4px;cursor:pointer}
+.btn:focus-visible,input:focus-visible,details summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* reference strip */
+.ref{margin-top:1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.ref div{background:var(--surface);padding:.8rem 1rem}
+.ref .l{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ref .v{font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.45rem;white-space:nowrap;font-weight:700;color:var(--formula);font-variant-numeric:tabular-nums}
+.ref .s{font-size:.8rem;color:var(--muted)}
+/* formula cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-top:1rem}
+.fc{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column}
+.fc .head{padding:.8rem 1rem .5rem;border-bottom:1px solid var(--line)}
+.fc .head .k{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.fc .big{font-family:"JetBrains Mono",monospace;font-size:1.6rem;color:var(--formula);background:var(--formula-bg);padding:.6rem 1rem;text-align:center;font-variant-numeric:tabular-nums}
+.fc .body{padding:.8rem 1rem 1rem;display:grid;gap:.5rem;flex:1}
+.fc .body p{margin:0}
+.vars{display:grid;grid-template-columns:auto 1fr;gap:.15rem .7rem;font-size:.92rem}
+.vars b{font-family:"JetBrains Mono",monospace;font-weight:500;color:var(--formula)}
+.words{font-weight:600}
+.hold{font-size:.85rem;color:var(--muted)}
+.hold b{color:var(--ink)}
+details{border-top:1px dotted var(--line);padding-top:.5rem}
+details summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:.9rem;list-style:none}
+details summary::before{content:"+ ";font-family:"JetBrains Mono",monospace}
+details[open] summary::before{content:"– "}
+.ex{font-size:.92rem;margin:.4rem 0 0}
+.ex code{font-family:"JetBrains Mono",monospace;background:var(--cue);padding:.05em .3em;border-radius:3px}
+/* calc */
+.calc{background:var(--cue);border-radius:4px;padding:.7rem .8rem;margin-top:.4rem;display:grid;gap:.4rem}
+.calc .row{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center;font-size:.9rem}
+.calc label{display:inline-flex;align-items:center;gap:.3rem}
+.calc input{width:5.2rem;font:.95rem "JetBrains Mono",monospace;padding:.25rem .4rem;border:1px solid var(--line);border-radius:3px;background:var(--surface);color:var(--ink)}
+.calc .out{font-family:"JetBrains Mono",monospace;font-weight:500;color:var(--ok);background:var(--ok-bg);padding:.2rem .5rem;border-radius:3px;min-width:6rem;display:inline-block}
+.foot{font-size:.85rem;color:var(--muted);margin-top:2rem}
+@media print{body{background:#fff;color:#000;padding:0}.btn,details summary,.calc{display:none}details{border:0}details>*{display:block}header.top{border-bottom:2px solid #000}.fc{break-inside:avoid;border:1px solid #999}.fc .big{background:#f2f2f2;color:#000}.ref .v{color:#000}}
+</style>
+</head>
+<body>
+<style>
+.tbl{width:100%;border-collapse:collapse;font-size:.95rem;margin:.75rem 0 1.25rem}
+.tbl th,.tbl td{border:1px solid var(--line,#d6dde5);padding:.45rem .6rem;text-align:left;vertical-align:top}
+.tbl th{font-family:"Barlow Condensed",sans-serif;font-size:1.05rem;letter-spacing:.02em;background:rgba(29,92,143,.08)}
+.tbl td b{color:#1D5C8F}
+</style>
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">Reference sheet · ASYS 245 · Module 3</div>
+    <h1>Stability &amp; Control Reference</h1>
+    <p>Module 3 has few formulas and many rules. This sheet is the rules on one page: the axis table, the stability ladder, the CG rules, and the one formula that runs the whole module — moment = force × arm. Print it for the binder.</p>
+  </div>
+  <div><div class="meta">SAFA · Super T Aviation<br>Module 3</div><br><button class="btn" type="button" onclick="window.print()">Print</button></div>
+</header>
+
+<h3 style="margin-top:1.5rem">Rules to remember</h3>
+<div class="ref">
+  <div><div class="l">Axes</div><div class="v">3 axes · 3 controls</div><div class="s">all cross at the CG</div></div>
+  <div><div class="l">CG rule</div><div class="v">CG ahead of lift</div><div class="s">tail pushes down → stable</div></div>
+  <div><div class="l">Aft CG</div><div class="v">DANGER</div><div class="s">unstable, may not recover from stall</div></div>
+  <div><div class="l">Lateral &gt; directional</div><div class="v">Dutch roll</div><div class="s">yaw damper fixes it</div></div>
+  <div><div class="l">Directional &gt; lateral</div><div class="v">Spiral</div><div class="s">slow tightening bank</div></div>
+  <div><div class="l">Adverse yaw</div><div class="v">4 fixes</div><div class="s">differential · Frise · interconnect · spoilers</div></div>
+</div>
+
+<h3 style="margin-top:1.75rem">The axis table — learn it as one line each</h3>
+<table class="tbl">
+  <tr><th>Axis</th><th>Runs…</th><th>Motion</th><th>Control</th><th>Stability name</th><th>Comes from</th></tr>
+  <tr><td><b>Longitudinal</b></td><td>nose → tail</td><td>Roll</td><td>Ailerons</td><td><b>Lateral</b></td><td>Dihedral, sweepback, keel effect, high wing</td></tr>
+  <tr><td><b>Lateral</b></td><td>wingtip → wingtip</td><td>Pitch</td><td>Elevator</td><td><b>Longitudinal</b></td><td>Horizontal stabilizer + CG ahead of lift</td></tr>
+  <tr><td><b>Vertical</b></td><td>top → bottom</td><td>Yaw</td><td>Rudder</td><td><b>Directional</b></td><td>Vertical fin (weathercock)</td></tr>
+</table>
+<p class="hold" style="margin-top:-.5rem"><b>Watch the cross-over:</b> roll happens about the <i>longitudinal</i> axis but is called <i>lateral</i> stability. Pitch happens about the <i>lateral</i> axis but is called <i>longitudinal</i> stability. Yaw is the easy one — vertical axis, directional stability.</p>
+
+<h3 style="margin-top:1.75rem">The stability ladder</h3>
+<table class="tbl">
+  <tr><th></th><th>Positive</th><th>Neutral</th><th>Negative</th></tr>
+  <tr><td><b>Static</b><br><span class="s">first reaction</span></td><td>Starts to return</td><td>Stays where it was put</td><td>Keeps moving away</td></tr>
+  <tr><td><b>Dynamic</b><br><span class="s">over time</span></td><td>Swings get smaller</td><td>Swings stay the same size</td><td>Swings grow</td></tr>
+</table>
+<p class="hold" style="margin-top:-.5rem">Static stability comes first. An aircraft can be statically stable and dynamically unstable (it tries to return, but overshoots more each time). Certified aircraft must be positive in both.</p>
+
+<h3 style="margin-top:1.75rem">The one formula</h3>
+<div class="grid">
+
+<div class="fc">
+  <div class="head"><div class="k">Moments</div><h2>Moment = Force × Arm</h2></div>
+  <div class="big">M = F × d</div>
+  <div class="body">
+    <div class="vars"><b>M</b><span>moment — the turning effect (lb·in or N·m)</span><b>F</b><span>force (lift, weight, tail load)</span><b>d</b><span>arm — distance from the CG</span></div>
+    <p class="words">A small force far from the CG turns the aircraft as much as a big force close to it. That is why the tail is small and far back.</p>
+    <p class="hold">Every stability story in this module is two moments fighting: the <b>nose-down</b> moment of lift behind the CG versus the <b>nose-up</b> moment of tail downforce. Level flight = the two are equal.</p>
+    <details><summary>Worked example</summary><p class="ex">Lift acts 4 in behind the CG on a 2,400 lb aircraft: nose-down moment <code>2,400 × 4 = 9,600 lb·in</code>. The tail is 180 in behind the CG, so it only needs <code>9,600 ÷ 180 = 53 lb</code> of downforce to hold the nose level.</p></details>
+    <div class="calc" data-calc="mom">
+      <div class="row"><label>Force <input type="number" id="m_f" value="2400"></label><label>Arm <input type="number" id="m_d" value="4"></label></div>
+      <div class="row">M = <span class="out" id="m_out">9600</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">Tail balance</div><h2>Tail force needed</h2></div>
+  <div class="big">F<sub>tail</sub> = M ÷ d<sub>tail</sub></div>
+  <div class="body">
+    <div class="vars"><b>M</b><span>the wing's nose-down moment</span><b>d<sub>tail</sub></b><span>distance from CG to the tail (tail arm)</span></div>
+    <p class="words">Longer tail arm → less tail force needed → less drag and a more stable aircraft.</p>
+    <p class="hold">Move the CG <b>aft</b> and the wing's arm shrinks → less tail force needed → light, twitchy elevator. Move it too far and the tail must push <b>up</b> — the aircraft is now unstable.</p>
+    <details><summary>Worked example</summary><p class="ex">Same 9,600 lb·in moment. Short tail arm 120 in: <code>9,600 ÷ 120 = 80 lb</code>. Long tail arm 240 in: <code>9,600 ÷ 240 = 40 lb</code>. Half the force, half the trim drag.</p></details>
+    <div class="calc" data-calc="tail">
+      <div class="row"><label>Moment <input type="number" id="t_m" value="9600"></label><label>Tail arm <input type="number" id="t_d" value="180"></label></div>
+      <div class="row">F<sub>tail</sub> = <span class="out" id="t_out">53.3</span></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<h3 style="margin-top:1.75rem">CG out of limits</h3>
+<table class="tbl">
+  <tr><th></th><th>CG too far forward</th><th>CG too far aft</th></tr>
+  <tr><td><b>Stability</b></td><td>Too much — sluggish</td><td>Too little — twitchy, may be unstable</td></tr>
+  <tr><td><b>Controls</b></td><td>Heavy; may run out of elevator in the flare</td><td>Very light; easy to over-control</td></tr>
+  <tr><td><b>Stall</b></td><td>Higher stall speed (tail downforce adds to weight)</td><td>Easy to stall or spin; may <b>not recover</b></td></tr>
+  <tr><td><b>Cruise</b></td><td>More trim drag, slower</td><td>Less drag, faster — the trap</td></tr>
+  <tr><td><b>Verdict</b></td><td>Poor performance</td><td><b>Dangerous</b></td></tr>
+</table>
+
+<h3 style="margin-top:1.75rem">Two wobbles — which is which</h3>
+<table class="tbl">
+  <tr><th></th><th>Dutch roll</th><th>Spiral instability</th></tr>
+  <tr><td><b>Cause</b></td><td>Lateral (roll) stability <b>stronger</b> than directional</td><td>Directional stability <b>stronger</b> than lateral</td></tr>
+  <tr><td><b>Looks like</b></td><td>Rolling-and-yawing wobble, wingtips draw a figure-8</td><td>Bank slowly steepens, nose drops, speed builds</td></tr>
+  <tr><td><b>Common on</b></td><td>Swept-wing jets, big dihedral</td><td>Most light aircraft (mild)</td></tr>
+  <tr><td><b>Fix</b></td><td>Yaw damper, bigger fin, less dihedral</td><td>Pilot levels the wings; a bit more dihedral</td></tr>
+</table>
+
+<h3 style="margin-top:1.75rem">Adverse yaw — the four fixes</h3>
+<table class="tbl">
+  <tr><th>Fix</th><th>How it works</th></tr>
+  <tr><td><b>Differential ailerons</b></td><td>The up-going aileron travels <b>farther</b> than the down-going one → drag on the inside wing matches the outside.</td></tr>
+  <tr><td><b>Frise ailerons</b></td><td>The up-going aileron's <b>nose pokes below the wing</b> into the airflow, adding drag on the inside.</td></tr>
+  <tr><td><b>Aileron–rudder interconnect</b></td><td>A spring or cable adds a little <b>rudder</b> automatically when ailerons move.</td></tr>
+  <tr><td><b>Spoilers / flaperons</b></td><td>A spoiler rises on the down-going wing — it <b>kills lift and adds drag</b> on the same side, so no yaw the wrong way.</td></tr>
+</table>
+
+<p class="foot">Source: ASYS 245 Module 3 course decks (Jeppesen A&amp;P General, stability section). Worked numbers are illustrative. Module 6 (Weight &amp; Balance) uses the same moment formula with real aircraft data.</p>
+</div>
+
+<script>
+(function(){
+  function n(id){ return parseFloat(document.getElementById(id).value); }
+  function set(id,v){ document.getElementById(id).textContent=v; }
+  function fmt(x,d){ return isFinite(x)?(+x.toFixed(d)).toLocaleString():'—'; }
+  function calc(){
+    set('m_out', fmt(n('m_f')*n('m_d'),0));
+    set('t_out', fmt(n('t_m')/n('t_d'),1));
+  }
+  document.querySelectorAll('.calc input').forEach(function(i){ i.addEventListener('input',calc); });
+  calc();
+})();
+</script>
+
+</body>
+</html>
