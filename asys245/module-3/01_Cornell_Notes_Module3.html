@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ASYS 245 Module 3 · Cornell Notes · Stability & Control</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{
+  --bg:#F4F6F8; --surface:#FFFFFF; --cue:#E6EDF3; --line:#CBD5DE; --ink:#16232E; --muted:#526170;
+  --accent:#1D5C8F; --accent-ink:#FFFFFF; --formula:#B8690F; --formula-bg:#FFF4E3;
+  --ok:#2E7D4F; --ok-bg:#E4F3EA; --bad:#B3402B; --bad-bg:#FBE8E3; --shadow:0 1px 2px rgba(22,35,46,.08);
+  --dia-bg:#F9FBFC; --dia-line:#3A4A58; --dia-fill:#D6E4F0; --dia-hi:#E7A34A;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F171E; --surface:#182430; --cue:#1F2E3B; --line:#33475A; --ink:#E6EDF3; --muted:#9FB0BF;
+    --accent:#6FB0E8; --accent-ink:#0F171E; --formula:#F0B35B; --formula-bg:#2C2416;
+    --ok:#6CCB8F; --ok-bg:#16301F; --bad:#F08A72; --bad-bg:#3A1C15; --shadow:none;
+    --dia-bg:#131E27; --dia-line:#C4D2DE; --dia-fill:#2B4257; --dia-hi:#F0B35B;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F171E; --surface:#182430; --cue:#1F2E3B; --line:#33475A; --ink:#E6EDF3; --muted:#9FB0BF;
+  --accent:#6FB0E8; --accent-ink:#0F171E; --formula:#F0B35B; --formula-bg:#2C2416;
+  --ok:#6CCB8F; --ok-bg:#16301F; --bad:#F08A72; --bad-bg:#3A1C15; --shadow:none;
+  --dia-bg:#131E27; --dia-line:#C4D2DE; --dia-fill:#2B4257; --dia-hi:#F0B35B;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+h2{font-size:1.6rem;font-weight:700;letter-spacing:.01em}
+h3{font-size:1.2rem;font-weight:600}
+.wrap{max-width:960px;margin:0 auto}
+.eyebrow{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--accent)}
+header.top{padding-block:2rem 1.25rem;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;justify-content:space-between}
+header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
+.meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted);letter-spacing:.02em}
+/* toolbar */
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:.6rem;display:flex;flex-wrap:wrap;gap:.5rem .9rem;align-items:center;margin-inline:-16px;padding-inline:16px}
+.bar .grow{flex:1 1 10rem}
+.progress{height:6px;background:var(--cue);border-radius:3px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.bar label{font-size:.9rem;display:inline-flex;gap:.4rem;align-items:center;cursor:pointer;user-select:none}
+.bar input{accent-color:var(--accent);width:1.1rem;height:1.1rem}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.35rem .8rem;border-radius:4px;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn:focus-visible,.bar input:focus-visible,details summary:focus-visible,.opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* cornell grid */
+.notes{margin-top:1.5rem;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+.row{display:grid;grid-template-columns:minmax(150px,30%) 1fr;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.cue{background:var(--cue);padding:1rem;border-right:1px solid var(--line)}
+.cue h3{color:var(--ink)}
+.cue .q{margin:.5rem 0 0;font-weight:600;font-style:italic;color:var(--muted);font-size:.95rem}
+.cue .tag{display:inline-block;margin-top:.6rem;font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;color:var(--accent);text-transform:uppercase}
+.body{padding:1rem 1.25rem;min-width:0}
+.body ul{margin:0;padding-left:1.15rem}
+.body li{margin:.25rem 0}
+.body li+li{margin-top:.35rem}
+.f{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;color:var(--formula);background:var(--formula-bg);padding:.05em .35em;border-radius:3px;white-space:nowrap}
+.big{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:1.35rem;color:var(--formula);background:var(--formula-bg);padding:.25rem .7rem;border-radius:4px;margin:.4rem 0}
+.fig{margin:.9rem 0 .3rem;background:var(--dia-bg);border:1px solid var(--line);border-radius:4px;padding:.5rem;overflow-x:auto}
+.fig svg{display:block;max-width:100%;height:auto;margin:0 auto;font-family:"Source Sans 3",sans-serif}
+.cap{font-size:.8rem;color:var(--muted);margin:.2rem 0 0;font-style:italic}
+details.more{margin-top:.8rem;border-left:3px solid var(--accent);padding-left:.8rem}
+details.more summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:.92rem;list-style:none}
+details.more summary::before{content:"+ ";font-family:"JetBrains Mono",monospace}
+details.more[open] summary::before{content:"– "}
+details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
+/* study mode */
+.study .body>*:not(.reveal){display:none}
+.reveal{display:none}
+.study .reveal{display:block;text-align:left}
+.study .body.open>*{display:block}
+.study .body.open>.reveal{display:none}
+.study .body.open>ul{display:block}
+.study .body.open>.fig{display:block}
+.reveal button{width:100%;text-align:left;font:600 1rem "Source Sans 3",sans-serif;background:transparent;border:1px dashed var(--line);border-radius:4px;color:var(--muted);padding:1rem;cursor:pointer}
+.reveal button:hover{border-color:var(--accent);color:var(--accent)}
+.check{display:inline-flex;align-items:center;gap:.4rem;margin-top:.7rem;font-size:.85rem;color:var(--muted);cursor:pointer}
+.check input{accent-color:var(--ok)}
+/* summary + terms */
+.box{margin-top:1.5rem;background:var(--surface);border:1px solid var(--line);padding:1.25rem;box-shadow:var(--shadow)}
+.box.sum{border-left:6px solid var(--accent)}
+.terms{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem 1.5rem;margin-top:.8rem}
+.terms div{padding:.4rem 0;border-bottom:1px dotted var(--line)}
+.terms b{display:block;font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.05rem;letter-spacing:.02em}
+/* quiz */
+.qz{margin-top:1rem;display:grid;gap:.9rem}
+.qcard{border:1px solid var(--line);border-radius:4px;padding:.9rem 1rem;background:var(--surface)}
+.qcard p{margin:0 0 .5rem;font-weight:600}
+.opts{display:grid;gap:.4rem}
+.opt{text-align:left;font:1rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:.5rem .7rem;border-radius:4px;cursor:pointer}
+.opt:hover{border-color:var(--accent)}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ink)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--ink)}
+.fb{margin-top:.5rem;font-size:.92rem;display:none}
+.fb.show{display:block}
+.fb.good{color:var(--ok)} .fb.bad{color:var(--bad)}
+.score{margin-top:1rem;font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.3rem}
+.flag{font-size:.85rem;color:var(--muted);margin-top:1.5rem}
+@media (max-width:620px){
+  .row{grid-template-columns:1fr}
+  .cue{border-right:0;border-bottom:1px solid var(--line);padding:.8rem 1rem}
+  .body{padding:.9rem 1rem}
+}
+@media (prefers-reduced-motion:reduce){.progress i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">Cornell Notes · ASYS 245 · Module 3</div>
+    <h1>Stability &amp; Control</h1>
+    <p>The three axes, what "stable" means, how each part of the aircraft keeps it steady, and what goes wrong when it doesn't. Read the notes, then switch on <b>Study mode</b> to test yourself from the cue questions.</p>
+  </div>
+  <div class="meta">SAFA · Super T Aviation<br>Module 3 · from course deck</div>
+</header>
+
+<div class="bar" role="toolbar" aria-label="Study tools">
+  <label><input type="checkbox" id="studyToggle"> Study mode (hide notes, recall from cues)</label>
+  <div class="grow"><div class="progress" aria-hidden="true"><i id="pbar"></i></div></div>
+  <span class="meta" id="ptext">0 / 10 sections checked</span>
+  <button class="btn" id="resetBtn" type="button">Reset</button>
+</div>
+
+<section class="notes" id="notes" aria-label="Cornell notes">
+
+<div class="row" data-sec="1">
+  <div class="cue"><h3>Three Axes &amp; Controls</h3><p class="q">Name each axis, the motion about it, the control surface, and the part that gives stability.</p><span class="tag">All cross at the CG</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Longitudinal</b> axis (nose → tail) → <b>ROLL</b> → <b>ailerons</b> → stability from the <b>wings</b> = <b>lateral stability</b>.</li>
+      <li><b>Lateral</b> axis (wingtip → wingtip) → <b>PITCH</b> → <b>elevator</b> → stability from the <b>horizontal stabilizer</b> = <b>longitudinal stability</b>.</li>
+      <li><b>Vertical</b> axis (up/down through the CG) → <b>YAW</b> → <b>rudder</b> → stability from the <b>vertical stabilizer</b> = <b>directional stability</b>.</li>
+      <li>All three axes cross at the <b>centre of gravity</b>.</li>
+      <li><b>Trap:</b> the stability name is NOT the axis name. Lateral stability = roll about the <i>longitudinal</i> axis. Longitudinal stability = pitch about the <i>lateral</i> axis.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 170" width="420" height="170" role="img" aria-label="Table of axis, motion, control and stabilizing part">
+      <g font-size="12" fill="var(--ink)">
+        <rect x="10" y="10" width="400" height="26" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+        <text x="20" y="28" font-weight="700">Axis</text><text x="130" y="28" font-weight="700">Motion</text><text x="215" y="28" font-weight="700">Control</text><text x="300" y="28" font-weight="700">Stability from</text>
+        <g><rect x="10" y="36" width="400" height="36" fill="none" stroke="var(--dia-line)"/><text x="20" y="58">Longitudinal</text><text x="130" y="58" font-weight="700" fill="var(--formula)">Roll</text><text x="215" y="58">Ailerons</text><text x="300" y="58">Wings (lateral)</text></g>
+        <g><rect x="10" y="72" width="400" height="36" fill="none" stroke="var(--dia-line)"/><text x="20" y="94">Lateral</text><text x="130" y="94" font-weight="700" fill="var(--formula)">Pitch</text><text x="215" y="94">Elevator</text><text x="300" y="94">H. stab (longitudinal)</text></g>
+        <g><rect x="10" y="108" width="400" height="36" fill="none" stroke="var(--dia-line)"/><text x="20" y="130">Vertical</text><text x="130" y="130" font-weight="700" fill="var(--formula)">Yaw</text><text x="215" y="130">Rudder</text><text x="300" y="130">V. stab (directional)</text></g>
+        <text x="20" y="162" font-size="11" fill="var(--muted)">Memory line: Roll–Long–Aileron–Wings · Pitch–Lat–Elevator–HStab · Yaw–Vert–Rudder–VStab</text>
+      </g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>Say the memory line out loud until it's automatic — nearly every question in this module comes back to this table. The axis names describe the <i>line</i>; the stability names describe which way the aircraft is being held steady.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="2">
+  <div class="cue"><h3>Static vs Dynamic Stability</h3><p class="q">What is the difference, and what do positive, neutral and negative mean for each?</p><span class="tag">First move · Over time</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Static stability</b> = the <b>first</b> tendency after a disturbance.</li>
+      <li>&nbsp;&nbsp;Positive → starts back toward trim · Neutral → stays where it was put · Negative → keeps moving away.</li>
+      <li><b>Dynamic stability</b> = what happens <b>over time</b> — do the oscillations shrink, stay, or grow?</li>
+      <li>&nbsp;&nbsp;Positive → oscillations die out · Neutral → same size forever · Negative → grow bigger.</li>
+      <li>Aircraft are designed to be <b>positive static and positive dynamic</b>.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Ball in bowl, on flat, on hill for static stability; damped, constant and growing waves for dynamic">
+      <g stroke="var(--dia-line)" stroke-width="2" fill="none"><path d="M15 50 Q60 95 105 50"/><line x1="130" y1="75" x2="215" y2="75"/><path d="M235 90 Q280 40 325 90"/></g>
+      <g fill="var(--dia-hi)" stroke="var(--dia-line)"><circle cx="60" cy="70" r="7"/><circle cx="172" cy="68" r="7"/><circle cx="280" cy="47" r="7"/></g>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="60" y="112" font-weight="700">positive</text><text x="172" y="112" font-weight="700">neutral</text><text x="280" y="112" font-weight="700">negative</text><text x="172" y="128" fill="var(--muted)">STATIC — the first move</text></g>
+      <g transform="translate(345,0)" stroke="var(--dia-hi)" stroke-width="2" fill="none"><path d="M5 30 q8 -22 16 0 t16 0 t16 0 t16 0" /><path d="M5 70 q8 -18 16 0 t16 0 t16 0 t16 0"/><path d="M5 110 q8 -8 16 0 t16 0 t16 0 t16 0"/></g>
+      <g font-size="9" fill="var(--muted)"><text x="352" y="45">grows = negative</text><text x="352" y="85">same = neutral</text><text x="352" y="125">shrinks = positive</text><text x="352" y="140" font-weight="700" fill="var(--ink)">DYNAMIC</text></g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>Fighters are built close to neutral so they turn fast; trainers and airliners are strongly positive so they fly hands-off. You can have positive static but negative dynamic stability: the nose starts back toward level every time, but each swing is bigger than the last.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="3">
+  <div class="cue"><h3>Longitudinal Stability (Pitch)</h3><p class="q">What provides it, and how does the tail balance the wing?</p><span class="tag">Horizontal stabilizer</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Provided by the <b>horizontal stabilizer</b>.</li>
+      <li>The wing's lift acts behind the CG → the wing wants to pitch <b>nose-down</b>.</li>
+      <li>The tail makes a <b>down-load</b> → pitches the nose <b>up</b> → balance, like a seesaw.</li>
+      <li>It only works if the <b>CG is inside the published range</b> — check the loading every flight.</li>
+      <li>CG too far forward <b>or</b> too far aft → longitudinally unstable.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 400 140" width="400" height="140" role="img" aria-label="Seesaw: wing lift up at CP, weight down at CG, tail down-load">
+      <line x1="40" y1="80" x2="360" y2="80" stroke="var(--dia-line)" stroke-width="4"/>
+      <path d="M150 80 L135 110 L165 110Z" fill="var(--dia-line)"/>
+      <g stroke="var(--dia-hi)" stroke-width="3" fill="none"><line x1="200" y1="72" x2="200" y2="20"/><line x1="340" y1="88" x2="340" y2="125"/></g>
+      <g fill="var(--dia-hi)"><path d="M194 24 L200 10 L206 24Z"/><path d="M334 121 L340 133 L346 121Z"/></g>
+      <line x1="150" y1="88" x2="150" y2="125" stroke="var(--ink)" stroke-width="3"/><path d="M144 121 L150 133 L156 121Z" fill="var(--ink)"/>
+      <g font-size="11" fill="var(--ink)"><text x="207" y="22">LIFT at CP (behind CG)</text><text x="256" y="130" text-anchor="end">WEIGHT at CG</text><text x="300" y="130" text-anchor="end" fill="var(--formula)" font-weight="700">tail DOWN-load →</text><text x="40" y="70" fill="var(--muted)">nose</text><text x="345" y="70" fill="var(--muted)">tail</text></g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>Because the tail pushes <i>down</i>, it is actually "negative lift" the wing has to make up for — which is why a forward CG (more tail down-load needed) raises the stall speed. Canard designs (Section 10) flip this: the front surface lifts up instead.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="4">
+  <div class="cue"><h3>CG Out of Limits</h3><p class="q">What happens with a CG too far forward? Too far aft?</p><span class="tag">Fwd = heavy · Aft = unstable</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Too far FORWARD</b> → nose-heavy → more tail down-load needed → <b>higher stall speed</b>, hard to flare on landing. Stable, but heavy.</li>
+      <li><b>Too far AFT</b> → tail-heavy → <b>unstable in pitch</b> → poor stall and spin recovery. Light controls, but dangerous.</li>
+      <li>Rule: <b>forward = stable but heavy; aft = light but unstable.</b></li>
+      <li>This is why Weight &amp; Balance (Module 6) matters to an AME.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 400 110" width="400" height="110" role="img" aria-label="CG range bracket with forward and aft out-of-limit positions">
+      <line x1="30" y1="60" x2="370" y2="60" stroke="var(--dia-line)" stroke-width="3"/>
+      <rect x="150" y="45" width="110" height="30" fill="var(--ok-bg)" stroke="var(--ok)" stroke-width="2"/>
+      <text x="205" y="64" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">CG RANGE (OK)</text>
+      <circle cx="90" cy="60" r="8" fill="var(--bad)"/><circle cx="320" cy="60" r="8" fill="var(--bad)"/>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="90" y="30" font-weight="700">too far FWD</text><text x="90" y="95" fill="var(--muted)">↑ stall speed, hard flare</text><text x="320" y="30" font-weight="700">too far AFT</text><text x="320" y="95" fill="var(--muted)">unstable, poor recovery</text></g>
+      <text x="30" y="20" font-size="10" fill="var(--muted)">nose</text><text x="370" y="20" text-anchor="end" font-size="10" fill="var(--muted)">tail</text>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>An aft CG is the more dangerous of the two because it can make the aircraft <i>unrecoverable</i> from a stall or spin. A forward CG mostly costs performance. Either way the aircraft is outside its certified envelope and must not fly.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="5">
+  <div class="cue"><h3>Lateral Stability (Roll)</h3><p class="q">How does dihedral level the wings after a disturbance?</p><span class="tag">Wings · Dihedral</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Provided by the <b>wings</b>.</li>
+      <li><b>Dihedral</b> = wings angled <b>upward</b> from the horizontal.</li>
+      <li>A wing drops → the aircraft sideslips → the <b>low wing</b> meets the air at a <b>higher angle of attack</b> → <b>more lift</b> → rolls back level.</li>
+      <li>Other helpers: <b>keel / pendulum effect</b> (high wing, CG hanging below), and <b>sweepback</b> (the low wing shows more effective span → more lift).</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 400 120" width="400" height="120" role="img" aria-label="Front view with dihedral; sideslip arrow; more lift on the low wing">
+      <path d="M40 60 L200 45 L360 60" stroke="var(--dia-line)" stroke-width="6" fill="none" transform="rotate(8 200 45)"/>
+      <ellipse cx="200" cy="52" rx="14" ry="10" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+      <g stroke="var(--dia-hi)" stroke-width="3" fill="none"><line x1="330" y1="68" x2="330" y2="28"/><line x1="80" y1="40" x2="80" y2="22"/></g>
+      <g fill="var(--dia-hi)"><path d="M324 32 L330 18 L336 32Z"/><path d="M74 26 L80 14 L86 26Z"/></g>
+      <text x="300" y="100" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">low wing: ↑ AOA → MORE lift → rolls back</text>
+      <line x1="230" y1="100" x2="170" y2="100" stroke="var(--dia-line)" stroke-width="2"/><path d="M174 95 L164 100 L174 105Z" fill="var(--dia-line)"/><text x="100" y="104" font-size="10" fill="var(--muted)">sideslip airflow</text>
+      <text x="20" y="20" font-size="10" fill="var(--muted)">dihedral (wings angled up)</text>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>Too much lateral stability is a problem too — it fights the pilot in turns and, combined with weak directional stability, causes Dutch roll (Section 7). High-wing aircraft often need little or no dihedral because the pendulum effect already does the job.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="6">
+  <div class="cue"><h3>Directional Stability (Yaw)</h3><p class="q">What provides it? Why is the fin sometimes offset?</p><span class="tag">Vertical stabilizer</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Provided by the <b>vertical stabilizer</b> (fin). Bigger tail area = more stable.</li>
+      <li><b>Weathercock effect</b>: the nose yaws → airflow hits the side of the fin → pushes the tail back → nose swings back into the relative wind, like a weathervane.</li>
+      <li><b>Sweepback</b> helps too: the forward-going wing has more drag and pulls the nose back.</li>
+      <li><b>Offset fin</b>: the fin is angled slightly off the centreline so it lines up with the <b>spiralling propeller slipstream</b> → little or no rudder needed to fly straight.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 400 130" width="400" height="130" role="img" aria-label="Top view: fin as a weathervane; propeller slipstream spiral hitting an offset fin">
+      <ellipse cx="110" cy="65" rx="70" ry="14" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+      <rect x="60" y="30" width="18" height="70" rx="3" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+      <path d="M40 60 L30 66 L40 72" fill="var(--dia-line)"/><rect x="30" y="63" width="14" height="6" fill="var(--dia-line)"/>
+      <g stroke="var(--dia-hi)" stroke-width="2" fill="none"><line x1="20" y1="100" x2="60" y2="80"/></g><path d="M56 78 L66 78 L60 86Z" fill="var(--dia-hi)"/>
+      <text x="70" y="120" text-anchor="middle" font-size="11" fill="var(--ink)">airflow hits fin → tail pushed back → nose realigns</text>
+      <g transform="translate(230,0)"><ellipse cx="80" cy="65" rx="70" ry="14" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+        <path d="M150 65 C 120 45, 100 85, 70 65 S 30 45, 10 65" stroke="var(--dia-hi)" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
+        <rect x="20" y="58" width="12" height="16" fill="var(--dia-line)" transform="rotate(-8 26 66)"/>
+        <text x="80" y="25" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">offset fin</text>
+        <text x="80" y="120" text-anchor="middle" font-size="10" fill="var(--muted)">fin angled into the spiral slipstream</text></g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>The propeller throws air back in a corkscrew that hits one side of the fin, which is why single-engine aircraft yaw left on take-off and need right rudder. An offset fin (or an offset engine mount) builds the correction in at cruise power.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="7">
+  <div class="cue"><h3>Dutch Roll &amp; Spiral Instability</h3><p class="q">What causes Dutch roll, and how is it fixed?</p><span class="tag">Dihedral vs fin</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Dutch roll</b> = rolling and yawing at the same time — a wallowing motion.</li>
+      <li>Cause: <b>lateral stability (dihedral effect) is stronger than directional stability</b>.</li>
+      <li>Not dangerous — but passengers feel sick. Fix: a <b>yaw damper</b> (most large aircraft).</li>
+      <li>The opposite: <b>directional stronger than lateral</b> → <b>spiral instability</b> — a slow, diverging spiral dive if the pilot does nothing.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 400 120" width="400" height="120" role="img" aria-label="Balance scale: dihedral effect versus fin; Dutch roll on one side, spiral on the other">
+      <line x1="200" y1="30" x2="200" y2="95" stroke="var(--dia-line)" stroke-width="4"/>
+      <line x1="60" y1="40" x2="340" y2="55" stroke="var(--dia-line)" stroke-width="3"/>
+      <rect x="30" y="20" width="70" height="26" rx="4" fill="var(--dia-hi)" stroke="var(--dia-line)"/><text x="65" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#16232E">DIHEDRAL</text>
+      <rect x="300" y="42" width="70" height="26" rx="4" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="335" y="59" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">FIN</text>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="70" y="80" font-weight="700">dihedral wins →</text><text x="70" y="95">DUTCH ROLL (wallow)</text><text x="330" y="90" font-weight="700">fin wins →</text><text x="330" y="105">SPIRAL dive</text></g>
+      <text x="200" y="112" text-anchor="middle" font-size="10" fill="var(--muted)">designers balance the two</text>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>Most swept-wing jets lean toward Dutch roll (sweep adds a lot of dihedral effect), so they carry yaw dampers. Most light aircraft lean slightly spiral — which is safer, because a spiral is slow and easy to catch.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="8">
+  <div class="cue"><h3>Adverse Yaw</h3><p class="q">Why does the nose yaw the wrong way when you roll?</p><span class="tag">Drag on the rising wing</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Roll right: left aileron goes <b>down</b> → more camber → <b>more lift</b> on the left wing → it rises.</li>
+      <li>More lift also means <b>more induced drag</b> on that rising wing.</li>
+      <li>Extra drag on the rising (left) wing pulls the nose <b>left</b> — <b>opposite</b> to the roll. That is adverse yaw.</li>
+      <li>Rule: <b>roll right → nose yaws left</b> (unless corrected).</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 400 130" width="400" height="130" role="img" aria-label="Top view rolling right: drag arrow on the left up-going wing and nose swinging left">
+      <ellipse cx="200" cy="70" rx="16" ry="55" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+      <rect x="60" y="62" width="280" height="14" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+      <rect x="60" y="76" width="50" height="6" fill="var(--dia-hi)"/><rect x="290" y="56" width="50" height="6" fill="var(--dia-line)"/>
+      <g stroke="var(--bad)" stroke-width="3" fill="none"><line x1="85" y1="62" x2="85" y2="30"/></g><path d="M79 34 L85 22 L91 34Z" fill="var(--bad)"/>
+      <text x="90" y="30" font-size="11" font-weight="700" fill="var(--bad)">↑ lift + ↑ DRAG (rising wing)</text>
+      <path d="M200 15 Q160 20 150 40" stroke="var(--formula)" stroke-width="2.5" fill="none"/><path d="M146 32 L150 44 L158 36Z" fill="var(--formula)"/>
+      <text x="120" y="120" font-size="11" fill="var(--ink)">aileron DOWN on left</text><text x="250" y="120" font-size="11" fill="var(--ink)">aileron UP on right</text>
+      <text x="205" y="24" font-size="11" font-weight="700" fill="var(--formula)">nose yaws LEFT</text>
+      <text x="205" y="118" font-size="10" fill="var(--muted)">rolling RIGHT</text>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>The pilot's fix is coordinated rudder — a touch of right rudder with a right roll. The designer's fixes are in the next section. Gliders, with long wings and big ailerons, show adverse yaw most strongly.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="9">
+  <div class="cue"><h3>Four Fixes for Adverse Yaw</h3><p class="q">Name the four design fixes and how each one works.</p><span class="tag">Differential · Frise · Interconnect · Spoilers</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Differential ailerons</b> — the UP aileron travels <b>farther</b> than the DOWN one → extra drag on the <b>descending</b> wing balances most of the adverse drag.</li>
+      <li><b>Frise ailerons</b> — the up-going aileron's nose pokes <b>below</b> the wing into the airflow → adds drag on the low wing.</li>
+      <li><b>Aileron–rudder interconnect</b> — <b>springs</b> automatically move the rudder with the ailerons → roll right pulls the right pedal → cancels the left yaw.</li>
+      <li><b>Roll spoilers</b> — a spoiler rises on the <b>down-going</b> wing → kills lift and adds drag on that side → no adverse yaw at all (large jets).</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 130" width="420" height="130" role="img" aria-label="Cross-sections: differential aileron travel, Frise aileron nose below wing, roll spoiler raised">
+      <g transform="translate(10,20)"><path d="M0 40 C 30 15, 90 15, 120 40 C 90 50, 30 50, 0 40Z" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+        <line x1="120" y1="40" x2="150" y2="18" stroke="var(--dia-hi)" stroke-width="4"/><line x1="120" y1="40" x2="145" y2="50" stroke="var(--dia-line)" stroke-width="4" stroke-dasharray="3 2"/>
+        <text x="70" y="85" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink)">Differential</text><text x="70" y="99" text-anchor="middle" font-size="10" fill="var(--muted)">up travels farther than down</text></g>
+      <g transform="translate(160,20)"><path d="M0 40 C 30 15, 90 15, 110 40 C 90 50, 30 50, 0 40Z" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+        <path d="M110 40 L140 22 L118 48 Z" fill="var(--dia-hi)" stroke="var(--dia-line)"/><circle cx="114" cy="42" r="3" fill="var(--dia-line)"/>
+        <text x="65" y="85" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink)">Frise</text><text x="65" y="99" text-anchor="middle" font-size="10" fill="var(--muted)">nose pokes below → drag</text></g>
+      <g transform="translate(300,20)"><path d="M0 40 C 30 15, 90 15, 115 40 C 90 50, 30 50, 0 40Z" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+        <line x1="60" y1="24" x2="85" y2="4" stroke="var(--dia-hi)" stroke-width="4"/>
+        <text x="58" y="85" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink)">Roll spoiler</text><text x="58" y="99" text-anchor="middle" font-size="10" fill="var(--muted)">kills lift on down wing</text></g>
+      <text x="210" y="122" text-anchor="middle" font-size="10" fill="var(--muted)">4th fix: aileron–rudder interconnect springs (not drawn)</text>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>Most light aircraft use differential or Frise ailerons (or both). Airliners use roll spoilers plus small ailerons. The interconnect is common on aircraft with strong adverse yaw and light rudder forces, such as some Pipers.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="10">
+  <div class="cue"><h3>Canards</h3><p class="q">Control canard vs lifting canard — and the advantages and risks of a forward surface.</p><span class="tag">Forward horizontal surface</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>A <b>canard</b> is a small horizontal surface <b>ahead</b> of the main wing.</li>
+      <li><b>Control canard</b> — main wing carries the weight; canard sits near 0° AOA; used for pitch stability and control.</li>
+      <li><b>Lifting canard</b> — shares the weight, generates an <b>up</b> load (no tail down-load) → less drag, higher aspect ratio; but no trailing-edge flaps on the wing.</li>
+      <li><b>Advantages</b>: extra lift, balances the wing's pitching moment, less drag, sits out of the wing's downwash.</li>
+      <li><b>Risks</b>: nose-up moment is <b>destabilizing</b>; the wing must sit <b>behind the CG</b>; the canard is designed to <b>stall first</b> → nose drops → momentary loss of pitch control.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 400 120" width="400" height="120" role="img" aria-label="Side view of a canard aircraft: lift arrows up on both the canard and the main wing, CG between them">
+      <path d="M40 70 L330 70 L360 62 L360 74 L330 80 L40 80 Z" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
+      <rect x="70" y="66" width="40" height="6" fill="var(--dia-line)"/><rect x="230" y="68" width="90" height="8" fill="var(--dia-line)"/>
+      <g stroke="var(--dia-hi)" stroke-width="3" fill="none"><line x1="90" y1="60" x2="90" y2="30"/><line x1="275" y1="60" x2="275" y2="14"/></g>
+      <g fill="var(--dia-hi)"><path d="M84 34 L90 20 L96 34Z"/><path d="M269 18 L275 4 L281 18Z"/></g>
+      <circle cx="180" cy="75" r="5" fill="var(--bad)"/><text x="180" y="100" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">CG (wing behind it)</text>
+      <text x="90" y="112" text-anchor="middle" font-size="11" fill="var(--ink)">canard lifts UP</text><text x="275" y="112" text-anchor="middle" font-size="11" fill="var(--ink)">main wing lifts UP</text>
+      <text x="100" y="30" font-size="10" fill="var(--muted)">stalls first (by design)</text>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>Both surfaces lifting up is why canard aircraft such as the Rutan designs are so efficient — a conventional tail is dead weight pushing down. The price is careful CG control and the need to make the canard stall before the wing so the aircraft can never enter a deep stall.</p></details>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+</section>
+
+<section class="box sum" aria-label="Summary">
+  <div class="eyebrow">Summary</div>
+  <p style="margin:.5rem 0 0;max-width:70ch">An aircraft moves about three axes that cross at the CG — roll about the longitudinal axis (ailerons, steadied by the wings), pitch about the lateral axis (elevator, steadied by the horizontal stabilizer) and yaw about the vertical axis (rudder, steadied by the fin). Static stability is the first move after a disturbance; dynamic stability is what the motion does over time, and aircraft are built to be positive in both. Pitch stability depends on the tail's down-load balancing the wing — and on the CG staying inside its range: forward is heavy, aft is unstable. Dihedral levels the wings; the fin weathercocks the nose straight. Too much dihedral effect gives Dutch roll (yaw damper), too much fin gives a spiral. Rolling creates adverse yaw from the rising wing's drag, fixed by differential or Frise ailerons, interconnect springs or roll spoilers. Canards put the horizontal surface in front, lifting up instead of pushing down, at the cost of tricky stability.</p>
+</section>
+
+<section class="box" aria-label="Key terms">
+  <div class="eyebrow">Key terms</div>
+  <div class="terms">
+    <div><b>Longitudinal / lateral / vertical axis</b>Nose-to-tail (roll), wingtip-to-wingtip (pitch), up-down (yaw). All through the CG.</div>
+    <div><b>Static stability</b>The first tendency after a disturbance: positive, neutral or negative.</div>
+    <div><b>Dynamic stability</b>What the oscillations do over time: shrink, stay or grow.</div>
+    <div><b>Longitudinal stability</b>Pitch stability from the horizontal stabilizer and correct CG.</div>
+    <div><b>Lateral stability</b>Roll stability, mainly from dihedral.</div>
+    <div><b>Directional stability</b>Yaw stability from the vertical stabilizer (weathercock).</div>
+    <div><b>Dihedral</b>Upward wing angle; the low wing makes more lift and rolls the aircraft level.</div>
+    <div><b>Offset fin</b>Fin angled to match the spiral propeller slipstream.</div>
+    <div><b>Dutch roll</b>Roll-and-yaw wallow when dihedral effect beats directional stability; fixed by a yaw damper.</div>
+    <div><b>Spiral instability</b>Slow diverging spiral when directional stability beats lateral.</div>
+    <div><b>Adverse yaw</b>Nose yaws opposite the roll because the rising wing has more drag.</div>
+    <div><b>Differential / Frise ailerons</b>Up aileron travels farther / pokes its nose below the wing — both add drag on the low wing.</div>
+    <div><b>Aileron–rudder interconnect</b>Springs that move the rudder with the ailerons.</div>
+    <div><b>Roll spoiler</b>Panel raised on the down-going wing to roll without adverse yaw.</div>
+    <div><b>Canard</b>Horizontal surface ahead of the wing; control type or lifting type.</div>
+    <div><b>Yaw damper</b>System on large aircraft that stops Dutch roll.</div>
+  </div>
+</section>
+
+<section class="box" aria-label="Check yourself">
+  <div class="eyebrow">Check yourself</div>
+  <p style="margin:.4rem 0 0;color:var(--muted)">Pick an answer. You get feedback right away and can try again.</p>
+  <div class="qz" id="quiz"></div>
+  <div class="score" id="score"></div>
+</section>
+
+<p class="flag">Source: ASYS 245 Module 3 course deck (Stability and Control; Jeppesen Airframe Technician pp. 1-23 to 1-26), condensed. Reference values follow Transport Canada / <i>From the Ground Up</i>.</p>
+</div>
+
+<script>
+(function(){
+  var KEY='asys245-m3';
+  var state={done:{},study:false};
+  try{ state=Object.assign(state,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+  var boxes=document.querySelectorAll('.done'); var pbar=document.getElementById('pbar'), ptext=document.getElementById('ptext');
+  function progress(){ var n=0; boxes.forEach(function(b){ if(b.checked) n++; }); pbar.style.width=(100*n/boxes.length)+'%'; ptext.textContent=n+' / '+boxes.length+' sections checked'; }
+  boxes.forEach(function(b){ var id=b.closest('.row').dataset.sec; b.checked=!!state.done[id]; b.addEventListener('change',function(){ state.done[id]=b.checked; save(); progress(); }); });
+  progress();
+  var toggle=document.getElementById('studyToggle'); var notes=document.getElementById('notes');
+  function applyStudy(){ notes.classList.toggle('study',toggle.checked); document.querySelectorAll('.body.open').forEach(function(b){ b.classList.remove('open'); }); }
+  toggle.checked=!!state.study; applyStudy();
+  toggle.addEventListener('change',function(){ state.study=toggle.checked; save(); applyStudy(); });
+  document.querySelectorAll('.reveal button').forEach(function(btn){ btn.addEventListener('click',function(){ btn.closest('.body').classList.add('open'); }); });
+  document.getElementById('resetBtn').addEventListener('click',function(){ state={done:{},study:false}; save(); boxes.forEach(function(b){ b.checked=false; }); toggle.checked=false; applyStudy(); progress(); buildQuiz(); });
+  var Q=[
+    {q:'Roll happens about which axis, and which surface controls it?',o:['Lateral axis — elevator','Longitudinal axis — ailerons','Vertical axis — rudder'],a:1,fb:'Roll–Long–Aileron. The wings (dihedral) provide the stability, called lateral stability.'},
+    {q:'"Lateral stability" is stability in…',o:['roll','pitch','yaw'],a:0,fb:'Trap question. Lateral stability = roll (about the longitudinal axis). Longitudinal stability = pitch.'},
+    {q:'After a gust, the nose starts back toward level but each swing gets bigger. This aircraft is…',o:['positive static, negative dynamic','negative static, positive dynamic','neutral in both'],a:0,fb:'Static = the first move (positive: heads back). Dynamic = over time (negative: oscillations grow).'},
+    {q:'A CG too far AFT makes the aircraft…',o:['nose-heavy with a higher stall speed','unstable in pitch with poor stall/spin recovery','more fuel-efficient'],a:1,fb:'Aft = light but unstable. Forward = stable but heavy (higher stall speed, hard flare).'},
+    {q:'Dihedral levels the wings because the low wing…',o:['has less drag','meets the air at a higher angle of attack and makes more lift','is lighter'],a:1,fb:'The sideslip after a wing drop gives the low wing more AOA → more lift → it rises.'},
+    {q:'Why is the fin sometimes offset from the centreline?',o:['To reduce weight','To line up with the spiralling propeller slipstream','To increase lift'],a:1,fb:'The offset fin cancels the yaw from the prop slipstream so little or no rudder is needed to fly straight.'},
+    {q:'Dutch roll happens when…',o:['directional stability beats lateral stability','lateral (dihedral) stability beats directional stability','the CG is too far forward'],a:1,fb:'Dihedral wins → Dutch roll (wallow), fixed by a yaw damper. Fin wins → spiral instability.'},
+    {q:'You roll right. Adverse yaw pushes the nose…',o:['right','left','down'],a:1,fb:'The rising (left) wing has more lift and more drag, pulling the nose left — opposite the roll.'},
+    {q:'Which fix uses springs to move the rudder with the ailerons?',o:['Frise ailerons','Differential ailerons','Aileron–rudder interconnect'],a:2,fb:'Interconnect springs pull the correct rudder pedal automatically. Frise and differential ailerons add drag on the low wing instead.'},
+    {q:'A canard is designed to stall before the main wing so that…',o:['the aircraft climbs','the nose drops and the wing never reaches a deep stall','the pilot gets a warning light'],a:1,fb:'Canard stalls first → nose drops → wing keeps flying. The cost is a momentary loss of pitch control.'}
+  ];
+  var quiz=document.getElementById('quiz'), score=document.getElementById('score'); var got={};
+  function buildQuiz(){ quiz.innerHTML=''; got={}; score.textContent='';
+    Q.forEach(function(item,i){ var card=document.createElement('div'); card.className='qcard'; var p=document.createElement('p'); p.textContent=(i+1)+'. '+item.q; card.appendChild(p);
+      var opts=document.createElement('div'); opts.className='opts'; var fb=document.createElement('div'); fb.className='fb';
+      item.o.forEach(function(text,j){ var b=document.createElement('button'); b.type='button'; b.className='opt'; b.textContent=text;
+        b.addEventListener('click',function(){ opts.querySelectorAll('.opt').forEach(function(x){ x.classList.remove('right','wrong'); });
+          if(j===item.a){ b.classList.add('right'); fb.className='fb show good'; fb.textContent='Correct. '+item.fb; got[i]=true; } else { b.classList.add('wrong'); fb.className='fb show bad'; fb.textContent='Not quite — try again. Hint: '+item.fb; got[i]=false; }
+          var n=0,t=0; for(var k in got){ t++; if(got[k]) n++; }
+          score.textContent= t===Q.length ? 'Score: '+n+' / '+Q.length+(n===Q.length?' — solid. Now explain each answer to a partner.':' — reread the sections you missed, then retry.') : n+' correct so far'; });
+        opts.appendChild(b); });
+      card.appendChild(opts); card.appendChild(fb); quiz.appendChild(card); }); }
+  buildQuiz();
+})();
+</script>
+
+</body>
+</html>
