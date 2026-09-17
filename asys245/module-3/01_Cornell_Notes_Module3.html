@@ -111,6 +111,14 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 </style>
 </head>
 <body>
+<style>
+.mine{margin:.9rem 0 .4rem;border:1px dashed var(--line,#c9d3dd);border-radius:8px;padding:.55rem .7rem;background:rgba(29,92,143,.04)}
+.mine .lbl{display:block;font:600 .72rem "Barlow Condensed",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#1D5C8F;margin-bottom:.3rem}
+.mine textarea{width:100%;min-height:4.5em;box-sizing:border-box;border:0;background:transparent;font:inherit;font-size:.95rem;color:inherit;resize:vertical;line-height:1.45}
+.mine textarea:focus{outline:2px solid #1D5C8F;border-radius:4px}
+.mine .lines{display:none}
+@media print{.mine textarea{display:none!important}.mine .lines{display:block!important;height:5.2em;background:repeating-linear-gradient(to bottom,transparent 0,transparent 1.55em,#b8c2cc 1.55em,#b8c2cc calc(1.55em + 1px));-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
 <div class="wrap">
 <header class="top">
   <div>
@@ -152,6 +160,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       </g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Say the memory line out loud until it's automatic — nearly every question in this module comes back to this table. The axis names describe the <i>line</i>; the stability names describe which way the aircraft is being held steady.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="1" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -175,6 +184,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <g font-size="9" fill="var(--muted)"><text x="352" y="45">grows = negative</text><text x="352" y="85">same = neutral</text><text x="352" y="125">shrinks = positive</text><text x="352" y="140" font-weight="700" fill="var(--ink)">DYNAMIC</text></g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Fighters are built close to neutral so they turn fast; trainers and airliners are strongly positive so they fly hands-off. You can have positive static but negative dynamic stability: the nose starts back toward level every time, but each swing is bigger than the last.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="2" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -199,6 +209,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <g font-size="11" fill="var(--ink)"><text x="207" y="22">LIFT at CP (behind CG)</text><text x="256" y="130" text-anchor="end">WEIGHT at CG</text><text x="300" y="130" text-anchor="end" fill="var(--formula)" font-weight="700">tail DOWN-load →</text><text x="40" y="70" fill="var(--muted)">nose</text><text x="345" y="70" fill="var(--muted)">tail</text></g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Because the tail pushes <i>down</i>, it is actually "negative lift" the wing has to make up for — which is why a forward CG (more tail down-load needed) raises the stall speed. Canard designs (Section 10) flip this: the front surface lifts up instead.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="3" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -222,6 +233,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <text x="30" y="20" font-size="10" fill="var(--muted)">nose</text><text x="370" y="20" text-anchor="end" font-size="10" fill="var(--muted)">tail</text>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>An aft CG is the more dangerous of the two because it can make the aircraft <i>unrecoverable</i> from a stall or spin. A forward CG mostly costs performance. Either way the aircraft is outside its certified envelope and must not fly.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="4" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -246,6 +258,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <text x="20" y="20" font-size="10" fill="var(--muted)">dihedral (wings angled up)</text>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Too much lateral stability is a problem too — it fights the pilot in turns and, combined with weak directional stability, causes Dutch roll (Section 7). High-wing aircraft often need little or no dihedral because the pendulum effect already does the job.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="5" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -273,6 +286,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
         <text x="80" y="120" text-anchor="middle" font-size="10" fill="var(--muted)">fin angled into the spiral slipstream</text></g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>The propeller throws air back in a corkscrew that hits one side of the fin, which is why single-engine aircraft yaw left on take-off and need right rudder. An offset fin (or an offset engine mount) builds the correction in at cruise power.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="6" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -296,6 +310,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <text x="200" y="112" text-anchor="middle" font-size="10" fill="var(--muted)">designers balance the two</text>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Most swept-wing jets lean toward Dutch roll (sweep adds a lot of dihedral effect), so they carry yaw dampers. Most light aircraft lean slightly spiral — which is safer, because a spiral is slow and easy to catch.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="7" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -322,6 +337,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <text x="205" y="118" font-size="10" fill="var(--muted)">rolling RIGHT</text>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>The pilot's fix is coordinated rudder — a touch of right rudder with a right roll. The designer's fixes are in the next section. Gliders, with long wings and big ailerons, show adverse yaw most strongly.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="8" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -349,6 +365,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <text x="210" y="122" text-anchor="middle" font-size="10" fill="var(--muted)">4th fix: aileron–rudder interconnect springs (not drawn)</text>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Most light aircraft use differential or Frise ailerons (or both). Airliners use roll spoilers plus small ailerons. The interconnect is common on aircraft with strong adverse yaw and light rudder forces, such as some Pipers.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="9" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -374,6 +391,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <text x="100" y="30" font-size="10" fill="var(--muted)">stalls first (by design)</text>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Both surfaces lifting up is why canard aircraft such as the Rutan designs are so efficient — a conventional tail is dead weight pushing down. The price is careful CG control and the need to make the canard stall before the wing so the aircraft can never enter a deep stall.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="10" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -423,6 +441,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   var state={done:{},study:false};
   try{ state=Object.assign(state,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
   function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+  var notes=document.querySelectorAll('.mine textarea'); state.notes=state.notes||{};
+  notes.forEach(function(t){ var id=t.dataset.note; t.value=state.notes[id]||''; t.addEventListener('input',function(){ state.notes[id]=t.value; save(); }); });
   var boxes=document.querySelectorAll('.done'); var pbar=document.getElementById('pbar'), ptext=document.getElementById('ptext');
   function progress(){ var n=0; boxes.forEach(function(b){ if(b.checked) n++; }); pbar.style.width=(100*n/boxes.length)+'%'; ptext.textContent=n+' / '+boxes.length+' sections checked'; }
   boxes.forEach(function(b){ var id=b.closest('.row').dataset.sec; b.checked=!!state.done[id]; b.addEventListener('change',function(){ state.done[id]=b.checked; save(); progress(); }); });
@@ -432,7 +452,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   toggle.checked=!!state.study; applyStudy();
   toggle.addEventListener('change',function(){ state.study=toggle.checked; save(); applyStudy(); });
   document.querySelectorAll('.reveal button').forEach(function(btn){ btn.addEventListener('click',function(){ btn.closest('.body').classList.add('open'); }); });
-  document.getElementById('resetBtn').addEventListener('click',function(){ state={done:{},study:false}; save(); boxes.forEach(function(b){ b.checked=false; }); toggle.checked=false; applyStudy(); progress(); buildQuiz(); });
+  document.getElementById('resetBtn').addEventListener('click',function(){ state={done:{},study:false,notes:state.notes||{}}; save(); boxes.forEach(function(b){ b.checked=false; }); toggle.checked=false; applyStudy(); progress(); buildQuiz(); });
   var Q=[
     {q:'Roll happens about which axis, and which surface controls it?',o:['Lateral axis — elevator','Longitudinal axis — ailerons','Vertical axis — rudder'],a:1,fb:'Roll–Long–Aileron. The wings (dihedral) provide the stability, called lateral stability.'},
     {q:'"Lateral stability" is stability in…',o:['roll','pitch','yaw'],a:0,fb:'Trap question. Lateral stability = roll (about the longitudinal axis). Longitudinal stability = pitch.'},
