@@ -111,6 +111,14 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 </style>
 </head>
 <body>
+<style>
+.mine{margin:.9rem 0 .4rem;border:1px dashed var(--line,#c9d3dd);border-radius:8px;padding:.55rem .7rem;background:rgba(29,92,143,.04)}
+.mine .lbl{display:block;font:600 .72rem "Barlow Condensed",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#1D5C8F;margin-bottom:.3rem}
+.mine textarea{width:100%;min-height:4.5em;box-sizing:border-box;border:0;background:transparent;font:inherit;font-size:.95rem;color:inherit;resize:vertical;line-height:1.45}
+.mine textarea:focus{outline:2px solid #1D5C8F;border-radius:4px}
+.mine .lines{display:none}
+@media print{.mine textarea{display:none!important}.mine .lines{display:block!important;height:5.2em;background:repeating-linear-gradient(to bottom,transparent 0,transparent 1.55em,#b8c2cc 1.55em,#b8c2cc calc(1.55em + 1px));-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
 <div class="wrap">
 <header class="top">
   <div>
@@ -151,6 +159,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <g font-size="11" fill="var(--ink)"><text x="30" y="118">aileron</text><text x="320" y="118">aileron</text><text x="120" y="164">elevator</text><text x="250" y="164">elevator</text><text x="228" y="28" fill="var(--formula)" font-weight="700">rudder (fin)</text></g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Think of every control surface as a small hinged flap that bends the airflow. Deflect it down and the surface it sits on makes more lift on that side; deflect it up and it makes less. Ailerons use this in opposite directions to roll; the elevator and rudder use it to push the tail up, down or sideways.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="1" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -172,6 +181,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <g font-size="11" fill="var(--ink)"><text x="70" y="110">stabilator pivots up (nose up)</text><text x="250" y="110" fill="var(--formula)" font-weight="700">anti-servo tab: same way</text><text x="150" y="132" text-anchor="middle" fill="var(--muted)">same direction = more force needed = "feel" · servo tab = opposite direction = helps the pilot</text></g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Why "anti-servo"? A servo tab is a helper: it moves opposite to the surface and uses the airflow to push the surface for the pilot. An anti-servo tab does the reverse — it resists the movement so the pilot gets a natural, progressive load. Without it a stabilator would feel dangerously light, especially at high speed.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="2" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -194,6 +204,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <g font-size="11" fill="var(--ink)"><text x="40" y="100">stabilizer</text><text x="215" y="105">elevator UP</text><text x="300" y="130" fill="var(--formula)" font-weight="700">tab DOWN</text><text x="350" y="60" fill="var(--muted)">air pushes tab up →</text><text x="350" y="74" fill="var(--muted)">elevator forced up</text></g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>A trim tab is a lever on a lever. The tab is tiny, but it sits at the very back of the control surface, so a small tab force makes a big turning moment on the surface. That is why a fixed tab only needs a few degrees of bend to cure a wing-heavy aircraft — bend it in small steps.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="3" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -216,6 +227,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <g font-size="11" fill="var(--ink)"><text x="20" y="125">horn ahead of hinge = aerodynamic balance</text><text x="232" y="125">weight ahead of hinge = mass balance</text><text x="122" y="18" fill="var(--muted)">hinge</text><text x="262" y="28" fill="var(--muted)">hinge</text></g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Flutter is the reason mass balance matters so much to maintenance. If a surface's centre of gravity is behind the hinge, a gust can start it flapping, and at speed the flapping feeds on itself. That is why the manual gives a balance limit in inch-pounds and why you weigh the surface on a balance beam after any repair or repaint.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="4" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -244,6 +256,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <text x="210" y="138" fill="var(--formula)" font-weight="700">← less lift  ·  more lift →</text></g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Why does the slot help? Air under the wing is at high pressure; air over the flap is slowing down and about to separate. The slot lets the high-pressure air squirt through onto the top of the flap, giving the boundary layer new energy so it stays attached to a much steeper angle. Fowler flaps add the slot <i>and</i> extra wing area — the best of both — which is why big jets use them.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="5" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -268,6 +281,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="125" y="110" font-weight="700">Slat (moves out)</text><text x="330" y="110" font-weight="700">Slot (fixed gap)</text><text x="210" y="126" fill="var(--muted)">high-pressure air flows up through the gap and keeps the top flow attached</text></g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>An automatic slat is elegant: at low speed and high angle of attack the low pressure near the leading edge simply sucks the slat forward; at cruise speed the airflow pushes it closed. No motor, no pilot action — the STOL bush planes you see around Southern Alberta often use fixed slots for the same reason.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="6" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -289,6 +303,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <g font-size="11" fill="var(--ink)"><text x="210" y="115" text-anchor="middle">spoiler up → flow separates → less lift, more drag</text><text x="212" y="20" fill="var(--formula)" font-weight="700">turbulent</text></g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Spoilers solve the adverse-yaw problem from Module 3 neatly. An aileron makes roll by <i>adding</i> lift (and drag) on the rising wing; a spoiler makes roll by <i>removing</i> lift on the dropping wing, and its drag is on the inside of the turn — exactly where you want it. That is why fast jets use spoilers for roll at high speed.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="7" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -315,6 +330,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       </g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Most aircraft you will work on in this program are cable or cable-plus-rod. The maintenance skills that go with them — tensiometers, turnbuckle safety, rigging pins — are exactly the hands-on items in the AME practical exams, so the next three sections are the ones to know cold.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="8" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -339,6 +355,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="78" y="85">turnbuckle</text><text x="78" y="98" fill="var(--formula)">≤ 3 threads showing</text><text x="134" y="85">fairlead</text><text x="134" y="98" fill="var(--formula)">≤ 3° bend</text><text x="262" y="25">pulley (changes direction)</text><text x="330" y="125">bellcrank</text></g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>The two numbers are exam favourites: <b>3°</b> for a fairlead, <b>3 threads</b> for a turnbuckle. Both come from the same idea — a cable is happy being pulled straight and unhappy being bent or held by too little thread. Cable tension itself varies by aircraft (a typical light aircraft is in the tens of pounds), so always use the type's chart, never a remembered number.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="9" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -361,6 +378,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="130" y="85">rod (tube)</text><text x="215" y="90" fill="var(--formula)" font-weight="700">check hole</text><text x="245" y="25">jam nut</text><text x="330" y="90">rod end (bearing)</text><text x="215" y="104" fill="var(--muted)">wire must NOT pass through the hole = enough thread engaged</text></g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>The check hole is a one-second safety test that catches a very serious fault. A rod end held by only two or three threads can pull out under load and leave a control surface disconnected. On some rods a slot or witness mark does the same job — the manual for the type tells you which.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="10" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -386,6 +404,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       </g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Envelope protection is the big idea behind fly-by-wire: the aircraft's limits are written into the software, so a startled pilot can pull full back on the stick and the aircraft gives maximum performance without stalling. The trade-off is that the AME now troubleshoots sensors, computers and wiring rather than pulleys. The duplicate-inspection rule exists because a single reversed cable is invisible from the cockpit and fatal on take-off.</p></details>
+    <div class="mine"><span class="lbl">My notes · connections · questions</span><textarea data-note="11" placeholder="What does this connect to? What would I ask Harry? Where have I seen this on a real aircraft?"></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -439,6 +458,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   var state={done:{},study:false};
   try{ state=Object.assign(state,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
   function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+  var notes=document.querySelectorAll('.mine textarea'); state.notes=state.notes||{};
+  notes.forEach(function(t){ var id=t.dataset.note; t.value=state.notes[id]||''; t.addEventListener('input',function(){ state.notes[id]=t.value; save(); }); });
   var boxes=document.querySelectorAll('.done'); var pbar=document.getElementById('pbar'), ptext=document.getElementById('ptext');
   function progress(){ var n=0; boxes.forEach(function(b){ if(b.checked) n++; }); pbar.style.width=(100*n/boxes.length)+'%'; ptext.textContent=n+' / '+boxes.length+' sections checked'; }
   boxes.forEach(function(b){ var id=b.closest('.row').dataset.sec; b.checked=!!state.done[id]; b.addEventListener('change',function(){ state.done[id]=b.checked; save(); progress(); }); });
@@ -448,7 +469,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   toggle.checked=!!state.study; applyStudy();
   toggle.addEventListener('change',function(){ state.study=toggle.checked; save(); applyStudy(); });
   document.querySelectorAll('.reveal button').forEach(function(btn){ btn.addEventListener('click',function(){ btn.closest('.body').classList.add('open'); }); });
-  document.getElementById('resetBtn').addEventListener('click',function(){ state={done:{},study:false}; save(); boxes.forEach(function(b){ b.checked=false; }); toggle.checked=false; applyStudy(); progress(); buildQuiz(); });
+  document.getElementById('resetBtn').addEventListener('click',function(){ state={done:{},study:false,notes:state.notes||{}}; save(); boxes.forEach(function(b){ b.checked=false; }); toggle.checked=false; applyStudy(); progress(); buildQuiz(); });
   var Q=[
     {q:'Which control surface produces roll, and how do the two of them move?',o:['Elevator — both up together','Ailerons — opposite directions','Rudder — left and right'],a:1,fb:'Ailerons move opposite ways: one down (more lift) and one up (less lift) to roll the aircraft.'},
     {q:'An anti-servo tab on a stabilator moves…',o:['opposite to the stabilator, to help the pilot','the same direction as the stabilator, to add feel','only when the trim wheel is turned'],a:1,fb:'Same direction = the pilot must push harder the further it moves. That stops over-controlling a very powerful one-piece tail.'},
