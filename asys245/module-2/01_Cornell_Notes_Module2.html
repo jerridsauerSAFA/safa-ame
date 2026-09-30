@@ -111,6 +111,15 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 </style>
 </head>
 <body>
+<style>
+.mine{margin:.9rem 0 .4rem;border:1px solid #c9d3dd;border-radius:6px;padding:.5rem .7rem .4rem;background:#fff}
+.mine .lbl{display:block;font:600 .72rem "Barlow Condensed",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#1D5C8F;margin-bottom:.35rem}
+.mine textarea{display:block;width:100%;height:9.6em;box-sizing:border-box;border:0;padding:0;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.6em - 1px),#c9d3dd calc(1.6em - 1px),#c9d3dd 1.6em);background-attachment:local;font:inherit;font-size:.95rem;line-height:1.6em;color:#111;resize:vertical}
+.mine textarea:focus{outline:2px solid #1D5C8F;outline-offset:2px}
+.mine textarea::placeholder{color:#8a949e}
+.mine .lines{display:none}
+@media print{.mine textarea{display:none!important}.mine .lines{display:block!important;height:9.6em;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.6em - 1px),#b8c2cc calc(1.6em - 1px),#b8c2cc 1.6em);-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
 <div class="wrap">
 <header class="top">
   <div>
@@ -142,10 +151,10 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     <ul>
       <li>A force is a push or pull. It is a <b>vector</b>: it has <b>size and direction</b>.</li>
       <li><b>Lift</b> – perpendicular (90°) to the flight path. Acts through the <b>centre of pressure (CP)</b>.</li>
-      <li><b>Weight</b> – straight down to the centre of the Earth. Acts through the <b>centre of gravity (CG)</b>. Changes in flight as fuel burns.</li>
+      <li><b>Weight</b> – straight down to the centre of the Earth. Acts through the <b>centre of gravity (CG)</b>. As fuel burns, weight drops and the CG can shift.</li>
       <li><b>Thrust</b> – forward, in the direction the engine is mounted.</li>
       <li><b>Drag</b> – backward, opposite the flight path.</li>
-      <li>Balanced forces = steady cruise. Unbalanced = the aircraft accelerates toward the bigger force. <span class="f">Lift ≥ Weight</span>, <span class="f">Thrust ≥ Drag</span>.</li>
+      <li>Balanced forces = steady cruise. Unbalanced = the aircraft accelerates toward the bigger force. Steady level flight: <span class="f">Lift = Weight</span> and <span class="f">Thrust = Drag</span>.</li>
     </ul>
     <div class="fig"><svg viewBox="0 0 400 170" width="400" height="170" role="img" aria-label="Aircraft side view with lift up, weight down, thrust forward, drag backward">
       <path d="M90 95 L250 95 L300 82 L330 82 L330 92 L310 100 L250 108 L100 108 Z" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
@@ -158,6 +167,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     </svg></div>
     <p class="cap">Lift up, weight down, thrust forward, drag back. Level cruise = all four balanced.</p>
     <details class="more"><summary>Go deeper</summary><p>Lift depends on the wing's size, shape and speed. Drag depends on shape, the air's "stickiness" (viscosity) and speed. Thrust depends on the engine type, how many, and the throttle. The CP and CG are not usually at the same spot — that gap is what the tail has to balance (Section 10).</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="1" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -173,7 +183,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
       <li>Lift is a <b>mechanical force</b>: a solid body must be <b>in contact with a fluid</b>, with a difference in velocity. No air = no lift.</li>
-      <li><b>Newton:</b> <span class="f">F = m × a</span>. The wing <b>turns the air downward</b>; the air pushes the wing up.</li>
+      <li><b>Newton's 2nd law:</b> a force is produced when a mass is accelerated. <span class="f">F = m × a</span>, or for moving air <span class="f">F = m × ΔV ÷ Δt</span>. To change a flow's speed or direction you must push on it: the wing <b>turns the air downward</b>, the air pushes the wing up. More turning = more lift.</li>
       <li><b>Bernoulli:</b> <span class="f">Total = Static + Dynamic</span> (constant). Air over the curved top moves <b>faster</b> → dynamic ↑ → <b>static pressure ↓</b> on top → higher pressure underneath pushes up.</li>
       <li>Both are true at once: change the flow's speed or direction and you get a force.</li>
     </ul>
@@ -187,6 +197,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <path d="M120 70 L120 48" stroke="var(--formula)" stroke-width="3"/><path d="M114 50 L120 38 L126 50Z" fill="var(--formula)"/><text x="128" y="50" font-size="11" font-weight="700" fill="var(--formula)">LIFT</text>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Newton's second law written for air: F = m × ΔV ÷ Δt — the force equals how much air you move times how fast you change its velocity. A bigger wing moves more air; a faster wing changes its velocity more. That is why lift grows with wing area and with the square of speed.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="2" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -203,10 +214,10 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     <ul>
       <li><b>Leading edge</b> = front. <b>Trailing edge</b> = back.</li>
       <li><b>Chord</b> = straight line from leading edge to trailing edge.</li>
-      <li><b>Camber</b> = how curved the airfoil is. More camber → more air turned → more lift.</li>
+      <li><b>Camber</b> = the airfoil's curve. The <b>mean camber line</b> runs halfway between the top and bottom surfaces. More camber → more lift. A <b>symmetrical airfoil</b> has no camber.</li>
       <li><b>Relative wind</b> = airflow coming at the wing, opposite to the flight path.</li>
       <li><b>Angle of attack (AOA)</b> = angle between the chord and the relative wind.</li>
-      <li><b>Centre of pressure (CP)</b> = the one point lift acts through. It <b>moves</b> as AOA changes.</li>
+      <li><b>Centre of pressure (CP)</b> = the average location of the pressure, the one point lift acts through. It <b>moves</b> as AOA changes; the CG does not.</li>
       <li><b>Aerodynamic centre (AC)</b> = point where the pitching moment does <b>not</b> change ≈ <b>¼ chord</b> back from the leading edge.</li>
     </ul>
     <div class="fig"><svg viewBox="0 0 420 170" width="420" height="170" role="img" aria-label="Labelled airfoil cross-section">
@@ -223,7 +234,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <circle cx="125" cy="98" r="5" fill="var(--dia-hi)" stroke="var(--dia-line)"/><text x="105" y="30" font-size="11" fill="var(--ink)">AC ≈ ¼ chord</text><line x1="125" y1="34" x2="125" y2="92" stroke="var(--dia-line)" stroke-width="1" stroke-dasharray="2 2"/>
       <circle cx="165" cy="97" r="5" fill="var(--formula)" stroke="var(--dia-line)"/><text x="150" y="162" font-size="11" fill="var(--ink)">CP (moves with AOA)</text><line x1="165" y1="103" x2="165" y2="150" stroke="var(--dia-line)" stroke-width="1" stroke-dasharray="2 2"/>
     </svg></div>
-    <details class="more"><summary>Go deeper</summary><p>The upper and lower surfaces don't have their pressure centres at the same spot along the chord, so the airfoil tries to rotate (a pitching moment about the lateral axis). The farther apart those two points, the bigger the moment — which is why the tail exists.</p></details>
+    <details class="more"><summary>Go deeper</summary><p>The upper and lower surfaces don't have their pressure centres at the same spot along the chord, so the airfoil tries to rotate (a pitching moment about the lateral axis). The farther apart those two points, the bigger the moment — which is why the tail exists.</p><p>Heads-up: camber is not "the curve under the wing". It describes the whole airfoil's curve, and on most wings the <b>top</b> is the more curved side.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="3" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -240,9 +252,10 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     <span class="big">L = C<sub>L</sub> · ½ρV² · A</span>
     <ul>
       <li><b>C<sub>L</sub></b> = lift coefficient (shape + AOA, found in a wind tunnel) · <b>ρ</b> = air density · <b>V</b> = velocity · <b>A</b> = wing area.</li>
-      <li>Lift grows with the <b>square of speed</b>: double V → <b>4×</b> lift.</li>
+      <li>Lift depends on <b>the object</b> (shape, size), <b>the motion</b> (speed, angle to the flow) and <b>the air</b> (density, viscosity, compressibility).</li>
+      <li>Read the equation: double V → <b>4×</b> lift (speed is squared). Double A → 2× lift. Half the density → half the lift.</li>
       <li><b>AOA ↑ → lift ↑</b> … until the <b>critical angle</b> (≈ 15–18° for most wings) → airflow <b>separates</b> from the top → lift drops suddenly = <b>stall</b>.</li>
-      <li><b>Flaps and slats</b> add area and camber for slow take-off and landing.</li>
+      <li><b>Flaps and slats</b> add area and camber → more lift <b>and more drag</b>, for slow take-off and landing.</li>
       <li><b>Altitude ↑ → density ↓ → lift ↓</b>. Eventually the air is too thin to hold the weight = the aircraft's <b>ceiling</b>.</li>
     </ul>
     <div class="fig"><svg viewBox="0 0 400 150" width="400" height="150" role="img" aria-label="Lift coefficient rises with angle of attack, peaks at the critical angle, then drops (stall)">
@@ -257,6 +270,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     </svg></div>
     <p class="cap">Lift climbs steadily with angle of attack, then falls off a cliff at the critical angle.</p>
     <details class="more"><summary>Go deeper</summary><p>C<sub>L</sub> is worked out backwards: measure lift on a model in a wind tunnel, then C<sub>L</sub> = L ÷ (½ρV²A). It lumps together everything hard to calculate — shape, AOA, viscosity, compressibility. A stall is about <i>angle</i>, not speed: a wing can stall at any speed if the critical angle is exceeded.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="4" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -271,11 +285,11 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li><b>Parasite drag</b> = all drag <b>not</b> from making lift. Three kinds:</li>
-      <li>&nbsp;&nbsp;<b>Skin friction</b> – air rubbing on the surface (boundary layer). Rough surface ↑, smooth/waxed ↓.</li>
+      <li><b>5 names, 2 families.</b> <b>Parasite drag</b> = all drag <b>not</b> from making lift = the first three added together:</li>
+      <li>&nbsp;&nbsp;<b>Skin friction</b> – air rubbing on the surface (boundary layer). Rough surface ↑, smooth/waxed ↓. More viscous air → more friction.</li>
       <li>&nbsp;&nbsp;<b>Form (pressure) drag</b> – the body's shape blocking the flow. Fix = <b>streamlining</b>.</li>
       <li>&nbsp;&nbsp;<b>Interference drag</b> – airflows from two parts collide (wing–fuselage joint, struts).</li>
-      <li><b>Induced drag</b> = "drag due to lift". Wingtip vortices → downwash → the lift vector tilts back.</li>
+      <li><b>Induced drag</b> = "drag due to lift". More lift = more induced drag. Wingtip vortices → downwash → the lift vector tilts back.</li>
       <li><span class="f">Total drag = Parasite + Induced</span></li>
     </ul>
     <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Drag family tree: total drag splits into parasite (skin friction, form, interference) and induced">
@@ -286,6 +300,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <g font-size="10.5" fill="var(--ink)" text-anchor="middle"><rect x="20" y="112" width="80" height="26" rx="3" fill="var(--dia-bg)" stroke="var(--dia-line)"/><text x="60" y="129">skin friction</text><rect x="105" y="112" width="60" height="26" rx="3" fill="var(--dia-bg)" stroke="var(--dia-line)"/><text x="135" y="129">form</text><rect x="170" y="112" width="80" height="26" rx="3" fill="var(--dia-bg)" stroke="var(--dia-line)"/><text x="210" y="129">interference</text><rect x="265" y="112" width="100" height="26" rx="3" fill="var(--dia-bg)" stroke="var(--dia-line)"/><text x="315" y="129">tip vortices</text></g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>The drag equation mirrors the lift equation: D = C<sub>D</sub> · ½ρV² · A. C<sub>D</sub> is harder to pin down than C<sub>L</sub> because it bundles form, friction, interference and induced drag, and engineers must choose which area to use (wing area, frontal area or total surface area).</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="5" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -321,6 +336,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     </svg></div>
     <p class="cap">Too slow: induced drag dominates. Too fast: parasite drag dominates. The bottom of the U is the most efficient speed.</p>
     <details class="more"><summary>Go deeper</summary><p>This U-curve is the whole reason there is a "best glide" and "best endurance" speed — you will meet it again in Module 5. It also explains why a heavily loaded aircraft (more lift needed → more induced drag) has a higher minimum-drag speed.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="6" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -352,6 +368,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <text x="150" y="138" font-size="11" fill="var(--muted)">downwash: strongest at tips, weakest at root</text>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>A winglet has its own small tip vortex, but it forms high above the wing where it can't disturb the main airflow. Wake turbulence behind a heavy jet is these same vortices — strongest when the aircraft is heavy, slow and clean, which is why light aircraft wait behind airliners on departure.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="7" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -382,6 +399,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <text x="30" y="80" font-size="10" fill="var(--muted)">speed 0 at skin →</text>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Keeping flow laminar as far back as possible is why laminar-flow wings are built so smooth, and why a bit of frost or bugs on the leading edge matters more than you'd think — it trips the layer early and adds drag.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="8" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -396,8 +414,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li><b>Planform</b> = the wing's shape seen from above.</li>
-      <li><b>Aspect ratio</b> = span compared to chord (long and narrow = high AR). High AR → less induced drag for the same lift. Gliders.</li>
+      <li><b>Planform</b> = the wing's shape seen from above. <b>Span</b> = wingtip to wingtip.</li>
+      <li><b>Aspect ratio (AR)</b> = how long and narrow the wing is: <span class="f">AR = span² ÷ area</span> = <span class="f">span ÷ average chord</span>. High AR → less induced drag for the same lift. Gliders.</li>
       <li><b>Biplane</b> → lots of lift at low speed, lots of drag. <b>Monoplane</b> → less drag, faster.</li>
       <li><b>Swept wing</b> → for fast aircraft. Cuts drag near the speed of sound; the sweep "fools" the air into seeing a longer chord. Peak drag ≈ ¼ of a straight wing.</li>
       <li><b>Dihedral</b> = wings angled <b>up</b>. The low wing meets the air at a higher AOA → more lift → rolls back level. <b>Roll stability</b>.</li>
@@ -410,7 +428,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <path d="M300 60 L350 48 L400 60" stroke="var(--dia-line)" stroke-width="5" fill="none"/><text x="350" y="40" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink)">dihedral ↑ stable</text>
       <path d="M300 100 L350 112 L400 100" stroke="var(--dia-line)" stroke-width="5" fill="none"/><text x="350" y="132" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink)">anhedral ↓ agile</text>
     </svg></div>
-    <details class="more"><summary>Go deeper</summary><p>Every wing is a trade: the Cessna 150's high straight wing is stable and slow; a Challenger's swept low wing is fast but needs more runway. Aspect ratio is the cleanest lever on induced drag — which is why sailplanes have wings like blades.</p></details>
+    <details class="more"><summary>Go deeper</summary><p>Every wing is a trade: the Cessna 150's high straight wing is stable and slow; a Challenger's swept low wing is fast but needs more runway. Aspect ratio is the cleanest lever on induced drag — which is why sailplanes have wings like blades.</p><p>AR practice: span 10 m, average chord 1 m → AR = 10 ÷ 1 = <b>10</b> (long, narrow). Span 10 m, area 25 m² → AR = 100 ÷ 25 = <b>4</b> (short, wide).</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="9" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -426,12 +445,13 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
       <li><b>Horizontal stabilizer</b> → <b>longitudinal stability</b> = pitch (nose up/down) about the <b>lateral axis</b> (wingtip to wingtip).</li>
+      <li>Controls: <b>pitch → elevator</b> · <b>roll → ailerons</b> · <b>yaw → rudder</b>.</li>
       <li><b>Vertical stabilizer</b> (+ rudder) → <b>directional stability</b> = yaw (nose left/right) about the <b>vertical axis</b>.</li>
       <li>Wings + dihedral → <b>lateral stability</b> = roll about the <b>longitudinal axis</b> (nose to tail).</li>
-      <li><b>Conventional tail</b>: the wing wants to pitch nose-down; the tail pushes the nose up to cancel it. CG too far forward or aft → unstable.</li>
+      <li><b>Conventional tail</b>: the wing wants to pitch nose-down, so the tail is designed to make a <b>downward force</b> that holds the nose up. The CG must stay inside its limits: too far <b>aft</b> → unstable in pitch; too far <b>forward</b> → nose-heavy and hard to raise the nose.</li>
       <li><b>T-tail</b>: stabilizer on top of the fin — out of the wing's wake and engine blast, so more predictable at low speed. Downside: <b>heavier</b> (fin must be stronger).</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 160" width="420" height="160" role="img" aria-label="Three axes on an aircraft top view, and side views of a conventional tail and a T-tail">
+    <div class="fig"><svg viewBox="0 0 420 200" width="420" height="200" role="img" aria-label="Three axes on an aircraft top view, and side views of a conventional tail and a T-tail">
       <ellipse cx="110" cy="80" rx="18" ry="60" fill="var(--dia-fill)" stroke="var(--dia-line)"/><rect x="30" y="72" width="160" height="12" fill="var(--dia-fill)" stroke="var(--dia-line)"/><rect x="80" y="126" width="60" height="8" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
       <line x1="110" y1="10" x2="110" y2="150" stroke="var(--dia-hi)" stroke-width="2"/><text x="114" y="18" font-size="10" fill="var(--ink)">longitudinal (roll)</text>
       <line x1="20" y1="78" x2="200" y2="78" stroke="var(--formula)" stroke-width="2"/><text x="150" y="98" font-size="10" fill="var(--ink)">lateral (pitch)</text>
@@ -446,6 +466,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       </g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>Tails borrow the same design ideas as wings — sweep, dihedral, anhedral — and their layout depends on where the engines and wing sit. Module 3 goes deep on stability; for now know which surface controls which axis.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="10" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -472,7 +493,9 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     <div><b>Induced drag</b>Drag caused by making lift (tip vortices). Shrinks with speed.</div>
     <div><b>Boundary layer</b>Thin layer of air stuck to the surface; laminar then turbulent.</div>
     <div><b>Transition point</b>Where the boundary layer turns from laminar to turbulent.</div>
-    <div><b>Aspect ratio</b>Span compared to chord. High = long and narrow = less induced drag.</div>
+    <div><b>Aspect ratio</b>Span² ÷ area (or span ÷ average chord). High = long and narrow = less induced drag.</div>
+    <div><b>Mean camber line</b>Line halfway between the airfoil's top and bottom surfaces.</div>
+    <div><b>Elevator · ailerons · rudder</b>Control pitch · roll · yaw.</div>
     <div><b>Dihedral / anhedral</b>Wings angled up (stable) or down (agile).</div>
     <div><b>Ground effect</b>Extra lift, less induced drag within one wingspan of the ground.</div>
     <div><b>T-tail</b>Horizontal stabilizer mounted on top of the fin; clean air, extra weight.</div>
@@ -486,7 +509,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   <div class="score" id="score"></div>
 </section>
 
-<p class="flag">Source: ASYS 245 Module 2 course decks (Lift &amp; Drag; Wing &amp; Tail Design; Extra Drag Info), condensed. Reference values follow Transport Canada / <i>From the Ground Up</i>.</p>
+<p class="flag">Source: ASYS 245 Module 2 course decks (Lift &amp; Drag; Wing &amp; Tail Design; Extra Drag Info), condensed. Checked against AME 1 &amp; 2 student class notes, Sept 30, 2026. Reference values follow Transport Canada / <i>From the Ground Up</i>.</p>
 </div>
 
 <script>
@@ -495,6 +518,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   var state={done:{},study:false};
   try{ state=Object.assign(state,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
   function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+  var notes=document.querySelectorAll('.mine textarea'); state.notes=state.notes||{};
+  notes.forEach(function(t){ var id=t.dataset.note; t.value=state.notes[id]||''; t.addEventListener('input',function(){ state.notes[id]=t.value; save(); }); });
   var boxes=document.querySelectorAll('.done');
   var pbar=document.getElementById('pbar'), ptext=document.getElementById('ptext');
   function progress(){ var n=0; boxes.forEach(function(b){ if(b.checked) n++; }); pbar.style.width=(100*n/boxes.length)+'%'; ptext.textContent=n+' / '+boxes.length+' sections checked'; }
@@ -505,7 +530,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   toggle.checked=!!state.study; applyStudy();
   toggle.addEventListener('change',function(){ state.study=toggle.checked; save(); applyStudy(); });
   document.querySelectorAll('.reveal button').forEach(function(btn){ btn.addEventListener('click',function(){ btn.closest('.body').classList.add('open'); }); });
-  document.getElementById('resetBtn').addEventListener('click',function(){ state={done:{},study:false}; save(); boxes.forEach(function(b){ b.checked=false; }); toggle.checked=false; applyStudy(); progress(); buildQuiz(); });
+  document.getElementById('resetBtn').addEventListener('click',function(){ state={done:{},study:false,notes:state.notes||{}}; save(); boxes.forEach(function(b){ b.checked=false; }); toggle.checked=false; applyStudy(); progress(); buildQuiz(); });
   var Q=[
     {q:'Lift acts through the…',o:['centre of gravity','centre of pressure','aerodynamic centre'],a:1,fb:'Lift acts through the centre of pressure. Weight acts through the centre of gravity.'},
     {q:'Airspeed doubles. Lift becomes…',o:['2× as much','4× as much','the same'],a:1,fb:'Lift is proportional to V². Double the speed, four times the lift (and drag).'},
@@ -516,7 +541,11 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     {q:'Dihedral (wings angled up) gives the aircraft…',o:['more speed','roll stability','less weight'],a:1,fb:'The dropped wing meets the air at a higher AOA, makes more lift and rolls the aircraft level again.'},
     {q:'The vertical stabilizer provides stability about the…',o:['lateral axis (pitch)','longitudinal axis (roll)','vertical axis (yaw)'],a:2,fb:'Fin and rudder = directional stability = yaw about the vertical axis. Horizontal stab = pitch about the lateral axis.'},
     {q:'A T-tail\'s main advantage is…',o:['it is lighter','it sits in clean air above the wing wake and engine blast','it makes more lift'],a:1,fb:'Clean air means more predictable pitch control at low speed. The cost is a heavier, stronger fin.'},
-    {q:'The boundary layer near the front of the wing is…',o:['turbulent','laminar','separated'],a:1,fb:'Laminar (smooth) at the front, then it thickens and turns turbulent after the transition point.'}
+    {q:'The boundary layer near the front of the wing is…',o:['turbulent','laminar','separated'],a:1,fb:'Laminar (smooth) at the front, then it thickens and turns turbulent after the transition point.'},
+    {q:'A wing has a span of 12 m and an area of 24 m². Its aspect ratio is…',o:['2','6','288'],a:1,
+     fb:'AR = span² ÷ area = 144 ÷ 24 = 6.'},
+    {q:'Roll happens about which axis, using which control?',o:['lateral axis — elevator','longitudinal axis (nose to tail) — ailerons','vertical axis — rudder'],a:1,
+     fb:'Roll = longitudinal axis + ailerons. Pitch = lateral axis + elevator. Yaw = vertical axis + rudder.'}
   ];
   var quiz=document.getElementById('quiz'), score=document.getElementById('score'); var got={};
   function buildQuiz(){
