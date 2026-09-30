@@ -112,6 +112,15 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 @media (prefers-reduced-motion:reduce){.progress i{transition:none}}
 </style>
 
+<style>
+.mine{margin:.9rem 0 .4rem;border:1px solid #c9d3dd;border-radius:6px;padding:.5rem .7rem .4rem;background:#fff}
+.mine .lbl{display:block;font:600 .72rem "Barlow Condensed",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#1D5C8F;margin-bottom:.35rem}
+.mine textarea{display:block;width:100%;height:9.6em;box-sizing:border-box;border:0;padding:0;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.6em - 1px),#c9d3dd calc(1.6em - 1px),#c9d3dd 1.6em);background-attachment:local;font:inherit;font-size:.95rem;line-height:1.6em;color:#111;resize:vertical}
+.mine textarea:focus{outline:2px solid #1D5C8F;outline-offset:2px}
+.mine textarea::placeholder{color:#8a949e}
+.mine .lines{display:none}
+@media print{.mine textarea{display:none!important}.mine .lines{display:block!important;height:9.6em;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.6em - 1px),#b8c2cc calc(1.6em - 1px),#b8c2cc 1.6em);-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
 <div class="wrap">
 <header class="top">
   <div>
@@ -141,7 +150,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li>Dry air ≈ <b>78% nitrogen</b>, <b>21% oxygen</b>, ~1% other gases (argon, CO₂).</li>
+      <li>Dry air ≈ <b>78% nitrogen</b>, <b>21% oxygen</b>, ~1% other gases (mostly <b>argon</b>, a noble gas, plus a little CO₂).</li>
       <li>"Dry" = water vapour not counted. Real air also carries moisture.</li>
       <li>Air is a <b>gas</b>: it has no fixed shape, it can be squeezed, and it expands when heated.</li>
     </ul>
@@ -155,7 +164,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <text x="10" y="20" font-size="11" fill="var(--muted)">Dry air by volume</text>
     </svg></div>
     <p class="cap">Almost 4 of every 5 molecules you breathe are nitrogen.</p>
-    <details class="more"><summary>Go deeper</summary><p>You may see 20% oxygen in some notes; the standard figure used in ground school (and in <i>From the Ground Up</i>) is 21%. The mix stays the same all the way up — what changes with altitude is how <i>much</i> air there is, not what it is made of. That is why pilots and engines struggle at altitude: same 21% oxygen, but far fewer molecules per breath or per cylinder.</p></details>
+    <details class="more"><summary>Go deeper</summary><p>Some notes say 20% oxygen and 2% other. The standard figures used in ground school (and in <i>From the Ground Up</i>) are <b>21% oxygen and 1% other</b>. The mix stays the same all the way up — what changes with altitude is how <i>much</i> air there is, not what it is made of. That is why pilots and engines struggle at altitude: same 21% oxygen, but far fewer molecules per breath or per cylinder.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="1" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -191,6 +201,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       </g>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>The gas laws below each hold one property steady and show how two of the others trade off. Boyle's Law holds temperature steady (pressure vs volume). Charles' Law holds pressure steady (volume vs temperature). Density ties mass and volume together.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="2" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -209,6 +220,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li><b>p</b> = pressure, <b>V</b> = volume, <b>C</b> = a constant (temperature does not change).</li>
       <li>Pressure and volume are <b>inversely</b> related: <span class="f">V ↑ = p ↓</span> and <span class="f">V ↓ = p ↑</span>.</li>
       <li>Example: if <span class="f">pV = 10</span>, then <span class="f">2 × 5 = 10</span> or <span class="f">5 × 2 = 10</span>. Double the pressure → volume halves.</li>
+      <li><b>Before → after:</b> <span class="f">p₁ × V₁ = p₂ × V₂</span>. Class practice: p₁ = 2, V₁ = 5, pressure rises to p₂ = 4 → V₂ = (2 × 5) ÷ 4 = <b>2.5</b>.</li>
+      <li>Memory hook: <b>Boyle</b> sounds like "boil" → the law about <b>temperature</b> — it is the one held constant.</li>
       <li>Demo: cap a syringe and push the plunger — smaller volume, the air pushes back harder (SciGuys Boyle's Law video, balloon-in-syringe).</li>
     </ul>
     <div class="fig"><svg viewBox="0 0 400 150" width="400" height="150" role="img" aria-label="Boyle's law graph: pressure falls as volume rises, and a syringe with plunger pushed in">
@@ -237,6 +250,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     </svg></div>
     <p class="cap">Same air, half the space → more than twice the pushing. p × V stays 10.</p>
     <details class="more"><summary>Go deeper</summary><p>"Inversely" (a Tier 2 word) means: when one goes up, the other goes down by the same factor. Boyle's Law is why a sealed bag of chips puffs up in an aircraft cabin at altitude — cabin pressure drops, so the air trapped in the bag expands. It also explains why your ears "pop" on climb and descent.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="3" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -253,7 +267,9 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     <span class="big">V = c × T</span>
     <ul>
       <li>At <b>constant pressure</b>, volume is <b>proportional</b> to temperature: <span class="f">T ↑ = V ↑</span>, <span class="f">T ↓ = V ↓</span>.</li>
-      <li><b>c</b> is the constant (the pressure held steady).</li>
+      <li><b>c</b> is a constant number. <b>Pressure</b> is what is held steady.</li>
+      <li><b>Use absolute temperature (kelvin):</b> <span class="f">K = °C + 273.15</span>. 20 °C = <b>293.15 K</b>. Never put °C or °F into this law.</li>
+      <li><b>Before → after:</b> <span class="f">V₁ ÷ T₁ = V₂ ÷ T₂</span>. Example: 3 L of air at 300 K warms to 350 K → V₂ = 3 × 350 ÷ 300 = <b>3.5 L</b>.</li>
       <li>Warm air spreads out; cold air shrinks. A balloon in a freezer goes limp; in the sun it swells.</li>
     </ul>
     <div class="fig"><svg viewBox="0 0 400 150" width="400" height="150" role="img" aria-label="Charles' law graph: straight line, volume rises with temperature, and a balloon small when cold and large when warm">
@@ -271,7 +287,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <text x="345" y="139" text-anchor="middle" font-size="11" fill="var(--muted)">↑T ↑V</text>
     </svg></div>
     <p class="cap">Boyle = curve (inverse). Charles = straight line (proportional). Know the difference.</p>
-    <details class="more"><summary>Go deeper</summary><p>"Proportional" (Tier 2) means both change together in the same direction, by the same ratio: double the temperature (measured in kelvin) and you double the volume. This is the physics behind hot-air balloons — heat the air inside, it expands and becomes less dense than the air outside, so the balloon rises.</p></details>
+    <details class="more"><summary>Go deeper</summary><p>"Proportional" (Tier 2) means both change together in the same direction, by the same ratio: double the temperature (measured in kelvin) and you double the volume. This is the physics behind hot-air balloons — heat the air inside, it expands and becomes less dense than the air outside, so the balloon rises.</p><p>A third gas law shows up in some notes: hold the <b>volume</b> constant and <b>pressure rises with temperature</b> (p ÷ T = constant, Gay-Lussac's Law). That is why a sealed tire or oxygen bottle reads higher on a hot ramp than on a cold one.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="4" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -311,6 +328,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     </svg></div>
     <p class="cap">Same mass, bigger volume, lower density. A wing "grabs" fewer molecules per second in warm air.</p>
     <details class="more"><summary>Go deeper</summary><p>This is why a hot summer afternoon at a high-elevation airport is the worst case for take-off: hot air is thin, so the aircraft needs a longer run and climbs poorly. Pilots call this "high density altitude" — the air behaves as if the runway were much higher than it really is. Medicine Hat at 2,350 ft on a 30 °C day feels to the wing like an airport well above 4,000 ft.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="5" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -344,7 +362,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <text x="335" y="30" font-size="11" fill="var(--muted)">short column</text>
     </svg></div>
     <p class="cap">Pressure is the weight of the column above you. Shorter column, less weight, lower pressure.</p>
-    <details class="more"><summary>Go deeper</summary><p>Pressure drops roughly 1 inHg for every 1,000 ft in the lower atmosphere. So Medicine Hat (2,350 ft) sits at about 27.5 inHg on a standard day instead of 29.92. Half of all the atmosphere's air is below about 18,000 ft — which is why cabins are pressurized and oxygen is required at height.</p></details>
+    <details class="more"><summary>Go deeper</summary><p>Pressure drops roughly 1 inHg for every 1,000 ft in the lower atmosphere. So Medicine Hat (2,350 ft) sits at about 27.5 inHg on a standard day instead of 29.92. Half of all the atmosphere's air is below about 18,000 ft — which is why cabins are pressurized and oxygen is required at height.</p><p>Why do jets cruise high? Thin air means less drag. At the same indicated airspeed, the aircraft's true speed through the air rises (typically about 2% per 1,000 ft), so with no wind the ground speed goes up too and each kilometre costs less fuel.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="6" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -361,6 +380,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     <ul>
       <li><b>Standard day at sea level:</b> pressure <span class="f">14.7 psi</span> = <span class="f">29.92 inHg</span> = <span class="f">1013.2 mb (hPa)</span>; surface temperature <span class="f">15 °C</span> (<span class="f">59 °F</span>).</li>
       <li>All three pressure values are the <b>same pressure</b> in different units. Know all three.</li>
+      <li>Units: <b>psi</b> = pounds per square inch · <b>inHg</b> = inches of mercury · <b>mb</b> = millibars · <b>hPa</b> = hectopascals (1 mb = 1 hPa).</li>
       <li><b>Why sea level?</b> It is <b>reproducible and consistent</b> across the world — a reference everyone can compare to. Real weather is always compared against this standard.</li>
       <li>Local tie-in: <b>Medicine Hat airport altitude = 2,350 ft above sea level</b>, so MH is never at "sea level" conditions.</li>
     </ul>
@@ -374,7 +394,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <text x="262" y="70" text-anchor="middle" font-size="14" fill="var(--muted)">=</text>
       <text x="200" y="98" text-anchor="middle" font-size="13" fill="var(--ink)">Temperature 15 °C / 59 °F</text>
     </svg></div>
-    <details class="more"><summary>Go deeper</summary><p>Check your notes: 15 °C converts to <b>59 °F</b>, not 52 °F (°F = °C × 1.8 + 32). ISA also sets a standard temperature drop of about 2 °C per 1,000 ft. On a standard day Medicine Hat would be about 15 − (2.35 × 2) ≈ 10 °C. Aircraft performance charts and altimeters are all built on ISA, which is why the number 29.92 will follow you through your whole career.</p></details>
+    <details class="more"><summary>Go deeper</summary><p>Check your notes: 15 °C converts to <b>59 °F</b>, not 52 °F (°F = °C × 1.8 + 32). Going the other way: °C = (°F − 32) × 5 ÷ 9, so 68 °F = 20 °C. ISA also sets a standard temperature drop of about 2 °C per 1,000 ft. On a standard day Medicine Hat would be about 15 − (2.35 × 2) ≈ 10 °C. Aircraft performance charts and altimeters are all built on ISA, which is why the number 29.92 will follow you through your whole career.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="7" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -389,7 +410,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li>When the <b>velocity</b> of a fluid through a <b>constricted tube</b> is <b>increased</b>, the <b>pressure within the fluid is decreased</b>.</li>
+      <li>Air counts as a <b>fluid</b> (it flows). When the <b>velocity</b> of a fluid through a <b>constricted tube</b> is <b>increased</b>, the <b>pressure within the fluid is decreased</b>.</li>
       <li><span class="f">A × V = constant</span> — narrow the area, the fluid must speed up (continuity).</li>
       <li><span class="big">Total pressure = Dynamic pressure + Static pressure</span><br>Total stays the same, so when dynamic (speed) goes up, static (push on the surface) goes down.</li>
       <li><b>Shape of the airfoil is because of Bernoulli:</b> air over the curved top travels faster → <span class="f">↑ velocity = ↓ pressure</span> on top → higher pressure underneath pushes the wing up = <b>lift</b>.</li>
@@ -417,6 +438,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     </svg></div>
     <p class="cap">Top: the venturi tube — narrow section, faster flow, lower pressure. Bottom: the wing's curved top is a half-venturi.</p>
     <details class="more"><summary>Go deeper</summary><p>Bernoulli explains part of lift; the wing's angle to the airflow (angle of attack) deflecting air downward is the other part — you will meet that in Module 2 (Lift and Drag). Bernoulli also runs your instruments: the airspeed indicator measures dynamic pressure (total − static) through the pitot tube, and carburetors use a venturi to draw fuel into the airstream.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="8" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -440,6 +462,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     <div><b>ISA / Standard day</b>Sea level reference: 14.7 psi = 29.92 inHg = 1013.2 hPa at 15 °C.</div>
     <div><b>Bernoulli's principle</b>Faster fluid → lower pressure. Total = dynamic + static.</div>
     <div><b>Airfoil</b>The wing's cross-section shape, curved on top to speed up air and lower pressure.</div>
+    <div><b>Kelvin (K)</b>Absolute temperature: °C + 273.15. Use it in gas-law math.</div>
+    <div><b>psi · inHg · mb/hPa</b>Pounds per square inch · inches of mercury · millibars/hectopascals.</div>
     <div><b>Inversely</b>One goes up, the other goes down (Tier 2 word).</div>
     <div><b>Proportional</b>Both rise or fall together by the same ratio (Tier 2 word).</div>
     <div><b>Constant</b>A value that does not change in the situation (Tier 2 word).</div>
@@ -453,7 +477,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   <div class="score" id="score"></div>
 </section>
 
-<p class="flag">Source: Day 1 class notes (Sept 10, 2026), ASYS 245 Module 1. Reference values follow Transport Canada / <i>From the Ground Up</i> (ISA sea level 1013.2 hPa, 29.92 inHg, 15 °C; dry air 78/21/1).</p>
+<p class="flag">Source: Day 1 class notes (Sept 10, 2026), ASYS 245 Module 1. Reference values follow Transport Canada / <i>From the Ground Up</i> (ISA sea level 1013.2 hPa, 29.92 inHg, 15 °C; dry air 78/21/1). Checked against AME 1 &amp; 2 student class notes, Sept 30, 2026.</p>
 </div>
 
 <script>
@@ -462,6 +486,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   var state={done:{},study:false};
   try{ state=Object.assign(state,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
   function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+  var notes=document.querySelectorAll('.mine textarea'); state.notes=state.notes||{};
+  notes.forEach(function(t){ var id=t.dataset.note; t.value=state.notes[id]||''; t.addEventListener('input',function(){ state.notes[id]=t.value; save(); }); });
 
   var rows=document.querySelectorAll('.row');
   var boxes=document.querySelectorAll('.done');
@@ -493,7 +519,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   });
 
   document.getElementById('resetBtn').addEventListener('click',function(){
-    state={done:{},study:false}; save();
+    state={done:{},study:false,notes:state.notes||{}}; save();
     boxes.forEach(function(b){ b.checked=false; });
     toggle.checked=false; applyStudy(); progress(); buildQuiz();
   });
@@ -515,7 +541,15 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     {q:'Air speeds up through the narrow part of a tube. The pressure there…',o:['rises','drops','is unchanged'],a:1,
      fb:'Bernoulli: faster fluid, lower pressure. Total = dynamic + static, so more dynamic means less static.'},
     {q:'Medicine Hat airport is about 2,350 ft above sea level. Compared to a sea-level airport on a standard day, MH has…',o:['higher pressure and denser air','the same pressure','lower pressure and thinner air'],a:2,
-     fb:'Less air above → lower pressure (~27.5 inHg) → lower density. Take-off runs are longer than at sea level.'}
+     fb:'Less air above → lower pressure (~27.5 inHg) → lower density. Take-off runs are longer than at sea level.'},
+    {q:'Boyle\'s Law holds which property constant?',o:['pressure','temperature','volume'],a:1,
+     fb:'Boyle: temperature constant, so pressure and volume trade off (inverse). Charles holds pressure constant.'},
+    {q:'p₁ = 2 and V₁ = 5. The pressure rises to 4 with temperature unchanged. The new volume is…',o:['10','2.5','5'],a:1,
+     fb:'p₁ × V₁ = p₂ × V₂ → 2 × 5 = 4 × V₂ → V₂ = 10 ÷ 4 = 2.5.'},
+    {q:'Before using Charles\' Law, 20 °C must be converted to…',o:['68 °F','293.15 K','253.15 K'],a:1,
+     fb:'Gas laws need absolute temperature: K = °C + 273.15 → 20 + 273.15 = 293.15 K.'},
+    {q:'1013.2 mb is the same pressure as…',o:['1013.2 hPa','101.32 hPa','1013.2 psi'],a:0,
+     fb:'1 millibar = 1 hectopascal. 1013.2 mb = 1013.2 hPa = 29.92 inHg = 14.7 psi.'}
   ];
   var quiz=document.getElementById('quiz'), score=document.getElementById('score');
   var got={};
