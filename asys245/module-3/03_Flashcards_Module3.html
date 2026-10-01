@@ -84,7 +84,7 @@ header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
 <div class="kbd">Space = flip · 1 = Again · 2 = Got it</div>
 <div class="done" id="done" hidden><h2>Set complete</h2><p id="doneMsg"></p><button class="btn" id="doneRestart" type="button">Go again</button></div>
 
-<p class="foot">Built from the ASYS 245 Module 3 course decks. Reference values per Transport Canada / <i>From the Ground Up</i>.</p>
+<p class="foot">Built from SAFA class notes and the ASYS 245 Module 3 course deck. Reference values per Transport Canada / <i>From the Ground Up</i>.</p>
 </div>
 
 <script>
@@ -123,7 +123,12 @@ var CARDS=[
  {t:'apply',q:'Why do many airliners have a yaw damper?',a:'Swept wings give strong lateral stability → tendency to <b>Dutch roll</b>. The yaw damper moves the rudder automatically to stop it.',w:'Passengers would feel a sick-making wobble otherwise.'},
  {t:'apply',q:'A student rolls left without rudder and the nose swings right. What happened and what fixes it?',a:'<b>Adverse yaw</b> from the down-going right aileron. Fix: <b>coordinated rudder</b>, plus differential or Frise ailerons on the aircraft.',w:'The ball in the turn coordinator slides out.'},
  {t:'apply',q:'A high-wing Cessna and a low-wing Piper both fly straight. Why does the Piper need more dihedral?',a:'The high wing already gets roll stability from the <b>keel effect</b> (weight hanging below the wing). The low wing needs extra <b>dihedral</b> to match.',w:'Look at the wing angle on the ramp next time.'},
- {t:'apply',q:'A canard aircraft is described as "stall resistant". Why?',a:'The <b>canard stalls first</b>, so the nose drops before the main wing can reach its critical angle.',w:'Trade-off: the main wing never reaches full lift, so higher landing speed.'}
+ {t:'apply',q:'A canard aircraft is described as "stall resistant". Why?',a:'The <b>canard stalls first</b>, so the nose drops before the main wing can reach its critical angle.',w:'Trade-off: the main wing never reaches full lift, so higher landing speed.'},
+ {t:'term',q:'Stability vs control',a:'<b>Stability</b> = how the aircraft behaves <b>on its own</b> after a disturbance. <b>Control</b> = the pilot <b>making</b> it move with the flight controls.',w:'Stabilizers bring it back; flight controls make it move.'},
+ {t:'term',q:'Flight control and stabilizer for each axis',a:'Roll: <b>ailerons</b> / <b>wings</b> · Pitch: <b>elevator</b> / <b>horizontal stabilizer</b> · Yaw: <b>rudder</b> / <b>vertical stabilizer</b>',w:'Moving part first, fixed part second.'},
+ {t:'law',q:'Stability in yaw is called…',a:'<b>Directional</b> stability, not "vertical" stability.',w:'The axis is vertical; the stability is directional.'},
+ {t:'law',q:'CG off to one side. Result?',a:'One wing heavy → pilot holds <b>aileron or trim</b> → <b>extra drag</b>; the aircraft flies inefficiently.',w:'Usually uneven fuel or load. Helicopters are affected most.'},
+ {t:'apply',q:'Can a CG out of limits cause a stall?',a:'Not by itself: too much <b>angle of attack</b> causes a stall. But <b>forward</b> CG raises the stall speed and <b>aft</b> CG makes the stall harder to recover from.',w:'CG changes the stall; it does not create it.'}
 ];
 (function(){
   var KEY='asys245-cards-m3';
