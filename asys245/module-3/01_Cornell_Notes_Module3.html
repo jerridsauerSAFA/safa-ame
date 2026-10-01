@@ -127,13 +127,13 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     <h1>Stability &amp; Control</h1>
     <p>The three axes, what "stable" means, how each part of the aircraft keeps it steady, and what goes wrong when it doesn't. Read the notes, then switch on <b>Study mode</b> to test yourself from the cue questions.</p>
   </div>
-  <div class="meta">SAFA · Super T Aviation<br>Module 3 · from course deck</div>
+  <div class="meta">SAFA · SAIT ASYS 245<br>Module 3 · class notes + course deck</div>
 </header>
 
 <div class="bar" role="toolbar" aria-label="Study tools">
   <label><input type="checkbox" id="studyToggle"> Study mode (hide notes, recall from cues)</label>
   <div class="grow"><div class="progress" aria-hidden="true"><i id="pbar"></i></div></div>
-  <span class="meta" id="ptext">0 / 10 sections checked</span>
+  <span class="meta" id="ptext">0 / 11 sections checked</span>
   <button class="btn" id="resetBtn" type="button">Reset</button>
 </div>
 
@@ -144,11 +144,11 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li><b>Longitudinal</b> axis (nose → tail) → <b>ROLL</b> → <b>ailerons</b> → stability from the <b>wings</b> = <b>lateral stability</b>.</li>
-      <li><b>Lateral</b> axis (wingtip → wingtip) → <b>PITCH</b> → <b>elevator</b> → stability from the <b>horizontal stabilizer</b> = <b>longitudinal stability</b>.</li>
-      <li><b>Vertical</b> axis (up/down through the CG) → <b>YAW</b> → <b>rudder</b> → stability from the <b>vertical stabilizer</b> = <b>directional stability</b>.</li>
-      <li>All three axes cross at the <b>centre of gravity</b>.</li>
-      <li><b>Trap:</b> the stability name is NOT the axis name. Lateral stability = roll about the <i>longitudinal</i> axis. Longitudinal stability = pitch about the <i>lateral</i> axis.</li>
+      <li><b>Longitudinal</b> axis runs <b>tip to tail</b> (nose to tail) → <b>ROLL</b>: the wings tilt left ↔ right → <b>ailerons</b>.</li>
+      <li><b>Lateral</b> axis runs <b>wingtip to wingtip</b> → <b>PITCH</b>: the nose goes up ↕ down → <b>elevator</b>.</li>
+      <li><b>Vertical</b> axis goes <b>right through the middle</b>, top to bottom → <b>YAW</b>: the nose swings left ↔ right → <b>rudder</b>.</li>
+      <li>All three axes cross at the <b>centre of gravity (CG)</b>.</li>
+      <li>Each axis has a <b>flight control</b> (moves; the pilot works it) and a <b>stabilizer</b> (fixed; brings the aircraft back): <b>wings</b> for roll, <b>horizontal stabilizer</b> for pitch, <b>vertical stabilizer</b> for yaw.</li>
     </ul>
     <div class="fig"><svg viewBox="0 0 420 170" width="420" height="170" role="img" aria-label="Table of axis, motion, control and stabilizing part">
       <g font-size="12" fill="var(--ink)">
@@ -160,8 +160,43 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
         <text x="20" y="162" font-size="11" fill="var(--muted)">Memory line: Roll–Long–Aileron–Wings · Pitch–Lat–Elevator–HStab · Yaw–Vert–Rudder–VStab</text>
       </g>
     </svg></div>
-    <details class="more"><summary>Go deeper</summary><p>Say the memory line out loud until it's automatic — nearly every question in this module comes back to this table. The axis names describe the <i>line</i>; the stability names describe which way the aircraft is being held steady.</p></details>
+    <details class="more"><summary>Go deeper</summary><p>Say the memory line out loud until it's automatic — nearly every question in this module comes back to this table. The axis names describe the <i>line</i>; the stability names describe which way the aircraft is being held steady. For the whole picture on one sheet, open the <a href="05_Stability_Control_Map_Module3.html">Stability &amp; Control Map</a>.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="1" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="11">
+  <div class="cue"><h3>Stability vs Control</h3><p class="q">What does "stability" describe, and how is it different from control?</p><span class="tag">Behaviour, not an axis</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Stability</b> = how the aircraft <b>behaves on its own</b> after something disturbs it (a gust, turbulence, a pilot input). It describes behaviour, not an axis.</li>
+      <li><b>Control</b> = the pilot <b>making</b> the aircraft move with the flight controls.</li>
+      <li><b>Lateral stability</b> = stable in <b>roll</b>.</li>
+      <li><b>Longitudinal stability</b> = stable in <b>pitch</b>.</li>
+      <li><b>Directional stability</b> = stable in <b>yaw</b>. It is called <i>directional</i>, not "vertical."</li>
+      <li><b>Trap:</b> the names cross over. Lateral stability works around the <i>longitudinal</i> axis; longitudinal stability works around the <i>lateral</i> axis.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Control column: ailerons roll, elevator pitch, rudder yaw. Stability column: wings lateral, horizontal stabilizer longitudinal, vertical stabilizer directional">
+      <g font-size="12" fill="var(--ink)">
+        <rect x="10" y="8" width="195" height="134" rx="5" fill="var(--formula-bg)" stroke="var(--dia-hi)" stroke-width="2"/>
+        <rect x="215" y="8" width="195" height="134" rx="5" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
+        <text x="107" y="30" text-anchor="middle" font-weight="700">CONTROL · makes it move</text>
+        <text x="312" y="30" text-anchor="middle" font-weight="700">STABILITY · brings it back</text>
+        <text x="107" y="46" text-anchor="middle" font-size="10" fill="var(--muted)">moving surface · pilot works it</text>
+        <text x="312" y="46" text-anchor="middle" font-size="10" fill="var(--muted)">fixed part · works on its own</text>
+        <text x="25" y="74">Ailerons</text><text x="190" y="74" text-anchor="end" font-weight="700" fill="var(--formula)">ROLL</text>
+        <text x="25" y="100">Elevator</text><text x="190" y="100" text-anchor="end" font-weight="700" fill="var(--formula)">PITCH</text>
+        <text x="25" y="126">Rudder</text><text x="190" y="126" text-anchor="end" font-weight="700" fill="var(--formula)">YAW</text>
+        <text x="228" y="74">Wings (dihedral)</text><text x="398" y="74" text-anchor="end" font-weight="700">lateral</text>
+        <text x="228" y="100">Horizontal stab</text><text x="398" y="100" text-anchor="end" font-weight="700">longitudinal</text>
+        <text x="228" y="126">Vertical stab</text><text x="398" y="126" text-anchor="end" font-weight="700">directional</text>
+      </g>
+    </svg></div>
+    <p class="cap" style="text-align:center">Read across: each movement has one control and one stabilizer.</p>
+    <details class="more"><summary>Go deeper</summary><p>Stability and control pull against each other. A very stable aircraft (a trainer, an airliner) flies hands-off but is slower to manoeuvre. A less stable one (an aerobatic aircraft) turns quickly but needs constant attention from the pilot.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="11" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -199,7 +234,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li>The wing's lift acts behind the CG → the wing wants to pitch <b>nose-down</b>.</li>
       <li>The tail makes a <b>down-load</b> → pitches the nose <b>up</b> → balance, like a seesaw.</li>
       <li>It only works if the <b>CG is inside the published range</b> — check the loading every flight.</li>
-      <li>CG too far forward <b>or</b> too far aft → longitudinally unstable.</li>
+      <li>CG too far <b>aft</b> → longitudinally <b>unstable</b>. CG too far <b>forward</b> → still stable, but nose heavy (next section).</li>
     </ul>
     <div class="fig"><svg viewBox="0 0 400 140" width="400" height="140" role="img" aria-label="Seesaw: wing lift up at CP, weight down at CG, tail down-load">
       <line x1="40" y1="80" x2="360" y2="80" stroke="var(--dia-line)" stroke-width="4"/>
@@ -209,28 +244,31 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <line x1="150" y1="88" x2="150" y2="125" stroke="var(--ink)" stroke-width="3"/><path d="M144 121 L150 133 L156 121Z" fill="var(--ink)"/>
       <g font-size="11" fill="var(--ink)"><text x="207" y="22">LIFT at CP (behind CG)</text><text x="256" y="130" text-anchor="end">WEIGHT at CG</text><text x="300" y="130" text-anchor="end" fill="var(--formula)" font-weight="700">tail DOWN-load →</text><text x="40" y="70" fill="var(--muted)">nose</text><text x="345" y="70" fill="var(--muted)">tail</text></g>
     </svg></div>
-    <details class="more"><summary>Go deeper</summary><p>Because the tail pushes <i>down</i>, it is actually "negative lift" the wing has to make up for — which is why a forward CG (more tail down-load needed) raises the stall speed. Canard designs (Section 10) flip this: the front surface lifts up instead.</p></details>
+    <details class="more"><summary>Go deeper</summary><p>Because the tail pushes <i>down</i>, it is actually "negative lift" the wing has to make up for — which is why a forward CG (more tail down-load needed) raises the stall speed. Why does the wing pitch nose-down in the first place? Lift acts behind the CG, and a <b>cambered</b> (curved) wing also makes its own nose-down twist. The tail's down-load cancels both. Canard designs (Section 10) flip this: the front surface lifts up instead.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="3" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
 
 <div class="row" data-sec="4">
-  <div class="cue"><h3>CG Out of Limits</h3><p class="q">What happens with a CG too far forward? Too far aft?</p><span class="tag">Fwd = heavy · Aft = unstable</span></div>
+  <div class="cue"><h3>CG Out of Limits</h3><p class="q">What happens with a CG too far forward, too far aft, or off to one side? Can it cause a stall?</p><span class="tag">Fwd = heavy · Aft = unstable · Side = drag</span></div>
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li><b>Too far FORWARD</b> → nose-heavy → more tail down-load needed → <b>higher stall speed</b>, hard to flare on landing. Stable, but heavy.</li>
-      <li><b>Too far AFT</b> → tail-heavy → <b>unstable in pitch</b> → poor stall and spin recovery. Light controls, but dangerous.</li>
-      <li>Rule: <b>forward = stable but heavy; aft = light but unstable.</b></li>
-      <li>This is why Weight &amp; Balance (Module 6) matters to an AME.</li>
+      <li>Every aircraft has a <b>CG range</b> set by the manufacturer: a forward limit and an aft limit. It must be loaded inside that range.</li>
+      <li><b>Too far FORWARD</b> → nose heavy → the tail must push down harder → <b>higher stall speed</b>. The elevator can run out of power: hard to lift the nose on takeoff or to flare on landing.</li>
+      <li><b>Too far AFT</b> → tail heavy, CG too close to the centre of lift → <b>unstable in pitch</b> and hard to recover from a stall. A spin can go <b>flat</b>, making recovery difficult or impossible.</li>
+      <li><b>Side to side</b> → uneven fuel or load makes one wing heavy → the pilot holds aileron or trim → <b>extra drag</b>; the aircraft flies inefficiently. Helicopters are affected most.</li>
+      <li><b>Can CG cause a stall?</b> Not by itself: too much angle of attack causes a stall. But CG changes the stall: forward raises the stall speed; aft makes recovery harder.</li>
+      <li>Rule: <b>forward = stable but heavy; aft = light but unstable.</b> Weight &amp; Balance (Module 6) shows how an AME works out the CG.</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 400 110" width="400" height="110" role="img" aria-label="CG range bracket with forward and aft out-of-limit positions">
+    <div class="fig"><svg viewBox="0 0 400 130" width="400" height="130" role="img" aria-label="CG range bracket with forward and aft out-of-limit positions">
       <line x1="30" y1="60" x2="370" y2="60" stroke="var(--dia-line)" stroke-width="3"/>
       <rect x="150" y="45" width="110" height="30" fill="var(--ok-bg)" stroke="var(--ok)" stroke-width="2"/>
       <text x="205" y="64" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">CG RANGE (OK)</text>
       <circle cx="90" cy="60" r="8" fill="var(--bad)"/><circle cx="320" cy="60" r="8" fill="var(--bad)"/>
       <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="90" y="30" font-weight="700">too far FWD</text><text x="90" y="95" fill="var(--muted)">↑ stall speed, hard flare</text><text x="320" y="30" font-weight="700">too far AFT</text><text x="320" y="95" fill="var(--muted)">unstable, poor recovery</text></g>
+      <text x="200" y="120" text-anchor="middle" font-size="11" fill="var(--ink)"><tspan font-weight="700">SIDE TO SIDE:</tspan> heavy wing → hold aileron or trim → extra drag</text>
       <text x="30" y="20" font-size="10" fill="var(--muted)">nose</text><text x="370" y="20" text-anchor="end" font-size="10" fill="var(--muted)">tail</text>
     </svg></div>
     <details class="more"><summary>Go deeper</summary><p>An aft CG is the more dangerous of the two because it can make the aircraft <i>unrecoverable</i> from a stall or spin. A forward CG mostly costs performance. Either way the aircraft is outside its certified envelope and must not fly.</p></details>
@@ -401,13 +439,17 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 
 <section class="box sum" aria-label="Summary">
   <div class="eyebrow">Summary</div>
-  <p style="margin:.5rem 0 0;max-width:70ch">An aircraft moves about three axes that cross at the CG — roll about the longitudinal axis (ailerons, steadied by the wings), pitch about the lateral axis (elevator, steadied by the horizontal stabilizer) and yaw about the vertical axis (rudder, steadied by the fin). Static stability is the first move after a disturbance; dynamic stability is what the motion does over time, and aircraft are built to be positive in both. Pitch stability depends on the tail's down-load balancing the wing — and on the CG staying inside its range: forward is heavy, aft is unstable. Dihedral levels the wings; the fin weathercocks the nose straight. Too much dihedral effect gives Dutch roll (yaw damper), too much fin gives a spiral. Rolling creates adverse yaw from the rising wing's drag, fixed by differential or Frise ailerons, interconnect springs or roll spoilers. Canards put the horizontal surface in front, lifting up instead of pushing down, at the cost of tricky stability.</p>
+  <p style="margin:.5rem 0 0;max-width:70ch">Stability is how the aircraft behaves on its own after a disturbance; control is the pilot making it move. An aircraft moves about three axes that cross at the CG — roll about the longitudinal axis (ailerons, steadied by the wings), pitch about the lateral axis (elevator, steadied by the horizontal stabilizer) and yaw about the vertical axis (rudder, steadied by the fin). Static stability is the first move after a disturbance; dynamic stability is what the motion does over time, and aircraft are built to be positive in both. Pitch stability depends on the tail's down-load balancing the wing — and on the CG staying inside its range: forward is heavy (higher stall speed), aft is unstable, and side to side costs drag. Dihedral levels the wings; the fin weathercocks the nose straight. Too much dihedral effect gives Dutch roll (yaw damper), too much fin gives a spiral. Rolling creates adverse yaw from the rising wing's drag, fixed by differential or Frise ailerons, interconnect springs or roll spoilers. Canards put the horizontal surface in front, lifting up instead of pushing down, at the cost of tricky stability.</p>
 </section>
 
 <section class="box" aria-label="Key terms">
   <div class="eyebrow">Key terms</div>
   <div class="terms">
     <div><b>Longitudinal / lateral / vertical axis</b>Nose-to-tail (roll), wingtip-to-wingtip (pitch), up-down (yaw). All through the CG.</div>
+    <div><b>Stability vs control</b>Stability = how the aircraft behaves on its own after a disturbance. Control = the pilot making it move.</div>
+    <div><b>Flight control vs stabilizer</b>Moving surface the pilot works (aileron, elevator, rudder) vs fixed part that brings it back (wings, h. stab, fin).</div>
+    <div><b>CG range</b>Forward and aft CG limits set by the manufacturer. The aircraft must be loaded inside them.</div>
+    <div><b>Lateral (side-to-side) balance</b>Even weight left to right. A heavy wing needs aileron or trim, which adds drag.</div>
     <div><b>Static stability</b>The first tendency after a disturbance: positive, neutral or negative.</div>
     <div><b>Dynamic stability</b>What the oscillations do over time: shrink, stay or grow.</div>
     <div><b>Longitudinal stability</b>Pitch stability from the horizontal stabilizer and correct CG.</div>
@@ -433,7 +475,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   <div class="score" id="score"></div>
 </section>
 
-<p class="flag">Source: ASYS 245 Module 3 course deck (Stability and Control; Jeppesen Airframe Technician pp. 1-23 to 1-26), condensed. Reference values follow Transport Canada / <i>From the Ground Up</i>.</p>
+<p class="flag">Source: SAFA class notes and the ASYS 245 Module 3 course deck (Stability and Control; Jeppesen Airframe Technician pp. 1-23 to 1-26), condensed. CG and side-to-side balance: FAA <i>Aircraft Weight and Balance Handbook</i> (FAA-H-8083-1). Reference values follow Transport Canada / <i>From the Ground Up</i>.</p>
 </div>
 
 <script>
@@ -465,6 +507,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     {q:'You roll right. Adverse yaw pushes the nose…',o:['right','left','down'],a:1,fb:'The rising (left) wing has more lift and more drag, pulling the nose left — opposite the roll.'},
     {q:'Which fix uses springs to move the rudder with the ailerons?',o:['Frise ailerons','Differential ailerons','Aileron–rudder interconnect'],a:2,fb:'Interconnect springs pull the correct rudder pedal automatically. Frise and differential ailerons add drag on the low wing instead.'},
     {q:'A canard is designed to stall before the main wing so that…',o:['the aircraft climbs','the nose drops and the wing never reaches a deep stall','the pilot gets a warning light'],a:1,fb:'Canard stalls first → nose drops → wing keeps flying. The cost is a momentary loss of pitch control.'}
+    ,{q:'Stability in yaw is called…',o:['vertical stability','directional stability','lateral stability'],a:1,fb:'The axis is vertical, but the stability is called directional. It comes from the vertical stabilizer (fin).'}
+    ,{q:'Uneven fuel burn leaves one wing heavy. What is the main effect?',o:['The stall speed drops','The pilot must hold aileron or trim, which adds drag','The aircraft becomes unstable in pitch'],a:1,fb:'A side-to-side CG error makes one wing heavy. Holding aileron or trim fixes the roll but adds drag.'}
   ];
   var quiz=document.getElementById('quiz'), score=document.getElementById('score'); var got={};
   function buildQuiz(){ quiz.innerHTML=''; got={}; score.textContent='';
