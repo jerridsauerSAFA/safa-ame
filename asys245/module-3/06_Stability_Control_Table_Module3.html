@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stability & Control Table</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+[hidden]{display:none!important}
+:root{
+  --black:#0b0b0c; --gold:#d8b358;
+  --bg:#f6f4ee; --surface:#fff; --ink:#0b0b0c; --muted:#55524a; --line:#d9d4c6; --gold-soft:#f6edd5; --band:#efe9da;
+  --ok:#2e7d4f; --bad:#b3402b;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#0b0b0c;--surface:#17171a;--ink:#f3f1ea;--muted:#b5b0a3;--line:#34322d;--gold-soft:#2a2416;--band:#222019;--ok:#6ccb8f;--bad:#f08a72}
+}
+:root[data-theme="dark"]{--bg:#0b0b0c;--surface:#17171a;--ink:#f3f1ea;--muted:#b5b0a3;--line:#34322d;--gold-soft:#2a2416;--band:#222019;--ok:#6ccb8f;--bad:#f08a72}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.38 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding:0 16px 3rem}
+h1,h2{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;margin:0;line-height:1.05}
+.wrap{max-width:1280px;margin:0 auto}
+.band{background:var(--black);color:#fff;margin:0 -16px;padding:10px 16px;border-bottom:5px solid var(--gold)}
+.band .in{max-width:1280px;margin:0 auto;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.logos{display:flex;gap:8px}.logos img{height:42px;width:auto;background:#fff;border-radius:4px;padding:4px}
+.band .t{flex:1 1 300px}
+.eb{font:600 .78rem "Barlow Condensed",Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.band h1{font-size:clamp(1.6rem,4vw,2.3rem);color:#fff}
+.band p{margin:.1rem 0 0;color:#d6d2c6;font-size:.88rem}
+.name{display:none;color:#fff;font:600 .95rem "Source Sans 3",sans-serif;white-space:nowrap}
+.blank .name{display:block}
+.bar{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:12px 0}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.35rem .75rem;border-radius:4px;cursor:pointer;text-decoration:none}
+.btn[aria-pressed="true"]{background:var(--black);color:#fff;border-color:var(--black)}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.hint{color:var(--muted);font-size:.85rem}
+.tw{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+table{width:100%;border-collapse:collapse;min-width:1050px}
+th{position:sticky;top:0;background:var(--black);color:#fff;text-align:left;font:700 .82rem "Barlow Condensed",sans-serif;letter-spacing:.07em;text-transform:uppercase;padding:.4rem .45rem;vertical-align:bottom}
+th small{display:block;font:400 .7rem "Source Sans 3",sans-serif;letter-spacing:0;text-transform:none;color:var(--gold)}
+td{border-bottom:1px solid var(--line);padding:.35rem .45rem;vertical-align:top}
+td:first-child{font:700 1.02rem/1.1 "Barlow Condensed",sans-serif;width:9%}
+td:first-child span{display:block;font:400 .74rem "Source Sans 3",sans-serif;color:var(--muted)}
+tr.grp td{background:var(--band);font:700 .8rem "Barlow Condensed",sans-serif;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .45rem;color:var(--ink)}
+tr.grp td span.n{display:inline-block;background:var(--gold);color:#0b0b0c;border-radius:3px;padding:0 .35rem;margin-right:.4rem}
+td ul{margin:0;padding-left:.9rem}td li{margin:0}
+.pro{color:var(--ok);font-weight:700}.con{color:var(--bad);font-weight:700}
+.k{font-weight:700}
+.fx{display:grid;grid-template-columns:1fr 1fr;gap:.15rem .9rem}
+/* fill-in mode */
+.blank .k{color:transparent;border-bottom:1.3px solid var(--ink);display:inline-block;min-width:3.2em;line-height:1.05;cursor:pointer;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.blank .k.show{color:var(--bad)}
+.blank .key{display:none}
+i.k{font-style:normal}
+.foot{display:flex;gap:12px;margin-top:8px;font-size:.78rem;color:var(--muted);flex-wrap:wrap}
+.foot b{color:var(--ink)}
+.key{border-left:4px solid var(--gold);padding-left:.5rem;flex:1 1 380px}
+@media print{
+  @page{size:letter landscape;margin:.25in}
+  html{font-size:10px}
+  body{background:#fff;color:#000;padding:0;font-size:7pt;line-height:1.18}
+  .band{margin:0;padding:4px 8px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .band h1{font-size:14pt}.band p{font-size:7pt}.logos img{height:24px;padding:2px}.eb{font-size:6.5pt}
+  .bar{display:none}
+  .tw{border:0;overflow:visible;margin-top:4px}
+  table{min-width:0}
+  th{position:static;padding:.18rem .3rem;font-size:7.6pt}
+  th,tr.grp td,tr.grp td span.n{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  td{padding:.1rem .28rem}.fx{gap:0 .6rem}
+  td:first-child{font-size:8.6pt}
+  tr{break-inside:avoid}
+  .foot{font-size:6.3pt;margin-top:2px;flex-wrap:nowrap}.foot>div{flex:1 1 50%}
+  .blank .k.show{color:transparent}
+  .blank .k{min-width:4em}
+}
+@media (max-width:620px){.hint{display:none}}
+</style>
+</head>
+<body>
+<header class="band"><div class="in">
+  <div class="logos"><img src="img/sait_logo.png" alt="SAIT"><img src="img/safa_logo.png" alt="SAFA"></div>
+  <div class="t">
+    <div class="eb">ASYS 245 · Module 3 · <span id="modeLbl">One-page reference</span></div>
+    <h1>Stability &amp; Control: the whole module on one page</h1>
+    <p>Each row links the type of stability or design, what controls it, the parts involved, the trade-offs, and real aircraft.</p>
+  </div>
+  <div class="name">Name: ______________________</div>
+</div></header>
+
+<div class="wrap">
+<div class="bar" role="toolbar" aria-label="Page mode">
+  <button class="btn" type="button" data-m="ref" aria-pressed="true">Reference</button>
+  <button class="btn" type="button" data-m="blank" aria-pressed="false">Fill in the blanks</button>
+  <button class="btn" type="button" id="showAll" hidden>Show all answers</button>
+  <button class="btn" type="button" onclick="window.print()">Print this version</button>
+  <a class="btn" href="./">← Module 3</a>
+  <span class="hint" id="hint">Fill-in mode: tap a blank to check your answer.</span>
+</div>
+
+<div class="tw">
+<table>
+<colgroup><col style="width:8.5%"><col style="width:14%"><col style="width:10%"><col style="width:12.5%"><col style="width:15%"><col style="width:12%"><col style="width:15%"><col style="width:13%"></colgroup>
+<thead><tr>
+  <th>Topic</th>
+  <th>What it is<small>axis · movement · meaning</small></th>
+  <th>Controlled by<small>moving surface or system</small></th>
+  <th>Parts that give it<small>fixed parts · design</small></th>
+  <th>How it works<small>the cause</small></th>
+  <th>Pros<small>what you gain</small></th>
+  <th>Cons<small>too much · too little</small></th>
+  <th>Aircraft examples</th>
+</tr></thead>
+<tbody>
+
+<tr class="grp"><td colspan="8"><span class="n">A</span>Stability on each axis · stability = how the aircraft behaves on its own</td></tr>
+<tr>
+  <td>Lateral stability<span>stable in <i class="k">roll</i></span></td>
+  <td><b class="k">Longitudinal</b> axis (tip to tail) · <b class="k">roll</b>: wings tilt left ↔ right</td>
+  <td><b class="k">Ailerons</b></td>
+  <td><b class="k">Wings</b>: <b class="k">dihedral</b>; also high wing (keel / pendulum effect) and sweepback</td>
+  <td>A wing drops → sideslip → the <b class="k">low</b> wing meets the air at a higher angle of attack → more <b class="k">lift</b> → rolls level</td>
+  <td><span class="pro">+</span> Wings level themselves hands-off; easier for training and cloud flying</td>
+  <td><span class="con">Too much:</span> fights the pilot in turns; feeds <b class="k">Dutch roll</b>. <span class="con">Too little:</span> spiral tendency. <b class="k">Anhedral</b> (wings down) reduces it</td>
+  <td>Dihedral: Piper PA-28 (low wing) · High wing: Cessna 172 · Anhedral: C-17, BAe 146, Harrier</td>
+</tr>
+<tr>
+  <td>Longitudinal stability<span>stable in <i class="k">pitch</i></span></td>
+  <td><b class="k">Lateral</b> axis (wingtip to wingtip) · <b class="k">pitch</b>: nose up ↕ down</td>
+  <td><b class="k">Elevator</b> (or a stabilator / canard)</td>
+  <td><b class="k">Horizontal stabilizer</b> + CG ahead of the centre of lift</td>
+  <td>The wing pitches the nose <b class="k">down</b>; the tail pushes <b class="k">down</b> to balance it, like a seesaw</td>
+  <td><span class="pro">+</span> Holds its speed and attitude; nose returns after a gust</td>
+  <td><span class="con">Only works with the CG in limits</span> (see section D). The tail's down-load is extra weight the wing must carry</td>
+  <td>Elevator: Cessna 172, Boeing 737 · Stabilator: Piper PA-28</td>
+</tr>
+<tr>
+  <td>Directional stability<span>stable in <i class="k">yaw</i></span></td>
+  <td><b class="k">Vertical</b> axis (right through the middle) · <b class="k">yaw</b>: nose left ↔ right</td>
+  <td><b class="k">Rudder</b></td>
+  <td><b class="k">Vertical stabilizer</b> (fin); sometimes an <b class="k">offset</b> fin; sweepback helps</td>
+  <td>Nose swings → air hits the side of the fin → pushes the tail back in line, like a <b class="k">weathervane</b></td>
+  <td><span class="pro">+</span> Flies straight; points into the relative wind. Offset fin cancels the propeller's spiral slipstream</td>
+  <td><span class="con">Too much</span> (vs lateral): <b class="k">spiral</b> instability. <span class="con">Too little:</span> Dutch roll</td>
+  <td>Large fins on multi-engine aircraft · offset fins on many single-engine propeller aircraft</td>
+</tr>
+
+<tr class="grp"><td colspan="8"><span class="n">B</span>How stable · both apply to all three axes</td></tr>
+<tr>
+  <td>Static stability<span>the first move</span></td>
+  <td>The <b class="k">initial</b> tendency after the balance (equilibrium) is disturbed by the pilot, weather or turbulence</td>
+  <td>Pilot inputs and trim</td>
+  <td>Same fixed parts as section A</td>
+  <td><b class="k">Positive</b> = heads back · <b class="k">Neutral</b> = stays in the new position · <b class="k">Negative</b> = keeps moving away</td>
+  <td><span class="pro">+</span> Positive: forgiving, flies hands-off. Neutral or negative: very agile</td>
+  <td><span class="con">More stable = slower to manoeuvre.</span> Negative static stability needs computers to fly</td>
+  <td>Positive: trainers, airliners · Relaxed (computer-flown): F-16</td>
+</tr>
+<tr>
+  <td>Dynamic stability<span>over time</span></td>
+  <td>What the motion does <b class="k">over time</b> after a disturbance: does the swinging (oscillation) shrink, stay or grow?</td>
+  <td>Pilot, or an automatic system (yaw damper)</td>
+  <td>Same fixed parts as section A</td>
+  <td><b class="k">Positive</b> = swings get smaller · <b class="k">Neutral</b> = swings stay the same · <b class="k">Negative</b> = swings grow</td>
+  <td><span class="pro">+</span> Positive: settles down by itself</td>
+  <td><span class="con">Negative:</span> each swing is bigger; the pilot must stop it. Needs positive static first</td>
+  <td>Designed positive static <b>and</b> positive dynamic: most certified aircraft</td>
+</tr>
+
+<tr class="grp"><td colspan="8"><span class="n">C</span>When stability and control fight each other</td></tr>
+<tr>
+  <td>Dutch roll<span>roll + yaw wobble</span></td>
+  <td>Aircraft wanders in roll and yaw at the same time</td>
+  <td><b class="k">Yaw damper</b> (moves the rudder automatically)</td>
+  <td>Strong dihedral effect, often from swept wings</td>
+  <td><b class="k">Lateral</b> (dihedral effect) stability is larger than <b class="k">directional</b> stability</td>
+  <td>Not dangerous</td>
+  <td><span class="con">Uncomfortable;</span> passengers feel unwell</td>
+  <td>Swept-wing jets; most large aircraft carry yaw dampers</td>
+</tr>
+<tr>
+  <td>Spiral instability<span>Dutch roll's opposite</span></td>
+  <td>A slow, tightening, descending turn</td>
+  <td>Pilot levels the wings with the ailerons</td>
+  <td>Large fin compared to dihedral</td>
+  <td><b class="k">Directional</b> stability is larger than <b class="k">lateral</b> stability</td>
+  <td>Develops slowly; easy to correct</td>
+  <td><span class="con">Unnoticed</span> (e.g. in cloud) it can steepen into a dangerous spiral dive</td>
+  <td>Most light aircraft are slightly spirally unstable</td>
+</tr>
+<tr>
+  <td>Adverse yaw<span>nose goes the wrong way</span></td>
+  <td>Roll one way → nose yaws the <b class="k">opposite</b> way (vertical axis)</td>
+  <td>Coordinated <b class="k">rudder</b> + the 4 design fixes →</td>
+  <td>Ailerons, wings, rudder. The down aileron adds <b class="k">camber</b></td>
+  <td>The rising wing's down aileron makes more lift <b>and</b> more <b class="k">drag</b> → drags that wing back</td>
+  <td>None: a side effect to manage</td>
+  <td><span class="con">Uncoordinated,</span> inefficient turns; more drag</td>
+  <td>Worst at low speed with large aileron movement (e.g. gliders)</td>
+</tr>
+<tr>
+  <td>4 adverse-yaw fixes<span>design solutions</span></td>
+  <td colspan="4"><div class="fx"><div><b>1. <span class="k">Differential</span> ailerons</b>: the up aileron moves farther than the down one → extra drag on the descending wing.</div>
+    <div><b>2. <span class="k">Frise</span> ailerons</b>: the up aileron's nose dips below the wing → drag on the descending wing.</div>
+    <div><b>3. Aileron–rudder <span class="k">interconnect</span></b>: springs move the rudder with the ailerons.</div>
+    <div><b>4. Roll <span class="k">spoilers</span></b>: a panel rises on the descending wing → kills lift and adds drag on the side of the turn.</div></div></td>
+  <td><span class="pro">+</span> Less rudder work; more coordinated turns</td>
+  <td><span class="con">More parts / weight;</span> differential and Frise reduce adverse yaw but don't remove all of it</td>
+  <td>Frise + differential: Cessna 172 and most light aircraft · Interconnect: Beech Bonanza · Spoilers: Boeing 737, MU-2</td>
+</tr>
+
+<tr class="grp"><td colspan="8"><span class="n">D</span>Design and loading choices</td></tr>
+<tr>
+  <td>CG position<span>centre of gravity</span></td>
+  <td>Must sit inside the <b class="k">CG range</b> (forward + aft limit) set by the manufacturer</td>
+  <td>How the aircraft is loaded (people, cargo, fuel)</td>
+  <td>Weight &amp; balance data; all three axes cross at the <b class="k">CG</b></td>
+  <td><b class="k">Forward</b> → nose heavy. <b class="k">Aft</b> → tail heavy. <b class="k">Side to side</b> → one wing heavy</td>
+  <td><span class="pro">+</span> In range: stable <b>and</b> controllable</td>
+  <td><span class="con">Fwd:</span> higher <b class="k">stall</b> speed, hard to flare. <span class="con">Aft:</span> <b class="k">unstable</b>, hard stall/spin recovery. <span class="con">Side:</span> hold aileron → drag</td>
+  <td>Every aircraft · side-to-side matters most for helicopters</td>
+</tr>
+<tr>
+  <td>Conventional tail<span>low / mid stabilizer</span></td>
+  <td>Horizontal stabilizer mounted low or mid on the tail</td>
+  <td>Elevator + rudder</td>
+  <td>Horizontal + vertical stabilizer at the back</td>
+  <td>Balances the wing's nose-down pitch; fin gives directional stability</td>
+  <td><span class="pro">+</span> Simple, light, proven, easy to inspect</td>
+  <td><span class="con">Sits in the wing's wake and prop / engine blast</span></td>
+  <td>Cessna 172 · Boeing 737 · Airbus A320</td>
+</tr>
+<tr>
+  <td>T-tail<span>stabilizer on top of the fin</span></td>
+  <td>Horizontal stabilizer mounted on <b class="k">top</b> of the vertical fin</td>
+  <td>Elevator + rudder</td>
+  <td>Stronger fin to hold the stabilizer up</td>
+  <td>Tail sits out of the engine blast and the wing's wake</td>
+  <td><span class="pro">+</span> Better, more predictable pitch control at low speed</td>
+  <td><span class="con">Heavier.</span> At very high angle of attack the wing's wake can blank the tail: <b class="k">deep stall</b></td>
+  <td>Piper PA-38 Tomahawk · Bombardier CRJ · Boeing 727</td>
+</tr>
+<tr>
+  <td>Canard<span>wing in front</span></td>
+  <td>Small horizontal wing <b class="k">ahead</b> of the main wing. <b>Control</b> canard (for pitch) or <b>lifting</b> canard (shares the weight)</td>
+  <td>Canard surface (moves or has an elevator)</td>
+  <td>Canard + main wing behind the CG; vertical fins (often at the wingtips)</td>
+  <td>Canard lifts <b class="k">up</b> instead of pushing down; designed to <b class="k">stall first</b> so the nose drops</td>
+  <td><span class="pro">+</span> Extra lift, less drag; stall resistant; out of the wing's downwash</td>
+  <td><span class="con">Destabilizing;</span> tight CG limits; hard to use big wing flaps; if the canard stalls, pitch control is lost for a moment</td>
+  <td>Beechcraft Starship · Rutan VariEze · fighters (Eurofighter Typhoon)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="foot">
+  <div class="key"><b>Memory line:</b> Roll – Longitudinal – Ailerons – Wings (lateral) · Pitch – Lateral – Elevator – Horizontal stab (longitudinal) · Yaw – Vertical – Rudder – Fin (directional). <b>Rule:</b> forward CG = stable but heavy · aft CG = light but unstable.</div>
+  <div>Sources: SAIT ASYS 245 Module 3 slides (Jeppesen <i>Airframe Technician</i> pp. 1-23 to 1-26), SAFA class notes, FAA <i>Pilot's Handbook of Aeronautical Knowledge</i> (FAA-H-8083-25) and <i>Aircraft Weight and Balance Handbook</i> (FAA-H-8083-1).</div>
+</div>
+</div>
+
+<script>
+(function(){
+  var b=document.body, mb=document.querySelectorAll('[data-m]'), all=document.getElementById('showAll'), lbl=document.getElementById('modeLbl'), hint=document.getElementById('hint');
+  function mode(m){
+    b.classList.toggle('blank',m==='blank');
+    mb.forEach(function(x){x.setAttribute('aria-pressed',String(x.dataset.m===m));});
+    all.hidden=m!=='blank'; hint.hidden=m!=='blank';
+    lbl.textContent=m==='blank'?'Fill-in-the-blank review':'One-page reference';
+    document.querySelectorAll('.k.show').forEach(function(k){k.classList.remove('show');});
+  }
+  mb.forEach(function(x){x.addEventListener('click',function(){mode(x.dataset.m);});});
+  document.addEventListener('click',function(e){ var k=e.target.closest('.blank .k'); if(k) k.classList.toggle('show'); });
+  all.addEventListener('click',function(){ document.querySelectorAll('.k').forEach(function(k){k.classList.add('show');}); });
+  if(location.hash==='#blank') mode('blank'); else mode('ref');
+})();
+</script>
+</body>
+</html>
