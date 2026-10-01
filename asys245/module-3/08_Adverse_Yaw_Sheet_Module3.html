@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Adverse Yaw Sheet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+:root{--black:#0b0b0c;--gold:#d8b358;--gold-soft:#f6edd5;--line:#d9d4c6;--muted:#55524a;--lift:#2a6fb0;--drag:#c0392b}
+@page{size:letter;margin:.3in}
+@media print{.pbar{display:none}}
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html{font-size:10px}
+body{margin:0;background:#fff;color:#0b0b0c;font:8.1pt/1.27 "Source Sans 3",Arial,sans-serif}
+.page{width:7.9in;margin:0 auto}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;margin:0;line-height:1.05}
+.band{background:var(--black);color:#fff;padding:6px 10px;border-bottom:4px solid var(--gold);display:flex;gap:10px;align-items:center}
+.logos{display:flex;gap:6px}.logos img{height:32px;background:#fff;border-radius:3px;padding:2px}
+.band .t{flex:1}
+.eb{font:600 7pt "Barlow Condensed",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.band h1{font-size:19pt;color:#fff}.band p{margin:0;color:#d6d2c6;font-size:7.6pt}
+.name{font-size:8pt;white-space:nowrap}
+.sec{display:flex;align-items:baseline;gap:5px;margin:6px 0 3px}
+.sec .n{font:700 7.5pt "Barlow Condensed",sans-serif;background:var(--gold);border-radius:2px;padding:0 4px}
+.sec h2{font-size:12pt}
+.def{border-left:5px solid var(--gold);background:var(--gold-soft);padding:4px 7px;border-radius:0 4px 4px 0;font-size:8.6pt}
+.row{display:grid;gap:8px}
+.kw{display:grid;grid-template-columns:1fr 1fr;gap:1px 10px;margin-top:4px;font-size:7.6pt}
+.kw b{font-family:"Barlow Condensed",sans-serif;font-size:8.6pt}
+.sim img{width:100%;border:1px solid var(--line);border-radius:4px}
+.cap{font-size:7pt;color:var(--muted);margin-top:1px}
+.chain{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;counter-reset:c}
+.chain div{border:1px solid var(--line);border-radius:4px;padding:3px 4px;font-size:7.5pt;background:#faf8f3}
+.chain div::before{counter-increment:c;content:counter(c);background:var(--black);color:#fff;font:700 6.5pt "Barlow Condensed",sans-serif;border-radius:2px;padding:0 3px;margin-right:3px}
+.chain b{font:700 8.6pt "Barlow Condensed",sans-serif}
+ul{margin:0;padding-left:11px}li{margin:0}
+.box{border:1px solid var(--line);border-radius:4px;padding:4px 6px}
+.box h3{font-size:10pt;margin-bottom:1px}
+.fixes{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.fix{border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.fix header{background:var(--black);color:#fff;padding:2px 6px;display:flex;gap:5px;align-items:baseline}
+.fix header .n{background:var(--gold);color:#0b0b0c;font:700 7.5pt "Barlow Condensed",sans-serif;border-radius:2px;padding:0 4px}
+.fix header h3{font-size:10.5pt;color:#fff}
+.fix .in{display:grid;grid-template-columns:44% 1fr;gap:6px;padding:4px 6px}
+.fix .img{text-align:center;align-self:center}
+.fix .img img,.fix .img svg{max-width:100%;max-height:1.32in;height:auto;display:block;margin:0 auto}
+.fix dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:1px 5px;font-size:7.5pt}
+.fix dt{font:700 6.6pt "Barlow Condensed",sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding-top:1px}
+.fix dd{margin:0}
+.cred{font-size:5.8pt;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:7.4pt}
+th{background:var(--black);color:#fff;text-align:left;font:700 7pt "Barlow Condensed",sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:2px 4px}
+td{border-bottom:1px solid var(--line);padding:2px 4px;vertical-align:top}
+td:first-child{font:700 8.4pt "Barlow Condensed",sans-serif}
+.qs{display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;font-size:7.8pt}
+.qs div{border-bottom:1px solid #9aa5b1;padding-bottom:12px}
+.src{font-size:6pt;color:var(--muted);margin-top:4px}
+@media screen{.pbar{max-width:7.9in;margin:0 auto 10px;display:flex;gap:8px}.pbar a,.pbar button{font:600 14px "Source Sans 3",sans-serif;border:1px solid #d9d4c6;background:#fff;color:#0b0b0c;padding:6px 12px;border-radius:4px;cursor:pointer;text-decoration:none}body{background:#eee;padding:16px 0}.page{background:#fff;padding:.3in;box-shadow:0 1px 4px rgba(0,0,0,.15)}}
+</style>
+</head>
+<body>
+<div class="pbar"><button type="button" onclick="window.print()">Print this sheet</button><a href="./">← Module 3</a></div>
+<div class="page">
+<header class="band">
+  <div class="logos"><img src="img/sait_logo.png" alt="SAIT"><img src="img/safa_logo.png" alt="SAFA"></div>
+  <div class="t"><div class="eb">ASYS 245 · Module 3 · Study sheet</div><h1>Adverse Yaw</h1><p>Why the nose swings the wrong way when you roll, and the five ways to stop it.</p></div>
+  <div class="name">Name: ____________________</div>
+</header>
+
+<div class="row" style="grid-template-columns:44% 1fr;margin-top:6px">
+  <div>
+    <div class="sec" style="margin-top:0"><span class="n">1</span><h2>What it is</h2></div>
+    <div class="def"><b>Adverse yaw:</b> the nose yaws <b>away from</b> the direction of the roll. Roll right → the nose first swings left. It happens around the <b>vertical axis</b> but is caused by the <b>ailerons</b>.</div>
+    <div class="kw">
+      <span><b>Aileron</b>: moving surface on the wing's trailing edge; controls roll</span>
+      <span><b>Camber</b>: curve of the wing; more camber = more lift</span>
+      <span><b>Induced drag</b>: drag from making lift; more lift = more drag</span>
+      <span><b>Yaw</b>: nose swings left/right (vertical axis)</span>
+      <span><b>Coordinated turn</b>: aileron + rudder together</span>
+      <span><b>Rising / descending wing</b>: roll right = left wing rises</span>
+    </div>
+  </div>
+  <div class="sim">
+    <div class="sec" style="margin-top:0"><span class="n">2</span><h2>What you see: roll right, plain ailerons, no rudder</h2></div>
+    <img src="img/adverse_yaw_sim.jpg" alt="Rear view: left aileron down with more lift, right aileron up. Top view: more drag on the left wingtip, nose yawing left, slip ball to the right">
+    <div class="cap">Blue = lift, red = drag. The rising left wing has more lift <b>and</b> more drag, so the nose swings left and the slip ball slides right. (From the online Adverse Yaw Lab.)</div>
+  </div>
+</div>
+
+<div class="sec"><span class="n">3</span><h2>The cause, step by step (roll right)</h2></div>
+<div class="chain">
+  <div><b>Aileron moves</b><br>Left aileron <b>down</b>, right aileron <b>up</b>.</div>
+  <div><b>Camber changes</b><br>Down aileron = <b>more camber</b> on the left wing.</div>
+  <div><b>Lift changes</b><br>Left wing makes <b>more lift</b> and rises.</div>
+  <div><b>Drag follows lift</b><br>More lift = more <b>induced drag</b> on the left wing.</div>
+  <div><b>Wing pulled back</b><br>Extra drag pulls the left wingtip <b>back</b>.</div>
+  <div><b>Nose swings left</b><br>Away from the turn, around the vertical axis.</div>
+</div>
+
+<div class="row" style="grid-template-columns:1fr 1fr 1.15fr;margin-top:6px">
+  <div class="box"><h3>Effects</h3><ul>
+    <li>Nose swings the wrong way at the start of a turn</li>
+    <li>Uncoordinated: aircraft slips; ball off centre</li>
+    <li>More drag, lost speed; uncomfortable</li>
+    <li>Worst at low speed, high angle of attack, big aileron inputs, long wings</li>
+    <li>Near a stall, uncoordinated flight raises spin risk</li></ul></div>
+  <div class="box"><h3>Parts involved</h3><ul>
+    <li><b>Ailerons</b>: start it (camber, lift)</li>
+    <li><b>Wings</b>: uneven lift and drag</li>
+    <li><b>Vertical axis</b>: what the nose yaws around</li>
+    <li><b>Rudder</b>: the pilot's fix</li>
+    <li><b>Vertical stabilizer</b>: resists some yaw</li>
+    <li><b>Spoilers</b>: roll without adverse yaw</li></ul></div>
+  <div class="box"><h3>Real life</h3>
+    <p style="margin:0"><b>Student's first turn:</b> wheel left, feet still → nose swings right, ball slides left. Fix: <b>"step on the ball"</b>, left rudder with left aileron.</p>
+    <p style="margin:2px 0 0"><b>Gliders:</b> very long wings = strong adverse yaw. A <b>yaw string</b> on the canopy shows when the glider is slipping.</p></div>
+</div>
+
+<div class="sec"><span class="n">4</span><h2>The fixes · pilot: rudder with aileron · designers: the four below</h2></div>
+<div class="fixes">
+  <div class="fix"><header><span class="n">1</span><h3>Differential ailerons</h3></header><div class="in">
+    <div class="img"><svg viewBox="0 0 360 170" role="img" aria-label="Up-going aileron moves through a larger angle than the down-going aileron">
+          <g font-size="12" fill="#0b0b0c">
+            <path d="M20 50 C30 26 120 22 200 34 L246 44 L200 58 C120 64 40 62 20 50Z" fill="#e7e3d8" stroke="#7a7466"/>
+            <path d="M246 44 L306 8 L300 2 L244 38Z" fill="#d8b358" stroke="#0b0b0c"/>
+            <path d="M250 44 A40 40 0 0 0 268 22" fill="none" stroke="#b3402b" stroke-width="2"/>
+            <text x="100" y="47">wing</text><text x="354" y="60" text-anchor="end" font-weight="700">UP: big angle</text>
+            <text x="20" y="84" fill="#55524a">descending wing → more drag</text>
+            <path d="M20 128 C30 104 120 100 200 112 L246 122 L200 136 C120 142 40 140 20 128Z" fill="#e7e3d8" stroke="#7a7466"/>
+            <path d="M246 122 L296 140 L294 146 L244 128Z" fill="#d8b358" stroke="#0b0b0c"/>
+            <path d="M262 124 A20 20 0 0 1 262 134" fill="none" stroke="#2a6fb0" stroke-width="2"/>
+            <text x="100" y="125">wing</text><text x="354" y="110" text-anchor="end" font-weight="700">DOWN: small angle</text>
+            <text x="20" y="162" fill="#55524a">rising wing → less extra lift and drag</text>
+          </g>
+        </svg></div>
+    <dl><dt>Simply</dt><dd>The <b>up</b> aileron moves <b>farther</b> than the down aileron.</dd>
+    <dt>How</dt><dd>Extra drag on the descending wing; less extra lift and drag on the rising wing. Cancels most, not all.</dd>
+    <dt>Used</dt><dd>Light single-engine aircraft</dd>
+    <dt>e.g.</dt><dd>Cessna 172, Piper PA-28</dd></dl></div></div>
+  <div class="fix"><header><span class="n">2</span><h3>Frise ailerons</h3></header><div class="in">
+    <div class="img"><svg viewBox="0 0 360 150" role="img" aria-label="Frise aileron: the nose of the raised aileron sticks down into the airflow under the wing">
+          <g font-size="12" fill="#0b0b0c">
+            <path d="M20 70 C30 44 120 40 210 52 L240 60 L240 80 L210 84 C120 88 40 86 20 70Z" fill="#e7e3d8" stroke="#7a7466"/>
+            <path d="M236 92 C232 84 240 72 252 70 L316 40 L320 46 L258 84 C252 92 244 96 236 92Z" fill="#d8b358" stroke="#0b0b0c"/>
+            <circle cx="250" cy="78" r="3.5" fill="#fff" stroke="#0b0b0c"/>
+            <text x="262" y="96" font-size="11">hinge</text>
+            <g stroke="#2a6fb0" stroke-width="2" fill="#2a6fb0"><line x1="120" y1="112" x2="222" y2="100"/><path d="M220 95 L232 99 L222 106Z"/></g>
+            <text x="40" y="128" fill="#2a6fb0">airflow under the wing</text>
+            <g stroke="#c0392b" stroke-width="3" fill="#c0392b"><line x1="236" y1="100" x2="236" y2="132"/><path d="M230 128 L236 140 L242 128Z"/></g>
+            <text x="248" y="124" fill="#c0392b" font-weight="700">nose sticks out</text><text x="248" y="139" fill="#c0392b" font-weight="700">= extra drag</text>
+            <text x="100" y="68">wing</text><text x="262" y="34" font-weight="700">aileron UP</text>
+          </g>
+        </svg></div>
+    <dl><dt>Simply</dt><dd>The raised aileron's <b>nose dips below</b> the wing into the airflow.</dd>
+    <dt>How</dt><dd>Set-back hinge → drag on the descending wing. Also lightens control forces.</dd>
+    <dt>Used</dt><dd>Light aircraft, often with differential travel</dd>
+    <dt>e.g.</dt><dd>Cessna 172 and many light aircraft</dd></dl></div></div>
+  <div class="fix"><header><span class="n">3</span><h3>Aileron–rudder interconnect</h3></header><div class="in">
+    <div class="img"><img src="img/faa_interconnect.jpg" alt="FAA figure: rudder/aileron interconnecting springs"><div class="cred">FAA (public domain)</div></div>
+    <dl><dt>Simply</dt><dd><b>Springs</b> link the ailerons to the rudder.</dd>
+    <dt>How</dt><dd>Roll right → springs pull the right rudder pedal forward → right rudder cancels the left yaw. Pilot can override.</dd>
+    <dt>Used</dt><dd>Some light single-engine aircraft</dd>
+    <dt>e.g.</dt><dd>Beechcraft Bonanza; Ercoupe (fully linked, no pedals)</dd></dl></div></div>
+  <div class="fix"><header><span class="n">4</span><h3>Roll spoilers</h3></header><div class="in">
+    <div class="img"><img src="img/faa_transport_controls.jpg" alt="FAA figure: flight spoilers and ailerons on a transport category aircraft"><div class="cred">FAA <i>AMT Handbook: Airframe</i> (public domain)</div></div>
+    <dl><dt>Simply</dt><dd>Panels on top of the wing <b>pop up</b> on the wing you want to go <b>down</b>.</dd>
+    <dt>How</dt><dd>Spoils lift + adds drag on the descending wing → drag on the turn side → nose yaws <b>into</b> the turn.</dd>
+    <dt>Used</dt><dd>Large jets (with ailerons); frees room for big flaps</dd>
+    <dt>e.g.</dt><dd>Boeing 737/747; Mitsubishi MU-2 (spoilers only)</dd></dl></div></div>
+</div>
+
+<div class="row" style="grid-template-columns:1.45fr 1fr;margin-top:6px">
+  <table>
+    <thead><tr><th>Fix</th><th>Drag goes to</th><th>Pros</th><th>Cons</th></tr></thead>
+    <tbody>
+      <tr><td>Rudder (pilot)</td><td>— rudder yaws nose</td><td>Works on every aircraft</td><td>Pilot skill needed</td></tr>
+      <tr><td>Differential</td><td>Descending wing</td><td>Simple, light</td><td>Reduces, doesn't remove</td></tr>
+      <tr><td>Frise</td><td>Descending wing</td><td>Lighter control forces</td><td>Reduces, doesn't remove</td></tr>
+      <tr><td>Interconnect</td><td>— springs add rudder</td><td>Automatic</td><td>Extra parts</td></tr>
+      <tr><td>Roll spoilers</td><td>Descending wing</td><td>No adverse yaw; big flaps</td><td>More complex</td></tr>
+    </tbody>
+  </table>
+  <div class="box"><h3>Explain it</h3>
+    <div class="qs" style="grid-template-columns:1fr">
+      <div>1. Roll left with ailerons only. Which way does the nose go, and why?</div>
+      <div>2. Which wing gets the extra drag from every design fix, and why does that help?</div>
+      <div>3. Ball slides right in a right turn. Which rudder pedal?</div>
+    </div>
+  </div>
+</div>
+<p class="src">Sources: SAIT ASYS 245 Module 3 slides (Jeppesen <i>Airframe Technician</i> pp. 1-23 to 1-26), SAFA class notes; FAA <i>Pilot's Handbook of Aeronautical Knowledge</i> (FAA-H-8083-25) and <i>AMT Handbook: Airframe</i> (FAA-H-8083-31). Connects to Module 2 (camber, induced drag) and Module 4 (ailerons, spoilers).</p>
+</div>
+</body>
+</html>
