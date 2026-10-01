@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stability & Control Map</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+[hidden]{display:none!important}
+:root{
+  --black:#0b0b0c; --gold:#d8b358; --white:#ffffff;
+  --bg:#f6f4ee; --surface:#ffffff; --ink:#0b0b0c; --muted:#55524a; --line:#d9d4c6;
+  --gold-soft:#f6edd5; --ctrl:#d8b358; --stab:#0b0b0c; --wing:#e7e3d8; --axis:#7a7466;
+  --ok:#2e7d4f; --ok-bg:#e4f3ea; --bad:#b3402b; --bad-bg:#fbe8e3;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b0b0c; --surface:#17171a; --ink:#f3f1ea; --muted:#b5b0a3; --line:#34322d;
+    --gold-soft:#2a2416; --ctrl:#d8b358; --stab:#f3f1ea; --wing:#2d2c29; --axis:#9c9583;
+    --ok:#6ccb8f; --ok-bg:#16301f; --bad:#f08a72; --bad-bg:#3a1c15;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b0b0c; --surface:#17171a; --ink:#f3f1ea; --muted:#b5b0a3; --line:#34322d;
+  --gold-soft:#2a2416; --ctrl:#d8b358; --stab:#f3f1ea; --wing:#2d2c29; --axis:#9c9583;
+  --ok:#6ccb8f; --ok-bg:#16301f; --bad:#f08a72; --bad-bg:#3a1c15;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding:0 16px 3rem}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;margin:0;line-height:1.05;text-wrap:balance}
+.wrap{max-width:1000px;margin:0 auto}
+/* header band */
+.band{background:var(--black);color:#fff;margin:0 -16px;padding:14px 16px;border-bottom:5px solid var(--gold)}
+.band .in{max-width:1000px;margin:0 auto;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.logos{display:flex;gap:8px;align-items:center}
+.logos img{height:46px;width:auto;background:#fff;border-radius:4px;padding:4px}
+.band .t{flex:1 1 260px}
+.band .eb{font:600 .8rem "Barlow Condensed",Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.band h1{font-size:clamp(1.8rem,5vw,2.6rem);font-weight:700;color:#fff}
+.band p{margin:.15rem 0 0;color:#d6d2c6;font-size:.92rem}
+/* toolbar */
+.bar{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;margin:14px 0 4px}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.35rem .75rem;border-radius:4px;cursor:pointer}
+.btn[aria-pressed="true"]{background:var(--black);color:#fff;border-color:var(--black)}
+:root[data-theme="dark"] .btn[aria-pressed="true"]{background:var(--gold);color:#0b0b0c;border-color:var(--gold)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn[aria-pressed="true"]{background:var(--gold);color:#0b0b0c;border-color:var(--gold)}}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.bar .hint{color:var(--muted);font-size:.85rem}
+/* cards */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin-top:12px}
+.sec{display:flex;align-items:baseline;gap:.6rem;margin-bottom:.4rem}
+.sec h2{font-size:1.35rem}
+.sec .n{font:700 .8rem "Barlow Condensed",sans-serif;background:var(--gold);color:#0b0b0c;border-radius:3px;padding:.05rem .4rem;letter-spacing:.06em}
+/* diagram */
+.dia{display:grid;grid-template-columns:2.1fr 1fr;gap:10px}
+.dia svg{width:100%;height:auto;display:block;font-family:"Source Sans 3",sans-serif}
+.legend{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;font-size:.85rem;margin-top:.4rem;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:.35rem;vertical-align:middle}
+.ax{transition:opacity .2s}
+body[data-focus="roll"] .ax:not(.roll),body[data-focus="pitch"] .ax:not(.pitch),body[data-focus="yaw"] .ax:not(.yaw){opacity:.15}
+/* table */
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
+.tbl th{font:700 .85rem "Barlow Condensed",sans-serif;letter-spacing:.08em;text-transform:uppercase;text-align:left;background:var(--black);color:#fff;padding:.45rem .5rem;vertical-align:bottom}
+.tbl th small{display:block;font:400 .72rem "Source Sans 3",sans-serif;letter-spacing:0;text-transform:none;color:var(--gold)}
+.tbl td{border-bottom:1px solid var(--line);padding:.5rem;vertical-align:top}
+.tbl tr.r{cursor:pointer}
+.tbl tr.r:hover td,.tbl tr.r.on td{background:var(--gold-soft)}
+.tbl td.mv{font:700 1.25rem "Barlow Condensed",sans-serif;white-space:nowrap}
+.tbl td.mv span{display:block;font:400 .78rem "Source Sans 3",sans-serif;color:var(--muted)}
+.tbl .cue{display:block;color:var(--muted);font-size:.8rem;font-style:italic}
+.chip{display:inline-block;border-radius:3px;padding:0 .35rem;font-weight:700}
+.chip.c{background:var(--ctrl);color:#0b0b0c}
+.chip.s{border:1.5px solid var(--stab)}
+.quiz .tbl td.hide{position:relative;color:transparent!important}
+.quiz .tbl td.hide *{visibility:hidden}
+.quiz .tbl td.hide::after{content:"tap to reveal";position:absolute;inset:.35rem;display:flex;align-items:center;justify-content:center;border:1px dashed var(--line);border-radius:4px;color:var(--muted);font:600 .78rem "Source Sans 3",sans-serif;visibility:visible}
+/* two-up */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.9rem}
+.vs div{border-radius:5px;padding:.5rem .6rem}
+.vs .c{background:var(--gold-soft);border-left:5px solid var(--ctrl)}
+.vs .s{border:1px solid var(--line);border-left:5px solid var(--stab)}
+.vs div>b{display:block;font:700 1.05rem "Barlow Condensed",sans-serif}
+.vs ul{margin:.2rem 0 0;padding-left:1rem}
+.trap{margin-top:8px;background:var(--black);color:#fff;border-radius:5px;padding:.5rem .7rem;font-size:.9rem}
+.trap b{color:var(--gold)}
+.wings{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;text-align:center;font-size:.82rem}
+.wings svg{width:100%;height:auto;max-height:48px}
+.wings .hd{display:block;font:700 1rem "Barlow Condensed",sans-serif}
+/* CG */
+.cg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cg div{border:1px solid var(--line);border-radius:5px;padding:.5rem .6rem;font-size:.86rem}
+.cg div.ok{border-color:var(--ok);background:var(--ok-bg)}
+.cg div.bad{border-top:4px solid var(--bad)}
+.cg div>b{display:block;font:700 1.08rem "Barlow Condensed",sans-serif}
+.cg ul{margin:.2rem 0 0;padding-left:1rem}
+.stall{margin-top:8px;font-size:.9rem;border-left:5px solid var(--gold);padding:.35rem .6rem;background:var(--gold-soft);border-radius:0 5px 5px 0}
+.src{font-size:.75rem;color:var(--muted);margin-top:10px}
+@media (max-width:720px){
+  .dia,.two,.vs{grid-template-columns:1fr}
+  .dia svg+svg{max-width:220px;margin:0 auto}
+  .cg{grid-template-columns:1fr 1fr}
+  .tbl thead{display:none}
+  .tbl tr{display:block;border-bottom:2px solid var(--line);padding:.3rem 0}
+  .tbl td{display:block;border:0;padding:.25rem .3rem}
+  .tbl td[data-h]::before{content:attr(data-h);display:block;font:700 .72rem "Barlow Condensed",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+}
+@media (max-width:420px){.cg{grid-template-columns:1fr}}
+@media print{
+  @page{size:letter;margin:.35in}
+  html{font-size:11.5px}
+  body{background:#fff;color:#000;font-size:8.6pt;line-height:1.3;padding:0}
+  .band{margin:0;padding:6px 10px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .band h1{font-size:20pt}.band p{font-size:8.5pt}.logos img{height:34px}
+  .bar{display:none}
+  .card{margin-top:6px;padding:6px 9px;break-inside:avoid}
+  .sec h2{font-size:12.5pt}
+  .tbl{font-size:8pt}.tbl td{padding:.18rem .3rem}.tbl td.mv{font-size:11pt}.tbl th{padding:.2rem .3rem;font-size:7.5pt}.tbl tr.r td{background:none!important}
+  .tbl th,.chip.c,.trap,.sec .n,.vs .c,.stall,.cg div.ok,.cg div.bad{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .dia svg{max-height:2.3in}.legend{font-size:7.5pt;margin-top:0}
+  .vs,.cg div,.stall,.trap,.wings{font-size:7.8pt}.wings svg{max-height:26px}.two,.cg,.vs{gap:6px}.trap{margin-top:5px;padding:.3rem .5rem}.stall{margin-top:5px;padding:.25rem .5rem}
+  .cg div{padding:.3rem .45rem}
+  .src{font-size:7pt;margin-top:4px}
+  body[data-focus] .ax{opacity:1!important}
+  .quiz .tbl td.hide{color:inherit!important}.quiz .tbl td.hide *{visibility:visible}.quiz .tbl td.hide::after{display:none}
+}
+</style>
+</head>
+<body>
+<header class="band"><div class="in">
+  <div class="logos"><img src="img/sait_logo.png" alt="SAIT"><img src="img/safa_logo.png" alt="SAFA"></div>
+  <div class="t">
+    <div class="eb">ASYS 245 · Module 3 · One-page reference</div>
+    <h1>Stability &amp; Control Map</h1>
+    <p>Three movements, three axes, one control and one stabilizer for each, and where the centre of gravity has to sit.</p>
+  </div>
+</div></header>
+
+<div class="wrap">
+<div class="bar" role="toolbar" aria-label="Study tools">
+  <button class="btn" type="button" data-f="all" aria-pressed="true">All</button>
+  <button class="btn" type="button" data-f="roll" aria-pressed="false">Roll</button>
+  <button class="btn" type="button" data-f="pitch" aria-pressed="false">Pitch</button>
+  <button class="btn" type="button" data-f="yaw" aria-pressed="false">Yaw</button>
+  <button class="btn" type="button" id="quizBtn" aria-pressed="false">Quiz me (hide the table)</button>
+  <button class="btn" type="button" onclick="window.print()">Print</button>
+  <a class="btn" href="./" style="text-decoration:none">← Module 3</a>
+  <span class="hint">Tap a movement to light up its parts on the aircraft.</span>
+</div>
+
+<!-- 1. Aircraft -->
+<section class="card" aria-label="Aircraft parts">
+  <div class="sec"><span class="n">1</span><h2>The parts and the axes</h2></div>
+  <div class="dia">
+    <svg viewBox="0 0 560 300" role="img" aria-label="Top view of an aircraft showing the three axes crossing at the centre of gravity, the ailerons, elevator and rudder in gold, and the wings, horizontal and vertical stabilizers">
+      <!-- wings -->
+      <path class="ax roll" d="M212 128 L222 18 L262 18 L270 128 Z M212 172 L222 282 L262 282 L270 172 Z" fill="var(--wing)" stroke="var(--axis)" stroke-width="1.2"/>
+      <!-- ailerons -->
+      <g class="ax roll"><rect x="258" y="20" width="12" height="54" fill="var(--ctrl)" stroke="#0b0b0c" stroke-width="1"/><rect x="258" y="226" width="12" height="54" fill="var(--ctrl)" stroke="#0b0b0c" stroke-width="1"/></g>
+      <!-- fuselage -->
+      <path d="M78 150 C90 128 140 126 200 127 L420 136 C470 140 490 144 494 150 C490 156 470 160 420 164 L200 173 C140 174 90 172 78 150 Z" fill="var(--surface)" stroke="var(--axis)" stroke-width="1.5"/>
+      <!-- horizontal stab + elevator -->
+      <g class="ax pitch"><path d="M430 140 L446 92 L470 92 L470 208 L446 208 L430 160 Z" fill="var(--stab)" opacity=".85"/><rect x="470" y="94" width="13" height="112" fill="var(--ctrl)" stroke="#0b0b0c" stroke-width="1"/></g>
+      <!-- vertical stab + rudder (seen from above) -->
+      <g class="ax yaw"><path d="M436 147 L484 146 L484 154 L436 153 Z" fill="var(--stab)"/><rect x="484" y="145" width="16" height="10" fill="var(--ctrl)" stroke="#0b0b0c" stroke-width="1"/></g>
+      <!-- axes -->
+      <g class="ax roll"><line x1="30" y1="150" x2="540" y2="150" stroke="var(--axis)" stroke-width="1.6" stroke-dasharray="7 5"/><path d="M540 145 L552 150 L540 155Z" fill="var(--axis)"/></g>
+      <g class="ax pitch"><line x1="241" y1="8" x2="241" y2="294" stroke="var(--axis)" stroke-width="1.6" stroke-dasharray="7 5"/></g>
+      <!-- CG / vertical axis -->
+      <g class="ax yaw"><circle cx="241" cy="150" r="13" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="3 3"/></g>
+      <g><circle cx="241" cy="150" r="8" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.5"/><path d="M241 142 A8 8 0 0 1 249 150 L241 150Z M241 158 A8 8 0 0 1 233 150 L241 150Z" fill="var(--ink)"/></g>
+      <!-- labels -->
+      <g font-size="11.5" fill="var(--ink)">
+        <g class="ax roll"><text x="30" y="106" font-weight="700">LONGITUDINAL axis</text><text x="30" y="120" fill="var(--muted)">tip to tail → ROLL</text>
+          <text x="282" y="44" font-weight="700">Aileron</text><text x="282" y="58" fill="var(--muted)">moves → roll</text>
+          <text x="150" y="232" text-anchor="end" font-weight="700">Wing (dihedral)</text><text x="150" y="246" text-anchor="end" fill="var(--muted)">steadies roll</text><line x1="153" y1="236" x2="222" y2="236" stroke="var(--muted)" stroke-width="1"/></g>
+        <g class="ax pitch"><text x="249" y="12" font-weight="700">LATERAL axis</text><text x="249" y="296" fill="var(--muted)">wingtip to wingtip → PITCH</text>
+          <text x="420" y="62" text-anchor="middle" font-weight="700">Horizontal stabilizer</text><line x1="430" y1="66" x2="450" y2="100" stroke="var(--muted)" stroke-width="1"/>
+          <text x="490" y="110" font-weight="700">Elevator</text></g>
+        <g class="ax yaw"><text x="430" y="240" text-anchor="middle" font-weight="700">Vertical stabilizer (fin, on top)</text><line x1="440" y1="229" x2="456" y2="156" stroke="var(--ink)" stroke-width="1"/>
+          <text x="505" y="178" font-weight="700" text-anchor="middle">Rudder</text>
+          <text x="190" y="196" text-anchor="end" font-weight="700">VERTICAL axis</text><text x="190" y="210" text-anchor="end" fill="var(--muted)">right through the middle → YAW</text><line x1="192" y1="192" x2="232" y2="160" stroke="var(--muted)" stroke-width="1"/></g>
+        <text x="258" y="140" font-weight="700">CG</text>
+      </g>
+    </svg>
+    <svg viewBox="0 0 260 300" role="img" aria-label="Front view showing dihedral wings, the fin, and the vertical axis through the centre of gravity">
+      <g class="ax yaw"><line x1="130" y1="22" x2="130" y2="262" stroke="var(--axis)" stroke-width="1.6" stroke-dasharray="7 5"/><path d="M125 22 L130 10 L135 22Z" fill="var(--axis)"/></g>
+      <g class="ax roll"><path d="M110 168 L14 136 L16 128 L112 158 Z M150 168 L246 136 L244 128 L148 158 Z" fill="var(--wing)" stroke="var(--axis)" stroke-width="1.2"/>
+        <line x1="112" y1="163" x2="40" y2="163" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 3"/><path d="M60 163 A50 50 0 0 1 58 155" fill="none" stroke="var(--ink)" stroke-width="1.2"/></g>
+      <g class="ax pitch"><path d="M104 118 L66 114 L66 120 L104 124 Z M156 118 L194 114 L194 120 L156 124 Z" fill="var(--stab)"/></g>
+      <g class="ax yaw"><path d="M127 128 L127 70 L133 70 L133 128 Z" fill="var(--stab)"/></g>
+      <circle cx="130" cy="160" r="22" fill="var(--surface)" stroke="var(--axis)" stroke-width="1.5"/>
+      <circle cx="130" cy="160" r="6" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.5"/><path d="M130 154 A6 6 0 0 1 136 160 L130 160Z M130 166 A6 6 0 0 1 124 160 L130 160Z" fill="var(--ink)"/>
+      <g font-size="11.5" fill="var(--ink)" text-anchor="middle">
+        <text x="130" y="206" font-weight="700">FRONT VIEW</text>
+        <text class="ax roll" x="48" y="186">dihedral angle</text>
+        <text class="ax yaw" x="140" y="84" text-anchor="start" font-weight="700">fin</text>
+        <text class="ax yaw" x="130" y="280" fill="var(--muted)">vertical axis → yaw</text>
+        <text class="ax pitch" x="196" y="106" fill="var(--muted)">h. stab</text>
+      </g>
+    </svg>
+  </div>
+  <div class="legend"><span><i style="background:var(--ctrl)"></i>Gold = flight control (moves, pilot works it)</span><span><i style="background:var(--stab)"></i>Dark = stabilizer (fixed, works on its own)</span><span><b>CG</b> = centre of gravity: all three axes cross here</span></div>
+</section>
+
+<!-- 2. Table -->
+<section class="card" aria-label="Stability and movement table">
+  <div class="sec"><span class="n">2</span><h2>Movement · axis · control · stability</h2></div>
+  <table class="tbl">
+    <thead><tr>
+      <th>Movement</th><th>Axis<small>the line it turns around</small></th><th>Flight control<small>makes it move</small></th><th>Stability name<small>stable in…</small></th><th>Stabilizer / design<small>brings it back</small></th><th>How it works<small>the cause</small></th>
+    </tr></thead>
+    <tbody>
+      <tr class="r" data-ax="roll">
+        <td class="mv">Roll<span>wing tilts L ↔ R</span></td>
+        <td data-h="Axis" class="h"><b>Longitudinal</b><span class="cue">tip to tail (nose to tail)</span></td>
+        <td data-h="Flight control" class="h"><span class="chip c">Ailerons</span></td>
+        <td data-h="Stability name" class="h"><b>Lateral</b> stability</td>
+        <td data-h="Stabilizer / design" class="h"><span class="chip s">Wings</span> dihedral (also high wing, sweepback)</td>
+        <td data-h="How it works" class="h">A wing drops → aircraft slips sideways → the <b>low wing</b> meets the air at a higher angle of attack → <b>more lift</b> → rolls back level.</td>
+      </tr>
+      <tr class="r" data-ax="pitch">
+        <td class="mv">Pitch<span>nose up ↕ down</span></td>
+        <td data-h="Axis" class="h"><b>Lateral</b><span class="cue">wingtip to wingtip</span></td>
+        <td data-h="Flight control" class="h"><span class="chip c">Elevator</span></td>
+        <td data-h="Stability name" class="h"><b>Longitudinal</b> stability</td>
+        <td data-h="Stabilizer / design" class="h"><span class="chip s">Horizontal stabilizer</span> + CG inside its range</td>
+        <td data-h="How it works" class="h">The wing wants to pitch <b>nose down</b>. The tail pushes <b>down</b> to balance it, like a seesaw. Only works with the CG in limits.</td>
+      </tr>
+      <tr class="r" data-ax="yaw">
+        <td class="mv">Yaw<span>nose L ↔ R</span></td>
+        <td data-h="Axis" class="h"><b>Vertical</b><span class="cue">right through the middle</span></td>
+        <td data-h="Flight control" class="h"><span class="chip c">Rudder</span></td>
+        <td data-h="Stability name" class="h"><b>Directional</b> stability</td>
+        <td data-h="Stabilizer / design" class="h"><span class="chip s">Vertical stabilizer</span> (fin); sometimes offset</td>
+        <td data-h="How it works" class="h">Nose swings → air hits the side of the fin → pushes the tail back in line, like a <b>weathervane</b>. An offset fin cancels the propeller's spiralling slipstream.</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<div class="two">
+<!-- 3. control vs stabilizer -->
+<section class="card" aria-label="Flight control versus stabilizer">
+  <div class="sec"><span class="n">3</span><h2>Control vs stability</h2></div>
+  <div class="vs">
+    <div class="c"><b>Flight control = control</b><ul><li>Moving surface (aileron, elevator, rudder)</li><li>The pilot works it</li><li>Makes the aircraft <b>move</b></li></ul></div>
+    <div class="s"><b>Stabilizer = stability</b><ul><li>Fixed part or shape (wings, h. stab, fin)</li><li>Works on its own, no pilot input</li><li>Brings it <b>back</b> after a disturbance</li></ul></div>
+  </div>
+  <div class="trap"><b>Stability is behaviour, not an axis.</b> The names cross over: <b>lateral</b> stability = roll (longitudinal axis); <b>longitudinal</b> stability = pitch (lateral axis). Yaw stability is called <b>directional</b>, not "vertical."</div>
+</section>
+
+<!-- 4. wing types -->
+<section class="card" aria-label="Wing types and roll stability">
+  <div class="sec"><span class="n">4</span><h2>Wing shape and roll stability</h2></div>
+  <div class="wings">
+    <div><svg viewBox="0 0 120 44" aria-hidden="true"><path d="M10 14 L56 30 M64 30 L110 14" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/><circle cx="60" cy="31" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/></svg><b class="hd">Dihedral</b>wings angle <b>up</b> → <b>adds</b> roll stability. Most light aircraft.</div>
+    <div><svg viewBox="0 0 120 44" aria-hidden="true"><path d="M10 26 L56 26 M64 26 L110 26" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/><circle cx="60" cy="27" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/></svg><b class="hd">Flat</b>no angle → the wing shape adds no roll stability by itself.</div>
+    <div><svg viewBox="0 0 120 44" aria-hidden="true"><path d="M10 34 L56 16 M64 16 L110 34" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/><circle cx="60" cy="17" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/></svg><b class="hd">Anhedral</b>wings angle <b>down</b> → <b>reduces</b> roll stability, more agile. Often high-wing aircraft that already have plenty.</div>
+  </div>
+</section>
+</div>
+
+<!-- 5. CG -->
+<section class="card" aria-label="Centre of gravity position">
+  <div class="sec"><span class="n">5</span><h2>Where the CG sits</h2></div>
+  <div class="cg">
+    <div class="bad"><b>Too far forward</b><ul><li>Nose heavy</li><li>Tail must push down harder → <b>higher stall speed</b></li><li>Elevator may run out: hard to lift off or flare</li></ul></div>
+    <div class="ok"><b>Inside the CG range</b><ul><li>Set by the manufacturer (forward + aft limit)</li><li>Load inside it every flight</li><li>Stable <b>and</b> controllable</li></ul></div>
+    <div class="bad"><b>Too far aft</b><ul><li>Tail heavy, too close to the centre of lift</li><li><b>Unstable in pitch</b></li><li>Hard to recover from a stall; a spin can go flat (most dangerous)</li></ul></div>
+    <div class="bad"><b>Side to side</b><ul><li>Uneven fuel or load → one wing heavy</li><li>Pilot holds aileron or trim → <b>extra drag</b></li><li>Helicopters are hit hardest</li></ul></div>
+  </div>
+  <div class="stall"><b>Can CG cause a stall?</b> No. Too much angle of attack causes a stall. But CG changes the stall: <b>forward</b> raises the stall speed; <b>aft</b> makes the stall and spin harder to recover from. <b>Rule: forward = stable but heavy · aft = light but unstable.</b></div>
+</section>
+
+<p class="src">Sources: SAIT ASYS 245 Module 3 slides (Jeppesen <i>Airframe Technician</i> pp. 1-23 to 1-26) and SAFA class notes. CG and side-to-side balance details: FAA <i>Aircraft Weight and Balance Handbook</i> (FAA-H-8083-1). Always follow the aircraft's own flight manual and weight &amp; balance data.</p>
+</div>
+
+<script>
+(function(){
+  var body=document.body, fb=document.querySelectorAll('[data-f]'), rows=document.querySelectorAll('tr.r');
+  function focus(f){
+    if(f==='all') body.removeAttribute('data-focus'); else body.setAttribute('data-focus',f);
+    fb.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.f===f)); });
+    rows.forEach(function(r){ r.classList.toggle('on', r.dataset.ax===f); });
+  }
+  fb.forEach(function(b){ b.addEventListener('click',function(){ focus(b.dataset.f); }); });
+  var quiz=false, qb=document.getElementById('quizBtn'), wrap=document.querySelector('.wrap');
+  rows.forEach(function(r){
+    r.addEventListener('click',function(e){
+      var td=e.target.closest('td');
+      if(quiz && td && td.classList.contains('hide')){ td.classList.remove('hide'); return; }
+      focus(body.getAttribute('data-focus')===r.dataset.ax ? 'all' : r.dataset.ax);
+    });
+  });
+  qb.addEventListener('click',function(){
+    quiz=!quiz; qb.setAttribute('aria-pressed',String(quiz)); wrap.classList.toggle('quiz',quiz);
+    document.querySelectorAll('.tbl td.h').forEach(function(td){ td.classList.toggle('hide',quiz); });
+    qb.textContent = quiz ? 'Show the whole table' : 'Quiz me (hide the table)';
+  });
+})();
+</script>
+</body>
+</html>
