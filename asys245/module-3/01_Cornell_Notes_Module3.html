@@ -65,6 +65,13 @@ header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
 .fig{margin:.9rem 0 .3rem;background:var(--dia-bg);border:1px solid var(--line);border-radius:4px;padding:.5rem;overflow-x:auto}
 .fig svg{display:block;max-width:100%;height:auto;margin:0 auto;font-family:"Source Sans 3",sans-serif}
 .cap{font-size:.8rem;color:var(--muted);margin:.2rem 0 0;font-style:italic}
+figure.photo{margin:.9rem 0 .3rem;background:var(--dia-bg);border:1px solid var(--line);border-radius:4px;padding:.5rem}
+figure.photo img{display:block;max-width:100%;height:auto;margin:0 auto;border-radius:3px}
+figure.photo figcaption{text-align:center;margin-top:.35rem}
+.photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.6rem}
+.photos figure.photo{margin:0}
+.study .body.open>figure,.study .body.open>.photos{display:block}
+.pc{width:100%;border-collapse:collapse;font-size:.92rem;margin:.6rem 0 0}.pc th,.pc td{border:1px solid var(--line);padding:.3rem .5rem;text-align:left;vertical-align:top}.pc th{background:var(--cue);font-family:"Barlow Condensed",Arial,sans-serif;letter-spacing:.03em}
 details.more{margin-top:.8rem;border-left:3px solid var(--accent);padding-left:.8rem}
 details.more summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:.92rem;list-style:none}
 details.more summary::before{content:"+ ";font-family:"JetBrains Mono",monospace}
@@ -133,7 +140,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 <div class="bar" role="toolbar" aria-label="Study tools">
   <label><input type="checkbox" id="studyToggle"> Study mode (hide notes, recall from cues)</label>
   <div class="grow"><div class="progress" aria-hidden="true"><i id="pbar"></i></div></div>
-  <span class="meta" id="ptext">0 / 11 sections checked</span>
+  <span class="meta" id="ptext">0 / 12 sections checked</span>
   <button class="btn" id="resetBtn" type="button">Reset</button>
 </div>
 
@@ -150,16 +157,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li>All three axes cross at the <b>centre of gravity (CG)</b>.</li>
       <li>Each axis has a <b>flight control</b> (moves; the pilot works it) and a <b>stabilizer</b> (fixed; brings the aircraft back): <b>wings</b> for roll, <b>horizontal stabilizer</b> for pitch, <b>vertical stabilizer</b> for yaw.</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 170" width="420" height="170" role="img" aria-label="Table of axis, motion, control and stabilizing part">
-      <g font-size="12" fill="var(--ink)">
-        <rect x="10" y="10" width="400" height="26" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
-        <text x="20" y="28" font-weight="700">Axis</text><text x="130" y="28" font-weight="700">Motion</text><text x="215" y="28" font-weight="700">Control</text><text x="300" y="28" font-weight="700">Stability from</text>
-        <g><rect x="10" y="36" width="400" height="36" fill="none" stroke="var(--dia-line)"/><text x="20" y="58">Longitudinal</text><text x="130" y="58" font-weight="700" fill="var(--formula)">Roll</text><text x="215" y="58">Ailerons</text><text x="300" y="58">Wings (lateral)</text></g>
-        <g><rect x="10" y="72" width="400" height="36" fill="none" stroke="var(--dia-line)"/><text x="20" y="94">Lateral</text><text x="130" y="94" font-weight="700" fill="var(--formula)">Pitch</text><text x="215" y="94">Elevator</text><text x="300" y="94">H. stab (longitudinal)</text></g>
-        <g><rect x="10" y="108" width="400" height="36" fill="none" stroke="var(--dia-line)"/><text x="20" y="130">Vertical</text><text x="130" y="130" font-weight="700" fill="var(--formula)">Yaw</text><text x="215" y="130">Rudder</text><text x="300" y="130">V. stab (directional)</text></g>
-        <text x="20" y="162" font-size="11" fill="var(--muted)">Memory line: Roll–Long–Aileron–Wings · Pitch–Lat–Elevator–HStab · Yaw–Vert–Rudder–VStab</text>
-      </g>
-    </svg></div>
+    <figure class="photo"><img src="img/cn_axes.jpg" alt="Cessna 172 with the three axes of flight: roll about the longitudinal axis, pitch about the lateral axis, yaw about the vertical axis" loading="lazy"><figcaption class="cap">Roll = longitudinal (tip to tail) · Pitch = lateral (wingtip to wingtip) · Yaw = vertical (through the middle). All cross at the CG.</figcaption></figure><figure class="photo"><img src="img/cn_primary.jpg" alt="Primary flight controls on a Cessna 172: ailerons for roll, elevator for pitch, rudder for yaw, with up/down and left/right deflections" loading="lazy"><figcaption class="cap">Ailerons → roll (one down, one up) · Elevator → pitch (up / down) · Rudder → yaw (left / right).</figcaption></figure>
     <details class="more"><summary>Go deeper</summary><p>Say the memory line out loud until it's automatic — nearly every question in this module comes back to this table. The axis names describe the <i>line</i>; the stability names describe which way the aircraft is being held steady. For the whole picture on one sheet, open the <a href="05_Stability_Control_Map_Module3.html">Stability &amp; Control Map</a>.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="1" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
@@ -178,23 +176,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li><b>Directional stability</b> = stable in <b>yaw</b>. It is called <i>directional</i>, not "vertical."</li>
       <li><b>Trap:</b> the names cross over. Lateral stability works around the <i>longitudinal</i> axis; longitudinal stability works around the <i>lateral</i> axis.</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Control column: ailerons roll, elevator pitch, rudder yaw. Stability column: wings lateral, horizontal stabilizer longitudinal, vertical stabilizer directional">
-      <g font-size="12" fill="var(--ink)">
-        <rect x="10" y="8" width="195" height="134" rx="5" fill="var(--formula-bg)" stroke="var(--dia-hi)" stroke-width="2"/>
-        <rect x="215" y="8" width="195" height="134" rx="5" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
-        <text x="107" y="30" text-anchor="middle" font-weight="700">CONTROL · makes it move</text>
-        <text x="312" y="30" text-anchor="middle" font-weight="700">STABILITY · brings it back</text>
-        <text x="107" y="46" text-anchor="middle" font-size="10" fill="var(--muted)">moving surface · pilot works it</text>
-        <text x="312" y="46" text-anchor="middle" font-size="10" fill="var(--muted)">fixed part · works on its own</text>
-        <text x="25" y="74">Ailerons</text><text x="190" y="74" text-anchor="end" font-weight="700" fill="var(--formula)">ROLL</text>
-        <text x="25" y="100">Elevator</text><text x="190" y="100" text-anchor="end" font-weight="700" fill="var(--formula)">PITCH</text>
-        <text x="25" y="126">Rudder</text><text x="190" y="126" text-anchor="end" font-weight="700" fill="var(--formula)">YAW</text>
-        <text x="228" y="74">Wings (dihedral)</text><text x="398" y="74" text-anchor="end" font-weight="700">lateral</text>
-        <text x="228" y="100">Horizontal stab</text><text x="398" y="100" text-anchor="end" font-weight="700">longitudinal</text>
-        <text x="228" y="126">Vertical stab</text><text x="398" y="126" text-anchor="end" font-weight="700">directional</text>
-      </g>
-    </svg></div>
-    <p class="cap" style="text-align:center">Read across: each movement has one control and one stabilizer.</p>
+    <figure class="photo"><img src="img/cn_stabtable.jpg" alt="Stability by axis table: longitudinal axis (roll) = lateral stability; lateral axis (pitch) = longitudinal stability; vertical axis (yaw) = directional stability" loading="lazy"><figcaption class="cap">Read across: axis → stability type. The names cross over — that is the trap.</figcaption></figure>
     <details class="more"><summary>Go deeper</summary><p>Stability and control pull against each other. A very stable aircraft (a trainer, an airliner) flies hands-off but is slower to manoeuvre. A less stable one (an aerobatic aircraft) turns quickly but needs constant attention from the pilot.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="11" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
@@ -212,13 +194,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li>&nbsp;&nbsp;Positive → oscillations die out · Neutral → same size forever · Negative → grow bigger.</li>
       <li>Aircraft are designed to be <b>positive static and positive dynamic</b>.</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Ball in bowl, on flat, on hill for static stability; damped, constant and growing waves for dynamic">
-      <g stroke="var(--dia-line)" stroke-width="2" fill="none"><path d="M15 50 Q60 95 105 50"/><line x1="130" y1="75" x2="215" y2="75"/><path d="M235 90 Q280 40 325 90"/></g>
-      <g fill="var(--dia-hi)" stroke="var(--dia-line)"><circle cx="60" cy="70" r="7"/><circle cx="172" cy="68" r="7"/><circle cx="280" cy="47" r="7"/></g>
-      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="60" y="112" font-weight="700">positive</text><text x="172" y="112" font-weight="700">neutral</text><text x="280" y="112" font-weight="700">negative</text><text x="172" y="128" fill="var(--muted)">STATIC — the first move</text></g>
-      <g transform="translate(345,0)" stroke="var(--dia-hi)" stroke-width="2" fill="none"><path d="M5 30 q8 -22 16 0 t16 0 t16 0 t16 0" /><path d="M5 70 q8 -18 16 0 t16 0 t16 0 t16 0"/><path d="M5 110 q8 -8 16 0 t16 0 t16 0 t16 0"/></g>
-      <g font-size="9" fill="var(--muted)"><text x="352" y="45">grows = negative</text><text x="352" y="85">same = neutral</text><text x="352" y="125">shrinks = positive</text><text x="352" y="140" font-weight="700" fill="var(--ink)">DYNAMIC</text></g>
-    </svg></div>
+    <figure class="photo"><img src="img/cn_staticdyn.jpg" alt="Ball-in-bowl pictures for positive, neutral and negative stability, with a table: positive returns to equilibrium, neutral stays displaced, negative moves further away" loading="lazy"><figcaption class="cap">Positive = returns to equilibrium · Neutral = stays where it was put · Negative = moves further away. Static = the first move; dynamic = what happens over time.</figcaption></figure>
     <details class="more"><summary>Go deeper</summary><p>Fighters are built close to neutral so they turn fast; trainers and airliners are strongly positive so they fly hands-off. You can have positive static but negative dynamic stability: the nose starts back toward level every time, but each swing is bigger than the last.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="2" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
@@ -262,15 +238,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li><b>Can CG cause a stall?</b> Not by itself: too much angle of attack causes a stall. But CG changes the stall: forward raises the stall speed; aft makes recovery harder.</li>
       <li>Rule: <b>forward = stable but heavy; aft = light but unstable.</b> Weight &amp; Balance (Module 6) shows how an AME works out the CG.</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 400 130" width="400" height="130" role="img" aria-label="CG range bracket with forward and aft out-of-limit positions">
-      <line x1="30" y1="60" x2="370" y2="60" stroke="var(--dia-line)" stroke-width="3"/>
-      <rect x="150" y="45" width="110" height="30" fill="var(--ok-bg)" stroke="var(--ok)" stroke-width="2"/>
-      <text x="205" y="64" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">CG RANGE (OK)</text>
-      <circle cx="90" cy="60" r="8" fill="var(--bad)"/><circle cx="320" cy="60" r="8" fill="var(--bad)"/>
-      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="90" y="30" font-weight="700">too far FWD</text><text x="90" y="95" fill="var(--muted)">↑ stall speed, hard flare</text><text x="320" y="30" font-weight="700">too far AFT</text><text x="320" y="95" fill="var(--muted)">unstable, poor recovery</text></g>
-      <text x="200" y="120" text-anchor="middle" font-size="11" fill="var(--ink)"><tspan font-weight="700">SIDE TO SIDE:</tspan> heavy wing → hold aileron or trim → extra drag</text>
-      <text x="30" y="20" font-size="10" fill="var(--muted)">nose</text><text x="370" y="20" text-anchor="end" font-size="10" fill="var(--muted)">tail</text>
-    </svg></div>
+    <figure class="photo"><img src="img/cn_cg.jpg" alt="Three aircraft silhouettes: CG too far forward (nose heavy, higher stall speed), within limits (OK), too far aft (tail heavy, unstable in pitch)" loading="lazy"><figcaption class="cap">Too far forward = nose heavy, higher stall speed · Within limits = OK · Too far aft = tail heavy, unstable in pitch.</figcaption></figure>
     <details class="more"><summary>Go deeper</summary><p>An aft CG is the more dangerous of the two because it can make the aircraft <i>unrecoverable</i> from a stall or spin. A forward CG mostly costs performance. Either way the aircraft is outside its certified envelope and must not fly.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="4" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
@@ -287,15 +255,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li>A wing drops → the aircraft sideslips → the <b>low wing</b> meets the air at a <b>higher angle of attack</b> → <b>more lift</b> → rolls back level.</li>
       <li>Other helpers: <b>keel / pendulum effect</b> (high wing, CG hanging below), and <b>sweepback</b> (the low wing shows more effective span → more lift).</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 400 120" width="400" height="120" role="img" aria-label="Front view with dihedral; sideslip arrow; more lift on the low wing">
-      <path d="M40 60 L200 45 L360 60" stroke="var(--dia-line)" stroke-width="6" fill="none" transform="rotate(8 200 45)"/>
-      <ellipse cx="200" cy="52" rx="14" ry="10" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
-      <g stroke="var(--dia-hi)" stroke-width="3" fill="none"><line x1="330" y1="68" x2="330" y2="28"/><line x1="80" y1="40" x2="80" y2="22"/></g>
-      <g fill="var(--dia-hi)"><path d="M324 32 L330 18 L336 32Z"/><path d="M74 26 L80 14 L86 26Z"/></g>
-      <text x="270" y="112" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">low wing: more AOA → more lift → rolls back</text>
-      <line x1="230" y1="86" x2="170" y2="86" stroke="var(--dia-line)" stroke-width="2"/><path d="M174 81 L164 86 L174 91Z" fill="var(--dia-line)"/><text x="70" y="90" font-size="10" fill="var(--muted)">sideslip airflow</text>
-      <text x="20" y="20" font-size="10" fill="var(--muted)">dihedral (wings angled up)</text>
-    </svg></div>
+    <figure class="photo"><img src="img/cn_dihedral.jpg" alt="Front view of an aircraft with dihedral wings angled up from the horizontal" loading="lazy"><figcaption class="cap">Dihedral: the low wing makes more lift in a sideslip, so the aircraft rights itself.</figcaption></figure>
     <details class="more"><summary>Go deeper</summary><p>Too much lateral stability is a problem too — it fights the pilot in turns and, combined with weak directional stability, causes Dutch roll (Section 7). High-wing aircraft often need little or no dihedral because the pendulum effect already does the job.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="5" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
@@ -340,14 +300,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li>Not dangerous — but passengers feel sick. Fix: a <b>yaw damper</b> (most large aircraft).</li>
       <li>The opposite: <b>directional stronger than lateral</b> → <b>spiral instability</b> — a slow, diverging spiral dive if the pilot does nothing.</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 400 120" width="400" height="120" role="img" aria-label="Balance scale: dihedral effect versus fin; Dutch roll on one side, spiral on the other">
-      <line x1="200" y1="30" x2="200" y2="95" stroke="var(--dia-line)" stroke-width="4"/>
-      <line x1="60" y1="40" x2="340" y2="55" stroke="var(--dia-line)" stroke-width="3"/>
-      <rect x="30" y="20" width="70" height="26" rx="4" fill="var(--dia-hi)" stroke="var(--dia-line)"/><text x="65" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#16232E">DIHEDRAL</text>
-      <rect x="300" y="42" width="70" height="26" rx="4" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="335" y="59" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">FIN</text>
-      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="70" y="80" font-weight="700">dihedral wins →</text><text x="70" y="95">DUTCH ROLL (wallow)</text><text x="330" y="90" font-weight="700">fin wins →</text><text x="330" y="105">SPIRAL dive</text></g>
-      <text x="200" y="112" text-anchor="middle" font-size="10" fill="var(--muted)">designers balance the two</text>
-    </svg></div>
+    <figure class="photo"><img src="img/cn_dutch.jpg" alt="Front view of an aircraft rolling and yawing at the same time — Dutch roll" loading="lazy"><figcaption class="cap">Dutch roll = a coupled yawing and rolling motion. Controlled by a yaw damper.</figcaption></figure>
     <details class="more"><summary>Go deeper</summary><p>Most swept-wing jets lean toward Dutch roll (sweep adds a lot of dihedral effect), so they carry yaw dampers. Most light aircraft lean slightly spiral — which is safer, because a spiral is slow and easy to catch.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="7" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
@@ -363,18 +316,9 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li>More lift also means <b>more induced drag</b> on that rising wing.</li>
       <li>Extra drag on the rising (left) wing pulls the nose <b>left</b> — <b>opposite</b> to the roll. That is adverse yaw.</li>
       <li>Rule: <b>roll right → nose yaws left</b> (unless corrected).</li>
+      <li>Pilot fix: <b>rudder input</b> in the direction of the roll counteracts the yaw → a <b>coordinated turn</b> (roll + yaw together, ball centred).</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 400 130" width="400" height="130" role="img" aria-label="Top view rolling right: drag arrow on the left up-going wing and nose swinging left">
-      <ellipse cx="200" cy="70" rx="16" ry="55" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
-      <rect x="60" y="62" width="280" height="14" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
-      <rect x="60" y="76" width="50" height="6" fill="var(--dia-hi)"/><rect x="290" y="56" width="50" height="6" fill="var(--dia-line)"/>
-      <g stroke="var(--bad)" stroke-width="3" fill="none"><line x1="85" y1="62" x2="85" y2="30"/></g><path d="M79 34 L85 22 L91 34Z" fill="var(--bad)"/>
-      <text x="90" y="30" font-size="11" font-weight="700" fill="var(--bad)">↑ lift + ↑ DRAG (rising wing)</text>
-      <path d="M200 15 Q160 20 150 40" stroke="var(--formula)" stroke-width="2.5" fill="none"/><path d="M146 32 L150 44 L158 36Z" fill="var(--formula)"/>
-      <text x="120" y="120" font-size="11" fill="var(--ink)">aileron DOWN on left</text><text x="250" y="120" font-size="11" fill="var(--ink)">aileron UP on right</text>
-      <text x="205" y="24" font-size="11" font-weight="700" fill="var(--formula)">nose yaws LEFT</text>
-      <text x="205" y="118" font-size="10" fill="var(--muted)">rolling RIGHT</text>
-    </svg></div>
+    <figure class="photo"><img src="img/cn_adverse.jpg" alt="Top view: ailerons deflected to roll right, more drag on the left wing, nose yaws left; second view: rudder input counteracts the yaw for a coordinated turn" loading="lazy"><figcaption class="cap">Left: roll right → more drag on the left (rising) wing → nose yaws left. Right: rudder input cancels the yaw → coordinated turn (roll + yaw).</figcaption></figure>
     <details class="more"><summary>Go deeper</summary><p>The pilot's fix is coordinated rudder — a touch of right rudder with a right roll. The designer's fixes are in the next section. Gliders, with long wings and big ailerons, show adverse yaw most strongly.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="8" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
@@ -391,20 +335,27 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li><b>Aileron–rudder interconnect</b> — <b>springs</b> automatically move the rudder with the ailerons → roll right pulls the right pedal → cancels the left yaw.</li>
       <li><b>Roll spoilers</b> — a spoiler rises on the <b>down-going</b> wing → kills lift and adds drag on that side → no adverse yaw at all (large jets).</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 130" width="420" height="130" role="img" aria-label="Cross-sections: differential aileron travel, Frise aileron nose below wing, roll spoiler raised">
-      <g transform="translate(10,20)"><path d="M0 40 C 30 15, 90 15, 120 40 C 90 50, 30 50, 0 40Z" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
-        <line x1="120" y1="40" x2="150" y2="18" stroke="var(--dia-hi)" stroke-width="4"/><line x1="120" y1="40" x2="145" y2="50" stroke="var(--dia-line)" stroke-width="4" stroke-dasharray="3 2"/>
-        <text x="70" y="85" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink)">Differential</text><text x="70" y="99" text-anchor="middle" font-size="10" fill="var(--muted)">up travels farther than down</text></g>
-      <g transform="translate(160,20)"><path d="M0 40 C 30 15, 90 15, 110 40 C 90 50, 30 50, 0 40Z" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
-        <path d="M110 40 L140 22 L118 48 Z" fill="var(--dia-hi)" stroke="var(--dia-line)"/><circle cx="114" cy="42" r="3" fill="var(--dia-line)"/>
-        <text x="65" y="85" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink)">Frise</text><text x="65" y="99" text-anchor="middle" font-size="10" fill="var(--muted)">nose pokes below → drag</text></g>
-      <g transform="translate(300,20)"><path d="M0 40 C 30 15, 90 15, 115 40 C 90 50, 30 50, 0 40Z" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
-        <line x1="60" y1="24" x2="85" y2="4" stroke="var(--dia-hi)" stroke-width="4"/>
-        <text x="58" y="85" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink)">Roll spoiler</text><text x="58" y="99" text-anchor="middle" font-size="10" fill="var(--muted)">kills lift on down wing</text></g>
-      <text x="210" y="122" text-anchor="middle" font-size="10" fill="var(--muted)">4th fix: aileron–rudder interconnect springs (not drawn)</text>
-    </svg></div>
+    <figure class="photo"><img src="img/cn_fixes.jpg" alt="Four cards: rudder–aileron interconnect (rudder moves with ailerons), Frise ailerons (upward-hinged portion adds drag), differential ailerons (unequal aileron travel), roll spoilers (spoilers on the down-going wing reduce lift and add drag)" loading="lazy"><figcaption class="cap">Interconnect: rudder moves with the ailerons · Frise: the up aileron's nose adds drag · Differential: the UP aileron travels farther than the down one · Roll spoilers: kill lift and add drag on the down-going wing.</figcaption></figure>
     <details class="more"><summary>Go deeper</summary><p>Most light aircraft use differential or Frise ailerons (or both). Airliners use roll spoilers plus small ailerons. The interconnect is common on aircraft with strong adverse yaw and light rudder forces, such as some Pipers.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="9" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="12">
+  <div class="cue"><h3>Conventional Tail vs T-Tail</h3><p class="q">Where does the horizontal stabilizer sit on each, and what are the pros and cons?</p><span class="tag">Wake · Weight · Deep stall</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Conventional tail</b> — horizontal stabilizer mounted on the <b>fuselage</b> at the base of the fin. <b>Simpler</b> and <b>lighter</b>. Downside: it sits in the <b>wing wake</b> (and propwash), so it can buffet and lose effectiveness at high angles of attack.</li>
+      <li><b>T-tail</b> — horizontal stabilizer on <b>top of the fin</b>, <b>above the wing wake and engine blast</b> → smoother air, <b>better control at high speed</b>, and a clean place for rear-mounted engines.</li>
+      <li>T-tail costs: <b>heavier and more complex</b> (the fin must carry the stabilizer loads) and a <b>deep-stall</b> risk — at a very high angle of attack the stalled wing's wake can blanket the tail so the elevator cannot push the nose down.</li>
+      <li>Examples — conventional: Cessna 172, Piper PA-28, Boeing 737. T-tail: Piper PA-38 Tomahawk, CRJ, Boeing 727.</li>
+    </ul>
+    <figure class="photo"><img src="img/cn_tails.jpg" alt="Side views of a conventional tail with the horizontal stabilizer on the fuselage and a T-tail with the horizontal stabilizer on top of the fin above the wing wake" loading="lazy"><figcaption class="cap">Conventional: stabilizer on the fuselage, in the wing wake · T-tail: stabilizer on top of the fin, above the wake.</figcaption></figure>
+    <table class="pc"><tr><th></th><th>Conventional tail</th><th>T-tail</th></tr><tr><th>Pros</th><td>Simpler design · lighter</td><td>Above wing wake / engine blast · better control at high speed</td></tr><tr><th>Cons</th><td>Can be affected by wing wake</td><td>Heavier, more complex · possible deep-stall recovery concerns</td></tr></table>
+    <details class="more"><summary>Go deeper</summary><p>Deep stall is why T-tail aircraft carry stick shakers and stick pushers: once the wing wake blankets the tail, the pilot has no pitch authority left, so the system acts before the aircraft gets there. For an AME the practical difference is structural — a T-tail fin carries bending and twisting loads a conventional fin never sees, so its attachments get close inspection.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="12" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -418,17 +369,9 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li><b>Control canard</b> — main wing carries the weight; canard sits near 0° AOA; used for pitch stability and control.</li>
       <li><b>Lifting canard</b> — shares the weight, generates an <b>up</b> load (no tail down-load) → less drag, higher aspect ratio; but no trailing-edge flaps on the wing.</li>
       <li><b>Advantages</b>: extra lift, balances the wing's pitching moment, less drag, sits out of the wing's downwash.</li>
-      <li><b>Risks</b>: nose-up moment is <b>destabilizing</b>; the wing must sit <b>behind the CG</b>; the canard is designed to <b>stall first</b> → nose drops → momentary loss of pitch control.</li>
+      <li><b>Risks</b>: a control canard adds a <b>nose-up tendency</b>; a lifting canard brings <b>stall and stability concerns</b>. The nose-up moment is <b>destabilizing</b>, so the wing must sit <b>behind the CG</b> and the canard is designed to <b>stall first</b> → nose drops → momentary loss of pitch control.</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 400 120" width="400" height="120" role="img" aria-label="Side view of a canard aircraft: lift arrows up on both the canard and the main wing, CG between them">
-      <path d="M40 70 L330 70 L360 62 L360 74 L330 80 L40 80 Z" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
-      <rect x="70" y="66" width="40" height="6" fill="var(--dia-line)"/><rect x="230" y="68" width="90" height="8" fill="var(--dia-line)"/>
-      <g stroke="var(--dia-hi)" stroke-width="3" fill="none"><line x1="90" y1="60" x2="90" y2="30"/><line x1="275" y1="60" x2="275" y2="14"/></g>
-      <g fill="var(--dia-hi)"><path d="M84 34 L90 20 L96 34Z"/><path d="M269 18 L275 4 L281 18Z"/></g>
-      <circle cx="180" cy="75" r="5" fill="var(--bad)"/><text x="180" y="100" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">CG (wing behind it)</text>
-      <text x="90" y="112" text-anchor="middle" font-size="11" fill="var(--ink)">canard lifts UP</text><text x="275" y="112" text-anchor="middle" font-size="11" fill="var(--ink)">main wing lifts UP</text>
-      <text x="100" y="30" font-size="10" fill="var(--muted)">stalls first (by design)</text>
-    </svg></div>
+    <figure class="photo"><img src="img/cn_canards.jpg" alt="Control canard and lifting canard side views, with a comparison table: function, lift contribution, potential issues" loading="lazy"><figcaption class="cap">Control canard: pitch control, minimal lift, nose-up tendency · Lifting canard: lift + control, significant lift, stall / stability concerns.</figcaption></figure>
     <details class="more"><summary>Go deeper</summary><p>Both surfaces lifting up is why canard aircraft such as the Rutan designs are so efficient — a conventional tail is dead weight pushing down. The price is careful CG control and the need to make the canard stall before the wing so the aircraft can never enter a deep stall.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="10" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
@@ -445,6 +388,9 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 <section class="box" aria-label="Key terms">
   <div class="eyebrow">Key terms</div>
   <div class="terms">
+    <div><b>T-tail</b>Horizontal stabilizer on top of the fin — above the wake, heavier, deep-stall risk.</div>
+    <div><b>Deep stall</b>Stalled-wing wake blankets a T-tail so the elevator cannot lower the nose.</div>
+    <div><b>Coordinated turn</b>Rudder used with aileron so roll and yaw go together and the ball stays centred.</div>
     <div><b>Longitudinal / lateral / vertical axis</b>Nose-to-tail (roll), wingtip-to-wingtip (pitch), up-down (yaw). All through the CG.</div>
     <div><b>Stability vs control</b>Stability = how the aircraft behaves on its own after a disturbance. Control = the pilot making it move.</div>
     <div><b>Flight control vs stabilizer</b>Moving surface the pilot works (aileron, elevator, rudder) vs fixed part that brings it back (wings, h. stab, fin).</div>
@@ -475,7 +421,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   <div class="score" id="score"></div>
 </section>
 
-<p class="flag">Source: SAFA class notes and the ASYS 245 Module 3 course deck (Stability and Control; Jeppesen Airframe Technician pp. 1-23 to 1-26), condensed. CG and side-to-side balance: FAA <i>Aircraft Weight and Balance Handbook</i> (FAA-H-8083-1). Reference values follow Transport Canada / <i>From the Ground Up</i>.</p>
+<p class="flag">Source: J&#39;s SAFA Module 3 Cornell notes (Sections 1 and 2 — the diagrams on this page come from them; updated Oct 15) and the ASYS 245 Module 3 course deck (Stability and Control; Jeppesen Airframe Technician pp. 1-23 to 1-26), condensed. CG and side-to-side balance: FAA <i>Aircraft Weight and Balance Handbook</i> (FAA-H-8083-1). Reference values follow Transport Canada / <i>From the Ground Up</i>.</p>
 </div>
 
 <script>
@@ -497,6 +443,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   document.querySelectorAll('.reveal button').forEach(function(btn){ btn.addEventListener('click',function(){ btn.closest('.body').classList.add('open'); }); });
   document.getElementById('resetBtn').addEventListener('click',function(){ state={done:{},study:false,notes:state.notes||{}}; save(); boxes.forEach(function(b){ b.checked=false; }); toggle.checked=false; applyStudy(); progress(); buildQuiz(); });
   var Q=[
+    {q:'A T-tail puts the horizontal stabilizer on top of the fin. The main benefit and the main risk are…',o:['lighter structure / more drag','above the wing wake for smoother, more effective control / deep stall at high angle of attack','simpler rigging / flutter'],a:1,fb:'Above the wake and engine blast = better control, especially at high speed. The cost is weight, complexity, and the deep-stall case where the stalled wing\'s wake blankets the tail.'},
     {q:'Roll happens about which axis, and which surface controls it?',o:['Lateral axis — elevator','Longitudinal axis — ailerons','Vertical axis — rudder'],a:1,fb:'Roll–Long–Aileron. The wings (dihedral) provide the stability, called lateral stability.'},
     {q:'"Lateral stability" is stability in…',o:['roll','pitch','yaw'],a:0,fb:'Trap question. Lateral stability = roll (about the longitudinal axis). Longitudinal stability = pitch.'},
     {q:'After a gust, the nose starts back toward level but each swing gets bigger. This aircraft is…',o:['positive static, negative dynamic','negative static, positive dynamic','neutral in both'],a:0,fb:'Static = the first move (positive: heads back). Dynamic = over time (negative: oscillations grow).'},
