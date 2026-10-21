@@ -380,7 +380,7 @@ function drawMesh(list){
     cx.beginPath();o.pts.forEach((p,i)=>i?cx.lineTo(p.x,p.y):cx.moveTo(p.x,p.y));cx.closePath();cx.fill();cx.stroke()});
 }
 function axisLine(a,b,col,label){const A=proj(body(a)),B=proj(body(b));cx.setLineDash([5,5]);cx.strokeStyle=col;cx.lineWidth=1.3;cx.beginPath();cx.moveTo(A.x,A.y);cx.lineTo(B.x,B.y);cx.stroke();cx.setLineDash([]);
-  cx.fillStyle=col;cx.font='600 11px JetBrains Mono, monospace';cx.fillText(label,B.x+6,B.y-4)}
+  cx.fillStyle=col;cx.font='600 11px JetBrains Mono, monospace';const lx=Math.max(4,Math.min(B.x+6,cv.width-cx.measureText(label).width-6));cx.fillText(label,lx,B.y-4)}
 function draw(){
   cx.clearRect(0,0,cv.width,cv.height);
   const hz=proj([-9,0,0]),hz2=proj([9,0,0]);cx.strokeStyle='rgba(255,255,255,.12)';cx.lineWidth=1;cx.beginPath();cx.moveTo(hz.x,hz.y);cx.lineTo(hz2.x,hz2.y);cx.stroke();
