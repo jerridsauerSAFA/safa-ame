@@ -361,10 +361,12 @@ function surfaces(){
 function rotX(p,a){const c=Math.cos(a),s=Math.sin(a);return[p[0],p[1]*c-p[2]*s,p[1]*s+p[2]*c]}
 function rotY(p,a){const c=Math.cos(a),s=Math.sin(a);return[p[0]*c+p[2]*s,p[1],-p[0]*s+p[2]*c]}
 function rotZ(p,a){const c=Math.cos(a),s=Math.sin(a);return[p[0]*c-p[1]*s,p[0]*s+p[1]*c,p[2]]}
-function body(p){let q=rotZ(p,-S.roll*D);q=rotX(q,S.pitch*D);q=rotY(q,S.yaw*D);return q}
+// body frame: +x = right wing, +y = up, +z = nose. Right roll drops the +x wing; nose-up pitch lifts +z; right yaw swings +z toward +x.
+function body(p){let q=rotZ(p,-S.roll*D);q=rotX(q,-S.pitch*D);q=rotY(q,S.yaw*D);return q}
 const camYaw=Math.PI-0.75, camPitch=0.58, scale=76;
 function cam(p){let q=rotY(p,camYaw);q=rotX(q,camPitch);return q}
-function proj(p){const q=cam(p);const persp=1/(1+(-q[2])*0.06);return{x:cv.width/2+q[0]*scale*persp,y:cv.height/2-q[1]*scale*persp+20,d:q[2]}}
+// screen x is mirrored so the +x (right) wing draws on the viewer's right when seen from behind (fixed Oct 21 2026: roll and yaw were drawing reversed)
+function proj(p){const q=cam(p);const persp=1/(1+(-q[2])*0.06);return{x:cv.width/2-q[0]*scale*persp,y:cv.height/2-q[1]*scale*persp+20,d:q[2]}}
 const LIGHT=(()=>{const v=[-.45,.8,.4];const l=Math.hypot(...v);return v.map(x=>x/l)})();
 function drawMesh(list){
   const P=list.map(f=>{const c=f.p.map(p=>cam(body(p)));
@@ -382,11 +384,11 @@ function axisLine(a,b,col,label){const A=proj(body(a)),B=proj(body(b));cx.setLin
 function draw(){
   cx.clearRect(0,0,cv.width,cv.height);
   const hz=proj([-9,0,0]),hz2=proj([9,0,0]);cx.strokeStyle='rgba(255,255,255,.12)';cx.lineWidth=1;cx.beginPath();cx.moveTo(hz.x,hz.y);cx.lineTo(hz2.x,hz2.y);cx.stroke();
-  cx.fillStyle='rgba(255,255,255,.3)';cx.font='11px JetBrains Mono, monospace';cx.fillText('horizon',hz2.x-50,hz2.y-6);
+  cx.fillStyle='rgba(255,255,255,.3)';cx.font='11px JetBrains Mono, monospace';cx.fillText('horizon',Math.min(hz.x,hz2.x)+6,hz2.y-6);
   // ground shadow
   const sc=proj([0,-1.3,0]);const g=cx.createRadialGradient(sc.x,sc.y,10,sc.x,sc.y,230);g.addColorStop(0,'rgba(0,0,0,.45)');g.addColorStop(1,'rgba(0,0,0,0)');
   cx.fillStyle=g;cx.save();cx.translate(sc.x,sc.y);cx.scale(1,.35);cx.beginPath();cx.arc(0,0,230,0,7);cx.fill();cx.restore();
-  axisLine([0,0,-2.6],[0,0,3.0],'#d8b358','LONGITUDINAL · roll');
+  axisLine([0,0,3.0],[0,0,-2.6],'#d8b358','LONGITUDINAL · roll');
   axisLine([-4.4,0,0],[4.4,0,0],'#6fb3e0','LATERAL · pitch');
   axisLine([0,-1.8,0],[0,2.3,0],'#8ad78a','VERTICAL · yaw');
   drawMesh(S.surf?faces.concat(surfaces()):faces);
