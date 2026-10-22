@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ASYS 245 Module 6 · Flashcards</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--bg:#F4F6F8;--surface:#FFFFFF;--cue:#E6EDF3;--line:#CBD5DE;--ink:#16232E;--muted:#526170;--accent:#1D5C8F;--accent-ink:#FFFFFF;--formula:#B8690F;--formula-bg:#FFF4E3;--ok:#2E7D4F;--ok-bg:#E4F3EA;--bad:#B3402B;--bad-bg:#FBE8E3;--shadow:0 2px 6px rgba(22,35,46,.10)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--bad:#F08A72;--bad-bg:#3A1C15;--shadow:none}}
+:root[data-theme="dark"]{--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--bad:#F08A72;--bad-bg:#3A1C15;--shadow:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+h1,h2{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+.wrap{max-width:720px;margin:0 auto}
+.eyebrow{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--accent)}
+header.top{padding-block:2rem 1rem;border-bottom:2px solid var(--ink)}
+header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
+.meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted)}
+.bar{display:flex;flex-wrap:wrap;gap:.5rem .8rem;align-items:center;padding-block:.8rem}
+.chip{font:600 .85rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.3rem .7rem;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.5rem .9rem;border-radius:4px;cursor:pointer}
+.btn.ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ink)} .btn.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--ink)}
+.btn:focus-visible,.chip:focus-visible,.card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stats{display:flex;gap:1rem 1.5rem;flex-wrap:wrap;font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--muted);padding-block:.3rem .8rem}
+.stats b{color:var(--ink);font-weight:500}
+.progress{height:6px;background:var(--cue);border-radius:3px;overflow:hidden;margin-bottom:1rem}
+.progress i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.scene{perspective:1200px}
+.card{position:relative;min-height:300px;cursor:pointer;transition:transform .45s;transform-style:preserve-3d;border:0;background:transparent;width:100%;padding:0;text-align:left;font:inherit;color:inherit}
+.card.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:1.5rem;display:flex;flex-direction:column;justify-content:center;gap:.6rem}
+.face.back{transform:rotateY(180deg);border-left:6px solid var(--accent)}
+.face .k{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);position:absolute;top:1rem;left:1.5rem}
+.face .hint{position:absolute;bottom:.9rem;right:1.2rem;font-size:.8rem;color:var(--muted)}
+.front .q{font-family:"Barlow Condensed",Arial,sans-serif;font-size:clamp(1.5rem,4.5vw,2.1rem);font-weight:700;line-height:1.15;text-wrap:balance}
+.back .a{font-size:1.15rem;line-height:1.45}
+.back .a b{font-weight:600}
+.f{font-family:"JetBrains Mono",monospace;color:var(--formula);background:var(--formula-bg);padding:.05em .35em;border-radius:3px;white-space:nowrap}
+.back .why{color:var(--muted);font-size:.95rem;border-top:1px dotted var(--line);padding-top:.5rem}
+.actions{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:1rem}
+.actions .btn{flex:1 1 9rem;padding:.7rem 1rem;font-size:1rem}
+.kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;color:var(--muted);text-align:center;margin-top:.6rem}
+.done{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:2rem;text-align:center;box-shadow:var(--shadow)}
+.done h2{font-size:1.8rem}
+.done p{color:var(--muted)}
+.foot{font-size:.85rem;color:var(--muted);margin-top:2rem}
+@media (prefers-reduced-motion:reduce){.card{transition:none}.progress i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">Flashcards · ASYS 245 · Module 6</div>
+  <h1>Weight &amp; Balance Cards</h1>
+  <p>Read the front, say the answer out loud, flip to check. Mark <b>Got it</b> or <b>Again</b> — cards you miss come back until you get them twice. Progress saves on this device.</p>
+</header>
+<div class="bar" role="toolbar" aria-label="Card set">
+  <button class="chip" data-set="all" aria-pressed="true" type="button">All</button>
+  <button class="chip" data-set="term" aria-pressed="false" type="button">Terms</button>
+  <button class="chip" data-set="law" aria-pressed="false" type="button">Control rules</button>
+  <button class="chip" data-set="number" aria-pressed="false" type="button">Numbers</button>
+  <button class="chip" data-set="apply" aria-pressed="false" type="button">Apply it</button>
+  <span style="flex:1"></span>
+  <button class="btn" id="restart" type="button">Restart set</button>
+</div>
+<div class="stats"><span>Card <b id="pos">0</b> / <b id="tot">0</b></span><span>Mastered <b id="mast">0</b></span><span>To review <b id="rev">0</b></span></div>
+<div class="progress" aria-hidden="true"><i id="pbar"></i></div>
+
+<div class="scene" id="scene">
+  <button class="card" id="card" type="button" aria-live="polite">
+    <div class="face front"><span class="k" id="kfront"></span><div class="q" id="q"></div><span class="hint">tap to flip</span></div>
+    <div class="face back"><span class="k">Answer</span><div class="a" id="a"></div><div class="why" id="why"></div></div>
+  </button>
+</div>
+<div class="actions" id="actions">
+  <button class="btn bad" id="again" type="button">Again</button>
+  <button class="btn ok" id="got" type="button">Got it</button>
+</div>
+<div class="kbd">Space = flip · 1 = Again · 2 = Got it</div>
+<div class="done" id="done" hidden><h2>Set complete</h2><p id="doneMsg"></p><button class="btn" id="doneRestart" type="button">Go again</button></div>
+
+<p class="foot">Built from the ASYS 245 Module 6 course decks. Reference values per Transport Canada / <i>From the Ground Up</i>.</p>
+</div>
+
+<script>
+var CARDS=[
+ {t:'term',q:'Datum',a:'An <b>imaginary vertical plane</b> all horizontal measurements are taken from, with the aircraft in level flight attitude.',w:'Set by the manufacturer — AMM, POH or TCDS. Firewall, spinner, nose are common.'},
+ {t:'term',q:'Arm',a:'The <b>horizontal distance</b> from the datum to an item. A distance, in inches.',w:'Aft of the datum = positive; forward = negative.'},
+ {t:'term',q:'Moment',a:'<b>Weight × arm</b>, in lb·in.',w:'Keep the signs. Removed item at a negative arm = positive moment.'},
+ {t:'term',q:'Centre of gravity (CG)',a:'The <b>balance point</b> — where nose-heavy and tail-heavy moments are exactly equal.',w:'Given as inches from the datum, a station, or % MAC.'},
+ {t:'term',q:'Fuselage station (FS) and butt line (BL)',a:'<b>FS</b> = distance along the fuselage from the datum. <b>BL</b> = distance left (−) or right (+) of the centreline.',w:'FS for longitudinal CG, BL for lateral CG.'},
+ {t:'term',q:'Empty weight',a:'The aircraft with all <b>fixed, installed</b> equipment: airframe, engine, required and optional equipment, fixed ballast, hydraulic fluid, <b>residual fuel</b>, oil, radios.',w:'No crew, passengers, bags or usable fuel.'},
+ {t:'term',q:'Useful load',a:'<b>Maximum gross weight − empty weight.</b>',w:'What you may legally add. Two values may be listed for normal/utility aircraft.'},
+ {t:'term',q:'Maximum ramp weight',a:'The heaviest the aircraft may be <b>on the ground</b> (taxi weight).',w:'Ramp − take-off weight = fuel burned starting and taxiing.'},
+ {t:'term',q:'Maximum zero-fuel weight',a:'The heaviest the aircraft may be with <b>no usable fuel</b>.',w:'Anything above it must be fuel — it protects the wing-root structure.'},
+ {t:'term',q:'Maximum landing weight',a:'The heaviest weight the aircraft may <b>land</b> at.',w:'On a wide-body it can be 100,000 lb or more below take-off weight.'},
+ {t:'term',q:'Minimum fuel',a:'About <b>30 minutes of flight at cruise power</b>.',w:'Used in W&B calculations.'},
+ {t:'term',q:'TCDS',a:'<b>Type Certificate Data Sheet</b> — the official list of a type\'s limits: weights, datum, levelling means, CG range, MAC.',w:'First place to look before a weighing.'},
+ {t:'term',q:'Levelling means',a:'The manufacturer\'s reference for putting the aircraft in <b>level flight attitude</b> on the ground.',w:'E.g. Cessna 185: upper door sill. From the TCDS.'},
+ {t:'term',q:'Tare weight',a:'The weight of <b>chocks, blocks or stands</b> on the scale that are not part of the aircraft.',w:'Subtract it from the scale reading.'},
+ {t:'term',q:'Load cell',a:'An <b>electronic weighing sensor</b> — platform type under the tire, or built into the top of a jack.',w:'Beam scales only go to about 300 lb.'},
+ {t:'term',q:'Hydrometer',a:'A tool that measures <b>fuel density</b>.',w:'Needed to subtract usable fuel accurately when weighing with full tanks.'},
+ {t:'term',q:'CG range (envelope)',a:'The <b>forward and aft limits</b> the loaded CG must stay inside.',w:'Limits can change with weight; operating range vs (rare) empty-weight range.'},
+ {t:'term',q:'Mean aerodynamic chord (MAC)',a:'The chord of an <b>imaginary airfoil</b> with the same aerodynamic behaviour as the real wing.',w:'MAC = TEMAC − LEMAC. Large aircraft give CG in % MAC.'},
+ {t:'term',q:'Amendment',a:'A W&B report whose new empty weight and CG are <b>calculated</b>, not weighed, after a change.',w:'Old page marked Superseded and kept.'},
+ {t:'term',q:'Addendum',a:'<b>One of several empty-weight configurations</b> inside one W&B report or amendment.',w:'Floats / wheels, cargo / passengers. Log entry says which is in effect.'},
+ {t:'term',q:'Ballast',a:'<b>Weight added on purpose</b> at a chosen location to move the CG into the envelope.',w:'Fixed (bolted, needs W&B change) or removable (pilot-installed).'},
+ {t:'term',q:'Equipment list',a:'List of every installed item <b>not in the type design</b>, with weight, arm and moment.',w:'Part of the W&B report; often in the POH on light aircraft.'},
+ {t:'law',q:'First principle of weight and balance',a:'The <b>sum of the moments about any point of a stationary object is zero</b>.',w:'That is what "balanced" means.'},
+ {t:'law',q:'How is the CG calculated?',a:'<b>CG = total moment ÷ total weight.</b>',w:'Add the weights, add the moments, divide. Never add the arms.'},
+ {t:'law',q:'Sign convention for arms',a:'<b>Aft of datum = +</b>, forward = −. <b>Right of BL 0 = +</b>, left = −.',w:'Datum at the nose → all arms positive.'},
+ {t:'law',q:'What does overloading do?',a:'Longer take-off and landing, <b>lower climb rate and angle</b>, lower ceiling, slower cruise, shorter range, poorer manoeuvrability, <b>more stress on the structure</b>.',w:'Especially on the landing gear.'},
+ {t:'law',q:'CG too far forward vs too far aft',a:'<b>Forward</b>: may not rotate, less pitch control. <b>Aft</b>: over-controls in pitch, less stability.',w:'Both are illegal outside the envelope.'},
+ {t:'law',q:'Why must the aircraft be level for weighing?',a:'Because the manual says so — and <b>tail low makes the CG read too far aft</b>, tail high too far forward.',w:'Use the TCDS levelling means and a spirit level or plumb bob.'},
+ {t:'law',q:'What fuel is in the empty weight?',a:'<b>Residual (unusable) fuel only.</b>',w:'Weigh empty and add it back, weigh with residual only, or weigh full and subtract usable.'},
+ {t:'law',q:'Is engine oil in the empty weight?',a:'For aircraft certified <b>since 1978, full oil usually is</b> — confirm in the TCDS.',w:'If only residual oil counts, drain to residual or subtract the rest mathematically.'},
+ {t:'law',q:'When can you calculate instead of reweigh?',a:'When the <b>exact weight and arm of every change is known</b>.',w:'Then it is an amendment. Lost records or a broken paper trail → reweigh.'},
+ {t:'law',q:'What goes in the journey log after a W&B change?',a:'<b>Description</b> of the change, <b>effective date</b>, and the <b>weight and arm of each item</b> installed or removed — before the next flight.',w:'Standard 571 Appendix C. Then transcribe to the W&B report.'},
+ {t:'law',q:'Does adding washers, screws or lockwire need a new W&B report?',a:'<b>Practically, no.</b> Floats, skis, radios, seats, paint — yes.',w:'The rule is "a change to the empty weight or CG"; hardware is negligible.'},
+ {t:'law',q:'How do you place ballast?',a:'<b>Arm = moment needed ÷ ballast weight.</b>',w:'Longer arm = more effect per pound. −550 ÷ 50 = −11 in.'},
+ {t:'number',q:'Standard fluid weights (lb/gal)',a:'Avgas <b>6</b> · turbine fuel <b>6.7</b> · oil <b>7.5</b> · water <b>8.35</b>',w:'Use real density when it matters.'},
+ {t:'number',q:'Large-aircraft reweigh interval',a:'<b>Every five years</b> (Std 625 App C) or after major work, including paint.',w:'Unless on an approved fleet W&B control program.'},
+ {t:'number',q:'Minimum number of weighing points',a:'<b>Three</b> scales or load cells.',w:'Nose/tail + two mains, or three jack points.'},
+ {t:'number',q:'Beam scale limit',a:'About <b>300 lb</b> — and accuracy is a concern.',w:'Electronic load cells for anything bigger.'},
+ {t:'number',q:'The regulation that makes the owner keep an empty W&B report',a:'<b>CAR 605.92</b>, meeting <b>Chapter 571</b> of the Airworthiness Manual (Std 571 App C).',w:'Standard 571 App C also says how to amend it.'},
+ {t:'number',q:'Practice aircraft: empty weight and CG from the weighing',a:'<b>1,176.37 lb at 30.90 in</b>; useful load 493.63 lb (max gross 1,670).',w:'Nose 331 @ −10, mains 423 and 415 @ 46.81, oil −13.13 @ −14.7, fuel +9 @ 40, nose wheel +11.5 @ −10.'},
+ {t:'apply',q:'You weigh an aircraft with the nose wheel removed so it sits level. What do you do with the wheel?',a:'<b>Weigh it separately and add it back</b> in the table at its own arm.',w:'Practice example: +11.50 lb at FS −10.'},
+ {t:'apply',q:'A removed ADF (3 lb) was at an arm of −28 in. Which way does the CG move?',a:'<b>Aft.</b> Negative weight × negative arm = positive moment.',w:'Taking weight out of the nose makes the tail relatively heavier.'},
+ {t:'apply',q:'A customer wants floats fitted. Do you have to reweigh?',a:'<b>No</b> — the STC gives the float package weight and arm, so calculate an <b>amendment</b>.',w:'Deck example: 1,250 @ 27.2 → 1,406 lb @ 24.72 in.'},
+ {t:'apply',q:'The aircraft came back from a full strip and repaint. Amendment or reweigh?',a:'<b>Reweigh.</b> Paint adds real weight that cannot be calculated accurately.',w:'Paint is treated as major work.'},
+ {t:'apply',q:'Your calculated CG lands behind the main wheels on a nose-wheel aircraft. What now?',a:'<b>Something is wrong</b> — check signs, arms and the datum. The CG must sit between the weighing points.',w:'Station-diagram sanity check.'},
+ {t:'apply',q:'A pilot asks if full tanks, four people and full baggage is OK. What is the AME\'s answer?',a:'Run the loaded W&B — on most light aircraft that combination <b>exceeds max gross weight</b>. The pilot must leave fuel, people or bags behind.',w:'Useful load is often only ~500 lb.'},
+ {t:'apply',q:'You lost amendment 2 of 4 in the records. Can you still use amendment 4?',a:'<b>No.</b> The paper trail back to the last weighing is broken — the aircraft must be <b>reweighed</b>.',w:'Superseded pages are kept for exactly this reason.'}
+];
+(function(){
+  var KEY='asys245-cards-m6';
+  var st={set:'all',mast:{}};
+  try{ st=Object.assign(st,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} }
+  var queue=[],cur=null,flipped=false,seen=0,total=0;
+  var card=document.getElementById('card'),q=document.getElementById('q'),a=document.getElementById('a'),why=document.getElementById('why'),kf=document.getElementById('kfront');
+  var done=document.getElementById('done'),actions=document.getElementById('actions'),scene=document.getElementById('scene');
+  var labels={term:'Term',law:'Rule',number:'Number',apply:'Apply it'};
+  function pool(){ return CARDS.map(function(c,i){c.id=i;return c}).filter(function(c){return st.set==='all'||c.t===st.set}); }
+  function build(fresh){ var p=pool(); total=p.length; if(fresh){ p.forEach(function(c){ delete st.mast[c.id]; }); save(); } queue=p.filter(function(c){ return (st.mast[c.id]||0)<2; }).sort(function(){return Math.random()-.5}); seen=0; next(); }
+  function stats(){ var p=pool(); var m=p.filter(function(c){return (st.mast[c.id]||0)>=2}).length; document.getElementById('tot').textContent=total; document.getElementById('mast').textContent=m; document.getElementById('rev').textContent=queue.length+(cur?1:0); document.getElementById('pos').textContent=Math.min(seen,total); document.getElementById('pbar').style.width=(total?100*m/total:0)+'%'; }
+  function next(){ flipped=false; card.classList.remove('flipped'); if(!queue.length){ cur=null; scene.hidden=true; actions.hidden=true; done.hidden=false; document.getElementById('doneMsg').textContent='All '+total+' cards mastered twice. Try another set, or restart to run it cold.'; stats(); return; } scene.hidden=false; actions.hidden=true; done.hidden=true; cur=queue.shift(); seen++; kf.textContent=labels[cur.t]; q.innerHTML=cur.q; a.innerHTML=cur.a; why.innerHTML=cur.w; stats(); }
+  function flip(){ if(!cur) return; flipped=!flipped; card.classList.toggle('flipped',flipped); actions.hidden=!flipped; }
+  function grade(ok){ if(!cur||!flipped) return; if(ok){ st.mast[cur.id]=(st.mast[cur.id]||0)+1; if(st.mast[cur.id]<2) queue.push(cur); } else { st.mast[cur.id]=0; queue.splice(Math.min(3,queue.length),0,cur); } save(); next(); }
+  card.addEventListener('click',flip);
+  document.getElementById('got').addEventListener('click',function(){grade(true)});
+  document.getElementById('again').addEventListener('click',function(){grade(false)});
+  document.getElementById('restart').addEventListener('click',function(){build(true)});
+  document.getElementById('doneRestart').addEventListener('click',function(){build(true)});
+  document.querySelectorAll('.chip[data-set]').forEach(function(c){ c.setAttribute('aria-pressed',c.dataset.set===st.set?'true':'false'); c.addEventListener('click',function(){ st.set=c.dataset.set; save(); document.querySelectorAll('.chip[data-set]').forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false')}); build(false); }); });
+  document.addEventListener('keydown',function(e){ if(e.target.tagName==='INPUT') return; if(e.key===' '){e.preventDefault();flip();} else if(e.key==='1') grade(false); else if(e.key==='2') grade(true); });
+  build(false);
+})();
+</script>
+
+</body>
+</html>

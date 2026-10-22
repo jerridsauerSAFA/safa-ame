@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ASYS 245 Module 6 · Reference Sheet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--bg:#F4F6F8;--surface:#FFFFFF;--cue:#E6EDF3;--line:#CBD5DE;--ink:#16232E;--muted:#526170;--accent:#1D5C8F;--accent-ink:#FFFFFF;--formula:#B8690F;--formula-bg:#FFF4E3;--ok:#2E7D4F;--ok-bg:#E4F3EA;--shadow:0 1px 2px rgba(22,35,46,.08)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--shadow:none}}
+:root[data-theme="dark"]{--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--shadow:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+h2{font-size:1.5rem;font-weight:700}
+h3{font-size:1.15rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.wrap{max-width:960px;margin:0 auto}
+.eyebrow{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--accent)}
+header.top{padding-block:2rem 1.25rem;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;justify-content:space-between}
+header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
+.meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted)}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.4rem .9rem;border-radius:4px;cursor:pointer}
+.btn:focus-visible,input:focus-visible,details summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* reference strip */
+.ref{margin-top:1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.ref div{background:var(--surface);padding:.8rem 1rem}
+.ref .l{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ref .v{font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.45rem;white-space:nowrap;font-weight:700;color:var(--formula);font-variant-numeric:tabular-nums}
+.ref .s{font-size:.8rem;color:var(--muted)}
+/* formula cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-top:1rem}
+.fc{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column}
+.fc .head{padding:.8rem 1rem .5rem;border-bottom:1px solid var(--line)}
+.fc .head .k{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.fc .big{font-family:"JetBrains Mono",monospace;font-size:1.6rem;color:var(--formula);background:var(--formula-bg);padding:.6rem 1rem;text-align:center;font-variant-numeric:tabular-nums}
+.fc .body{padding:.8rem 1rem 1rem;display:grid;gap:.5rem;flex:1}
+.fc .body p{margin:0}
+.vars{display:grid;grid-template-columns:auto 1fr;gap:.15rem .7rem;font-size:.92rem}
+.vars b{font-family:"JetBrains Mono",monospace;font-weight:500;color:var(--formula)}
+.words{font-weight:600}
+.hold{font-size:.85rem;color:var(--muted)}
+.hold b{color:var(--ink)}
+details{border-top:1px dotted var(--line);padding-top:.5rem}
+details summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:.9rem;list-style:none}
+details summary::before{content:"+ ";font-family:"JetBrains Mono",monospace}
+details[open] summary::before{content:"– "}
+.ex{font-size:.92rem;margin:.4rem 0 0}
+.ex code{font-family:"JetBrains Mono",monospace;background:var(--cue);padding:.05em .3em;border-radius:3px}
+/* calc */
+.calc{background:var(--cue);border-radius:4px;padding:.7rem .8rem;margin-top:.4rem;display:grid;gap:.4rem}
+.calc .row{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center;font-size:.9rem}
+.calc label{display:inline-flex;align-items:center;gap:.3rem}
+.calc input{width:5.2rem;font:.95rem "JetBrains Mono",monospace;padding:.25rem .4rem;border:1px solid var(--line);border-radius:3px;background:var(--surface);color:var(--ink)}
+.calc .out{font-family:"JetBrains Mono",monospace;font-weight:500;color:var(--ok);background:var(--ok-bg);padding:.2rem .5rem;border-radius:3px;min-width:6rem;display:inline-block}
+.foot{font-size:.85rem;color:var(--muted);margin-top:2rem}
+@media print{body{background:#fff;color:#000;padding:0}.btn,details summary,.calc{display:none}details{border:0}details>*{display:block}header.top{border-bottom:2px solid #000}.fc{break-inside:avoid;border:1px solid #999}.fc .big{background:#f2f2f2;color:#000}.ref .v{color:#000}}
+</style>
+</head>
+<body>
+<style>
+.tbl{width:100%;border-collapse:collapse;font-size:.95rem;margin:.75rem 0 1.25rem}
+.tbl th,.tbl td{border:1px solid var(--line,#d6dde5);padding:.45rem .6rem;text-align:left;vertical-align:top}
+.tbl th{font-family:"Barlow Condensed",sans-serif;font-size:1.05rem;letter-spacing:.02em;background:rgba(29,92,143,.08)}
+.tbl td b{color:#1D5C8F}
+</style>
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">Reference sheet · ASYS 245 · Module 6</div>
+    <h1>Weight &amp; Balance Reference</h1>
+    <p>The numbers, the rules, the weighing checklist and the four formulas — with live calculators for the CG table, an amendment, ballast placement and % MAC. Print it for the binder.</p>
+  </div>
+  <div><div class="meta">SAFA · SAIT ASYS 245<br>Module 6</div><br><button class="btn" type="button" onclick="window.print()">Print</button></div>
+</header>
+
+<h3 style="margin-top:1.5rem">Numbers to remember</h3>
+<div class="ref">
+  <div><div class="l">Avgas · Jet fuel</div><div class="v">6 · 6.7 lb/gal</div><div class="s">standard weights</div></div>
+  <div><div class="l">Oil · Water</div><div class="v">7.5 · 8.35 lb/gal</div><div class="s">standard weights</div></div>
+  <div><div class="l">Large aircraft reweigh</div><div class="v">5 years</div><div class="s">Std 625 App C — or after major work incl. paint</div></div>
+  <div><div class="l">Weighing points</div><div class="v">≥ 3</div><div class="s">scales or load cells; beam scales ≈ 300 lb max</div></div>
+  <div><div class="l">Minimum fuel</div><div class="v">30 min</div><div class="s">at cruise power</div></div>
+  <div><div class="l">Sign convention</div><div class="v">aft + · fwd −</div><div class="s">BL: right + · left −</div></div>
+</div>
+
+<h3 style="margin-top:1.75rem">The four words</h3>
+<table class="tbl">
+  <tr><th>Word</th><th>Means</th><th>Where it comes from</th></tr>
+  <tr><td><b>Datum</b></td><td>Imaginary vertical plane all horizontal arms are measured from (aircraft level)</td><td>AMM · POH · TCDS — firewall, spinner, nose are common</td></tr>
+  <tr><td><b>Arm</b></td><td>Horizontal distance from the datum, inches; a distance</td><td>Fuselage stations (FS); butt lines (BL) for lateral</td></tr>
+  <tr><td><b>Moment</b></td><td>Weight × arm, lb·in — signs included</td><td>Calculated</td></tr>
+  <tr><td><b>CG</b></td><td>Balance point: total moment ÷ total weight</td><td>Calculated; never add the arms</td></tr>
+</table>
+
+<h3 style="margin-top:1.75rem">Weight terms</h3>
+<table class="tbl">
+  <tr><th>Term</th><th>Definition</th></tr>
+  <tr><td><b>Empty weight</b></td><td>Airframe, engine, all fixed installed equipment, fixed ballast, hydraulic fluid, coolant, <b>residual fuel</b>, oil (full since 1978 — check TCDS), radios</td></tr>
+  <tr><td><b>Useful load</b></td><td>Max gross weight − empty weight (crew, passengers, bags, usable fuel)</td></tr>
+  <tr><td><b>Max ramp (taxi)</b></td><td>Heaviest on the ground</td></tr>
+  <tr><td><b>Max take-off</b></td><td>Heaviest at the start of the roll (ramp − taxi fuel)</td></tr>
+  <tr><td><b>Max landing</b></td><td>Heaviest at touchdown</td></tr>
+  <tr><td><b>Max zero-fuel</b></td><td>Heaviest with no usable fuel — anything above must be fuel</td></tr>
+  <tr><td><b>Empty weight CG</b></td><td>Where it balances in the empty condition</td></tr>
+</table>
+
+<h3 style="margin-top:1.75rem">Who, what, where — the rules</h3>
+<table class="tbl">
+  <tr><th>Question</th><th>Answer</th></tr>
+  <tr><td>Who does the empty W&amp;B?</td><td><b>The AME</b></td></tr>
+  <tr><td>Who does the loaded W&amp;B?</td><td><b>The pilot</b></td></tr>
+  <tr><td>Where are the datum and levelling means?</td><td><b>POH · TCDS · AMM</b></td></tr>
+  <tr><td>Which rule makes the owner keep the report?</td><td><b>CAR 605.92</b>, meeting Chapter 571 (Std 571 App C)</td></tr>
+  <tr><td>When is a large aircraft reweighed?</td><td><b>Every 5 years</b> or after major work incl. paint (Std 625 App C)</td></tr>
+  <tr><td>When is a report amended?</td><td>Any change to empty weight or CG with known weight and arm (not washers/lockwire)</td></tr>
+  <tr><td>When must you reweigh instead?</td><td>Report lost · paper trail to last weighing broken · change can't be calculated (paint)</td></tr>
+  <tr><td>What goes in the journey log?</td><td>Description · effective date · weight and arm of each item — <b>before the next flight</b></td></tr>
+  <tr><td>Flying outside the envelope?</td><td><b>Illegal.</b></td></tr>
+</table>
+
+<h3 style="margin-top:1.75rem">Weighing checklist</h3>
+<table class="tbl">
+  <tr><th>Step</th><th>Do</th></tr>
+  <tr><td><b>1. Read</b></td><td>Manufacturer's weighing procedure, datum, levelling means, arms to weighing points (AMM / TCDS)</td></tr>
+  <tr><td><b>2. Configure</b></td><td>Flaps/spoilers/slats per manual · equipment list items installed · baggage empty · panels, caps, doors fitted · hydraulics full · water and lav drained</td></tr>
+  <tr><td><b>3. Fuel &amp; oil</b></td><td>No fuel (add unusable back) · residual only · or full (subtract usable, hydrometer for density). Oil per TCDS</td></tr>
+  <tr><td><b>4. Conditions</b></td><td>Closed hangar, fans off, no air currents; aircraft clean and dry</td></tr>
+  <tr><td><b>5. Level</b></td><td>Spirit level on the levelling means or plumb bob; at least 3 scales / load cells</td></tr>
+  <tr><td><b>6. Read</b></td><td>Scale weights; weigh tare items (chocks, blocks) and subtract</td></tr>
+  <tr><td><b>7. Table</b></td><td>Item · weight · arm · moment → totals → CG = ΣM ÷ ΣW; useful load = max gross − empty</td></tr>
+  <tr><td><b>8. Check &amp; record</b></td><td>CG between the weighing points? Inside the envelope? Build the report, equipment list, sign</td></tr>
+</table>
+
+<h3 style="margin-top:1.75rem">Amendment vs addendum vs ballast</h3>
+<table class="tbl">
+  <tr><th></th><th>Amendment</th><th>Addendum</th><th>Ballast</th></tr>
+  <tr><td><b>What</b></td><td>Calculated update after a permanent change</td><td>One of several configurations in one report</td><td>Weight added to move the CG</td></tr>
+  <tr><td><b>When</b></td><td>Radio, seat, floats fitted for good</td><td>Wheels ↔ floats ↔ skis each season</td><td>CG outside the envelope</td></tr>
+  <tr><td><b>Record</b></td><td>Journey log before next flight; old page Superseded and kept</td><td>Log entry naming the addendum in effect</td><td>Fixed: W&amp;B change + equipment list. Removable: pilot before flight</td></tr>
+</table>
+
+<h3 style="margin-top:1.75rem">Four calculators</h3>
+<div class="grid">
+
+<div class="fc">
+  <div class="head"><div class="k">The core formula</div><h2>CG from a table</h2></div>
+  <div class="big">CG = ΣM ÷ ΣW</div>
+  <div class="body">
+    <div class="vars"><b>ΣM</b><span>sum of all moments (weight × arm, signs included)</span><b>ΣW</b><span>sum of all weights (removed items negative)</span></div>
+    <p class="words">Three weighing points plus one correction row. Enter the scale readings and arms; the moments and CG update live.</p>
+    <p class="hold">Default = the deck's practice aircraft (nose wheel assembly and unusable fuel already added, oil removed as a negative row).</p>
+    <details><summary>Worked example</summary><p class="ex">Nose 331 @ −10 = −3,310 · R main 423 @ 46.81 = 19,800.6 · L main 415 @ 46.81 = 19,426.2 · corrections (oil −13.13 @ −14.7, fuel +9 @ 40, nose wheel +11.5 @ −10) net +7.37 lb and +438.0 lb·in → <code>36,354.8 ÷ 1,176.37 = 30.90 in</code>.</p></details>
+    <div class="calc" data-calc="cg">
+      <div class="row"><label>Nose lb <input type="number" id="c_w1" value="331" step="0.1"></label><label>arm <input type="number" id="c_a1" value="-10" step="0.01"></label></div>
+      <div class="row"><label>R main lb <input type="number" id="c_w2" value="423" step="0.1"></label><label>arm <input type="number" id="c_a2" value="46.81" step="0.01"></label></div>
+      <div class="row"><label>L main lb <input type="number" id="c_w3" value="415" step="0.1"></label><label>arm <input type="number" id="c_a3" value="46.81" step="0.01"></label></div>
+      <div class="row"><label>Correction lb <input type="number" id="c_w4" value="7.37" step="0.01"></label><label>arm <input type="number" id="c_a4" value="59.43" step="0.01"></label></div>
+      <div class="row"><label>Max gross lb <input type="number" id="c_mg" value="1670"></label></div>
+      <div class="row">ΣW <span class="out" id="c_sw">1,176.37</span> lb · ΣM <span class="out" id="c_sm">36,354.8</span> lb·in</div>
+      <div class="row">CG = <span class="out" id="c_cg">30.90</span> in · useful load <span class="out" id="c_ul">493.63</span> lb</div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">After a change</div><h2>Amendment</h2></div>
+  <div class="big">new CG = (M₀ + ΣΔM) ÷ (W₀ + ΣΔW)</div>
+  <div class="body">
+    <div class="vars"><b>W₀, CG₀</b><span>previous report's empty weight and CG (M₀ = W₀ × CG₀)</span><b>ΔW</b><span>each item: + installed, − removed</span></div>
+    <p class="words">Start from the previous report, add the installed items, subtract the removed ones, divide. No scales needed when every weight and arm is known.</p>
+    <p class="hold">Default = the float installation: 1,250 lb @ 27.2; remove gear 132 @ 20 and tailwheel 20 @ 200; add floats 308 @ 24.</p>
+    <details><summary>Worked example</summary><p class="ex"><code>34,000 − 2,640 − 4,000 + 7,392 = 34,752 lb·in</code>; <code>1,250 − 132 − 20 + 308 = 1,406 lb</code>; <code>34,752 ÷ 1,406 = 24.72 in</code>. CG moved forward about 2.5 in.</p></details>
+    <div class="calc" data-calc="amend">
+      <div class="row"><label>Previous lb <input type="number" id="a_w0" value="1250" step="0.01"></label><label>CG <input type="number" id="a_c0" value="27.2" step="0.01"></label></div>
+      <div class="row"><label>Item 1 lb (− removed) <input type="number" id="a_w1" value="-132" step="0.1"></label><label>arm <input type="number" id="a_a1" value="20" step="0.01"></label></div>
+      <div class="row"><label>Item 2 lb <input type="number" id="a_w2" value="-20" step="0.1"></label><label>arm <input type="number" id="a_a2" value="200" step="0.01"></label></div>
+      <div class="row"><label>Item 3 lb <input type="number" id="a_w3" value="308" step="0.1"></label><label>arm <input type="number" id="a_a3" value="24" step="0.01"></label></div>
+      <div class="row">New weight <span class="out" id="a_w">1,406</span> lb · new CG <span class="out" id="a_cg">24.72</span> in · moved <span class="out" id="a_mv">2.48 fwd</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">Fixing the CG</div><h2>Ballast placement</h2></div>
+  <div class="big">arm = moment ÷ weight</div>
+  <div class="body">
+    <div class="vars"><b>moment</b><span>the moment you must cancel (equal and opposite)</span><b>weight</b><span>the ballast you have</span><b>arm</b><span>where it must go, from the datum</span></div>
+    <p class="words">Pick the weight and solve for the arm — or pick a spot (arm) and solve for the weight: weight = moment ÷ arm. A longer arm does more per pound.</p>
+    <p class="hold">Deck example: net moment +550 lb·in, 50 lb weight → −11 in (11 in forward of the datum). Check: 50 × −11 = −550.</p>
+    <details><summary>Worked example</summary><p class="ex">Need to move the moment by −550 with 50 lb: <code>−550 ÷ 50 = −11 in</code>. With only 25 lb it would need <code>−22 in</code>; at 5 in from the datum you would need <code>−550 ÷ −5 = 110 lb</code>.</p></details>
+    <div class="calc" data-calc="ballast">
+      <div class="row"><label>Moment to cancel (lb·in) <input type="number" id="b_m" value="-550" step="10"></label><label>Ballast lb <input type="number" id="b_w" value="50" step="1"></label></div>
+      <div class="row">Place it at arm <span class="out" id="b_arm">−11.0</span> in</div>
+      <div class="row"><label>…or at a fixed arm (in) <input type="number" id="b_a" value="-25" step="1"></label> needs <span class="out" id="b_need">22.0</span> lb</div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">Large aircraft</div><h2>CG as % MAC</h2></div>
+  <div class="big">% MAC = (CG − LEMAC) ÷ MAC × 100</div>
+  <div class="body">
+    <div class="vars"><b>LEMAC / TEMAC</b><span>leading / trailing edge of the mean aerodynamic chord, from the datum (TCDS)</span><b>MAC</b><span>TEMAC − LEMAC</span></div>
+    <p class="words">Business jets and airliners state the CG range as a percentage of the MAC so loading passengers and cargo works the same on every aircraft of the type.</p>
+    <p class="hold">Deck example: 78 in chord, CG range 15.6–28.08 in aft of the leading edge = 20–36 % MAC.</p>
+    <details><summary>Worked example</summary><p class="ex">LEMAC 100 in, TEMAC 178 in → MAC = 78. A CG at 123.4 in: <code>(123.4 − 100) ÷ 78 × 100 = 30 % MAC</code>.</p></details>
+    <div class="calc" data-calc="mac">
+      <div class="row"><label>LEMAC (in) <input type="number" id="m_le" value="100" step="0.1"></label><label>TEMAC (in) <input type="number" id="m_te" value="178" step="0.1"></label><label>CG (in) <input type="number" id="m_cg" value="123.4" step="0.1"></label></div>
+      <div class="row">MAC = <span class="out" id="m_mac">78.0</span> in · CG = <span class="out" id="m_pct">28.0</span> % MAC</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<p class="foot">Source: ASYS 245 Module 6 Weight &amp; Balance deck and the SAIT AXT ASYS 220 Weight &amp; Balance deck, both built on FAA-H-8083-1B and CARs Standard 571 Appendix C. Regulatory wording as stated in the decks — confirm current text at tc.canada.ca. The TCDS and AMM always govern a real aircraft.</p>
+</div>
+
+<script>
+(function(){
+  function n(id){ return parseFloat(document.getElementById(id).value)||0; }
+  function set(id,v){ document.getElementById(id).textContent=v; }
+  function fmt(x,d){ return isFinite(x)?(+x.toFixed(d)).toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d}):'—'; }
+  function calc(){
+    var sw=0,sm=0; for(var i=1;i<=4;i++){ sw+=n('c_w'+i); sm+=n('c_w'+i)*n('c_a'+i); }
+    set('c_sw',fmt(sw,2)); set('c_sm',fmt(sm,1)); set('c_cg',sw?fmt(sm/sw,2):'—'); set('c_ul',fmt(n('c_mg')-sw,2));
+    var w=n('a_w0'), m=n('a_w0')*n('a_c0'); for(var j=1;j<=3;j++){ w+=n('a_w'+j); m+=n('a_w'+j)*n('a_a'+j); }
+    var cg=w?m/w:NaN; set('a_w',fmt(w,2)); set('a_cg',fmt(cg,2)); var d=cg-n('a_c0'); set('a_mv',isFinite(d)?fmt(Math.abs(d),2)+(d<0?' fwd':d>0?' aft':''):'—');
+    set('b_arm', n('b_w')?fmt(n('b_m')/n('b_w'),1):'—'); set('b_need', n('b_a')?fmt(n('b_m')/n('b_a'),1):'—');
+    var mac=n('m_te')-n('m_le'); set('m_mac',fmt(mac,1)); set('m_pct',mac?fmt((n('m_cg')-n('m_le'))/mac*100,1):'—');
+  }
+  document.querySelectorAll('.calc input').forEach(function(i){ i.addEventListener('input',calc); });
+  calc();
+})();
+</script>
+
+</body>
+</html>

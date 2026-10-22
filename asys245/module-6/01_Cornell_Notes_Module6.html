@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ASYS 245 Module 6 · Cornell Notes · Weight & Balance</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{
+  --bg:#F4F6F8; --surface:#FFFFFF; --cue:#E6EDF3; --line:#CBD5DE; --ink:#16232E; --muted:#526170;
+  --accent:#1D5C8F; --accent-ink:#FFFFFF; --formula:#B8690F; --formula-bg:#FFF4E3;
+  --ok:#2E7D4F; --ok-bg:#E4F3EA; --bad:#B3402B; --bad-bg:#FBE8E3; --shadow:0 1px 2px rgba(22,35,46,.08);
+  --dia-bg:#F9FBFC; --dia-line:#3A4A58; --dia-fill:#D6E4F0; --dia-hi:#E7A34A;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F171E; --surface:#182430; --cue:#1F2E3B; --line:#33475A; --ink:#E6EDF3; --muted:#9FB0BF;
+    --accent:#6FB0E8; --accent-ink:#0F171E; --formula:#F0B35B; --formula-bg:#2C2416;
+    --ok:#6CCB8F; --ok-bg:#16301F; --bad:#F08A72; --bad-bg:#3A1C15; --shadow:none;
+    --dia-bg:#131E27; --dia-line:#C4D2DE; --dia-fill:#2B4257; --dia-hi:#F0B35B;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F171E; --surface:#182430; --cue:#1F2E3B; --line:#33475A; --ink:#E6EDF3; --muted:#9FB0BF;
+  --accent:#6FB0E8; --accent-ink:#0F171E; --formula:#F0B35B; --formula-bg:#2C2416;
+  --ok:#6CCB8F; --ok-bg:#16301F; --bad:#F08A72; --bad-bg:#3A1C15; --shadow:none;
+  --dia-bg:#131E27; --dia-line:#C4D2DE; --dia-fill:#2B4257; --dia-hi:#F0B35B;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+h2{font-size:1.6rem;font-weight:700;letter-spacing:.01em}
+h3{font-size:1.2rem;font-weight:600}
+.wrap{max-width:960px;margin:0 auto}
+.eyebrow{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--accent)}
+header.top{padding-block:2rem 1.25rem;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;justify-content:space-between}
+header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
+.meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted);letter-spacing:.02em}
+/* toolbar */
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:.6rem;display:flex;flex-wrap:wrap;gap:.5rem .9rem;align-items:center;margin-inline:-16px;padding-inline:16px}
+.bar .grow{flex:1 1 10rem}
+.progress{height:6px;background:var(--cue);border-radius:3px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.bar label{font-size:.9rem;display:inline-flex;gap:.4rem;align-items:center;cursor:pointer;user-select:none}
+.bar input{accent-color:var(--accent);width:1.1rem;height:1.1rem}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.35rem .8rem;border-radius:4px;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn:focus-visible,.bar input:focus-visible,details summary:focus-visible,.opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* cornell grid */
+.notes{margin-top:1.5rem;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+.row{display:grid;grid-template-columns:minmax(150px,30%) 1fr;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.cue{background:var(--cue);padding:1rem;border-right:1px solid var(--line)}
+.cue h3{color:var(--ink)}
+.cue .q{margin:.5rem 0 0;font-weight:600;font-style:italic;color:var(--muted);font-size:.95rem}
+.cue .tag{display:inline-block;margin-top:.6rem;font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;color:var(--accent);text-transform:uppercase}
+.body{padding:1rem 1.25rem;min-width:0}
+.body ul{margin:0;padding-left:1.15rem}
+.body li{margin:.25rem 0}
+.body li+li{margin-top:.35rem}
+.f{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;color:var(--formula);background:var(--formula-bg);padding:.05em .35em;border-radius:3px;white-space:nowrap}
+.big{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:1.35rem;color:var(--formula);background:var(--formula-bg);padding:.25rem .7rem;border-radius:4px;margin:.4rem 0}
+.fig{margin:.9rem 0 .3rem;background:var(--dia-bg);border:1px solid var(--line);border-radius:4px;padding:.5rem;overflow-x:auto}
+.fig svg{display:block;max-width:100%;height:auto;margin:0 auto;font-family:"Source Sans 3",sans-serif}
+.cap{font-size:.8rem;color:var(--muted);margin:.2rem 0 0;font-style:italic}
+figure.photo{margin:.9rem 0 .3rem;background:var(--dia-bg);border:1px solid var(--line);border-radius:4px;padding:.5rem}
+figure.photo img{display:block;max-width:100%;height:auto;margin:0 auto;border-radius:3px}
+figure.photo figcaption{text-align:center;margin-top:.35rem}
+.photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem}
+.photos figure.photo{margin:0}
+.study .body.open>figure,.study .body.open>.photos{display:block}
+.axes{width:100%;border-collapse:collapse;font-size:.92rem;margin:.6rem 0 0}.axes th,.axes td{border:1px solid var(--line);padding:.3rem .5rem;text-align:left}.axes th{background:var(--cue);font-family:"Barlow Condensed",Arial,sans-serif;letter-spacing:.03em}
+details.more{margin-top:.8rem;border-left:3px solid var(--accent);padding-left:.8rem}
+details.more summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:.92rem;list-style:none}
+details.more summary::before{content:"+ ";font-family:"JetBrains Mono",monospace}
+details.more[open] summary::before{content:"– "}
+details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
+/* study mode */
+.study .body>*:not(.reveal){display:none}
+.reveal{display:none}
+.study .reveal{display:block;text-align:left}
+.study .body.open>*{display:block}
+.study .body.open>.reveal{display:none}
+.study .body.open>ul{display:block}
+.study .body.open>.fig{display:block}
+.reveal button{width:100%;text-align:left;font:600 1rem "Source Sans 3",sans-serif;background:transparent;border:1px dashed var(--line);border-radius:4px;color:var(--muted);padding:1rem;cursor:pointer}
+.reveal button:hover{border-color:var(--accent);color:var(--accent)}
+.check{display:inline-flex;align-items:center;gap:.4rem;margin-top:.7rem;font-size:.85rem;color:var(--muted);cursor:pointer}
+.check input{accent-color:var(--ok)}
+/* summary + terms */
+.box{margin-top:1.5rem;background:var(--surface);border:1px solid var(--line);padding:1.25rem;box-shadow:var(--shadow)}
+.box.sum{border-left:6px solid var(--accent)}
+.terms{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem 1.5rem;margin-top:.8rem}
+.terms div{padding:.4rem 0;border-bottom:1px dotted var(--line)}
+.terms b{display:block;font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.05rem;letter-spacing:.02em}
+/* quiz */
+.qz{margin-top:1rem;display:grid;gap:.9rem}
+.qcard{border:1px solid var(--line);border-radius:4px;padding:.9rem 1rem;background:var(--surface)}
+.qcard p{margin:0 0 .5rem;font-weight:600}
+.opts{display:grid;gap:.4rem}
+.opt{text-align:left;font:1rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:.5rem .7rem;border-radius:4px;cursor:pointer}
+.opt:hover{border-color:var(--accent)}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ink)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--ink)}
+.fb{margin-top:.5rem;font-size:.92rem;display:none}
+.fb.show{display:block}
+.fb.good{color:var(--ok)} .fb.bad{color:var(--bad)}
+.score{margin-top:1rem;font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.3rem}
+.flag{font-size:.85rem;color:var(--muted);margin-top:1.5rem}
+@media (max-width:620px){
+  .row{grid-template-columns:1fr}
+  .cue{border-right:0;border-bottom:1px solid var(--line);padding:.8rem 1rem}
+  .body{padding:.9rem 1rem}
+}
+@media (prefers-reduced-motion:reduce){.progress i{transition:none}}
+</style>
+</head>
+<body>
+<style>
+.mine{margin:.9rem 0 .4rem;border:1px solid #c9d3dd;border-radius:6px;padding:.5rem .7rem .4rem;background:#fff}
+.mine .lbl{display:block;font:600 .72rem "Barlow Condensed",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#1D5C8F;margin-bottom:.35rem}
+.mine textarea{display:block;width:100%;height:9.6em;box-sizing:border-box;border:0;padding:0;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.6em - 1px),#c9d3dd calc(1.6em - 1px),#c9d3dd 1.6em);background-attachment:local;font:inherit;font-size:.95rem;line-height:1.6em;color:#111;resize:vertical}
+.mine textarea:focus{outline:2px solid #1D5C8F;outline-offset:2px}
+.mine textarea::placeholder{color:#8a949e}
+.mine .lines{display:none}
+@media print{.mine textarea{display:none!important}.mine .lines{display:block!important;height:9.6em;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.6em - 1px),#b8c2cc calc(1.6em - 1px),#b8c2cc 1.6em);-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">Cornell Notes · ASYS 245 · Module 6</div>
+    <h1>Weight &amp; Balance</h1>
+    <p>Why weight and balance decide whether an aircraft may fly, the four words everything is built on (datum, arm, moment, CG), how an AME weighs an aircraft, and how to calculate and record the empty weight and CG — including amendments, addendums and ballast. Read the notes, then switch on <b>Study mode</b> to test yourself from the cue questions.</p>
+  </div>
+  <div class="meta">SAFA · SAIT ASYS 245<br>Module 6 · built from the course decks</div>
+</header>
+
+<div class="bar" role="toolbar" aria-label="Study tools">
+  <label><input type="checkbox" id="studyToggle"> Study mode (hide notes, recall from cues)</label>
+  <div class="grow"><div class="progress" aria-hidden="true"><i id="pbar"></i></div></div>
+  <span class="meta" id="ptext">0 / 12 sections checked</span>
+  <button class="btn" id="resetBtn" type="button">Reset</button>
+</div>
+
+<section class="notes" id="notes" aria-label="Cornell notes">
+
+<div class="row" data-sec="1">
+  <div class="cue"><h3>Why Weight &amp; Balance Matters</h3><p class="q">What does too much weight do to an aircraft, what does a CG too far forward or aft do, and who is responsible for which W&amp;B report?</p><span class="tag">AME = empty · Pilot = loaded</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Most modern aircraft are designed so that with <b>every seat, the baggage bay and the tanks all full, they are overloaded</b>. Every flight is a trade: full load means less fuel and range; full range means leaving people or bags behind.</li>
+      <li><b>Overloading</b> hurts everything: higher take-off speed and <b>longer take-off run</b>; <b>lower rate and angle of climb</b>; <b>lower service ceiling</b>; <b>slower cruise</b>; <b>shorter range</b>; <b>poorer manoeuvrability</b>; higher landing speed and <b>longer landing roll</b>; and <b>extra stress on the structure</b>, especially the landing gear.</li>
+      <li><b>Balance</b> (where the CG sits) decides stability and control. CG <b>too far forward</b>: the aircraft may <b>not rotate</b> for take-off; longitudinal control is reduced. CG <b>too far aft</b>: the aircraft may <b>over-control in pitch</b>; longitudinal stability is reduced (Module 3).</li>
+      <li>It is <b>illegal</b> to fly an aircraft outside its allowable weight and balance <b>envelope</b>.</li>
+      <li>Two reports, two owners: the <b>AME calculates and provides the empty weight and empty CG</b>; the <b>pilot calculates the loaded weight and loaded CG</b> for each flight from the AME's numbers.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Side view of an aircraft with a CG envelope: too far forward, within limits, too far aft">
+      <path d="M60 70 L300 70 L340 60 L300 50 L60 50 Z" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
+      <rect x="150" y="30" width="80" height="20" rx="3" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+      <path d="M300 50 L310 25 L335 25 L340 60" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
+      <rect x="150" y="88" width="80" height="10" fill="var(--dia-hi)" stroke="var(--dia-line)"/>
+      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="190" y="112" fill="var(--formula)" font-weight="700">CG range (envelope)</text><text x="100" y="112">too far forward</text><text x="100" y="124" fill="var(--muted)">won't rotate · heavy nose</text><text x="290" y="112">too far aft</text><text x="290" y="124" fill="var(--muted)">over-controls · unstable</text></g>
+      <circle cx="185" cy="60" r="6" fill="var(--formula)"/><line x1="185" y1="66" x2="185" y2="88" stroke="var(--formula)" stroke-dasharray="3 2"/>
+    </svg><p class="cap">The CG must sit inside the envelope. Forward of it the aircraft is nose-heavy and may not rotate; aft of it the aircraft is unstable.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>This is the module where the AME's arithmetic goes straight into the pilot's hands. Every loaded W&amp;B a pilot does starts from the empty weight and empty CG you signed for. A wrong number in the hangar is a wrong number on every flight until the next weighing — which is why the regulations treat the W&amp;B report as a required technical record, not a nice-to-have.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="1" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="2">
+  <div class="cue"><h3>Datum, Arm, Moment, CG</h3><p class="q">Define datum, arm, moment and centre of gravity, and give the sign convention for arms.</p><span class="tag">The four words</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Datum</b> — an <b>imaginary vertical plane</b> from which all horizontal measurements are taken, with the aircraft in the <b>level flight attitude</b>. Where is it? <b>Wherever the manufacturer says</b> — find it in the <b>AMM, POH or TCDS</b>. Common datums: the <b>firewall</b>, the <b>spinner</b>, the <b>nose</b>.</li>
+      <li><b>Arm</b> — the <b>horizontal distance</b> (inches) from the datum to an item. It is a <b>distance</b>. Fuselage stations (FS) are numbered by their distance from the datum.</li>
+      <li><b>Sign convention:</b> <b>aft</b> of the datum = <b>positive (+)</b>; <b>forward</b> of the datum = <b>negative (−)</b>. Put the datum at the nose and every arm is positive.</li>
+      <li>Side to side uses <b>butt lines (BL)</b> from the centreline (BL 0): <b>right = +</b>, <b>left = −</b>.</li>
+      <li><b>Moment</b> — <b>weight × arm</b> (lb·in). Keep the signs: a positive weight at a negative arm is a negative moment; a <b>removed</b> item (negative weight) at a negative arm is a <b>positive</b> moment.</li>
+      <li><b>Centre of gravity (CG)</b> — the point where the nose-heavy and tail-heavy moments are <b>exactly equal</b>: the <b>balance point</b>. It can be written as inches from the datum, a station number, or a percentage of MAC.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Side view of an aircraft with the datum plane at the firewall, a negative arm forward to the propeller and positive arms aft to the main wheels and tail">
+      <path d="M70 75 L310 75 L350 65 L310 55 L70 55 Z" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
+      <path d="M310 55 L320 30 L345 30 L350 65" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
+      <rect x="55" y="52" width="6" height="26" fill="var(--dia-line)"/>
+      <line x1="110" y1="20" x2="110" y2="125" stroke="var(--formula)" stroke-width="3" stroke-dasharray="6 3"/>
+      <circle cx="160" cy="92" r="6" fill="var(--dia-line)"/><circle cx="330" cy="92" r="4" fill="var(--dia-line)"/>
+      <g stroke="var(--dia-line)" stroke-width="1.5"><line x1="110" y1="110" x2="160" y2="110"/><line x1="110" y1="120" x2="330" y2="120"/><line x1="58" y1="110" x2="110" y2="110"/></g>
+      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="110" y="15" fill="var(--formula)" font-weight="700">DATUM (firewall)</text><text x="84" y="106">− arm</text><text x="135" y="106">+ arm</text><text x="220" y="134">+ arms aft of the datum</text><text x="40" y="140" fill="var(--muted)" text-anchor="start">forward = negative</text><text x="380" y="140" fill="var(--muted)" text-anchor="end">aft = positive</text></g>
+    </svg><p class="cap">Everything is measured from the datum. Aft is +, forward is −. Moment = weight × arm, signs included.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Why not just put the datum at the CG? Because the CG moves every time you load the aircraft. The datum is a fixed reference the manufacturer chose once, so every arm in every manual, STC and equipment list is measured from the same place for the life of the type. Check the datum before you check anything else — an arm from the wrong datum is wrong in every row of the table.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="2" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="3">
+  <div class="cue"><h3>The Principle: Moments Sum to Zero</h3><p class="q">State the first principle of weight and balance and show how it gives the formula for the CG.</p><span class="tag">CG = ΣM ÷ ΣW</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>First principle:</b> the <b>sum of the moments about any point of a stationary object is zero</b>. That is what "balanced" means.</li>
+      <li>Teeter-totter: a 25 lb child and a 50 lb child on a 12 ft plank. Datum at child A. Moments: 25 × 0 = 0 and 50 × 12 = 600. The pivot must carry 75 lb at Y where 75 × Y = 600 → <b>Y = 8 ft</b> from child A. Trial and error works on a teeter-totter — not on a 737.</li>
+      <li>So the rule: <span class="big">CG = total moment ÷ total weight</span></li>
+      <li>Use the <b>four-column table</b>: <b>item · weight · arm · moment</b>. Work out each moment (weight × arm), then <b>add the weights</b> and <b>add the moments</b>, then divide.</li>
+      <li><b>Never add the arms.</b> The CG is a "master arm" that comes out of the division, not a sum.</li>
+      <li>Deck example: 52,900 lb·in ÷ 495 lb = <b>106.9"</b> aft of the datum.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Teeter-totter with a 25 pound child at the left end, a 50 pound child at the right end, and the pivot 8 feet from the left">
+      <line x1="40" y1="70" x2="380" y2="70" stroke="var(--dia-line)" stroke-width="5"/>
+      <polygon points="266,72 250,105 282,105" fill="var(--dia-hi)" stroke="var(--dia-line)" stroke-width="2"/>
+      <rect x="40" y="40" width="26" height="28" rx="4" fill="var(--dia-fill)" stroke="var(--dia-line)"/><rect x="340" y="30" width="40" height="38" rx="4" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="53" y="58" font-weight="700">25 lb</text><text x="360" y="54" font-weight="700">50 lb</text><text x="53" y="30" fill="var(--formula)">datum (arm 0)</text><text x="360" y="22" fill="var(--muted)">arm 12 ft</text><text x="266" y="122" fill="var(--formula)" font-weight="700">pivot = CG at 8 ft</text><text x="150" y="92" fill="var(--muted)">25×0 + 50×12 = 600 lb·ft ÷ 75 lb = 8 ft</text></g>
+    </svg><p class="cap">Total moment 600 lb·ft divided by total weight 75 lb puts the balance point 8 ft from the lighter child.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>The teeter-totter and the aircraft are the same problem. On the aircraft the "children" are the scale readings under each wheel, the "pivot" is the CG you are looking for, and the ground pushing up on the wheels is the negative total weight that makes the moments sum to zero. Spreadsheets do the multiplying, but you still have to get the signs right and resist adding the arm column.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="3" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="4">
+  <div class="cue"><h3>Weight Terms</h3><p class="q">Define empty weight, useful load, and the maximum ramp, take-off, landing and zero-fuel weights.</p><span class="tag">Useful load = max gross − empty</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Maximum (gross) weight</b> — the most the aircraft and everything in it may weigh in flight. Found in the <b>Type Certificate Data Sheet (TCDS)</b> / Aircraft Specifications.</li>
+      <li><b>Maximum ramp (taxi) weight</b> — the heaviest it may be on the ground. <b>Maximum take-off weight</b> — the heaviest at the start of the take-off roll. The difference is the fuel burned starting and taxiing.</li>
+      <li><b>Maximum landing weight</b> — the heaviest it may land at (on a wide-body it can be 100,000 lb or more below take-off weight). <b>Maximum zero-fuel weight</b> — the heaviest with no usable fuel; anything above it must be fuel.</li>
+      <li><b>Empty weight</b> — the aircraft with everything that is <b>fixed in place and installed</b>: airframe, powerplant, required and optional equipment, fixed ballast, full engine coolant, hydraulic fluid, <b>residual (unusable) fuel</b>, oil, radios. <b>Empty weight CG</b> = where it balances in that condition.</li>
+      <li><b>Useful load = maximum gross weight − empty weight.</b> That is everything you can legally add: crew, passengers, baggage, usable fuel. Aircraft certified in both <b>normal and utility</b> categories may list two useful loads.</li>
+      <li><b>Minimum fuel</b> — the fuel for about <b>30 minutes at cruise power</b>; used in W&amp;B calculations where the load is otherwise critical.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Stacked bar showing empty weight plus useful load equal to maximum gross weight, with ramp, take-off, landing and zero-fuel limits marked">
+      <rect x="40" y="60" width="200" height="40" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
+      <rect x="240" y="60" width="140" height="40" fill="var(--dia-hi)" stroke="var(--dia-line)" stroke-width="2"/>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="140" y="84" font-weight="700">empty weight</text><text x="310" y="84" font-weight="700">useful load</text><text x="210" y="125" fill="var(--formula)" font-weight="700">empty weight + useful load = maximum gross weight</text><text x="140" y="45" fill="var(--muted)" font-size="9.5">airframe · engine · equipment · residual fuel · oil</text><text x="310" y="45" fill="var(--muted)" font-size="9.5">people · bags · usable fuel</text><text x="210" y="143" fill="var(--muted)" font-size="10">limits: ramp ≥ take-off ≥ landing · zero-fuel = everything but fuel</text></g>
+    </svg><p class="cap">Useful load is what is left after the empty weight — and it is often less than people expect.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>The deck's practice aircraft has a maximum gross weight of 1,670 lb and an empty weight of 1,176 lb, so the useful load is only about 494 lb. Put a 250 lb pilot in and 244 lb is left for passengers, bags and fuel — and fuel is 6 lb per gallon. That is why "full tanks, full seats, full baggage" is an overload on most light aircraft, and why the pilot's loaded W&amp;B is not optional.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="4" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="5">
+  <div class="cue"><h3>The W&amp;B Report &amp; the Rules</h3><p class="q">What does the empty weight and balance report contain, which regulations require it, and when must an aircraft be reweighed?</p><span class="tag">CAR 605.92 · Std 571 App C</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Every aircraft leaves the factory with a <b>weight and balance report</b> in its records. It gives the <b>empty weight</b> and the <b>empty weight CG</b>, and must be <b>current and accurate</b>.</li>
+      <li><b>CAR 605.92</b> — the owner must keep an <b>empty weight and balance report</b> that meets <b>Chapter 571 of the Airworthiness Manual</b> (Standard 571 Appendix C: Aircraft Weight and Balance Control).</li>
+      <li><b>Standard 625 Appendix C</b> — <b>large aircraft</b> are <b>reweighed every five years</b> (unless on an approved fleet W&amp;B control program), or after major work — <b>including paint</b>, which weighs a lot.</li>
+      <li><b>Private / small aircraft</b> — the factory report is <b>amended</b> when equipment is added or removed; a full reweigh is not required unless the records are lost.</li>
+      <li>Reweigh when: the report is <b>lost</b>; the paper trail back to the last weighing is <b>broken</b>; or a change cannot be calculated accurately.</li>
+      <li>A new report or amendment is needed after any change to empty weight or CG (<b>Std 571 App C (2)(a)</b>) — floats, skis, radios, seats. Practically, <b>hardware like washers, screws, clamps and lockwire does not</b>.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 130" width="420" height="130" role="img" aria-label="Decision flow: a change to the aircraft leads to either a calculated amendment or a reweigh">
+      <g font-size="11" fill="var(--ink)" text-anchor="middle">
+        <rect x="10" y="40" width="110" height="44" rx="6" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="65" y="58" font-weight="700">change made</text><text x="65" y="74" fill="var(--muted)">radio · floats · paint</text>
+        <rect x="160" y="10" width="120" height="44" rx="6" fill="var(--dia-hi)" stroke="var(--dia-line)"/><text x="220" y="28" font-weight="700">weight &amp; arm known?</text><text x="220" y="44" fill="var(--muted)">→ calculate: amendment</text>
+        <rect x="160" y="74" width="120" height="44" rx="6" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="220" y="92" font-weight="700">not known / record lost</text><text x="220" y="108" fill="var(--muted)">→ put it on the scales</text>
+        <rect x="310" y="40" width="100" height="44" rx="6" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="360" y="58" font-weight="700">report updated</text><text x="360" y="74" fill="var(--muted)">before next flight</text>
+      </g>
+      <g stroke="var(--dia-line)" stroke-width="2" fill="none"><path d="M120 62 L160 32"/><path d="M120 62 L160 96"/><path d="M280 32 L310 62"/><path d="M280 96 L310 62"/></g>
+    </svg><p class="cap">Known weight and arm → calculate an amendment. Unknown, or the paper trail is broken → reweigh.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>"Including paint" surprises people. A full repaint on a light aircraft can add 10–20 lb, and on an airliner hundreds of pounds, all of it spread over the skin where the arm is long. That is why a large aircraft's five-year reweigh clock is reset by major work, and why a stripped-and-repainted aircraft is weighed rather than calculated.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="5" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="6">
+  <div class="cue"><h3>Weighing: Equipment &amp; Preparation</h3><p class="q">What scales are used, how is the aircraft levelled, and what must be done before the readings count?</p><span class="tag">Level · Clean · Closed hangar</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Mechanical (beam) scales</b> — like a doctor's scale: slide the weight until the bar floats between the stops. Usually only to <b>300 lb</b>, and accuracy is a concern.</li>
+      <li><b>Electronic load cells</b> — <b>platform</b> type (tire sits on the platform) or <b>top-of-jack</b> type (cell built into the jack). <b>At least three</b> scales or load cells; the readings are the <b>scale weight</b>.</li>
+      <li>The aircraft must be in the <b>level flight attitude</b>: use the <b>levelling means</b> from the <b>TCDS / AMM / POH</b> (e.g. Cessna 185: datum = front face of firewall, levelling means = <b>upper door sill</b>) with a <b>spirit level</b>, or a <b>plumb bob</b> from the wing leading edge. Jack or deflate tires until level.</li>
+      <li>Why level? <b>Tail low → CG appears further aft</b> than it is; <b>tail high → CG appears too far forward</b>.</li>
+      <li>Weigh in a <b>closed hangar, fans off, no air currents</b>; outside only if wind and moisture are negligible. Aircraft <b>clean and dry</b> — remove dirt, oil, grease, moisture.</li>
+      <li><b>Configure per the manual:</b> flaps, spoilers, slats as instructed; all equipment on the certificated list installed and in place; <b>baggage bays empty</b>; items not normally carried removed; inspection plates, caps, cowlings, doors and exits <b>fitted and in flight position</b>. Hydraulic systems <b>full</b>; drinking water and lavatory tanks <b>drained</b> (unless the manufacturer says otherwise).</li>
+      <li><b>Tare weight</b> — chocks, blocks or stands sitting on the scales are <b>subtracted</b> from the scale reading.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Aircraft on three platform scales with a spirit level on the door sill, showing that a tail-low attitude moves the apparent CG aft">
+      <path d="M90 60 L300 60 L340 50 L300 40 L90 40 Z" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
+      <path d="M300 40 L310 18 L335 18 L340 50" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
+      <rect x="170" y="32" width="50" height="8" rx="2" fill="var(--dia-hi)" stroke="var(--dia-line)"/>
+      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><rect x="100" y="82" width="36" height="12"/><rect x="180" y="82" width="36" height="12"/><rect x="290" y="82" width="36" height="12"/></g>
+      <g stroke="var(--dia-line)" stroke-width="2"><line x1="118" y1="60" x2="118" y2="82"/><line x1="198" y1="60" x2="198" y2="82"/><line x1="308" y1="55" x2="308" y2="82"/></g>
+      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="195" y="28" fill="var(--formula)" font-weight="700">spirit level on the levelling means</text><text x="118" y="108">nose scale</text><text x="198" y="108">main scales (L + R)</text><text x="308" y="108">tail / jack point</text><text x="210" y="130" fill="var(--muted)">tail low → CG reads too far aft · tail high → reads too far forward</text></g>
+    </svg><p class="cap">At least three weighing points, level per the TCDS, in a closed hangar with the fans off.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Levelling is where most weighing errors come from. The arms in the manual are measured with the aircraft level; tilt it and the wheels are no longer under the stations the manual assumes, so the moments are wrong even though the scales are right. Small nose-wheel aircraft are often levelled by taking the nose wheel off and resting the fork on the scale — then the removed wheel is weighed separately and added back in the table.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="6" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="7">
+  <div class="cue"><h3>Fuel, Oil &amp; Standard Weights</h3><p class="q">How much fuel and oil is in the empty weight, what are the three fuel conditions for weighing, and what are the standard fluid weights?</p><span class="tag">6 · 6.7 · 7.5 · 8.35 lb/gal</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Empty weight includes only <b>residual (unusable) fuel</b>. So weigh in one of <b>three conditions</b>: (1) <b>no fuel at all</b> — then <b>add</b> the unusable fuel's weight, arm and moment mathematically; (2) <b>only residual fuel</b> in tanks and lines; (3) <b>tanks full</b> — then <b>subtract</b> the usable fuel mathematically.</li>
+      <li>Fuel weight depends on density: use a <b>hydrometer</b> to measure it when weighing with full tanks.</li>
+      <li><b>Oil:</b> for aircraft certified <b>since 1978, full engine oil is normally part of the empty weight</b> — confirm in the TCDS. If the TCDS says only <b>residual oil</b>, either drain to residual or subtract the extra oil mathematically.</li>
+      <li><b>Standard weights</b> when the exact weight is not known: aviation gasoline <b>6 lb/gal</b> · turbine fuel <b>6.7 lb/gal</b> · lubricating oil <b>7.5 lb/gal</b> · water <b>8.35 lb/gal</b>.</li>
+      <li><b>Crew and passengers:</b> use the current standard weights in the <b>TC AIM</b> (TP 14371) unless actual weights are known.</li>
+      <li>Constant-speed-drive oil tanks <b>full</b>; hydraulic reservoirs <b>full</b>; water and lavatory tanks <b>drained</b> — unless the manufacturer says otherwise.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 120" width="420" height="120" role="img" aria-label="Four fluid cans labelled with standard weights per gallon: avgas 6, jet fuel 6.7, oil 7.5, water 8.35">
+      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><rect x="30" y="35" width="70" height="60" rx="6"/><rect x="130" y="30" width="70" height="65" rx="6"/><rect x="230" y="24" width="70" height="71" rx="6"/><rect x="330" y="18" width="70" height="77" rx="6"/></g>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle" font-weight="700"><text x="65" y="60">avgas</text><text x="165" y="58">jet fuel</text><text x="265" y="55">oil</text><text x="365" y="52">water</text></g>
+      <g font-size="13" fill="var(--formula)" text-anchor="middle" font-weight="700"><text x="65" y="82">6</text><text x="165" y="82">6.7</text><text x="265" y="82">7.5</text><text x="365" y="82">8.35</text></g>
+      <text x="210" y="113" font-size="10" text-anchor="middle" fill="var(--muted)">pounds per US gallon — use the real density (hydrometer) when it matters</text>
+    </svg><p class="cap">The four standard fluid weights. People: from the TC AIM.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Fuel density changes with temperature and type, which is why a hydrometer matters when you weigh with full tanks — on a 40-gallon aircraft a 5% density error is 12 lb sitting at the fuel arm. The 1978 oil rule exists because older type certificates were written when oil was treated as a consumable; read the TCDS note rather than assuming.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="7" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="8">
+  <div class="cue"><h3>Worked Weighing: Empty Weight &amp; CG</h3><p class="q">Walk through the steps of weighing an aircraft and the six-column table, using the practice example.</p><span class="tag">1176.37 lb @ 30.90"</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Steps:</b> read the manufacturer's weighing procedure → load/configure as specified → clean, dry, fans off → level on the scales → weigh → weigh the <b>tare</b> items → find the <b>arms</b> from the weighing points to the datum (wheel centrelines / jack points, from the AMM) → calculate → <b>build the W&amp;B report</b>.</li>
+      <li><b>Practice aircraft</b> (datum ahead of the nose wheel): right main <b>423 lb @ FS 46.81</b>; left main <b>415 lb @ FS 46.81</b>; nose <b>331 lb @ FS −10.00</b>. Weighed with <b>no fuel</b> (add unusable fuel 9.00 lb @ FS 40.00), <b>full oil</b> that must come out (−13.13 lb @ FS −14.70), and the <b>nose wheel assembly removed</b> to level it (add 11.50 lb @ FS −10.00).</li>
+      <li>Moments: −3,310.00 · +19,800.63 · +19,426.15 · +193.01 (negative × negative) · +360.00 · −115.00.</li>
+      <li><b>Totals:</b> weight <b>1,176.37 lb</b>, moment <b>36,354.78 lb·in</b>. CG = 36,354.78 ÷ 1,176.37 = <b>30.90" aft of the datum</b>.</li>
+      <li>Max gross 1,670 lb → <b>useful load = 1,670 − 1,176.37 = 493.63 lb</b>.</li>
+      <li>Sanity check: the CG sits <b>between</b> the nose wheel (−10) and the mains (46.81), and closer to the mains because they carry more weight. If your CG is outside the stations, something is wrong.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 165" width="420" height="165" role="img" aria-label="Six-row weight and balance table for the practice aircraft with totals and CG">
+      <g font-size="10" fill="var(--ink)" font-family="JetBrains Mono,monospace">
+        <rect x="10" y="8" width="400" height="18" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+        <text x="16" y="21" font-weight="700">Item</text><text x="200" y="21" font-weight="700" text-anchor="end">Weight</text><text x="270" y="21" font-weight="700" text-anchor="end">Arm</text><text x="400" y="21" font-weight="700" text-anchor="end">Moment</text>
+        <text x="16" y="40">Nose</text><text x="200" y="40" text-anchor="end">331.00</text><text x="270" y="40" text-anchor="end">−10.00</text><text x="400" y="40" text-anchor="end">−3,310.00</text>
+        <text x="16" y="55">Right main</text><text x="200" y="55" text-anchor="end">423.00</text><text x="270" y="55" text-anchor="end">46.81</text><text x="400" y="55" text-anchor="end">19,800.63</text>
+        <text x="16" y="70">Left main</text><text x="200" y="70" text-anchor="end">415.00</text><text x="270" y="70" text-anchor="end">46.81</text><text x="400" y="70" text-anchor="end">19,426.15</text>
+        <text x="16" y="85">Oil (remove)</text><text x="200" y="85" text-anchor="end">−13.13</text><text x="270" y="85" text-anchor="end">−14.70</text><text x="400" y="85" text-anchor="end">193.01</text>
+        <text x="16" y="100">Unusable fuel (add)</text><text x="200" y="100" text-anchor="end">9.00</text><text x="270" y="100" text-anchor="end">40.00</text><text x="400" y="100" text-anchor="end">360.00</text>
+        <text x="16" y="115">Nose wheel assy (add)</text><text x="200" y="115" text-anchor="end">11.50</text><text x="270" y="115" text-anchor="end">−10.00</text><text x="400" y="115" text-anchor="end">−115.00</text>
+        <line x1="10" y1="122" x2="410" y2="122" stroke="var(--dia-line)"/>
+        <text x="16" y="138" font-weight="700">Totals → empty wt · CG</text><text x="200" y="138" text-anchor="end" font-weight="700" fill="var(--formula)">1,176.37</text><text x="270" y="138" text-anchor="end" font-weight="700" fill="var(--formula)">30.90</text><text x="400" y="138" text-anchor="end" font-weight="700" fill="var(--formula)">36,354.78</text>
+        <text x="210" y="157" text-anchor="middle" fill="var(--muted)">CG = 36,354.78 ÷ 1,176.37 = 30.90" · do NOT add the arm column</text>
+      </g>
+    </svg><p class="cap">The practice table from the deck. Removed items get a negative weight; two negatives make a positive moment.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Notice the oil row: −13.13 lb at −14.70" gives <b>+193.01</b> lb·in. Taking weight out of the nose moves the CG <b>aft</b>, so the moment has to go up — the signs are doing the physics for you. If a removed item ever gives you a moment in the wrong direction, you have a sign error. The test question is usually exactly this table: fill it in, total it, divide.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="8" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="9">
+  <div class="cue"><h3>Lateral CG &amp; Helicopters</h3><p class="q">How is lateral CG calculated, and why is CG more critical on a helicopter?</p><span class="tag">Butt lines · Cyclic authority</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Lateral CG</b> = the balance point <b>left or right of the longitudinal axis</b>. Arms are <b>butt lines</b> from BL 0 (the centreline): <b>right +</b>, <b>left −</b>.</li>
+      <li>Same table, same rule. Practice aircraft: nose 331 lb @ BL 0 → 0; right main 423 lb @ +39.2 → +16,581.6; left main 415 lb @ −39.2 → −16,268.0. Total moment <b>+313.6</b> ÷ 1,176.37 lb = <b>+0.266" (right)</b>. Barely off centre.</li>
+      <li>Helicopters have a CG just like aeroplanes, but it is <b>more critical and more limited</b>. The limits are set by <b>cyclic control authority</b> — is there enough cyclic left to control the aircraft in every flight condition?</li>
+      <li>A helicopter needs both a <b>longitudinal CG envelope</b> and a <b>lateral offset moment</b> limit, so lateral W&amp;B is a routine calculation there (Bell 206 levelling pads are on the transmission deck, right side).</li>
+      <li>Empty-weight CG ranges are rare for aeroplanes but <b>common for helicopters</b>.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 130" width="420" height="130" role="img" aria-label="Front view of an aircraft showing butt line zero at the centreline with the right main at plus 39.2 and left main at minus 39.2">
+      <line x1="40" y1="55" x2="380" y2="55" stroke="var(--dia-line)" stroke-width="5"/>
+      <rect x="185" y="35" width="50" height="40" rx="8" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
+      <line x1="210" y1="15" x2="210" y2="110" stroke="var(--formula)" stroke-width="2" stroke-dasharray="5 3"/>
+      <g fill="var(--dia-line)"><circle cx="130" cy="90" r="7"/><circle cx="290" cy="90" r="7"/><circle cx="210" cy="92" r="5"/></g>
+      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="210" y="12" fill="var(--formula)" font-weight="700">BL 0 — centreline</text><text x="130" y="112">left main · BL −39.2</text><text x="290" y="112">right main · BL +39.2</text><text x="210" y="126" fill="var(--muted)">(viewed from the front; right = +, left = −)</text></g>
+    </svg><p class="cap">Lateral CG uses butt lines instead of fuselage stations — same table, same division.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Why does a helicopter care so much? The rotor disc tilts to move the aircraft, and the cyclic has a fixed amount of travel. If the CG is too far forward, the pilot runs out of aft cyclic in a hover and the nose keeps dropping; too far sideways and there is no lateral cyclic left in a crosswind. A fixed-wing aircraft has a tail that resists; a helicopter has only the cyclic.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="9" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="10">
+  <div class="cue"><h3>CG Range, the Envelope &amp; MAC</h3><p class="q">What is the CG range, how do the limits change with weight, and how is CG expressed on large aircraft?</p><span class="tag">% MAC</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>The <b>CG range</b> is the span between a <b>forward limit</b> and an <b>aft limit</b> (both arms) inside which the aircraft must balance. The <b>operating CG range</b> applies to the loaded, ready-for-flight aircraft — every aircraft has one. An <b>empty-weight CG range</b> is listed only for some types (mostly helicopters); otherwise the TCDS says "none".</li>
+      <li>The limits can <b>change with weight</b>. Piper Seneca (gear down): fwd limit <b>+86.4" at 4,000 lb</b>, <b>+82.0" at 3,400 lb</b>, <b>+80.7" at 2,780 lb</b>; aft limit <b>+94.6"</b> throughout; straight-line variation between points. Retracting the gear changes the moment (−32 lb·in). Normal and utility categories may each have limits.</li>
+      <li><b>Checking:</b> use the <b>most current W&amp;B report</b> and the <b>equipment list</b> to find the moments, work out the new CG, then <b>plot it on the CG envelope chart</b>. <b>Outside the limits = the aircraft cannot fly.</b> Quick check: if your CG lands outside the station diagram, something is wrong.</li>
+      <li><b>Large aircraft</b> (business jets to jumbos) give the CG as a <b>percentage of the Mean Aerodynamic Chord (MAC)</b> — the chord of an imaginary airfoil with the same aerodynamic behaviour as the real wing. It is useful for loading passengers and cargo.</li>
+      <li>The TCDS lists the MAC's leading and trailing edges from the datum: <b>MAC = TEMAC − LEMAC</b>. Then <b>% MAC = (CG − LEMAC) ÷ MAC × 100</b>. Example: 78" chord, CG range 15.6"–28.08" aft of the leading edge = <b>20%–36% MAC</b>.</li>
+      <li>This ties back to longitudinal stability (Module 3): the CG sits <b>ahead of the wing's centre of lift</b>.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 160" width="420" height="160" role="img" aria-label="CG envelope chart: weight on the vertical axis, CG arm on the horizontal, with the forward limit sloping aft as weight increases and a loaded point inside">
+      <g stroke="var(--dia-line)" stroke-width="1.5" fill="none"><line x1="60" y1="130" x2="400" y2="130"/><line x1="60" y1="130" x2="60" y2="15"/></g>
+      <polygon points="120,130 200,25 330,25 330,130" fill="var(--dia-hi)" opacity=".35" stroke="var(--formula)" stroke-width="2"/>
+      <circle cx="250" cy="80" r="6" fill="var(--formula)"/>
+      <circle cx="105" cy="60" r="5" fill="none" stroke="var(--bad)" stroke-width="2"/>
+      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="150" y="70" transform="rotate(-53 150 70)" fill="var(--formula)">forward limit</text><text x="345" y="80" transform="rotate(-90 345 80)" fill="var(--formula)">aft limit</text><text x="250" y="100" font-weight="700">loaded CG — OK</text><text x="105" y="48" fill="var(--bad)">out — no fly</text><text x="230" y="150" fill="var(--muted)">CG arm aft of datum → (or % MAC)</text><text x="20" y="75" transform="rotate(-90 20 75)" fill="var(--muted)">weight ↑</text><text x="265" y="18" fill="var(--muted)">max gross weight</text></g>
+    </svg><p class="cap">Plot weight against CG. The forward limit often moves aft as weight goes up; outside the shape the aircraft cannot legally fly.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Why does the forward limit move aft at high weight? At high weight the elevator has to produce more tail force to rotate and flare; letting the CG sit further forward would ask for more than the elevator can give. The aft limit is about stability and rarely changes. For airliners, % MAC lets a load controller compare any aircraft of the type on one chart, which is why cargo and passenger loading systems work in % MAC rather than inches.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="10" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="11">
+  <div class="cue"><h3>Equipment Changes: Amendments</h3><p class="q">After an equipment change, how do you find the new empty weight and CG without reweighing, and what must be recorded?</p><span class="tag">Calculate · Log · Supersede</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Any equipment change or alteration → a new empty weight and CG, either by <b>weighing</b> or by <b>calculating</b>. Calculating is acceptable when the <b>exact weight and arm of every change is known</b> (from the STC, AMM or the part).</li>
+      <li>An <b>amendment</b> = a W&amp;B report whose new empty weight and CG are <b>computed</b>, not weighed. Row 1 is always the <b>previous report</b> (its weight, CG and moment, with its date — the factory report is amendment 0). Then <b>removed items as negative weights</b>, <b>added items as positive</b>. Total the weights and moments; divide.</li>
+      <li>Deck example: 2,350 lb @ +24.7"; install radio 5.8 lb @ −28", GPS 7.3 lb @ −26", ELT 2.8 lb @ +105"; remove strobe 1.4 lb @ +75", ADF 3 lb @ −28", seat 34 lb @ +60". Result: weight <b>down 22.5 lb</b>, CG <b>forward 0.67"</b>. (The ADF, removed from a negative arm, gives a <b>positive</b> moment.)</li>
+      <li><b>Floats:</b> 1,250 lb @ 27.2" (moment 34,000); remove main gear 132 lb @ 20" and tailwheel 20 lb @ 200"; add floats 308 lb @ 24" (from the STC). New: <b>1,406 lb @ 24.72"</b>. No reweigh needed.</li>
+      <li><b>Skis practice:</b> 1,176.38 lb @ 30.91"; remove wheels/tires 22.8 lb @ 46.81" and nose wheel 11.5 lb @ −10"; add main skis 62 lb @ 42.5" and nose ski 25 lb @ −12.3". New: <b>1,229.08 lb @ 30.70"</b>; useful load <b>440.92 lb</b>.</li>
+      <li><b>Std 571 App C:</b> whoever made the change enters it in the <b>journey log before the next flight</b>: (i) <b>description</b> of the change, (ii) <b>effective date</b>, (iii) <b>weight and arm of each item</b> installed or removed. Transcribe it to the W&amp;B report. Mark the old report <b>"Superseded"</b> with date and signature and <b>keep it</b> — if the paper trail back to the last weighing is broken, the aircraft must be <b>reweighed</b>.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 130" width="420" height="130" role="img" aria-label="Amendment table for the float installation: previous report, gear removed, floats added, new totals">
+      <g font-size="10" fill="var(--ink)" font-family="JetBrains Mono,monospace">
+        <rect x="10" y="8" width="400" height="18" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+        <text x="16" y="21" font-weight="700">Floats amendment</text><text x="230" y="21" font-weight="700" text-anchor="end">Weight</text><text x="300" y="21" font-weight="700" text-anchor="end">Arm</text><text x="400" y="21" font-weight="700" text-anchor="end">Moment</text>
+        <text x="16" y="40">Previous report (amend. 0)</text><text x="230" y="40" text-anchor="end">1,250.0</text><text x="300" y="40" text-anchor="end">27.2</text><text x="400" y="40" text-anchor="end">34,000</text>
+        <text x="16" y="55">Main gear removed</text><text x="230" y="55" text-anchor="end">−132.0</text><text x="300" y="55" text-anchor="end">20.0</text><text x="400" y="55" text-anchor="end">−2,640</text>
+        <text x="16" y="70">Tailwheel removed</text><text x="230" y="70" text-anchor="end">−20.0</text><text x="300" y="70" text-anchor="end">200.0</text><text x="400" y="70" text-anchor="end">−4,000</text>
+        <text x="16" y="85">Floats + hardware added (STC)</text><text x="230" y="85" text-anchor="end">308.0</text><text x="300" y="85" text-anchor="end">24.0</text><text x="400" y="85" text-anchor="end">7,392</text>
+        <line x1="10" y1="92" x2="410" y2="92" stroke="var(--dia-line)"/>
+        <text x="16" y="108" font-weight="700">Amended totals</text><text x="230" y="108" text-anchor="end" font-weight="700" fill="var(--formula)">1,406.0</text><text x="300" y="108" text-anchor="end" font-weight="700" fill="var(--formula)">24.72</text><text x="400" y="108" text-anchor="end" font-weight="700" fill="var(--formula)">34,752</text>
+        <text x="210" y="125" text-anchor="middle" fill="var(--muted)">CG moved forward about 2.5" — no scales needed</text>
+      </g>
+    </svg><p class="cap">An amendment starts from the previous report, removes with negative weights, adds with positive, and divides.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>The journey-log entry is the legal part. The amendment is only as good as its chain: factory report → amendment 1 → amendment 2 → today. Each one must reference the one before it, and each superseded page stays in the records. Lose one link and nobody can prove what the aircraft weighs, so it goes back on the scales. That is also why "temporary removal for repair" does not need an amendment — the item is coming back.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="11" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="12">
+  <div class="cue"><h3>Addendums, Ballast &amp; the Equipment List</h3><p class="q">What is an addendum, what is ballast and how do you place it, and what goes on the equipment list?</p><span class="tag">Arm = moment ÷ weight</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Addendum</b> = <b>one of several empty W&amp;B configurations</b> kept inside one report or amendment. Wheels in the fall, floats in the spring? Don't write a new amendment each time — keep a <b>float addendum</b> and a <b>wheel addendum</b>. When the configuration changes, make a <b>log entry</b> saying which addendum is in effect. Same idea for cargo/passenger, medevac, camera fits.</li>
+      <li><b>Ballast</b> = weight added on purpose at a chosen location to bring the CG into the envelope. <b>Fixed</b> ballast is bolted in by the AME and needs a W&amp;B change; <b>removable</b> ballast is put in by the pilot before flight (water ballast in sailplanes).</li>
+      <li><b>Where to put it:</b> you need a moment equal and opposite to the one you are cancelling, so <b>arm = moment ÷ weight</b>. Example: a 90 lb system with a net moment of +550 lb·in and a spare 50 lb weight: arm = −550 ÷ 50 = <b>−11"</b> — 11" forward of the datum. The <b>longer the arm, the more effect</b> per pound; close to the CG it does almost nothing.</li>
+      <li><b>Equipment list</b> — required by <b>Std 571 App C (1)(a)</b>: every item <b>not part of the type design</b> (fire extinguisher, transponder, engine heater, wheel pants, floats) listed with its <b>weight, arm and moment</b>. It is <b>part of the W&amp;B report</b>; on light aircraft it is often in the <b>POH / AFM</b>. Before weighing, check the aircraft <b>matches</b> the list — fix one or the other.</li>
+      <li><b>Review:</b> empty W&amp;B = AME; loaded W&amp;B = pilot; datum and levelling = POH / TCDS / AMM; moment = weight × arm; moments about a stationary object sum to zero; CG = ΣM ÷ ΣW; amendment = calculated update; addendum = one of several configurations.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 130" width="420" height="130" role="img" aria-label="Beam with a plus 550 moment on the right balanced by a 50 pound ballast placed 11 inches to the left">
+      <line x1="60" y1="70" x2="360" y2="70" stroke="var(--dia-line)" stroke-width="5"/>
+      <polygon points="210,72 196,100 224,100" fill="var(--dia-hi)" stroke="var(--dia-line)" stroke-width="2"/>
+      <rect x="300" y="40" width="40" height="28" rx="4" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+      <rect x="120" y="44" width="30" height="24" rx="4" fill="var(--formula)"/>
+      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="320" y="32">net moment +550 lb·in</text><text x="135" y="34" fill="var(--formula)" font-weight="700">ballast 50 lb</text><text x="135" y="86">arm = −550 ÷ 50 = −11"</text><text x="210" y="118" fill="var(--muted)">equal and opposite moment → balanced → moments sum to zero</text></g>
+    </svg><p class="cap">Ballast works by moment: pick the weight, solve for the arm — or pick the arm, solve for the weight.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Ballast is the last resort, not the first. A nose-heavy aircraft can often be fixed by moving equipment aft (a battery relocation is a classic) rather than carrying dead weight — every pound of ballast comes straight out of the useful load for the life of the aircraft. When you do fit fixed ballast, it goes in the equipment list, in the amendment, and in a placard if it must never be removed.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="12" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+</section>
+
+<section class="box sum" aria-label="Summary">
+  <div class="eyebrow">Summary</div>
+  <p style="margin:.5rem 0 0;max-width:70ch">Weight decides performance; balance decides stability and control; and it is illegal to fly outside the envelope. The AME provides the empty weight and empty CG, the pilot works out the loaded ones. Everything is measured from the datum (aft +, forward −; butt lines right +, left −): arm is a distance, moment is weight × arm, and because the moments on a stationary object sum to zero, CG = total moment ÷ total weight — never add the arms. Empty weight includes everything fixed and installed plus residual fuel and (since 1978) full oil; useful load is max gross minus empty. The report is a required record (CAR 605.92, Std 571 App C); large aircraft are reweighed every five years or after major work including paint. To weigh: configure per the manual, clean and dry, closed hangar, level on at least three scales using the TCDS levelling means, subtract tare, account for fuel and oil (6 / 6.7 / 7.5 / 8.35 lb/gal), and fill the table. Check the CG against the envelope — the limits can change with weight, and large aircraft use % MAC. After an equipment change, calculate an amendment from the previous report (removed = negative), log it before the next flight, supersede the old page and keep it. Addendums hold alternate configurations; ballast is placed by arm = moment ÷ weight; the equipment list records everything outside the type design.</p>
+</section>
+
+<section class="box" aria-label="Key terms">
+  <div class="eyebrow">Key terms</div>
+  <div class="terms">
+    <div><b>Datum</b>Imaginary vertical plane all horizontal arms are measured from; set by the manufacturer (AMM / POH / TCDS).</div>
+    <div><b>Arm</b>Horizontal distance from the datum; aft +, forward −.</div>
+    <div><b>Moment</b>Weight × arm, in lb·in, signs included.</div>
+    <div><b>Centre of gravity (CG)</b>Balance point — where nose-heavy and tail-heavy moments are equal.</div>
+    <div><b>First principle</b>Moments about any point of a stationary object sum to zero.</div>
+    <div><b>CG formula</b>CG = total moment ÷ total weight.</div>
+    <div><b>Fuselage station / butt line</b>Arm positions along the length (FS) / across the width (BL, right +).</div>
+    <div><b>Empty weight</b>Aircraft with fixed, installed equipment, residual fuel and oil; no crew, passengers, usable fuel, bags.</div>
+    <div><b>Useful load</b>Max gross weight − empty weight.</div>
+    <div><b>Max ramp / take-off / landing / zero-fuel weight</b>Heaviest allowed on the ground / at brake release / at touchdown / with no usable fuel.</div>
+    <div><b>Minimum fuel</b>About 30 minutes at cruise power.</div>
+    <div><b>TCDS</b>Type Certificate Data Sheet — limits, datum, levelling means, CG range, MAC.</div>
+    <div><b>CAR 605.92 / Std 571 App C</b>Owner must keep an empty W&amp;B report / how it is built and amended.</div>
+    <div><b>Std 625 App C</b>Large aircraft reweighed every five years.</div>
+    <div><b>Levelling means</b>The reference the manufacturer gives for setting level flight attitude on the ground.</div>
+    <div><b>Load cell</b>Electronic weighing sensor — platform or top-of-jack type.</div>
+    <div><b>Tare weight</b>Chocks, blocks or stands on the scale — subtract it.</div>
+    <div><b>Residual (unusable) fuel</b>The fuel that stays in the tanks and lines; part of empty weight.</div>
+    <div><b>Hydrometer</b>Measures fuel density so full tanks can be subtracted accurately.</div>
+    <div><b>Standard weights</b>Avgas 6 · jet fuel 6.7 · oil 7.5 · water 8.35 lb/gal.</div>
+    <div><b>CG range / envelope</b>Forward and aft limits (may change with weight) the loaded CG must stay inside.</div>
+    <div><b>Mean aerodynamic chord (MAC)</b>Chord of an equivalent airfoil; MAC = TEMAC − LEMAC; large-aircraft CG is given in % MAC.</div>
+    <div><b>Amendment</b>A calculated (not weighed) update to the empty W&amp;B after a change; old page marked Superseded and kept.</div>
+    <div><b>Addendum</b>One of several empty-weight configurations inside a report (floats / wheels).</div>
+    <div><b>Ballast</b>Weight added on purpose to move the CG; fixed or removable. Arm = moment ÷ weight.</div>
+    <div><b>Equipment list</b>Every installed item not in the type design, with weight, arm and moment; part of the W&amp;B report.</div>
+    <div><b>Supplemental Type Certificate (STC)</b>Approval for a third-party change (floats, skis) that may give the W&amp;B data for the package.</div>
+  </div>
+</section>
+
+<section class="box" aria-label="Check yourself">
+  <div class="eyebrow">Check yourself</div>
+  <p style="margin:.4rem 0 0;color:var(--muted)">Pick an answer. You get feedback right away and can try again.</p>
+  <div class="qz" id="quiz"></div>
+  <div class="score" id="score"></div>
+</section>
+
+<p class="flag">Source: ASYS 245 Module 6 Weight &amp; Balance course deck plus the SAIT AXT ASYS 220 Weight &amp; Balance deck (worked weighing, amendment, addendum and ballast examples), both built on FAA-H-8083-1B and CARs Standard 571 Appendix C. Built from the decks before class notes — it will be reconciled against the class notes when they arrive. Regulatory references are as stated in the decks; confirm current wording at tc.canada.ca for any real job.</p>
+</div>
+
+<script>
+(function(){
+  var KEY='asys245-m6';
+  var state={done:{},study:false};
+  try{ state=Object.assign(state,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+  var notes=document.querySelectorAll('.mine textarea'); state.notes=state.notes||{};
+  notes.forEach(function(t){ var id=t.dataset.note; t.value=state.notes[id]||''; t.addEventListener('input',function(){ state.notes[id]=t.value; save(); }); });
+  var boxes=document.querySelectorAll('.done'); var pbar=document.getElementById('pbar'), ptext=document.getElementById('ptext');
+  function progress(){ var n=0; boxes.forEach(function(b){ if(b.checked) n++; }); pbar.style.width=(100*n/boxes.length)+'%'; ptext.textContent=n+' / '+boxes.length+' sections checked'; }
+  boxes.forEach(function(b){ var id=b.closest('.row').dataset.sec; b.checked=!!state.done[id]; b.addEventListener('change',function(){ state.done[id]=b.checked; save(); progress(); }); });
+  progress();
+  var toggle=document.getElementById('studyToggle'); var notes=document.getElementById('notes');
+  function applyStudy(){ notes.classList.toggle('study',toggle.checked); document.querySelectorAll('.body.open').forEach(function(b){ b.classList.remove('open'); }); }
+  toggle.checked=!!state.study; applyStudy();
+  toggle.addEventListener('change',function(){ state.study=toggle.checked; save(); applyStudy(); });
+  document.querySelectorAll('.reveal button').forEach(function(btn){ btn.addEventListener('click',function(){ btn.closest('.body').classList.add('open'); }); });
+  document.getElementById('resetBtn').addEventListener('click',function(){ state={done:{},study:false,notes:state.notes||{}}; save(); boxes.forEach(function(b){ b.checked=false; }); toggle.checked=false; applyStudy(); progress(); buildQuiz(); });
+  var Q=[
+    {q:'Who is responsible for the empty weight and balance report, and who for the loaded one?',o:['Pilot — both','AME — empty; pilot — loaded','Transport Canada — both'],a:1,fb:'The AME weighs, calculates and provides the empty weight and CG; the pilot works out the loaded weight and CG for each flight from those numbers.'},
+    {q:'A CG too far forward can mean…',o:['the aircraft may not rotate for take-off','the aircraft over-controls in pitch','nothing — only aft CG matters'],a:0,fb:'Forward = nose-heavy: may not rotate, reduced longitudinal control. Aft = over-controls, reduced stability.'},
+    {q:'The datum is…',o:['the main wheel centreline','an imaginary vertical plane chosen by the manufacturer that all arms are measured from','always the firewall'],a:1,fb:'It is wherever the manufacturer says — find it in the AMM, POH or TCDS. Firewall, spinner and nose are common choices.'},
+    {q:'An item 15 inches forward of the datum has an arm of…',o:['+15','−15','0'],a:1,fb:'Aft of the datum is positive, forward is negative. Put the datum at the nose and every arm comes out positive.'},
+    {q:'Moment equals…',o:['weight ÷ arm','weight × arm','arm ÷ weight'],a:1,fb:'Weight × arm, in lb·in, keeping the signs of both.'},
+    {q:'To find the CG from a weight-and-balance table you…',o:['add the arms and divide by the number of items','divide total moment by total weight','divide total weight by total moment'],a:1,fb:'CG = ΣM ÷ ΣW. Never add the arm column — the CG comes out of the division.'},
+    {q:'Useful load is…',o:['maximum gross weight − empty weight','empty weight + fuel','maximum landing weight − fuel'],a:0,fb:'Everything you may legally add: crew, passengers, bags and usable fuel.'},
+    {q:'A large aircraft must be reweighed…',o:['every year','every five years, or after major work including paint','only if the report is lost'],a:1,fb:'Standard 625 Appendix C: every five years unless on an approved fleet program. Paint counts as major work — it weighs a lot.'},
+    {q:'The aircraft is weighed slightly tail-low. The calculated CG will appear…',o:['too far aft','too far forward','unchanged'],a:0,fb:'Tail low = CG reads further aft than it is; tail high = too far forward. Level it using the TCDS levelling means.'},
+    {q:'When weighing for empty weight, the fuel on board should be…',o:['full tanks, no correction','residual (unusable) fuel only — or corrected mathematically to that','half tanks'],a:1,fb:'Three options: no fuel (add unusable back), residual only, or full tanks (subtract usable). Use a hydrometer for the density.'},
+    {q:'Standard weight of aviation gasoline',o:['6 lb/gal','6.7 lb/gal','7.5 lb/gal'],a:0,fb:'Avgas 6 · jet fuel 6.7 · oil 7.5 · water 8.35 lb/gal.'},
+    {q:'A removed item weighing 13 lb sits at an arm of −14.7 in. Its moment in the table is…',o:['−191 lb·in','+191 lb·in','0'],a:1,fb:'Removed = negative weight; negative × negative arm = positive moment. Taking weight out of the nose moves the CG aft.'},
+    {q:'The chocks under the wheels on the scales are…',o:['part of the empty weight','tare weight — subtracted from the scale reading','ignored'],a:1,fb:'Anything on the scale that is not part of the aircraft is tare and comes off the reading.'},
+    {q:'After installing a new radio with known weight and arm, the AME should…',o:['reweigh the whole aircraft','calculate an amendment, log it before the next flight and supersede the old report','do nothing until the next annual'],a:1,fb:'Known weight and arm → calculate. Journey-log entry: description, date, weight and arm of each item. Keep the superseded page.'},
+    {q:'An aircraft that swaps between wheels and floats each season should have…',o:['a new amendment every swap','a report with two addendums and a log entry saying which is in effect','a reweigh every swap'],a:1,fb:'An addendum is one of several empty-weight configurations inside one report.'},
+    {q:'You need a −550 lb·in moment and have a 50 lb ballast weight. Where does it go?',o:['11 in forward of the datum (arm −11)','11 in aft of the datum (arm +11)','at the CG'],a:0,fb:'Arm = moment ÷ weight = −550 ÷ 50 = −11 in. Longer arm = more effect per pound.'},
+    {q:'On large aircraft the CG is usually expressed as…',o:['inches from the nose wheel','a percentage of the mean aerodynamic chord (% MAC)','a station number only'],a:1,fb:'MAC = TEMAC − LEMAC from the TCDS; % MAC = (CG − LEMAC) ÷ MAC × 100. Handy for loading passengers and cargo.'}
+  ];
+  var quiz=document.getElementById('quiz'), score=document.getElementById('score'); var got={};
+  function buildQuiz(){ quiz.innerHTML=''; got={}; score.textContent='';
+    Q.forEach(function(item,i){ var card=document.createElement('div'); card.className='qcard'; var p=document.createElement('p'); p.textContent=(i+1)+'. '+item.q; card.appendChild(p);
+      var opts=document.createElement('div'); opts.className='opts'; var fb=document.createElement('div'); fb.className='fb';
+      item.o.forEach(function(text,j){ var b=document.createElement('button'); b.type='button'; b.className='opt'; b.textContent=text;
+        b.addEventListener('click',function(){ opts.querySelectorAll('.opt').forEach(function(x){ x.classList.remove('right','wrong'); });
+          if(j===item.a){ b.classList.add('right'); fb.className='fb show good'; fb.textContent='Correct. '+item.fb; got[i]=true; } else { b.classList.add('wrong'); fb.className='fb show bad'; fb.textContent='Not quite — try again. Hint: '+item.fb; got[i]=false; }
+          var n=0,t=0; for(var k in got){ t++; if(got[k]) n++; }
+          score.textContent= t===Q.length ? 'Score: '+n+' / '+Q.length+(n===Q.length?' — solid. Now explain each answer to a partner.':' — reread the sections you missed, then retry.') : n+' correct so far'; });
+        opts.appendChild(b); });
+      card.appendChild(opts); card.appendChild(fb); quiz.appendChild(card); }); }
+  buildQuiz();
+})();
+</script>
+
+</body>
+</html>
