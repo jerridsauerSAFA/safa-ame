@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ASYS 245 Module 5 · Reference Sheet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--bg:#F4F6F8;--surface:#FFFFFF;--cue:#E6EDF3;--line:#CBD5DE;--ink:#16232E;--muted:#526170;--accent:#1D5C8F;--accent-ink:#FFFFFF;--formula:#B8690F;--formula-bg:#FFF4E3;--ok:#2E7D4F;--ok-bg:#E4F3EA;--shadow:0 1px 2px rgba(22,35,46,.08)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--shadow:none}}
+:root[data-theme="dark"]{--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--shadow:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+h2{font-size:1.5rem;font-weight:700}
+h3{font-size:1.15rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.wrap{max-width:960px;margin:0 auto}
+.eyebrow{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--accent)}
+header.top{padding-block:2rem 1.25rem;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;justify-content:space-between}
+header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
+.meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted)}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.4rem .9rem;border-radius:4px;cursor:pointer}
+.btn:focus-visible,input:focus-visible,details summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* reference strip */
+.ref{margin-top:1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.ref div{background:var(--surface);padding:.8rem 1rem}
+.ref .l{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ref .v{font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.45rem;white-space:nowrap;font-weight:700;color:var(--formula);font-variant-numeric:tabular-nums}
+.ref .s{font-size:.8rem;color:var(--muted)}
+/* formula cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-top:1rem}
+.fc{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column}
+.fc .head{padding:.8rem 1rem .5rem;border-bottom:1px solid var(--line)}
+.fc .head .k{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.fc .big{font-family:"JetBrains Mono",monospace;font-size:1.6rem;color:var(--formula);background:var(--formula-bg);padding:.6rem 1rem;text-align:center;font-variant-numeric:tabular-nums}
+.fc .body{padding:.8rem 1rem 1rem;display:grid;gap:.5rem;flex:1}
+.fc .body p{margin:0}
+.vars{display:grid;grid-template-columns:auto 1fr;gap:.15rem .7rem;font-size:.92rem}
+.vars b{font-family:"JetBrains Mono",monospace;font-weight:500;color:var(--formula)}
+.words{font-weight:600}
+.hold{font-size:.85rem;color:var(--muted)}
+.hold b{color:var(--ink)}
+details{border-top:1px dotted var(--line);padding-top:.5rem}
+details summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:.9rem;list-style:none}
+details summary::before{content:"+ ";font-family:"JetBrains Mono",monospace}
+details[open] summary::before{content:"– "}
+.ex{font-size:.92rem;margin:.4rem 0 0}
+.ex code{font-family:"JetBrains Mono",monospace;background:var(--cue);padding:.05em .3em;border-radius:3px}
+/* calc */
+.calc{background:var(--cue);border-radius:4px;padding:.7rem .8rem;margin-top:.4rem;display:grid;gap:.4rem}
+.calc .row{display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center;font-size:.9rem}
+.calc label{display:inline-flex;align-items:center;gap:.3rem}
+.calc input{width:5.2rem;font:.95rem "JetBrains Mono",monospace;padding:.25rem .4rem;border:1px solid var(--line);border-radius:3px;background:var(--surface);color:var(--ink)}
+.calc .out{font-family:"JetBrains Mono",monospace;font-weight:500;color:var(--ok);background:var(--ok-bg);padding:.2rem .5rem;border-radius:3px;min-width:6rem;display:inline-block}
+.foot{font-size:.85rem;color:var(--muted);margin-top:2rem}
+@media print{body{background:#fff;color:#000;padding:0}.btn,details summary,.calc{display:none}details{border:0}details>*{display:block}header.top{border-bottom:2px solid #000}.fc{break-inside:avoid;border:1px solid #999}.fc .big{background:#f2f2f2;color:#000}.ref .v{color:#000}}
+</style>
+</head>
+<body>
+<style>
+.tbl{width:100%;border-collapse:collapse;font-size:.95rem;margin:.75rem 0 1.25rem}
+.tbl th,.tbl td{border:1px solid var(--line,#d6dde5);padding:.45rem .6rem;text-align:left;vertical-align:top}
+.tbl th{font-family:"Barlow Condensed",sans-serif;font-size:1.05rem;letter-spacing:.02em;background:rgba(29,92,143,.08)}
+.tbl td b{color:#1D5C8F}
+</style>
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">Reference sheet · ASYS 245 · Module 5</div>
+    <h1>Performance Reference</h1>
+    <p>The numbers, the two curves, the V-speeds and the flow regimes from Module 5 on one sheet — plus four quick calculators for knots, glide distance, Mach number and the speed of sound. Print it for the binder.</p>
+  </div>
+  <div><div class="meta">SAFA · SAIT ASYS 245<br>Module 5</div><br><button class="btn" type="button" onclick="window.print()">Print</button></div>
+</header>
+
+<h3 style="margin-top:1.5rem">Numbers to remember</h3>
+<div class="ref">
+  <div><div class="l">Knots → km/h</div><div class="v">× 1.852</div><div class="s">250 kt = 463 km/h</div></div>
+  <div><div class="l">Speed of sound (ISA, sea level)</div><div class="v">761 mph</div><div class="s">≈ 661 kt · falls as air gets colder</div></div>
+  <div><div class="l">Transonic range</div><div class="v">M 0.8 – 1.3</div><div class="s">from critical Mach to fully supersonic</div></div>
+  <div><div class="l">75% vs 55% power</div><div class="v">+20% fuel</div><div class="s">fuel burn follows horsepower</div></div>
+  <div><div class="l">Lift ∝ angle of attack</div><div class="v">± 10°</div><div class="s">thin airfoil, before separation</div></div>
+  <div><div class="l">Through a shock wave</div><div class="v">p↑ T↑ V↓</div><div class="s">pressure, temperature up; velocity down</div></div>
+</div>
+
+<h3 style="margin-top:1.75rem">The two curves</h3>
+<table class="tbl">
+  <tr><th>Curve</th><th>What is plotted</th><th>Shape</th><th>The point that matters</th></tr>
+  <tr><td><b>Drag curve</b></td><td>Parasite, induced and total drag vs airspeed</td><td>Parasite rises, induced falls, total is a U</td><td>Bottom of the U = <b>L/D max</b> (parasite = induced): least drag, best glide, best range</td></tr>
+  <tr><td><b>Power curve</b></td><td>Power required and power available vs airspeed</td><td>Required is a U; available is a gentle arc</td><td>Gap between them = <b>rate of climb or sink</b>. Left of minimum power = <b>region of reversed command</b></td></tr>
+</table>
+
+<h3 style="margin-top:1.75rem">Climb, cruise, descent, glide — which speed for what</h3>
+<table class="tbl">
+  <tr><th>Goal</th><th>Speed / setting</th><th>What you get</th><th>Remember</th></tr>
+  <tr><td><b>Clear an obstacle</b></td><td>V<sub>x</sub> — best angle</td><td>Most height per ground distance</td><td>Slower, nose higher, steeper</td></tr>
+  <tr><td><b>Reach altitude fastest</b></td><td>V<sub>y</sub> — best rate</td><td>Most height per minute</td><td>Faster than V<sub>x</sub>; the normal climb</td></tr>
+  <tr><td><b>Cruise fast for the fuel</b></td><td>Higher altitude, same power</td><td>Less drag → more speed, same burn</td><td>140 kt at SL → 150 kt at 8,000 ft at 75%</td></tr>
+  <tr><td><b>Fly the farthest on the fuel</b></td><td>Best L/D (max range)</td><td>Longest distance per litre</td><td>Well below normal cruise speed</td></tr>
+  <tr><td><b>Descend</b></td><td>Power available &lt; power required</td><td>Sink rate ∝ the gap</td><td>Idle = available is zero</td></tr>
+  <tr><td><b>Glide the farthest</b></td><td>Best glide speed (L/D max)</td><td>Longest distance</td><td>Slightly faster than minimum sink</td></tr>
+  <tr><td><b>Stay up the longest</b></td><td>Minimum sink speed</td><td>Most time airborne</td><td>Bottom of the power-required curve</td></tr>
+</table>
+
+<h3 style="margin-top:1.75rem">The V-speeds</h3>
+<table class="tbl">
+  <tr><th>V-speed</th><th>Means</th><th>On the airspeed indicator</th></tr>
+  <tr><td><b>V<sub>so</sub></b></td><td>Stall speed in the landing configuration (flaps and gear down)</td><td>Bottom of the white arc</td></tr>
+  <tr><td><b>V<sub>fe</sub></b></td><td>Maximum speed with flaps extended</td><td>Top of the white arc</td></tr>
+  <tr><td><b>V<sub>a</sub></b></td><td>Manoeuvring speed — full control deflection is safe at or below it</td><td>Not marked; placard / POH</td></tr>
+  <tr><td><b>V<sub>ne</sub></b></td><td>Never-exceed speed</td><td>Red line</td></tr>
+  <tr><td><b>V<sub>x</sub> / V<sub>y</sub></b></td><td>Best angle / best rate of climb (and the matching descent speeds)</td><td>POH</td></tr>
+</table>
+<p class="hold" style="margin-top:-.5rem"><b>Controlling airspeed:</b> with power in level flight → <b>throttle / RPM</b>. With no power → <b>attitude</b> (nose angle to the horizon). Airspeed is also what you use for ETE and ETA.</p>
+
+<h3 style="margin-top:1.75rem">Stall: boundary layer, patterns, fixes</h3>
+<table class="tbl">
+  <tr><th>Idea</th><th>What it is</th><th>Why it matters</th></tr>
+  <tr><td><b>Boundary layer</b></td><td>Thin layer where air speed rises from zero at the skin to free-stream at the edge</td><td>The outside flow "sees" its edge as the wing (effective shape)</td></tr>
+  <tr><td><b>Separation</b></td><td>The layer lifts off the surface at high angle of attack</td><td>Lift drops abruptly = <b>stall</b>; angle, not speed, causes it</td></tr>
+  <tr><td><b>Root-first stall</b></td><td>Stall begins at the root (rectangular wings do this naturally)</td><td>Ailerons keep working; buffet warning — the pattern designers want</td></tr>
+  <tr><td><b>Tip-first stall</b></td><td>Tapered / swept wings tend to stall at the tips</td><td>Wing drop, ailerons in stalled air — fixed with washout, stall strips, tip slots</td></tr>
+  <tr><td><b>Vortex generators</b></td><td>Small fins that stir high-energy air into the boundary layer</td><td>Flow stays attached longer → lower stall speed, better control</td></tr>
+</table>
+
+<h3 style="margin-top:1.75rem">Flow regimes</h3>
+<table class="tbl">
+  <tr><th>Regime</th><th>Mach</th><th>What is happening</th><th>Drag</th></tr>
+  <tr><td><b>Subsonic</b></td><td>below M<sub>crit</sub></td><td>All airflow over the wing below Mach 1</td><td>Normal drag curve</td></tr>
+  <tr><td><b>Critical Mach</b></td><td>≈ 0.8</td><td>Air over the wing first touches Mach 1</td><td>Shock waves about to form</td></tr>
+  <tr><td><b>Transonic</b></td><td>≈ 0.8 – 1.3</td><td>Mixed flow; shocks on top, then bottom; shock stall possible</td><td><b>Wave drag</b> — rises sharply past M<sub>crd</sub></td></tr>
+  <tr><td><b>Supersonic</b></td><td>above ≈ 1.3</td><td>All flow supersonic; bow wave or attached oblique shock</td><td>High but steadier; sharp thin wings help</td></tr>
+</table>
+<p class="hold" style="margin-top:-.5rem"><b>Designing for it:</b> <b>sweepback</b> lowers the effective Mach along the chord (higher M<sub>crit</sub>); <b>thin wings with sharp leading edges</b> turn the bow wave into an attached oblique shock. Example: Lockheed F-104 Starfighter — first US fighter to fly at twice the speed of sound.</p>
+
+<h3 style="margin-top:1.75rem">Four quick calculators</h3>
+<div class="grid">
+
+<div class="fc">
+  <div class="head"><div class="k">Units</div><h2>Knots to km/h</h2></div>
+  <div class="big">km/h = kt × 1.852</div>
+  <div class="body">
+    <div class="vars"><b>kt</b><span>knots — nautical miles per hour</span><b>1.852</b><span>kilometres in one nautical mile</span></div>
+    <p class="words">A nautical mile is one minute of latitude, which is why aviation and navigation use it.</p>
+    <p class="hold">Going the other way: km/h ÷ 1.852 = knots. One knot is also about 1.15 mph.</p>
+    <details><summary>Worked example</summary><p class="ex">250 kt × 1.852 = <code>463 km/h</code>. A 100 km/h ground speed is <code>100 ÷ 1.852 = 54 kt</code>.</p></details>
+    <div class="calc" data-calc="kt">
+      <div class="row"><label>Knots <input type="number" id="k_kt" value="250"></label></div>
+      <div class="row">= <span class="out" id="k_out">463</span> km/h · <span class="out" id="k_mph">288</span> mph</div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">Glide</div><h2>Glide distance</h2></div>
+  <div class="big">distance = height × glide ratio</div>
+  <div class="body">
+    <div class="vars"><b>height</b><span>height above the ground (ft)</span><b>glide ratio</b><span>distance forward per unit of height lost (= L/D at best glide)</span></div>
+    <p class="words">Flown at best glide speed, a 10:1 aircraft covers 10 ft forward for every 1 ft down. Any other speed — faster or slower — gives less.</p>
+    <p class="hold">1 nautical mile = 6,076 ft. Wind changes the ground distance; the ratio is through the air.</p>
+    <details><summary>Worked example</summary><p class="ex">5,000 ft above the ground at a 9:1 glide ratio: <code>5,000 × 9 = 45,000 ft ≈ 7.4 NM</code> in still air.</p></details>
+    <div class="calc" data-calc="glide">
+      <div class="row"><label>Height (ft) <input type="number" id="g_h" value="5000" step="100"></label><label>Glide ratio <input type="number" id="g_r" value="9" step="0.5"></label></div>
+      <div class="row">= <span class="out" id="g_ft">45,000</span> ft · <span class="out" id="g_nm">7.4</span> NM</div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">Temperature</div><h2>Speed of sound</h2></div>
+  <div class="big">a ≈ 38.97 × √T</div>
+  <div class="body">
+    <div class="vars"><b>a</b><span>speed of sound in knots</span><b>T</b><span>air temperature in kelvin (°C + 273)</span></div>
+    <p class="words">Only temperature matters. Warm molecules pass a pressure wave along faster; cold ones slower. Altitude only matters because it is colder up high.</p>
+    <p class="hold">ISA sea level 15 °C → 661 kt (761 mph). ISA 35,000 ft, about −54 °C → 575 kt.</p>
+    <details><summary>Worked example</summary><p class="ex">At −54 °C: <code>T = 219 K</code>, <code>a = 38.97 × √219 = 577 kt</code>. At 15 °C: <code>38.97 × √288 = 661 kt</code>.</p></details>
+    <div class="calc" data-calc="sos">
+      <div class="row"><label>OAT (°C) <input type="number" id="s_t" value="15"></label></div>
+      <div class="row">a = <span class="out" id="s_kt">661</span> kt · <span class="out" id="s_mph">761</span> mph</div>
+    </div>
+  </div>
+</div>
+
+<div class="fc">
+  <div class="head"><div class="k">High-speed flight</div><h2>Mach number</h2></div>
+  <div class="big">M = TAS ÷ a</div>
+  <div class="body">
+    <div class="vars"><b>M</b><span>Mach number</span><b>TAS</b><span>true airspeed (kt)</span><b>a</b><span>local speed of sound (kt) — from the temperature</span></div>
+    <p class="words">The same true airspeed is a higher Mach number in cold air. That is why airliners watch the Mach meter up high, not just the airspeed.</p>
+    <p class="hold">Critical Mach (about 0.8 for many wings) is where the air over the wing — not the aircraft — first hits Mach 1.</p>
+    <details><summary>Worked example</summary><p class="ex">470 kt true at −54 °C (a ≈ 577 kt): <code>M = 470 ÷ 577 = 0.81</code>. The same 470 kt at sea level on a 15 °C day: <code>470 ÷ 661 = 0.71</code>.</p></details>
+    <div class="calc" data-calc="mach">
+      <div class="row"><label>TAS (kt) <input type="number" id="m_v" value="470" step="10"></label><label>OAT (°C) <input type="number" id="m_t" value="-54"></label></div>
+      <div class="row">M = <span class="out" id="m_out">0.81</span></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<p class="foot">Source: ASYS 245 Module 5 course decks (Phases of Flight; Aircraft Performance — Stall and High-Speed Flight). The speed-of-sound formula, the knots-to-mph factor, the airspeed-indicator arc colours and the stall pattern by wing shape are standard textbook values (FAA Pilot's Handbook of Aeronautical Knowledge; <i>From the Ground Up</i>). The POH always governs a real aircraft.</p>
+</div>
+
+<script>
+(function(){
+  function n(id){ return parseFloat(document.getElementById(id).value); }
+  function set(id,v){ document.getElementById(id).textContent=v; }
+  function fmt(x,d){ return isFinite(x)?(+x.toFixed(d)).toLocaleString():'—'; }
+  function sos(c){ return 38.97*Math.sqrt(c+273); }
+  function calc(){
+    set('k_out', fmt(n('k_kt')*1.852,0)); set('k_mph', fmt(n('k_kt')*1.15078,0));
+    var ft=n('g_h')*n('g_r'); set('g_ft', fmt(ft,0)); set('g_nm', fmt(ft/6076.12,1));
+    var a=sos(n('s_t')); set('s_kt', fmt(a,0)); set('s_mph', fmt(a*1.15078,0));
+    set('m_out', fmt(n('m_v')/sos(n('m_t')),2));
+  }
+  document.querySelectorAll('.calc input').forEach(function(i){ i.addEventListener('input',calc); });
+  calc();
+})();
+</script>
+
+</body>
+</html>

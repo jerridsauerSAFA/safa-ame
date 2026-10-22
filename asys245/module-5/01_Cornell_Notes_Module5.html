@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ASYS 245 Module 5 · Cornell Notes · Performance & Phases of Flight</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{
+  --bg:#F4F6F8; --surface:#FFFFFF; --cue:#E6EDF3; --line:#CBD5DE; --ink:#16232E; --muted:#526170;
+  --accent:#1D5C8F; --accent-ink:#FFFFFF; --formula:#B8690F; --formula-bg:#FFF4E3;
+  --ok:#2E7D4F; --ok-bg:#E4F3EA; --bad:#B3402B; --bad-bg:#FBE8E3; --shadow:0 1px 2px rgba(22,35,46,.08);
+  --dia-bg:#F9FBFC; --dia-line:#3A4A58; --dia-fill:#D6E4F0; --dia-hi:#E7A34A;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F171E; --surface:#182430; --cue:#1F2E3B; --line:#33475A; --ink:#E6EDF3; --muted:#9FB0BF;
+    --accent:#6FB0E8; --accent-ink:#0F171E; --formula:#F0B35B; --formula-bg:#2C2416;
+    --ok:#6CCB8F; --ok-bg:#16301F; --bad:#F08A72; --bad-bg:#3A1C15; --shadow:none;
+    --dia-bg:#131E27; --dia-line:#C4D2DE; --dia-fill:#2B4257; --dia-hi:#F0B35B;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F171E; --surface:#182430; --cue:#1F2E3B; --line:#33475A; --ink:#E6EDF3; --muted:#9FB0BF;
+  --accent:#6FB0E8; --accent-ink:#0F171E; --formula:#F0B35B; --formula-bg:#2C2416;
+  --ok:#6CCB8F; --ok-bg:#16301F; --bad:#F08A72; --bad-bg:#3A1C15; --shadow:none;
+  --dia-bg:#131E27; --dia-line:#C4D2DE; --dia-fill:#2B4257; --dia-hi:#F0B35B;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+h2{font-size:1.6rem;font-weight:700;letter-spacing:.01em}
+h3{font-size:1.2rem;font-weight:600}
+.wrap{max-width:960px;margin:0 auto}
+.eyebrow{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--accent)}
+header.top{padding-block:2rem 1.25rem;border-bottom:2px solid var(--ink);display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;justify-content:space-between}
+header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
+.meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted);letter-spacing:.02em}
+/* toolbar */
+.bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:.6rem;display:flex;flex-wrap:wrap;gap:.5rem .9rem;align-items:center;margin-inline:-16px;padding-inline:16px}
+.bar .grow{flex:1 1 10rem}
+.progress{height:6px;background:var(--cue);border-radius:3px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.bar label{font-size:.9rem;display:inline-flex;gap:.4rem;align-items:center;cursor:pointer;user-select:none}
+.bar input{accent-color:var(--accent);width:1.1rem;height:1.1rem}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.35rem .8rem;border-radius:4px;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn:focus-visible,.bar input:focus-visible,details summary:focus-visible,.opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+/* cornell grid */
+.notes{margin-top:1.5rem;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+.row{display:grid;grid-template-columns:minmax(150px,30%) 1fr;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.cue{background:var(--cue);padding:1rem;border-right:1px solid var(--line)}
+.cue h3{color:var(--ink)}
+.cue .q{margin:.5rem 0 0;font-weight:600;font-style:italic;color:var(--muted);font-size:.95rem}
+.cue .tag{display:inline-block;margin-top:.6rem;font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.06em;color:var(--accent);text-transform:uppercase}
+.body{padding:1rem 1.25rem;min-width:0}
+.body ul{margin:0;padding-left:1.15rem}
+.body li{margin:.25rem 0}
+.body li+li{margin-top:.35rem}
+.f{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;color:var(--formula);background:var(--formula-bg);padding:.05em .35em;border-radius:3px;white-space:nowrap}
+.big{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:1.35rem;color:var(--formula);background:var(--formula-bg);padding:.25rem .7rem;border-radius:4px;margin:.4rem 0}
+.fig{margin:.9rem 0 .3rem;background:var(--dia-bg);border:1px solid var(--line);border-radius:4px;padding:.5rem;overflow-x:auto}
+.fig svg{display:block;max-width:100%;height:auto;margin:0 auto;font-family:"Source Sans 3",sans-serif}
+.cap{font-size:.8rem;color:var(--muted);margin:.2rem 0 0;font-style:italic}
+figure.photo{margin:.9rem 0 .3rem;background:var(--dia-bg);border:1px solid var(--line);border-radius:4px;padding:.5rem}
+figure.photo img{display:block;max-width:100%;height:auto;margin:0 auto;border-radius:3px}
+figure.photo figcaption{text-align:center;margin-top:.35rem}
+.photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.6rem}
+.photos figure.photo{margin:0}
+.study .body.open>figure,.study .body.open>.photos{display:block}
+.axes{width:100%;border-collapse:collapse;font-size:.92rem;margin:.6rem 0 0}.axes th,.axes td{border:1px solid var(--line);padding:.3rem .5rem;text-align:left}.axes th{background:var(--cue);font-family:"Barlow Condensed",Arial,sans-serif;letter-spacing:.03em}
+details.more{margin-top:.8rem;border-left:3px solid var(--accent);padding-left:.8rem}
+details.more summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:.92rem;list-style:none}
+details.more summary::before{content:"+ ";font-family:"JetBrains Mono",monospace}
+details.more[open] summary::before{content:"– "}
+details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
+/* study mode */
+.study .body>*:not(.reveal){display:none}
+.reveal{display:none}
+.study .reveal{display:block;text-align:left}
+.study .body.open>*{display:block}
+.study .body.open>.reveal{display:none}
+.study .body.open>ul{display:block}
+.study .body.open>.fig{display:block}
+.reveal button{width:100%;text-align:left;font:600 1rem "Source Sans 3",sans-serif;background:transparent;border:1px dashed var(--line);border-radius:4px;color:var(--muted);padding:1rem;cursor:pointer}
+.reveal button:hover{border-color:var(--accent);color:var(--accent)}
+.check{display:inline-flex;align-items:center;gap:.4rem;margin-top:.7rem;font-size:.85rem;color:var(--muted);cursor:pointer}
+.check input{accent-color:var(--ok)}
+/* summary + terms */
+.box{margin-top:1.5rem;background:var(--surface);border:1px solid var(--line);padding:1.25rem;box-shadow:var(--shadow)}
+.box.sum{border-left:6px solid var(--accent)}
+.terms{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.6rem 1.5rem;margin-top:.8rem}
+.terms div{padding:.4rem 0;border-bottom:1px dotted var(--line)}
+.terms b{display:block;font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.05rem;letter-spacing:.02em}
+/* quiz */
+.qz{margin-top:1rem;display:grid;gap:.9rem}
+.qcard{border:1px solid var(--line);border-radius:4px;padding:.9rem 1rem;background:var(--surface)}
+.qcard p{margin:0 0 .5rem;font-weight:600}
+.opts{display:grid;gap:.4rem}
+.opt{text-align:left;font:1rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:.5rem .7rem;border-radius:4px;cursor:pointer}
+.opt:hover{border-color:var(--accent)}
+.opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ink)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--ink)}
+.fb{margin-top:.5rem;font-size:.92rem;display:none}
+.fb.show{display:block}
+.fb.good{color:var(--ok)} .fb.bad{color:var(--bad)}
+.score{margin-top:1rem;font-family:"Barlow Condensed",Arial,sans-serif;font-size:1.3rem}
+.flag{font-size:.85rem;color:var(--muted);margin-top:1.5rem}
+@media (max-width:620px){
+  .row{grid-template-columns:1fr}
+  .cue{border-right:0;border-bottom:1px solid var(--line);padding:.8rem 1rem}
+  .body{padding:.9rem 1rem}
+}
+@media (prefers-reduced-motion:reduce){.progress i{transition:none}}
+</style>
+</head>
+<body>
+<style>
+.mine{margin:.9rem 0 .4rem;border:1px solid #c9d3dd;border-radius:6px;padding:.5rem .7rem .4rem;background:#fff}
+.mine .lbl{display:block;font:600 .72rem "Barlow Condensed",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#1D5C8F;margin-bottom:.35rem}
+.mine textarea{display:block;width:100%;height:9.6em;box-sizing:border-box;border:0;padding:0;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.6em - 1px),#c9d3dd calc(1.6em - 1px),#c9d3dd 1.6em);background-attachment:local;font:inherit;font-size:.95rem;line-height:1.6em;color:#111;resize:vertical}
+.mine textarea:focus{outline:2px solid #1D5C8F;outline-offset:2px}
+.mine textarea::placeholder{color:#8a949e}
+.mine .lines{display:none}
+@media print{.mine textarea{display:none!important}.mine .lines{display:block!important;height:9.6em;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.6em - 1px),#b8c2cc calc(1.6em - 1px),#b8c2cc 1.6em);-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">Cornell Notes · ASYS 245 · Module 5</div>
+    <h1>Performance &amp; Phases of Flight</h1>
+    <p>How an aircraft climbs, cruises, descends and glides; what the drag and power curves tell you; why wings stall; and what happens when an aircraft gets close to the speed of sound. Read the notes, then switch on <b>Study mode</b> to test yourself from the cue questions.</p>
+  </div>
+  <div class="meta">SAFA · SAIT ASYS 245<br>Module 5 · built from the course decks</div>
+</header>
+
+<div class="bar" role="toolbar" aria-label="Study tools">
+  <label><input type="checkbox" id="studyToggle"> Study mode (hide notes, recall from cues)</label>
+  <div class="grow"><div class="progress" aria-hidden="true"><i id="pbar"></i></div></div>
+  <span class="meta" id="ptext">0 / 13 sections checked</span>
+  <button class="btn" id="resetBtn" type="button">Reset</button>
+</div>
+
+<section class="notes" id="notes" aria-label="Cornell notes">
+
+<div class="row" data-sec="1">
+  <div class="cue"><h3>Three Phases &amp; the Drag Curve</h3><p class="q">What are the three phases of flight, and what happens to parasite, induced and total drag as the aircraft speeds up?</p><span class="tag">Climb · Cruise · Descent</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Every flight has <b>three phases</b>: <b>climb</b> (including take-off), <b>cruise</b> (level flight) and <b>descent</b> (including landing). Performance = how well the aircraft does each one.</li>
+      <li><b>Parasite drag</b> (skin friction, form, interference) <b>rises</b> with speed — roughly with the square of it. Faster = much more parasite drag.</li>
+      <li><b>Induced drag</b> (the price of making lift) <b>falls</b> as speed rises. This is the part that feels backwards: slow flight needs a high angle of attack, and that makes lots of induced drag.</li>
+      <li><b>Total drag</b> = parasite + induced. Plot it against speed and you get a <b>U-shaped curve</b>.</li>
+      <li>The <b>bottom of the U</b> is where parasite and induced drag are <b>equal</b>. That speed is <b>L/D<sub>MAX</sub></b> — the least drag for the lift you need, and the most efficient speed to fly. It matters in every phase, especially cruise and glide.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 160" width="420" height="160" role="img" aria-label="Drag curve: parasite drag rising, induced drag falling, total drag U-shaped with its minimum at L over D max">
+      <g stroke="var(--dia-line)" stroke-width="1.5" fill="none"><line x1="40" y1="130" x2="400" y2="130"/><line x1="40" y1="130" x2="40" y2="15"/></g>
+      <path d="M60 128 Q150 118 230 70 T400 20" stroke="var(--dia-line)" stroke-width="2" fill="none" stroke-dasharray="5 3"/>
+      <path d="M60 25 Q110 110 230 122 T400 128" stroke="var(--dia-line)" stroke-width="2" fill="none" stroke-dasharray="2 3"/>
+      <path d="M60 30 Q130 85 190 88 Q250 90 400 40" stroke="var(--dia-hi)" stroke-width="3" fill="none"/>
+      <line x1="190" y1="88" x2="190" y2="130" stroke="var(--formula)" stroke-dasharray="3 3"/>
+      <circle cx="190" cy="88" r="5" fill="var(--formula)"/>
+      <g font-size="11" fill="var(--ink)"><text x="290" y="22">parasite</text><text x="330" y="121">induced</text><text x="95" y="52" fill="var(--formula)" font-weight="700">total drag</text><text x="190" y="145" text-anchor="middle" fill="var(--formula)" font-weight="700">L/D max</text><text x="400" y="155" text-anchor="end" fill="var(--muted)">airspeed →</text><text x="12" y="20" fill="var(--muted)">drag</text></g>
+    </svg><p class="cap">Slow: induced drag dominates. Fast: parasite drag dominates. Where they cross, total drag is lowest = L/D max.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Why does induced drag fall with speed? Lift has to equal weight. At low speed the only way to get that lift is a big angle of attack, which tilts the lift vector back and spills strong wingtip vortices — both cost drag. Speed up and the wing can make the same lift at a small angle, so induced drag shrinks. Parasite drag has no such help: more air hitting the airframe per second means more friction and pressure drag, roughly four times for double the speed.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="1" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="2">
+  <div class="cue"><h3>Climb: Best Angle vs Best Rate</h3><p class="q">What is the difference between Vx and Vy, and when would a pilot use each one?</p><span class="tag">Vx · Vy</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Two ways to measure a climb: how much height you gain per <b>distance</b>, and how much per <b>time</b>.</li>
+      <li><b>Best angle of climb — V<sub>x</sub></b>: the most <b>height over the ground distance</b> covered. The steepest climb. Use it to clear an obstacle (trees, a fence) right after take-off.</li>
+      <li><b>Best rate of climb — V<sub>y</sub></b>: the most <b>height in a given time</b>. The quickest way to altitude. Use it for a normal climb once obstacles are behind you.</li>
+      <li>V<sub>x</sub> is a <b>slower</b> airspeed than V<sub>y</sub>: the nose is higher, so the path is steeper but the climb takes longer.</li>
+      <li>Both speeds come from the <b>POH</b> for that aircraft; they change with weight and altitude.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Two climb paths from a runway: a steeper Vx path over an obstacle and a shallower but faster Vy path">
+      <line x1="20" y1="120" x2="400" y2="120" stroke="var(--dia-line)" stroke-width="2"/>
+      <rect x="135" y="92" width="12" height="28" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="141" y="134" font-size="10" text-anchor="middle" fill="var(--ink)">obstacle</text>
+      <path d="M40 120 L220 30" stroke="var(--dia-hi)" stroke-width="3" fill="none"/>
+      <path d="M40 120 L400 50" stroke="var(--dia-line)" stroke-width="3" fill="none"/>
+      <g font-size="12" fill="var(--ink)" font-weight="700"><text x="225" y="28" fill="var(--formula)">Vx · best angle</text><text x="300" y="80">Vy · best rate</text></g>
+      <g font-size="10" fill="var(--muted)"><text x="225" y="42">most height per distance</text><text x="300" y="94">most height per minute</text><text x="320" y="140" text-anchor="middle">distance along the ground →</text></g>
+    </svg><p class="cap">Vx: steepest path (clears the obstacle). Vy: fastest climb by the clock — a shallower path, but you reach altitude sooner.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Think of climbing a hill. Vx is scrambling straight up the steep face — you gain the most height for every step forward, but it is slow going. Vy is the switchback trail — you cover more ground, but you reach the top sooner. Vx and Vy get closer together as the aircraft climbs, and they meet at the absolute ceiling, where the aircraft can no longer climb at all.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="2" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="3">
+  <div class="cue"><h3>Cruise: Power, Altitude &amp; Fuel</h3><p class="q">In cruise, what decides the aircraft's speed, and why does climbing higher give more speed for the same fuel?</p><span class="tag">Power setting · Altitude</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Airspeed is measured in <b>knots</b> (nautical miles per hour). <b>Knots × 1.852 = km/h</b>. Example: 250 kt = 463 km/h.</li>
+      <li>In cruise, <b>fuel burn is proportional to brake horsepower</b>. Run the engine at <b>75% power</b> and you burn about <b>20% more fuel</b> than at <b>55%</b>.</li>
+      <li>Cruise speed depends on two things: the <b>power setting</b> and the <b>altitude</b>.</li>
+      <li><b>Higher altitude = thinner air = less drag</b>, so the same power pushes the aircraft faster. From the deck's chart: at 75% power the aircraft does <b>140 kt at sea level</b> and <b>150 kt at 8,000 ft</b> — 10 kt faster for the <b>same fuel burn</b>.</li>
+      <li>Same idea at 65% power: climb from 2,000 ft to 8,000 ft (standard day) and you go about <b>9 kt faster</b> for no extra fuel.</li>
+      <li>The catch: the engine also loses power as the air thins, so there is a best cruise altitude for each aircraft — the POH chart tells you.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Bar chart: at 75 percent power, 140 knots at sea level versus 150 knots at 8000 feet with the same fuel burn">
+      <g font-size="11" fill="var(--ink)">
+        <rect x="60" y="60" width="110" height="60" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="115" y="95" text-anchor="middle" font-weight="700" font-size="16">140 kt</text><text x="115" y="135" text-anchor="middle">sea level · 75%</text>
+        <rect x="240" y="40" width="110" height="80" fill="var(--dia-hi)" stroke="var(--dia-line)"/><text x="295" y="85" text-anchor="middle" font-weight="700" font-size="16">150 kt</text><text x="295" y="135" text-anchor="middle">8,000 ft · 75%</text>
+        <text x="210" y="22" text-anchor="middle" fill="var(--formula)" font-weight="700">same power · same fuel burn · +10 kt</text>
+        <text x="205" y="92" text-anchor="middle" fill="var(--muted)">thinner air</text><text x="205" y="105" text-anchor="middle" fill="var(--muted)">= less drag</text>
+      </g>
+    </svg><p class="cap">Same 75% power, same fuel: 10 kt faster at 8,000 ft because thinner air means less drag.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Fuel flow follows horsepower because the engine burns a roughly fixed amount of fuel for each horsepower-hour it produces. Altitude does not change that; what it changes is drag. Thinner air means fewer air molecules hitting the airframe each second, so the same thrust pushes the aircraft faster. Jets exploit this far more than piston aircraft — that is why airliners cruise at 35,000 ft and above.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="3" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="4">
+  <div class="cue"><h3>The Power Curve &amp; Descent</h3><p class="q">What makes an aircraft descend, and what decides how fast it sinks?</p><span class="tag">Available vs Required</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Power required</b> = the power it takes to hold level flight at each airspeed (it follows the drag curve: high at slow speed, lowest near L/D max, high again at speed).</li>
+      <li><b>Power available</b> = what the engine and propeller can actually deliver at that airspeed and altitude.</li>
+      <li>Available <b>more than</b> required → the extra power goes into a <b>climb</b>. Available <b>equal to</b> required → <b>level flight</b>. Available <b>less than</b> required → a <b>descent</b>.</li>
+      <li>The <b>rate of sink</b> (or rate of climb) is <b>proportional to the gap</b> between the two curves. Pull the power back a little = a gentle descent; pull it back a lot = a steep one.</li>
+      <li>Throttle to <b>idle</b> and the power-available curve drops to <b>zero</b> (it sits on the x-axis). Power required stays exactly the same — the whole gap is now sink.</li>
+      <li>The <b>lowest rate of sink</b> is at the airspeed where <b>power required is lowest</b> — the bottom of the power-required curve.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 160" width="420" height="160" role="img" aria-label="Power available and power required curves against airspeed; the gap between them sets rate of climb or sink">
+      <g stroke="var(--dia-line)" stroke-width="1.5" fill="none"><line x1="40" y1="130" x2="400" y2="130"/><line x1="40" y1="130" x2="40" y2="15"/></g>
+      <path d="M60 60 Q140 125 200 118 Q270 110 400 25" stroke="var(--dia-hi)" stroke-width="3" fill="none"/>
+      <path d="M60 95 Q200 55 400 50" stroke="var(--dia-line)" stroke-width="3" fill="none"/>
+      <line x1="200" y1="56" x2="200" y2="118" stroke="var(--formula)" stroke-width="2"/><polygon points="196,62 200,56 204,62" fill="var(--formula)"/><polygon points="196,112 200,118 204,112" fill="var(--formula)"/>
+      <g font-size="11" fill="var(--ink)"><text x="320" y="34">power available</text><text x="290" y="122" fill="var(--formula)" font-weight="700">power required</text><text x="207" y="92" fill="var(--formula)" font-weight="700">excess = climb</text><text x="400" y="152" text-anchor="end" fill="var(--muted)">airspeed →</text><text x="10" y="20" fill="var(--muted)">power</text><text x="60" y="150" fill="var(--muted)">idle: available = 0, all gap = sink</text></g>
+    </svg><p class="cap">Gap with available on top = climb. Gap with required on top = descent. Bigger gap = faster climb or sink.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>This is the same picture as the drag curve, just multiplied by speed (power = drag × velocity). The point where the two curves meet on the right is the aircraft's maximum level-flight speed. Where they meet on the left — at low speed — is the slowest it can hold altitude with full power. Everything a pilot does with the throttle is moving along, or between, these two lines.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="4" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="5">
+  <div class="cue"><h3>Region of Reversed Command</h3><p class="q">What is the "back of the power curve", and why is it dangerous?</p><span class="tag">Slower needs MORE power</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Normal flying (the <b>front</b> of the power curve): slow down and you need <b>less</b> power; speed up and you need <b>more</b>. Throttle and speed go together.</li>
+      <li>Below the speed for minimum power required you enter the <b>region of reversed command</b>, also called the <b>back of the power curve</b>. Here the rule flips: <b>slow down and you need MORE power</b>.</li>
+      <li>Why: at low speed, any <b>decrease</b> in airspeed means a higher angle of attack and a jump in <b>induced drag</b> — so total drag <b>goes up</b>. Any <b>increase</b> in airspeed lowers total drag.</li>
+      <li>The danger is on a <b>slow, dragged-in approach</b>: the aircraft sinks, the pilot pulls the nose up, speed drops, drag rises, it sinks faster. The fix is counter-intuitive — <b>add power and lower the nose</b>.</li>
+      <li>The region is entered only at <b>low airspeed</b>; keep approach speeds at or above the POH numbers and you stay out of it.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Total drag curve split into the region of reversed command on the slow side and normal command on the fast side">
+      <g stroke="var(--dia-line)" stroke-width="1.5" fill="none"><line x1="40" y1="120" x2="400" y2="120"/><line x1="40" y1="120" x2="40" y2="15"/></g>
+      <rect x="42" y="16" width="148" height="104" fill="var(--dia-hi)" opacity=".25"/>
+      <path d="M60 30 Q130 85 190 88 Q250 90 400 40" stroke="var(--dia-line)" stroke-width="3" fill="none"/>
+      <line x1="190" y1="88" x2="190" y2="120" stroke="var(--formula)" stroke-dasharray="3 3"/>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="115" y="30" font-weight="700" fill="var(--formula)">reversed command</text><text x="115" y="44" fill="var(--muted)">slower → MORE drag</text><text x="115" y="56" fill="var(--muted)">(more power to hold height)</text><text x="300" y="115" font-weight="700">normal command</text><text x="300" y="128" fill="var(--muted)" font-size="10">faster → more drag</text><text x="190" y="138" fill="var(--formula)">min drag / min power</text><text x="400" y="138" text-anchor="end" fill="var(--muted)">airspeed →</text></g>
+    </svg><p class="cap">Left of the minimum: slowing down raises drag, so you need more power to hold altitude — the "back side".</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Pilots call it "behind the power curve" because the aircraft is behind where the throttle can rescue it. Picture a short-field approach flown too slowly: the aircraft is mushing along at a high angle of attack with lots of power just to stay level. If it sinks, there may be no extra power left — and pulling back only makes it worse. Bush pilots and carrier pilots live in this region on purpose, but with precise speed control and the engine's response already in hand.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="5" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="6">
+  <div class="cue"><h3>Glide &amp; Range: Best L/D</h3><p class="q">What is glide ratio, which speed gives the longest glide, and why can't you extend range just by carrying more fuel?</p><span class="tag">Glide ratio · L/D</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Glide ratio</b> = horizontal distance travelled ÷ height lost. A 10:1 glide ratio means 10 m forward for every 1 m down.</li>
+      <li>The <b>lift-to-drag ratio (L/D)</b> is the same number another way. In a glide, lift is almost equal to weight and stays essentially <b>constant</b> for a given weight — so L/D only changes when <b>drag</b> changes. Least drag = best L/D = longest glide.</li>
+      <li><b>Best glide speed</b> (at L/D max) gives the most <b>distance</b>. <b>Minimum sink speed</b> (a bit slower) gives the most <b>time</b> in the air. Want to reach a field? Fly best glide — slightly faster than minimum sink.</li>
+      <li>Maximum glide distance is at the <b>lowest ratio of sink rate to forward speed</b>.</li>
+      <li><b>Range</b> = the distance an aircraft can fly on its fuel. The <b>speed for maximum range</b> is at <b>best L/D</b> too — usually <b>well below</b> normal cruise speed. Set the throttle to the power required for best L/D.</li>
+      <li>You cannot extend range just by adding fuel: <b>fuel adds weight</b>, and weight makes performance worse (more drag to carry it).</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Glide triangle: height lost against distance covered, showing a 10 to 1 glide ratio">
+      <line x1="40" y1="130" x2="400" y2="130" stroke="var(--dia-line)" stroke-width="2"/>
+      <line x1="40" y1="40" x2="40" y2="130" stroke="var(--formula)" stroke-width="3"/>
+      <line x1="40" y1="40" x2="390" y2="130" stroke="var(--dia-hi)" stroke-width="3"/>
+      <line x1="40" y1="40" x2="40" y2="40"/>
+      <g font-size="11" fill="var(--ink)"><text x="46" y="88" fill="var(--formula)" font-weight="700">height lost = 1</text><text x="215" y="145" text-anchor="middle" font-weight="700">distance covered = 10</text><text x="215" y="70" text-anchor="middle" fill="var(--muted)">glide path at best L/D</text><text x="330" y="118" text-anchor="end" fill="var(--formula)" font-weight="700">glide ratio 10 : 1</text></g>
+    </svg><p class="cap">Glide ratio = distance ÷ height. Best glide speed (L/D max) gives the longest distance; minimum sink gives the longest time.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>The <b>Gimli Glider</b> (1983): an Air Canada 767 ran out of fuel at 41,000 ft over Manitoba after a unit-conversion mistake in fuelling. The crew flew it at best glide — a 767 manages roughly 12:1 — and dead-sticked it onto a closed runway at Gimli. Nobody died. The same L/D arithmetic on this page is what got them there, and the fuelling error is a reminder that the AME's numbers on the ground decide what the aircraft can do in the air.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="6" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="7">
+  <div class="cue"><h3>Airspeed &amp; the V-Speeds</h3><p class="q">Why does a pilot need to know the airspeed, and how is airspeed controlled with and without engine power?</p><span class="tag">Vso · Vfe · Va · Vne · Vx · Vy</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Airspeed</b> = the speed of the aircraft <b>through the air</b> (not over the ground). Measured in knots.</li>
+      <li>The pilot needs it because every important limit is a speed — the <b>V-speeds</b>:</li>
+      <li><b>V<sub>so</sub></b> stall speed in the landing configuration (flaps and gear down) · <b>V<sub>fe</sub></b> maximum speed with flaps extended · <b>V<sub>a</sub></b> manoeuvring speed (full control deflection is safe at or below it) · <b>V<sub>ne</sub></b> never-exceed speed (the red line) · <b>V<sub>x</sub> / V<sub>y</sub></b> best angle / best rate of climb (and the matching descent speeds).</li>
+      <li>Airspeed also feeds navigation: it is what you use to work out <b>ETE</b> (estimated time en route) and <b>ETA</b> (estimated time of arrival).</li>
+      <li><b>With power</b>, in straight and level flight, the pilot sets airspeed with the <b>engine power / RPM</b>.</li>
+      <li><b>With no power</b> (engine failure, or a glide), the pilot controls airspeed with <b>attitude</b> — the angle of the nose relative to the horizon. Nose down = faster; nose up = slower.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 110" width="420" height="110" role="img" aria-label="Airspeed indicator arc: white flap arc from Vso to Vfe, green normal arc, yellow caution arc ending at the red Vne line, with Va marked">
+      <rect x="30" y="40" width="360" height="22" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+      <rect x="30" y="40" width="120" height="11" fill="#ffffff" stroke="var(--dia-line)"/>
+      <rect x="70" y="51" width="200" height="11" fill="#2E7D4F"/>
+      <rect x="270" y="51" width="100" height="11" fill="#E7A34A"/>
+      <rect x="370" y="38" width="6" height="26" fill="#B3402B"/>
+      <line x1="210" y1="36" x2="210" y2="66" stroke="var(--formula)" stroke-width="2"/>
+      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="30" y="32">Vso</text><text x="150" y="32">Vfe</text><text x="210" y="30" fill="var(--formula)" font-weight="700">Va</text><text x="373" y="32" fill="#B3402B" font-weight="700">Vne</text><text x="90" y="80">white = flaps OK</text><text x="210" y="80">green = normal</text><text x="320" y="80">yellow = smooth air only</text><text x="210" y="100" fill="var(--muted)">typical airspeed-indicator colour code — the POH gives the numbers</text></g>
+    </svg><p class="cap">The V-speeds are the limits a pilot flies by; an AME sees them as the markings on the airspeed indicator.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Why can a glider — or an aircraft with a dead engine — still control its speed? Because gravity is now the engine. Lower the nose and the aircraft trades height for speed; raise it and speed bleeds off. That is why the first rule after an engine failure is "fly the aircraft": set the glide attitude for best glide speed before anything else. For the AME, Va matters at the hangar too — it is the speed the structure is certified to take full control deflection at.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="7" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="8">
+  <div class="cue"><h3>The Boundary Layer</h3><p class="q">What is the boundary layer, and how does it give a wing an "effective shape" that is different from its real shape?</p><span class="tag">Sticky air</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>Air molecules <b>right against a surface stick to it</b> — their speed is zero. The molecules just above are slowed by bumping into the stuck ones, and they slow the layer above them, and so on.</li>
+      <li>The farther from the surface, the less the surface matters. The result is a <b>thin layer</b> where the air speed goes from <b>zero</b> at the surface up to the <b>free-stream</b> speed away from it. That layer is the <b>boundary layer</b>.</li>
+      <li>The airflow outside reacts to the <b>edge of the boundary layer</b> as if it were the surface. So every object has an <b>effective shape</b> that is slightly different from (slightly fatter than) its physical shape.</li>
+      <li>If the boundary layer <b>separates</b> (lifts off the surface), the effective shape becomes <b>very</b> different from the real one — and the wing stops working like a wing.</li>
+      <li>Keeping the boundary layer <b>attached</b> is what slots, slats, slotted flaps and vortex generators are all about (Module 4).</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Velocity profile of the boundary layer: zero speed at the surface growing to free-stream speed at the edge">
+      <rect x="20" y="110" width="380" height="14" fill="var(--dia-line)"/>
+      <path d="M60 110 Q70 70 150 30" stroke="var(--dia-hi)" stroke-width="2.5" fill="none" stroke-dasharray="4 3"/>
+      <g stroke="var(--dia-line)" stroke-width="2"><line x1="60" y1="105" x2="66" y2="105"/><line x1="60" y1="92" x2="80" y2="92"/><line x1="60" y1="78" x2="100" y2="78"/><line x1="60" y1="64" x2="118" y2="64"/><line x1="60" y1="50" x2="135" y2="50"/><line x1="60" y1="36" x2="148" y2="36"/></g>
+      <g fill="var(--dia-line)"><polygon points="66,102 72,105 66,108"/><polygon points="80,89 86,92 80,95"/><polygon points="100,75 106,78 100,81"/><polygon points="118,61 124,64 118,67"/><polygon points="135,47 141,50 135,53"/><polygon points="148,33 154,36 148,39"/></g>
+      <g stroke="var(--dia-line)" stroke-width="2"><line x1="260" y1="36" x2="340" y2="36"/><line x1="260" y1="60" x2="340" y2="60"/><line x1="260" y1="84" x2="340" y2="84"/></g><g fill="var(--dia-line)"><polygon points="340,33 346,36 340,39"/><polygon points="340,57 346,60 340,63"/><polygon points="340,81 346,84 340,87"/></g>
+      <g font-size="11" fill="var(--ink)"><text x="210" y="134" text-anchor="middle" fill="var(--muted)">surface — air speed here is zero</text><text x="160" y="24" fill="var(--formula)" font-weight="700">edge of boundary layer</text><text x="300" y="104" text-anchor="middle">free stream (full speed)</text></g>
+    </svg><p class="cap">Inside the boundary layer the speed climbs from zero at the skin to full speed at the edge. The outside flow "sees" that edge as the wing.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>The boundary layer is why surface condition matters so much to an AME. Frost, dents, bad rivet lines or a rough paint repair thicken the layer and make it separate sooner — the wing stalls earlier and at a higher speed than the book says. On a small wing the boundary layer is only millimetres thick, which is why a strip of frost the thickness of sandpaper is enough to change the stall.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="8" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="9">
+  <div class="cue"><h3>Stall &amp; Stall Patterns</h3><p class="q">What causes a wing to stall, and why do designers want the stall to start at the wing root?</p><span class="tag">Root first</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>For a thin airfoil, lift is <b>directly proportional to angle of attack</b> at small angles (roughly <b>+10° to −10°</b>). More angle, more lift — in a straight line.</li>
+      <li>Past that, the <b>boundary layer separates</b> from the top of the wing. Lift <b>drops abruptly</b> and drag jumps. That is a <b>stall</b>. A stall is about <b>angle of attack</b>, not speed — the wing can stall at any speed if the angle is high enough.</li>
+      <li><b>Different wing shapes stall in different patterns</b>: a rectangular wing tends to stall at the <b>root first</b>; tapered and swept wings tend to stall at the <b>tips first</b>.</li>
+      <li>The <b>desirable</b> pattern is <b>root first</b>: the tips, where the <b>ailerons</b> are, keep flying, so the pilot keeps <b>roll control</b> at high angles of attack and gets a warning (buffet) before the whole wing lets go.</li>
+      <li>A tip-first stall is nasty: one tip usually goes before the other, the aircraft rolls, and the ailerons are already in stalled air. Designers fix it with <b>washout</b> (tip set at a lower angle), <b>stall strips</b> at the root, or tip slots/slats.</li>
+      <li><b>Stall recovery</b> = reduce the angle of attack: nose down, then power, then level the wings.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Plan view of two wings: a rectangular wing stalling at the root first with the ailerons still working, and a tapered wing stalling at the tips first">
+      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><rect x="20" y="40" width="180" height="40" rx="4"/><path d="M230 40 L400 52 L400 68 L230 80 Z"/></g>
+      <g fill="var(--dia-hi)" opacity=".8"><rect x="80" y="42" width="60" height="36"/><path d="M230 42 L262 44 L262 76 L230 78 Z"/><path d="M368 50 L398 53 L398 67 L368 70 Z"/></g>
+      <g fill="none" stroke="var(--formula)" stroke-width="3"><line x1="24" y1="78" x2="70" y2="78"/><line x1="150" y1="78" x2="196" y2="78"/><line x1="232" y1="78" x2="262" y2="76"/><line x1="368" y1="69" x2="398" y2="67"/></g>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="110" y="30" font-weight="700">rectangular: root stalls first ✓</text><text x="110" y="100" fill="var(--muted)">tips and ailerons keep flying</text><text x="315" y="30" font-weight="700">tapered / swept: tips first ✗</text><text x="315" y="100" fill="var(--muted)">ailerons in stalled air, wing drops</text><text x="210" y="130" fill="var(--formula)">gold = stalled area · orange line = aileron</text></g>
+    </svg><p class="cap">Designers want the stall to start at the root so the ailerons keep working and the pilot gets a warning.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Why does a rectangular wing stall at the root? Its tip vortex spills around the tip and actually reduces the local angle of attack out there, so the tip is the last part to reach the critical angle. A tapered wing has a weaker tip vortex and a higher local lift coefficient near the tip, so the tip goes first. A stall strip is a small triangular strip on the root leading edge that trips the flow early on purpose — an AME replaces it in exactly the spot the manual shows, because moving it changes the stall behaviour.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="9" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="10">
+  <div class="cue"><h3>Vortex Generators</h3><p class="q">What is a vortex generator, and how does a tiny fin delay the stall?</p><span class="tag">Energize the layer</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Vortex generators (VGs)</b> are <b>small fins</b> in a row along the top of the wing (sometimes on the tail too).</li>
+      <li>As air flows back across the wing it <b>loses energy</b> in the boundary layer. As it loses energy it starts to <b>separate</b> — and separation is a stall.</li>
+      <li>Each VG spins off a <b>small vortex</b>. The vortex <b>mixes the fast, high-energy air</b> from outside the boundary layer <b>down into it</b>, re-energizing the slow air near the skin.</li>
+      <li>Result: the boundary layer stays attached to a <b>higher angle of attack</b> → the wing is less likely to stall, the stall speed drops, and the controls keep working longer.</li>
+      <li>Common as a bolt-on STOL kit on bush aircraft; also used ahead of ailerons and on the fin. The cost is a small amount of extra drag in cruise.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Side view of a wing top surface with a vortex generator fin creating a small vortex that pulls high energy air into the boundary layer">
+      <path d="M20 110 Q120 60 230 70 Q330 80 400 110" stroke="var(--dia-line)" stroke-width="3" fill="var(--dia-fill)"/>
+      <polygon points="120,80 126,62 130,80" fill="var(--formula)"/>
+      <path d="M135 70 q10 -10 20 0 q10 10 20 0 q10 -10 20 0 q10 10 20 0 q10 -10 20 0" stroke="var(--dia-hi)" stroke-width="2.5" fill="none"/>
+      <g stroke="var(--dia-line)" stroke-width="1.5" fill="none"><path d="M30 40 L120 40"/><path d="M30 25 L120 25"/><path d="M160 32 Q210 40 250 58"/></g>
+      <g fill="var(--dia-line)"><polygon points="118,37 124,40 118,43"/><polygon points="118,22 124,25 118,28"/><polygon points="246,53 252,59 244,60"/></g>
+      <g font-size="11" fill="var(--ink)"><text x="126" y="58" fill="var(--formula)" font-weight="700">vortex generator</text><text x="255" y="52" fill="var(--formula)">high-energy air pulled in</text><text x="30" y="20" fill="var(--muted)">fast free-stream air</text><text x="210" y="128" text-anchor="middle" fill="var(--muted)">boundary layer stays attached further back → later stall</text></g>
+    </svg><p class="cap">A small fin spins off a vortex that stirs fast air into the tired boundary layer, so it stays attached longer.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Look at the top of a Cessna 180 or a Bonanza with a STOL kit: a neat row of little aluminum tabs about a third of the way back from the leading edge. Each one is only a few centimetres tall — about the thickness of the boundary layer — and that is the point. It only needs to reach the fast air just outside the layer to drag some of it down. For the AME, VG kits come with an STC: position, spacing and count are fixed by the approval, and a missing VG is a snag, not a cosmetic fault.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="10" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="11">
+  <div class="cue"><h3>Mach Number &amp; the Speed of Sound</h3><p class="q">What is Mach number, what is critical Mach number, and why does the speed of sound change with altitude?</p><span class="tag">M = V ÷ a</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Mach number</b> = the aircraft's speed <b>divided by the speed of sound</b>. Mach 0.5 = half the speed of sound; Mach 2 = twice it.</li>
+      <li>The "speed of sound" is really the speed at which a <b>small disturbance (pressure wave) travels through the air</b>. Sound itself is just what the brain makes of those waves.</li>
+      <li>In the standard atmosphere at sea level it is about <b>761 mph</b> (about 661 knots). It depends on <b>air temperature</b> — <b>colder air = slower speed of sound</b>. So at high altitude, where it is cold, an aircraft reaches a given Mach number at a lower true airspeed.</li>
+      <li><b>Critical Mach number (M<sub>crit</sub>)</b> = the <b>aircraft</b> speed at which the air flowing <b>over the wing</b> first reaches <b>Mach 1</b>. The air over the top of a wing is faster than the aircraft, so the wing goes supersonic locally before the aircraft does.</li>
+      <li>Below M<sub>crit</sub> every bit of flow over the surface is subsonic. At M<sub>crit</sub> the fastest spot on the top surface just touches Mach 1.</li>
+      <li>History: <b>14 October 1947</b> — Capt. <b>Chuck Yeager</b> flew the rocket-powered <b>Bell X-1</b> "Glamorous Glennis" past Mach 1, air-launched from a B-29. Bullet-shaped fuselage, thin strong wings, and an <b>adjustable horizontal stabilizer</b> made it possible.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Airfoil below and at critical Mach number: at critical Mach the flow over the top surface just reaches Mach 1">
+      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><path d="M20 80 Q80 40 160 70 Q110 95 20 80 Z"/><path d="M230 80 Q290 40 370 70 Q320 95 230 80 Z"/></g>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="90" y="24" font-weight="700">(A) below Mcrit</text><text x="90" y="110" fill="var(--muted)">all flow over the wing below Mach 1</text><text x="300" y="24" font-weight="700" fill="var(--formula)">(B) at Mcrit</text><text x="300" y="110" fill="var(--muted)">fastest spot on top just reaches Mach 1</text><text x="210" y="134" fill="var(--formula)">Mach = aircraft speed ÷ speed of sound</text></g>
+      <circle cx="285" cy="52" r="6" fill="var(--formula)"/><text x="285" y="44" font-size="10" text-anchor="middle" fill="var(--formula)" font-weight="700">M 1.0</text>
+    </svg><p class="cap">The aircraft can still be well below Mach 1 (about 0.8) when the air over its wing first hits Mach 1 — that is critical Mach.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Why temperature and not altitude? A pressure wave moves by molecules bumping their neighbours, and warm molecules move faster, so the wave travels faster. Cold air slows it. At 35,000 ft on a standard day the speed of sound is only about 575 kt, against about 661 kt at sea level — so an airliner cruising at Mach 0.82 is doing roughly 470 kt true. That is also why the X-1 was flown high: colder air meant Mach 1 arrived at a lower, safer true airspeed.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="11" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="12">
+  <div class="cue"><h3>Shock Waves, Transonic Flight &amp; Shock Stall</h3><p class="q">What is a shock wave, what changes as air passes through one, and what happens to drag in the transonic range?</p><span class="tag">Wave drag</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>A <b>shock wave</b> is a very thin wall in the air where the flow jumps from <b>supersonic to subsonic</b>. A <b>normal</b> shock wave stands at right angles (perpendicular) to the surface.</li>
+      <li>As air passes <b>through</b> a shock wave: <b>pressure increases</b>, <b>temperature increases</b>, <b>velocity decreases</b> (and density increases — the air is suddenly squeezed).</li>
+      <li>Shock waves form in stages: first on the <b>top</b> surface only (A), then also on the <b>bottom</b> (B), and finally the <b>whole airfoil</b> is supersonic with a bow wave ahead of it (C). The pressure jump reaching the ground is the <b>sonic boom</b>.</li>
+      <li><b>Transonic flight</b> = the transition from subsonic to supersonic, from about <b>critical Mach (≈ 0.8) to about Mach 1.3</b>. Some of the flow is subsonic and some supersonic at the same time.</li>
+      <li><b>Drag increases greatly</b> in the transonic range. Energy is dumped into the air as heat and pressure jumps, and the engine has to make up for it. This extra drag is called <b>wave drag</b>. The Mach number where the drag rise really begins is the <b>critical drag Mach (M<sub>crd</sub>)</b>.</li>
+      <li><b>Shock stall</b> = the shock wave <b>separates the boundary layer</b> behind it. Lift is lost and buffet starts, even though the angle of attack is low. A stall caused by speed, not by angle.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Three stages of shock wave formation on an airfoil, plus the changes through a shock wave">
+      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><path d="M15 70 Q55 45 115 65 Q75 85 15 70 Z"/><path d="M150 70 Q190 45 250 65 Q210 85 150 70 Z"/><path d="M285 70 Q325 45 385 65 Q345 85 285 70 Z"/></g>
+      <g stroke="var(--formula)" stroke-width="3"><line x1="80" y1="30" x2="80" y2="54"/><line x1="215" y1="30" x2="215" y2="54"/><line x1="222" y1="78" x2="222" y2="98"/><line x1="350" y1="30" x2="350" y2="52"/><line x1="356" y1="78" x2="356" y2="98"/></g>
+      <path d="M298 30 Q282 65 298 100" stroke="var(--formula)" stroke-width="3" fill="none"/>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="65" y="20" font-weight="700">A · top only</text><text x="200" y="20" font-weight="700">B · top + bottom</text><text x="335" y="20" font-weight="700">C · all supersonic</text><text x="65" y="112" fill="var(--muted)">just past Mcrit</text><text x="200" y="112" fill="var(--muted)">transonic</text><text x="335" y="112" fill="var(--muted)">bow wave ahead</text><text x="210" y="138" fill="var(--formula)" font-weight="700">through a shock: pressure ↑ · temperature ↑ · velocity ↓</text></g>
+    </svg><p class="cap">Shock waves (orange) appear on top first, then below, then a bow wave ahead once the whole airfoil is supersonic.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Think of the shock wave as a traffic jam. Supersonic air cannot "hear" the wing coming — pressure information travels at the speed of sound, and the air is moving faster than that — so it piles into the obstacle without warning and slams to a slower speed in a wall a few molecules thick. Behind that wall the air is hotter, denser and slower, and that sudden pressure jump pushes the boundary layer off the surface. Early jets that got too fast hit shock stall and "Mach tuck": the shock moved aft, the centre of pressure moved with it, and the nose dropped into a dive the elevator could not fix.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="12" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<div class="row" data-sec="13">
+  <div class="cue"><h3>Wings for High-Speed Flight</h3><p class="q">Name two wing design features that suit transonic and supersonic flight, and say what each one does.</p><span class="tag">Sweep · Thin</span></div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li><b>Sweepback</b>: angling the wing back <b>reduces the effective Mach number along the chord</b>. Only the part of the airflow that runs straight across the wing (chordwise) counts for shock formation; the spanwise part is "wasted". A swept wing can therefore fly faster before reaching critical Mach.</li>
+      <li><b>Thin wings with sharp leading edges</b>: a blunt nose pushes a <b>bow wave</b> out ahead of it (lots of drag). A sharp leading edge lets the bow wave <b>attach to the leading edge</b> and become an <b>oblique shock wave</b>.</li>
+      <li>When the shocks are <b>oblique</b> (slanted), <b>all</b> the air around the wing stays supersonic and smooth — far less wave drag than a detached normal shock.</li>
+      <li>Example: the <b>Lockheed F-104 Starfighter</b> — a high-altitude interceptor with tiny, razor-thin, sharp-edged wings; the first US jet fighter to fly at <b>twice the speed of sound</b>. NASA used it as a chase plane.</li>
+      <li>The trade-off: thin, swept wings make poor lift at low speed, so these aircraft need high landing speeds, big flaps or blown flaps.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Plan view comparing a straight wing with a swept wing and the reduced chordwise component of the airflow; plus a blunt nose with a detached bow wave versus a sharp nose with an attached oblique shock">
+      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><rect x="20" y="40" width="40" height="80"/><path d="M90 40 L130 40 L170 120 L130 120 Z"/></g>
+      <g stroke="var(--dia-line)" stroke-width="2"><line x1="8" y1="80" x2="20" y2="80"/><line x1="78" y1="80" x2="90" y2="80"/></g>
+      <line x1="112" y1="80" x2="140" y2="80" stroke="var(--formula)" stroke-width="2"/><line x1="112" y1="80" x2="128" y2="112" stroke="var(--muted)" stroke-width="2" stroke-dasharray="3 2"/>
+      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><path d="M250 80 Q255 55 290 60 L330 80 L290 100 Q255 105 250 80 Z"/><path d="M345 80 L410 68 L410 92 Z"/></g>
+      <path d="M240 50 Q232 80 240 110" stroke="var(--formula)" stroke-width="3" fill="none"/>
+      <g stroke="var(--formula)" stroke-width="3"><line x1="345" y1="80" x2="395" y2="40"/><line x1="345" y1="80" x2="395" y2="120"/></g>
+      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="40" y="32" font-weight="700">straight</text><text x="130" y="32" font-weight="700">swept</text><text x="95" y="140" fill="var(--formula)">sweep: less of the flow crosses the chord → higher Mcrit</text><text x="290" y="40" font-weight="700">blunt: bow wave</text><text x="290" y="130" fill="var(--muted)">detached, high drag</text><text x="380" y="22" font-weight="700" fill="var(--formula)">sharp: oblique</text><text x="380" y="140" fill="var(--muted)">attached, low drag</text></g>
+    </svg><p class="cap">Sweep lowers the Mach number the wing "feels"; a sharp, thin leading edge turns the bow wave into an attached oblique shock.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Sweep is a trick of geometry. If a wing is swept 35°, the airflow crossing the chord is the free stream multiplied by cos 35° — about 82%. So the wing "feels" Mach 0.82 when the aircraft is at Mach 1.0. That is why nearly every airliner has 25–35° of sweep: it buys cruise speed without the brutal low-speed handling of a true supersonic wing. The F-104 went the other way — almost no sweep, but a wing so thin and sharp that ground crews fitted guards on the leading edges.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="13" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+</section>
+
+<section class="box sum" aria-label="Summary">
+  <div class="eyebrow">Summary</div>
+  <p style="margin:.5rem 0 0;max-width:70ch">Flight has three phases — climb, cruise, descent — and all of them live on the drag curve: parasite drag rises with speed, induced drag falls, and the bottom of the total-drag U is L/D max, the most efficient speed. Climb at Vx for angle (clear the obstacle) or Vy for rate (reach altitude fastest). In cruise, fuel burn follows horsepower and higher altitude buys speed for free because thinner air means less drag. Descent and sink rate come from the gap between power required and power available; below the minimum-power speed you are in the region of reversed command, where slowing down needs more power. Glide ratio and L/D are the same idea — best glide speed for distance, minimum sink for time — and range is also found at best L/D, not by carrying more fuel. Airspeed is controlled by power when you have it and by attitude when you don't, and the V-speeds are the limits. Air sticks to a surface and forms a boundary layer; when it separates the wing stalls, ideally root first so the ailerons keep working; vortex generators delay separation. Mach number is speed divided by the speed of sound, which depends on temperature; at critical Mach the flow over the wing first hits Mach 1, shock waves appear (pressure and temperature up, velocity down), wave drag rises sharply through the transonic range, and shock stall can follow. Sweepback and thin sharp wings are the designer's answers.</p>
+</section>
+
+<section class="box" aria-label="Key terms">
+  <div class="eyebrow">Key terms</div>
+  <div class="terms">
+    <div><b>Three phases of flight</b>Climb (with take-off), cruise, descent (with landing).</div>
+    <div><b>Parasite drag</b>Drag from the airframe itself; rises with speed.</div>
+    <div><b>Induced drag</b>Drag that comes with making lift; falls as speed rises.</div>
+    <div><b>L/D max</b>Speed where total drag is lowest and parasite = induced; most efficient speed.</div>
+    <div><b>Vx</b>Best angle of climb — most height per distance.</div>
+    <div><b>Vy</b>Best rate of climb — most height per minute.</div>
+    <div><b>Brake horsepower</b>Engine output at the shaft; cruise fuel burn follows it.</div>
+    <div><b>Power required / available</b>Power to hold level flight at a speed / power the engine can give. The gap = climb or sink.</div>
+    <div><b>Rate of sink</b>Height lost per minute; proportional to the power shortfall.</div>
+    <div><b>Region of reversed command</b>Low-speed range where slowing down needs more power.</div>
+    <div><b>Glide ratio</b>Distance forward ÷ height lost.</div>
+    <div><b>Best glide speed</b>Speed at L/D max — longest glide distance.</div>
+    <div><b>Minimum sink speed</b>Slightly slower — longest time in the air.</div>
+    <div><b>Range</b>Distance on the fuel aboard; best at L/D max, below normal cruise.</div>
+    <div><b>Airspeed</b>Speed through the air, in knots (× 1.852 = km/h).</div>
+    <div><b>V-speeds</b>Vso stall (landing config) · Vfe max flaps · Va manoeuvring · Vne never exceed · Vx / Vy climb.</div>
+    <div><b>Attitude</b>Nose angle to the horizon — controls airspeed when there is no power.</div>
+    <div><b>Boundary layer</b>Thin layer where air speed goes from zero at the surface to free stream.</div>
+    <div><b>Separation</b>Boundary layer lifting off the surface — the cause of a stall.</div>
+    <div><b>Stall pattern</b>Where the stall starts on the wing; root-first is desirable.</div>
+    <div><b>Vortex generator</b>Small fin that stirs high-energy air into the boundary layer to delay the stall.</div>
+    <div><b>Mach number</b>Aircraft speed ÷ speed of sound.</div>
+    <div><b>Speed of sound</b>Speed a small pressure disturbance travels; ~761 mph at standard sea level; falls as air gets colder.</div>
+    <div><b>Critical Mach (Mcrit)</b>Aircraft speed at which airflow over the wing first reaches Mach 1.</div>
+    <div><b>Shock wave</b>Thin wall where flow drops from supersonic to subsonic; pressure and temperature up, velocity down.</div>
+    <div><b>Transonic</b>Mcrit (~0.8) to ~Mach 1.3 — mixed subsonic and supersonic flow.</div>
+    <div><b>Wave drag</b>Sharp drag rise from shock waves in the transonic range.</div>
+    <div><b>Shock stall</b>Shock-induced separation of the boundary layer.</div>
+    <div><b>Sweepback</b>Angled-back wing that lowers the effective Mach number along the chord.</div>
+    <div><b>Oblique shock</b>Slanted shock attached to a sharp leading edge; all flow stays supersonic.</div>
+  </div>
+</section>
+
+<section class="box" aria-label="Check yourself">
+  <div class="eyebrow">Check yourself</div>
+  <p style="margin:.4rem 0 0;color:var(--muted)">Pick an answer. You get feedback right away and can try again.</p>
+  <div class="qz" id="quiz"></div>
+  <div class="score" id="score"></div>
+</section>
+
+<p class="flag">Source: ASYS 245 Module 5 course decks (Phases of Flight; Aircraft Performance — Stall and High-Speed Flight), condensed. Built from the decks before class notes — it will be reconciled against the class notes when they arrive. Typical values (speed of sound in knots, the stall pattern by wing shape, airspeed-indicator colours, the Gimli Glider numbers) are standard textbook values — confirm against the POH or manual for any real aircraft.</p>
+</div>
+
+<script>
+(function(){
+  var KEY='asys245-m5';
+  var state={done:{},study:false};
+  try{ state=Object.assign(state,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+  var notes=document.querySelectorAll('.mine textarea'); state.notes=state.notes||{};
+  notes.forEach(function(t){ var id=t.dataset.note; t.value=state.notes[id]||''; t.addEventListener('input',function(){ state.notes[id]=t.value; save(); }); });
+  var boxes=document.querySelectorAll('.done'); var pbar=document.getElementById('pbar'), ptext=document.getElementById('ptext');
+  function progress(){ var n=0; boxes.forEach(function(b){ if(b.checked) n++; }); pbar.style.width=(100*n/boxes.length)+'%'; ptext.textContent=n+' / '+boxes.length+' sections checked'; }
+  boxes.forEach(function(b){ var id=b.closest('.row').dataset.sec; b.checked=!!state.done[id]; b.addEventListener('change',function(){ state.done[id]=b.checked; save(); progress(); }); });
+  progress();
+  var toggle=document.getElementById('studyToggle'); var notes=document.getElementById('notes');
+  function applyStudy(){ notes.classList.toggle('study',toggle.checked); document.querySelectorAll('.body.open').forEach(function(b){ b.classList.remove('open'); }); }
+  toggle.checked=!!state.study; applyStudy();
+  toggle.addEventListener('change',function(){ state.study=toggle.checked; save(); applyStudy(); });
+  document.querySelectorAll('.reveal button').forEach(function(btn){ btn.addEventListener('click',function(){ btn.closest('.body').classList.add('open'); }); });
+  document.getElementById('resetBtn').addEventListener('click',function(){ state={done:{},study:false,notes:state.notes||{}}; save(); boxes.forEach(function(b){ b.checked=false; }); toggle.checked=false; applyStudy(); progress(); buildQuiz(); });
+  var Q=[
+    {q:'As an aircraft flies faster, induced drag…',o:['increases','decreases','stays the same'],a:1,fb:'Induced drag falls with speed (the wing needs less angle of attack to make the same lift). Parasite drag is the one that rises.'},
+    {q:'The lowest point on the total drag curve is where…',o:['parasite drag is zero','induced drag equals parasite drag — L/D max','the aircraft stalls'],a:1,fb:'Where the two drags are equal, total drag is at its minimum. That speed is L/D max, the most efficient speed to fly.'},
+    {q:'You must clear trees right after take-off. Which climb speed?',o:['Vx — best angle, most height per distance','Vy — best rate, most height per minute','Va — manoeuvring speed'],a:0,fb:'Vx gives the steepest path. Once the obstacle is behind you, Vy gets you to altitude fastest.'},
+    {q:'Compared with 55% power, cruising at 75% power burns about…',o:['the same fuel','20% more fuel','twice the fuel'],a:1,fb:'Fuel burn is proportional to brake horsepower. The deck\'s example: 75% uses about 20% more fuel than 55%.'},
+    {q:'At the same 75% power, the aircraft is faster at 8,000 ft than at sea level because…',o:['the engine makes more power up high','thinner air means less drag','the propeller is more efficient'],a:1,fb:'Same power, same fuel, 10 kt faster — thinner air means less drag. The engine actually makes less power up high.'},
+    {q:'An aircraft descends when…',o:['power available is less than power required','power required is less than power available','the throttle is at idle only'],a:0,fb:'Any time available is less than required the aircraft sinks, and the rate of sink is proportional to the gap. Idle just makes the gap as big as it can be.'},
+    {q:'On the back side of the power curve, slowing down means you need…',o:['less power','more power','the same power'],a:1,fb:'Region of reversed command: at low speed any decrease in airspeed raises induced drag, so holding altitude takes more power, not less.'},
+    {q:'For the longest glide distance after an engine failure, fly…',o:['minimum sink speed','best glide speed (L/D max)','as slowly as possible'],a:1,fb:'Best glide gives the most distance; minimum sink (a bit slower) gives the most time. To reach a field you want distance.'},
+    {q:'With the engine failed, the pilot controls airspeed by…',o:['the mixture','the flaps','the aircraft\'s attitude — nose angle to the horizon'],a:2,fb:'No power = attitude controls speed. Nose down to go faster, nose up to slow down. With power, in level flight, the throttle sets speed.'},
+    {q:'The boundary layer is…',o:['the thin layer where air speed goes from zero at the surface up to free-stream speed','the layer of ice on a cold wing','the air above the critical angle of attack'],a:0,fb:'Air sticks to the skin and slows the layers above it. The outside flow treats the edge of that layer as the wing\'s shape.'},
+    {q:'Designers want the stall to begin at the wing root because…',o:['the root is stronger','the tips and ailerons keep flying, so roll control is kept','it is easier to repair'],a:1,fb:'Root-first = ailerons still in flowing air and a buffet warning before the whole wing lets go.'},
+    {q:'A vortex generator delays the stall by…',o:['adding camber to the wing','pulling high-energy air into the boundary layer so it stays attached','reducing the wing area'],a:1,fb:'Each small fin spins a vortex that mixes fast outside air down into the tired boundary layer.'},
+    {q:'Critical Mach number is the speed at which…',o:['the whole aircraft reaches Mach 1','the airflow over the wing first reaches Mach 1','the engine cannot produce more thrust'],a:1,fb:'Air over the top of the wing is faster than the aircraft, so it goes supersonic first — typically when the aircraft is around Mach 0.8.'},
+    {q:'As air passes through a shock wave, pressure, temperature and velocity…',o:['all increase','pressure and temperature increase, velocity decreases','all decrease'],a:1,fb:'The air is suddenly squeezed: pressure up, temperature up, speed down (and density up).'},
+    {q:'Why does sweepback help at high speed?',o:['it reduces the effective Mach number along the chord, raising critical Mach','it makes the wing lighter','it increases lift at low speed'],a:0,fb:'Only the flow crossing the chord counts for shock formation. Sweep means less of the airflow does that, so shocks form later. Thin, sharp wings are the other answer.'}
+  ];
+  var quiz=document.getElementById('quiz'), score=document.getElementById('score'); var got={};
+  function buildQuiz(){ quiz.innerHTML=''; got={}; score.textContent='';
+    Q.forEach(function(item,i){ var card=document.createElement('div'); card.className='qcard'; var p=document.createElement('p'); p.textContent=(i+1)+'. '+item.q; card.appendChild(p);
+      var opts=document.createElement('div'); opts.className='opts'; var fb=document.createElement('div'); fb.className='fb';
+      item.o.forEach(function(text,j){ var b=document.createElement('button'); b.type='button'; b.className='opt'; b.textContent=text;
+        b.addEventListener('click',function(){ opts.querySelectorAll('.opt').forEach(function(x){ x.classList.remove('right','wrong'); });
+          if(j===item.a){ b.classList.add('right'); fb.className='fb show good'; fb.textContent='Correct. '+item.fb; got[i]=true; } else { b.classList.add('wrong'); fb.className='fb show bad'; fb.textContent='Not quite — try again. Hint: '+item.fb; got[i]=false; }
+          var n=0,t=0; for(var k in got){ t++; if(got[k]) n++; }
+          score.textContent= t===Q.length ? 'Score: '+n+' / '+Q.length+(n===Q.length?' — solid. Now explain each answer to a partner.':' — reread the sections you missed, then retry.') : n+' correct so far'; });
+        opts.appendChild(b); });
+      card.appendChild(opts); card.appendChild(fb); quiz.appendChild(card); }); }
+  buildQuiz();
+})();
+</script>
+
+</body>
+</html>

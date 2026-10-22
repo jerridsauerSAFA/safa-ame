@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ASYS 245 Module 5 · Flashcards</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--bg:#F4F6F8;--surface:#FFFFFF;--cue:#E6EDF3;--line:#CBD5DE;--ink:#16232E;--muted:#526170;--accent:#1D5C8F;--accent-ink:#FFFFFF;--formula:#B8690F;--formula-bg:#FFF4E3;--ok:#2E7D4F;--ok-bg:#E4F3EA;--bad:#B3402B;--bad-bg:#FBE8E3;--shadow:0 2px 6px rgba(22,35,46,.10)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--bad:#F08A72;--bad-bg:#3A1C15;--shadow:none}}
+:root[data-theme="dark"]{--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--bad:#F08A72;--bad-bg:#3A1C15;--shadow:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+h1,h2{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+.wrap{max-width:720px;margin:0 auto}
+.eyebrow{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--accent)}
+header.top{padding-block:2rem 1rem;border-bottom:2px solid var(--ink)}
+header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
+.meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted)}
+.bar{display:flex;flex-wrap:wrap;gap:.5rem .8rem;align-items:center;padding-block:.8rem}
+.chip{font:600 .85rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.3rem .7rem;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.5rem .9rem;border-radius:4px;cursor:pointer}
+.btn.ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ink)} .btn.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--ink)}
+.btn:focus-visible,.chip:focus-visible,.card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stats{display:flex;gap:1rem 1.5rem;flex-wrap:wrap;font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--muted);padding-block:.3rem .8rem}
+.stats b{color:var(--ink);font-weight:500}
+.progress{height:6px;background:var(--cue);border-radius:3px;overflow:hidden;margin-bottom:1rem}
+.progress i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.scene{perspective:1200px}
+.card{position:relative;min-height:300px;cursor:pointer;transition:transform .45s;transform-style:preserve-3d;border:0;background:transparent;width:100%;padding:0;text-align:left;font:inherit;color:inherit}
+.card.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:1.5rem;display:flex;flex-direction:column;justify-content:center;gap:.6rem}
+.face.back{transform:rotateY(180deg);border-left:6px solid var(--accent)}
+.face .k{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);position:absolute;top:1rem;left:1.5rem}
+.face .hint{position:absolute;bottom:.9rem;right:1.2rem;font-size:.8rem;color:var(--muted)}
+.front .q{font-family:"Barlow Condensed",Arial,sans-serif;font-size:clamp(1.5rem,4.5vw,2.1rem);font-weight:700;line-height:1.15;text-wrap:balance}
+.back .a{font-size:1.15rem;line-height:1.45}
+.back .a b{font-weight:600}
+.f{font-family:"JetBrains Mono",monospace;color:var(--formula);background:var(--formula-bg);padding:.05em .35em;border-radius:3px;white-space:nowrap}
+.back .why{color:var(--muted);font-size:.95rem;border-top:1px dotted var(--line);padding-top:.5rem}
+.actions{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:1rem}
+.actions .btn{flex:1 1 9rem;padding:.7rem 1rem;font-size:1rem}
+.kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;color:var(--muted);text-align:center;margin-top:.6rem}
+.done{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:2rem;text-align:center;box-shadow:var(--shadow)}
+.done h2{font-size:1.8rem}
+.done p{color:var(--muted)}
+.foot{font-size:.85rem;color:var(--muted);margin-top:2rem}
+@media (prefers-reduced-motion:reduce){.card{transition:none}.progress i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">Flashcards · ASYS 245 · Module 5</div>
+  <h1>Performance &amp; Phases of Flight Cards</h1>
+  <p>Read the front, say the answer out loud, flip to check. Mark <b>Got it</b> or <b>Again</b> — cards you miss come back until you get them twice. Progress saves on this device.</p>
+</header>
+<div class="bar" role="toolbar" aria-label="Card set">
+  <button class="chip" data-set="all" aria-pressed="true" type="button">All</button>
+  <button class="chip" data-set="term" aria-pressed="false" type="button">Terms</button>
+  <button class="chip" data-set="law" aria-pressed="false" type="button">Control rules</button>
+  <button class="chip" data-set="number" aria-pressed="false" type="button">Numbers</button>
+  <button class="chip" data-set="apply" aria-pressed="false" type="button">Apply it</button>
+  <span style="flex:1"></span>
+  <button class="btn" id="restart" type="button">Restart set</button>
+</div>
+<div class="stats"><span>Card <b id="pos">0</b> / <b id="tot">0</b></span><span>Mastered <b id="mast">0</b></span><span>To review <b id="rev">0</b></span></div>
+<div class="progress" aria-hidden="true"><i id="pbar"></i></div>
+
+<div class="scene" id="scene">
+  <button class="card" id="card" type="button" aria-live="polite">
+    <div class="face front"><span class="k" id="kfront"></span><div class="q" id="q"></div><span class="hint">tap to flip</span></div>
+    <div class="face back"><span class="k">Answer</span><div class="a" id="a"></div><div class="why" id="why"></div></div>
+  </button>
+</div>
+<div class="actions" id="actions">
+  <button class="btn bad" id="again" type="button">Again</button>
+  <button class="btn ok" id="got" type="button">Got it</button>
+</div>
+<div class="kbd">Space = flip · 1 = Again · 2 = Got it</div>
+<div class="done" id="done" hidden><h2>Set complete</h2><p id="doneMsg"></p><button class="btn" id="doneRestart" type="button">Go again</button></div>
+
+<p class="foot">Built from the ASYS 245 Module 5 course decks. Reference values per Transport Canada / <i>From the Ground Up</i>.</p>
+</div>
+
+<script>
+var CARDS=[
+ {t:'term',q:'The three phases of flight',a:'<b>Climb</b> (with take-off) · <b>Cruise</b> (level flight) · <b>Descent</b> (with landing)',w:'Performance = how well the aircraft does each one.'},
+ {t:'term',q:'Parasite drag',a:'Drag from the <b>airframe itself</b> (friction, form, interference). <b>Rises</b> with speed.',w:'Roughly four times the drag for double the speed.'},
+ {t:'term',q:'Induced drag',a:'The drag that comes with <b>making lift</b>. <b>Falls</b> as speed rises.',w:'Slow flight = high angle of attack = lots of induced drag. Feels backwards but it is true.'},
+ {t:'term',q:'L/D max',a:'The speed where <b>total drag is lowest</b> — parasite drag <b>equals</b> induced drag.',w:'Most efficient speed; best glide and best range live here.'},
+ {t:'term',q:'Vx',a:'<b>Best angle of climb</b> — most height for a given <b>ground distance</b>.',w:'The steepest climb. Use it to clear an obstacle.'},
+ {t:'term',q:'Vy',a:'<b>Best rate of climb</b> — most height for a given <b>time</b>.',w:'Fastest way to altitude. Faster airspeed than Vx.'},
+ {t:'term',q:'Power required',a:'The power needed to <b>hold level flight</b> at a given airspeed.',w:'Follows the drag curve — lowest near L/D max.'},
+ {t:'term',q:'Power available',a:'The power the <b>engine and propeller can actually deliver</b> at that speed and altitude.',w:'Drops to zero at idle.'},
+ {t:'term',q:'Region of reversed command',a:'The <b>low-speed</b> range where slowing down needs <b>more</b> power to hold altitude.',w:'"Back of the power curve". Dangerous on a slow approach.'},
+ {t:'term',q:'Glide ratio',a:'<b>Horizontal distance ÷ height lost</b> in a glide.',w:'10:1 = 10 forward for every 1 down. Same number as L/D.'},
+ {t:'term',q:'Best glide speed',a:'The speed at <b>L/D max</b> — gives the <b>longest glide distance</b>.',w:'Slightly faster than minimum sink speed.'},
+ {t:'term',q:'Minimum sink speed',a:'The speed with the <b>lowest rate of descent</b> — gives the most <b>time</b> in the air.',w:'At the bottom of the power-required curve.'},
+ {t:'term',q:'Range',a:'The <b>distance</b> an aircraft can fly on the fuel aboard.',w:'Best-range speed is at best L/D, well below normal cruise.'},
+ {t:'term',q:'Airspeed',a:'The speed of the aircraft <b>through the air</b>, measured in <b>knots</b>.',w:'Not ground speed. Knots × 1.852 = km/h.'},
+ {t:'term',q:'Attitude',a:'The angle of the aircraft\'s <b>nose relative to the horizon</b>.',w:'With no power, attitude is how the pilot controls airspeed.'},
+ {t:'term',q:'Boundary layer',a:'The thin layer next to a surface where air speed goes from <b>zero</b> at the skin to <b>free-stream</b> speed at the edge.',w:'The outside flow treats its edge as the wing\'s "effective shape".'},
+ {t:'term',q:'Separation',a:'The boundary layer <b>lifting off</b> the surface.',w:'Separation at high angle of attack = stall.'},
+ {t:'term',q:'Vortex generator',a:'A <b>small fin</b> on the wing that spins a vortex, pulling <b>high-energy air into the boundary layer</b>.',w:'Keeps the flow attached to a higher angle of attack → later stall.'},
+ {t:'term',q:'Mach number',a:'Aircraft speed <b>÷ speed of sound</b>.',w:'Mach 2 = twice the speed of sound.'},
+ {t:'term',q:'Critical Mach number (Mcrit)',a:'The <b>aircraft</b> speed at which the air over the <b>wing</b> first reaches <b>Mach 1</b>.',w:'The wing goes supersonic locally before the aircraft does — around Mach 0.8.'},
+ {t:'term',q:'Shock wave',a:'A very thin wall where airflow drops from <b>supersonic to subsonic</b>.',w:'Normal shock = perpendicular to the surface; oblique = slanted.'},
+ {t:'term',q:'Transonic flight',a:'The transition from subsonic to supersonic: about <b>Mcrit (0.8) to Mach 1.3</b>.',w:'Some flow subsonic, some supersonic at the same time.'},
+ {t:'term',q:'Wave drag',a:'The <b>big drag rise</b> caused by shock waves in the transonic range.',w:'Energy lost to the air as heat and pressure jumps.'},
+ {t:'term',q:'Shock stall',a:'A stall caused by a <b>shock wave separating the boundary layer</b>.',w:'A stall from speed, not from angle of attack.'},
+ {t:'law',q:'What happens to parasite, induced and total drag as speed increases?',a:'Parasite <b>up</b>, induced <b>down</b>, total is a <b>U</b> with its minimum at L/D max.',w:'Where the two cross, total drag is lowest.'},
+ {t:'law',q:'What decides whether an aircraft climbs, flies level or descends?',a:'The gap between <b>power available</b> and <b>power required</b>: more = climb, equal = level, less = descend.',w:'Rate of climb or sink is proportional to the gap.'},
+ {t:'law',q:'What does cruise fuel burn depend on?',a:'<b>Brake horsepower</b> — fuel burn is proportional to the power setting.',w:'75% power burns about 20% more than 55%.'},
+ {t:'law',q:'Why is the aircraft faster at altitude for the same power?',a:'<b>Thinner air = less drag</b>, so the same power pushes it faster.',w:'The deck\'s example: 140 kt at sea level, 150 kt at 8,000 ft, same fuel.'},
+ {t:'law',q:'How is airspeed controlled with power, and without it?',a:'With power: <b>throttle / RPM</b>. Without power: <b>attitude</b> (nose angle).',w:'Nose down = faster, nose up = slower.'},
+ {t:'law',q:'Why can\'t you extend range just by adding fuel?',a:'Fuel adds <b>weight</b>, and weight makes performance <b>worse</b>.',w:'More weight = more lift needed = more drag.'},
+ {t:'law',q:'Which stall pattern do designers want, and why?',a:'<b>Root first</b> — the tips and <b>ailerons keep flying</b>, so the pilot keeps roll control and gets a warning.',w:'Rectangular wings do this naturally; tapered and swept wings tend to stall tip-first.'},
+ {t:'law',q:'What changes as air passes through a shock wave?',a:'<b>Pressure up · temperature up · velocity down</b> (and density up).',w:'The air is suddenly squeezed into a traffic jam.'},
+ {t:'law',q:'What does the speed of sound depend on?',a:'Air <b>temperature</b>. Colder air → <b>slower</b> speed of sound.',w:'So a given Mach number is a lower true airspeed up high where it is cold.'},
+ {t:'law',q:'Two wing features for transonic and supersonic flight',a:'<b>Sweepback</b> (lowers the effective Mach along the chord) and <b>thin wings with sharp leading edges</b> (attached oblique shock).',w:'Both delay or tame the shock waves.'},
+ {t:'number',q:'Knots to km/h',a:'<b>× 1.852</b>',w:'250 kt = 463 km/h.'},
+ {t:'number',q:'Speed of sound at standard sea level',a:'About <b>761 mph</b> (about 661 kt).',w:'Falls as the air gets colder.'},
+ {t:'number',q:'The transonic range',a:'About <b>Mach 0.8 to Mach 1.3</b>',w:'From critical Mach to fully supersonic.'},
+ {t:'number',q:'Angle-of-attack range where lift is proportional to angle (thin airfoil)',a:'Roughly <b>+10° to −10°</b>',w:'Beyond that the boundary layer separates and lift drops.'},
+ {t:'number',q:'Fuel penalty for 75% power compared with 55%',a:'About <b>20% more fuel</b>',w:'Fuel burn follows brake horsepower.'},
+ {t:'number',q:'First supersonic flight',a:'<b>14 October 1947</b> — Chuck Yeager, Bell X-1 "Glamorous Glennis"',w:'Air-launched from a B-29; rocket engine; adjustable horizontal stabilizer.'},
+ {t:'apply',q:'An aircraft on short final is sinking. The pilot pulls the nose up and it sinks faster. What is going on?',a:'It is <b>behind the power curve</b> (region of reversed command). Pulling up raises drag. Fix: <b>add power and lower the nose</b>.',w:'At low speed, slower = more drag.'},
+ {t:'apply',q:'Engine failure at 5,000 ft. The nearest field is far away. Which speed, and why?',a:'<b>Best glide speed</b> (L/D max) — longest distance. Minimum sink would only give more time, not more distance.',w:'Set the glide attitude first: attitude now controls the speed.'},
+ {t:'apply',q:'A customer wants more range and asks you to fit bigger fuel tanks. What is the catch?',a:'Fuel is <b>weight</b>; the heavier aircraft needs more lift, makes more drag and performs worse. Range does not grow in proportion.',w:'Plus the W&amp;B and structural approvals.'},
+ {t:'apply',q:'A pilot reports the aircraft now stalls earlier and drops a wing. The wing had a rough paint repair near the root leading edge. Connection?',a:'A rough surface thickens the <b>boundary layer</b> and makes it <b>separate sooner</b> — earlier stall, and an uneven one can drop a wing.',w:'Surface condition changes the stall. Check stall strips and VGs are present and in the right spot.'},
+ {t:'apply',q:'A STOL kit adds a row of small fins on top of the wing. One is missing after a hangar bump. Snag or cosmetic?',a:'<b>Snag.</b> They are vortex generators under an STC; count, spacing and position are part of the approval and change the stall.',w:'Replace per the kit instructions.'},
+ {t:'apply',q:'An airliner cruising at Mach 0.82 up high shows only about 470 kt true airspeed. Why not more?',a:'The speed of sound <b>drops with temperature</b>; at 35,000 ft it is only about 575 kt, so Mach 0.82 is a lower true airspeed than at sea level.',w:'Mach = TAS ÷ local speed of sound.'},
+ {t:'apply',q:'A jet gets a sudden buffet and nose-down pitch at high speed with a low angle of attack. Which stall?',a:'<b>Shock stall</b> — a shock wave has separated the boundary layer. Speed, not angle, caused it.',w:'Slow down below critical drag Mach.'}
+];
+(function(){
+  var KEY='asys245-cards-m5';
+  var st={set:'all',mast:{}};
+  try{ st=Object.assign(st,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} }
+  var queue=[],cur=null,flipped=false,seen=0,total=0;
+  var card=document.getElementById('card'),q=document.getElementById('q'),a=document.getElementById('a'),why=document.getElementById('why'),kf=document.getElementById('kfront');
+  var done=document.getElementById('done'),actions=document.getElementById('actions'),scene=document.getElementById('scene');
+  var labels={term:'Term',law:'Rule',number:'Number',apply:'Apply it'};
+  function pool(){ return CARDS.map(function(c,i){c.id=i;return c}).filter(function(c){return st.set==='all'||c.t===st.set}); }
+  function build(fresh){ var p=pool(); total=p.length; if(fresh){ p.forEach(function(c){ delete st.mast[c.id]; }); save(); } queue=p.filter(function(c){ return (st.mast[c.id]||0)<2; }).sort(function(){return Math.random()-.5}); seen=0; next(); }
+  function stats(){ var p=pool(); var m=p.filter(function(c){return (st.mast[c.id]||0)>=2}).length; document.getElementById('tot').textContent=total; document.getElementById('mast').textContent=m; document.getElementById('rev').textContent=queue.length+(cur?1:0); document.getElementById('pos').textContent=Math.min(seen,total); document.getElementById('pbar').style.width=(total?100*m/total:0)+'%'; }
+  function next(){ flipped=false; card.classList.remove('flipped'); if(!queue.length){ cur=null; scene.hidden=true; actions.hidden=true; done.hidden=false; document.getElementById('doneMsg').textContent='All '+total+' cards mastered twice. Try another set, or restart to run it cold.'; stats(); return; } scene.hidden=false; actions.hidden=true; done.hidden=true; cur=queue.shift(); seen++; kf.textContent=labels[cur.t]; q.innerHTML=cur.q; a.innerHTML=cur.a; why.innerHTML=cur.w; stats(); }
+  function flip(){ if(!cur) return; flipped=!flipped; card.classList.toggle('flipped',flipped); actions.hidden=!flipped; }
+  function grade(ok){ if(!cur||!flipped) return; if(ok){ st.mast[cur.id]=(st.mast[cur.id]||0)+1; if(st.mast[cur.id]<2) queue.push(cur); } else { st.mast[cur.id]=0; queue.splice(Math.min(3,queue.length),0,cur); } save(); next(); }
+  card.addEventListener('click',flip);
+  document.getElementById('got').addEventListener('click',function(){grade(true)});
+  document.getElementById('again').addEventListener('click',function(){grade(false)});
+  document.getElementById('restart').addEventListener('click',function(){build(true)});
+  document.getElementById('doneRestart').addEventListener('click',function(){build(true)});
+  document.querySelectorAll('.chip[data-set]').forEach(function(c){ c.setAttribute('aria-pressed',c.dataset.set===st.set?'true':'false'); c.addEventListener('click',function(){ st.set=c.dataset.set; save(); document.querySelectorAll('.chip[data-set]').forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false')}); build(false); }); });
+  document.addEventListener('keydown',function(e){ if(e.target.tagName==='INPUT') return; if(e.key===' '){e.preventDefault();flip();} else if(e.key==='1') grade(false); else if(e.key==='2') grade(true); });
+  build(false);
+})();
+</script>
+
+</body>
+</html>
