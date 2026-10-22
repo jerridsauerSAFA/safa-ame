@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>SAFA Airfoil &amp; Stall Lab</title>
+<title>SAFA Airfoil &amp; Stall Simulator</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
@@ -161,621 +161,328 @@ sub{font-size:.7em}
 .challenge .tasks li.done{opacity:1;border-color:var(--yaw)}
 .challenge .tasks li.done b{color:var(--yaw)}
 #c4Pitch .ends span{text-transform:none;letter-spacing:0;font-family:var(--mono)}
+
+/* sim layout */
+.grid.sim{grid-template-columns:minmax(0,1.45fr) minmax(0,1fr)}
+.left,.right{display:flex;flex-direction:column;gap:12px;min-width:0}
+.controls.six{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:760px){.controls.six{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.controls.six{grid-template-columns:1fr}}
+#cTog{gap:4px}#cTog .toggle{font-size:13px}
+.state{position:absolute;left:12px;bottom:10px;font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:.12em;padding:2px 10px;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+.state.ok{color:var(--yaw);border-color:var(--yaw)}.state.up{color:var(--pitch);border-color:var(--pitch)}.state.bad{color:var(--bad);border-color:var(--bad)}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:700px){.charts{grid-template-columns:1fr}}
+.chart{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px}
+.chart svg{display:block;width:100%;height:auto}
+.gauges{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+@media (max-width:1000px) and (min-width:861px){.gauges{grid-template-columns:1fr 1fr}}
+.g{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.g .k{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.g b{font-family:var(--display);font-size:20px;font-weight:600;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.g .mult{font-size:11.5px;color:var(--muted)}
+.g .bar{margin-top:4px}
+.missions .tasks li.done{opacity:1;border-color:var(--yaw)}.missions .tasks li.done b{color:var(--yaw)}
+.missions .tasks li div{display:flex;flex-direction:column}
+canvas#ac{display:block;width:100%;height:auto;max-width:100%}
+#cTog .toggle{justify-content:flex-start;text-align:left}
+#cTog label.toggle{font-family:var(--body);font-weight:400;font-size:13px;letter-spacing:0}
+@media (max-width:860px){.grid.sim{grid-template-columns:1fr}.gauges{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:520px){.gauges{grid-template-columns:1fr 1fr}}
+.kbd{display:none}@media (min-width:900px){.kbd{display:inline}}
 </style>
 <div class="wrap">
 <header>
   <img id="logo" alt="SAFA">
   <div>
     <div class="eyebrow"><a class="back" href="./">← Module 2</a> · South Alberta Flight Academy · ASYS 245</div>
-    <h1>Airfoil &amp; Stall Lab</h1>
-    <p class="sub">Work in pairs. Predict first, then test, then agree on one sentence. Four stations, about 30 minutes.</p>
+    <h1>Airfoil &amp; Stall Simulator</h1>
+    <p class="sub">One aircraft, every control live. One partner flies, the other records and calls the next mission. Swap halfway. About 30 minutes.</p>
   </div>
 </header>
 
 <div class="panel pair">
-  <div class="eyebrow">Your pair</div>
   <div class="names">
-    <label>Partner A <input id="nameA" placeholder="name" maxlength="24"></label>
-    <label>Partner B <input id="nameB" placeholder="name" maxlength="24"></label>
-    <span class="hint">A predicts first on every station. B predicts second. Then you test together.</span>
-    <span class="prog" id="prog">0 / 4 stations done</span>
-    <button id="resetAll" title="Clear names, predictions and notes">Reset lab</button>
+    <label>Pilot <input id="nameA" placeholder="name" maxlength="24"></label>
+    <label>Recorder <input id="nameB" placeholder="name" maxlength="24"></label>
+    <span class="hint">Swap seats after mission 3.</span>
+    <span class="prog" id="prog">0 / 6 missions</span>
+    <button id="resetAll" title="Clear names, missions and notes">Reset sim</button>
   </div>
 </div>
 
-<!-- ───────── STATION 1 ───────── -->
-<section class="station" id="s1">
-  <div class="stHead"><span class="num">1</span><div><h2>Label it</h2><p>Before you touch a slider: can you name the parts? Pick the term for each number. A does 1–4, B does 5–8, then check together.</p></div></div>
-  <div class="grid">
+<div class="grid sim">
+  <div class="left">
     <div class="view">
-      <svg viewBox="0 0 760 360" id="labelFig" aria-label="Airfoil with eight numbered callouts"></svg>
+      <canvas id="ac" width="760" height="420"></canvas>
+      <div class="hud">
+        <span>AOA <b id="hAoa">4.0°</b></span>
+        <span>IAS <b id="hV">100 kt</b></span>
+        <span>C<sub>L</sub> <b id="hCl">0.56</b></span>
+        <span>CP <b id="hCp">34%</b></span>
+        <span>CG <b id="hCg">25%</b></span>
+        <span>FLOW <b id="hFlow">attached</b></span>
+      </div>
+      <div class="horn" id="horn">STALL</div>
+      <div class="state" id="stateTag">LEVEL</div>
     </div>
-    <div class="panel">
-      <div class="eyebrow">Match the numbers</div>
-      <div class="labels" id="labels"></div>
-      <div class="row"><button class="primary" id="checkLabels">Check</button><span class="score" id="labelScore"></span></div>
-      <p class="fb" id="labelFb"></p>
-    </div>
-  </div>
-  <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="1" placeholder="One sentence you both agree on: which two terms were easiest to mix up, and how you will tell them apart."></textarea></div>
-</section>
 
-<!-- ───────── STATION 2 ───────── -->
-<section class="station" id="s2">
-  <div class="stHead"><span class="num">2</span><div><h2>Angle of attack sweep</h2><p>The slider stays locked until both of you have predicted. No peeking at the graph first.</p></div></div>
+    <div class="controls six">
+      <div class="ctl" id="cAoa"><label>Angle of attack <small><span id="vAoa">4.0</span>°</small></label><input type="range" id="aoa" min="-4" max="22" value="4" step="0.5"><div class="ends"><span>−4°</span><span>22°</span></div></div>
+      <div class="ctl" id="cV" style="--c:var(--pitch)"><label>Airspeed <small><span id="vV">100</span> kt</small></label><input type="range" id="vel" min="40" max="160" value="100" step="1"><div class="ends"><span>40 kt</span><span>160 kt</span></div></div>
+      <div class="ctl" id="cCg" style="--c:var(--bad)"><label>CG position <small><span id="vCg">25</span>% chord</small></label><input type="range" id="cg" min="10" max="45" value="25" step="1"><div class="ends"><span>fwd 10%</span><span>aft 45%</span></div></div>
+      <div class="ctl" id="cW" style="--c:#fff"><label>Weight <small><span id="vW">1100</span> kg</small></label><input type="range" id="wt" min="800" max="1400" value="1100" step="25"><div class="ends"><span>800 kg</span><span>1400 kg</span></div></div>
+      <div class="ctl" id="cAlt" style="--c:var(--yaw)"><label>Altitude <small><span id="vAlt">2,350</span> ft</small></label><input type="range" id="alt" min="0" max="15000" value="2350" step="50"><div class="ends"><span>Sea level</span><span>15,000 ft</span></div></div>
+      <div class="ctl" id="cTog"><label>Switches <small>&nbsp;</small></label>
+        <label class="toggle"><input type="checkbox" id="flaps"> Flaps down</label>
+        <label class="toggle"><input type="checkbox" id="trim"> Auto-trim AOA for level flight</label>
+        <label class="toggle"><input type="checkbox" id="showVec" checked> Show force vectors</label>
+      </div>
+    </div>
+    <div class="row">
+      <button class="primary" id="nudge">Nudge &amp; release</button>
+      <button id="level">Reset to cruise</button>
+      <span id="pitchState" class="hint">holding trim</span>
+      <span class="kbd"><kbd>←</kbd><kbd>→</kbd> AOA · <kbd>↑</kbd><kbd>↓</kbd> speed · <kbd>F</kbd> flaps</span>
+    </div>
 
-  <div class="predict" id="pred2">
-    <div class="pcard" id="pA2">
-      <div class="who">Partner A predicts</div>
-      <label>At what angle of attack will this wing stall?</label>
-      <div class="opts" data-q="stallAngle"><button data-v="5">about 5°</button><button data-v="10">about 10°</button><button data-v="16">about 15–18°</button><button data-v="30">about 30°</button></div>
-    </div>
-    <div class="pcard" id="pB2">
-      <div class="who">Partner B predicts</div>
-      <label>What happens to lift (C<sub>L</sub>) just past the stall angle?</label>
-      <div class="opts" data-q="afterStall"><button data-v="rise">keeps rising</button><button data-v="flat">levels off</button><button data-v="drop">drops suddenly</button><button data-v="zero">goes to zero</button></div>
-    </div>
-    <div class="lockRow"><button class="primary" id="lock2" disabled>Lock both predictions</button><span class="hint">Both must pick before the slider unlocks.</span></div>
-  </div>
-
-  <div class="grid" id="sweep" hidden>
-    <div>
-      <div class="view">
-        <canvas id="flow" width="760" height="420"></canvas>
-        <div class="hud">
-          <span>AOA <b id="hAoa">4°</b></span>
-          <span>C<sub>L</sub> <b id="hCl">0.56</b></span>
-          <span>CP <b id="hCp">39% chord</b></span>
-          <span>FLOW <b id="hState">attached</b></span>
-        </div>
-        <div class="horn" id="horn">STALL</div>
+    <div class="charts">
+      <div class="chart">
+        <div class="eyebrow">C<sub>L</sub> vs angle of attack</div>
+        <svg viewBox="0 0 360 220" id="clChart">
+          <g font-family="JetBrains Mono,monospace" font-size="11" fill="#a9a9ad">
+            <line x1="40" y1="12" x2="40" y2="180" stroke="#2b2b2f"/><line x1="40" y1="180" x2="350" y2="180" stroke="#2b2b2f"/>
+            <text x="34" y="16" text-anchor="end">2.0</text><text x="34" y="100" text-anchor="end">1.0</text><text x="34" y="184" text-anchor="end">0</text>
+            <text x="40" y="198" text-anchor="middle">−4°</text><text x="195" y="198" text-anchor="middle">9°</text><text x="346" y="198" text-anchor="end">22°</text>
+          </g>
+          <polyline id="clClean" fill="none" stroke="#d8b358" stroke-width="2" opacity=".45" points=""/>
+          <polyline id="clFlap" fill="none" stroke="#6fb3e0" stroke-width="2" opacity=".45" stroke-dasharray="4 3" points=""/>
+          <circle id="clDot" r="6" fill="#fff" stroke="#0b0b0c" stroke-width="2"/>
+          <text id="clLbl" x="60" y="30" font-family="JetBrains Mono,monospace" font-size="11" fill="#6fb3e0">dashed = flaps down</text>
+        </svg>
       </div>
-      <div class="controls one">
-        <div class="ctl">
-          <label>Angle of attack <small>chord vs relative wind</small></label>
-          <input type="range" id="aoa" min="-4" max="25" value="4" step="0.5" aria-label="Angle of attack">
-          <div class="ends"><span>−4°</span><span>critical ≈ 16°</span><span>25°</span></div>
-        </div>
-      </div>
-      <div class="row">
-        <button id="aoaReset">Back to 4°</button>
-        <button id="aoaSweep">Auto sweep</button>
-        <span class="kbd"><kbd>←</kbd><kbd>→</kbd> nudge 0.5°</span>
-      </div>
-    </div>
-    <div class="panel">
-      <div class="eyebrow">C<sub>L</sub> vs angle of attack</div>
-      <svg viewBox="0 0 360 260" id="clChart" aria-label="Lift coefficient versus angle of attack">
-        <g font-family="JetBrains Mono,monospace" font-size="11" fill="#a9a9ad">
-          <line x1="46" y1="16" x2="46" y2="214" stroke="#2b2b2f"/>
-          <line x1="46" y1="214" x2="344" y2="214" stroke="#2b2b2f"/>
-          <text x="40" y="20" text-anchor="end">1.6</text><text x="40" y="118" text-anchor="end">0.8</text><text x="40" y="218" text-anchor="end">0</text>
-          <text x="46" y="232" text-anchor="middle">−4°</text><text x="155" y="232" text-anchor="middle">8°</text><text x="256" y="232" text-anchor="middle">16°</text><text x="344" y="232" text-anchor="middle">25°</text>
-          <text x="195" y="252" text-anchor="middle" fill="#d8b358">angle of attack</text>
-          <line id="critLine" x1="256" y1="16" x2="256" y2="214" stroke="#e07a6f" stroke-dasharray="4 4" opacity=".7"/>
-        </g>
-        <polyline id="clCurve" fill="none" stroke="#d8b358" stroke-width="2.5" points=""/>
-        <polyline id="clTrail" fill="none" stroke="#fff" stroke-width="2.5" points=""/>
-        <circle id="clDot" r="6" fill="#fff" stroke="#0b0b0c" stroke-width="2"/>
-      </svg>
-      <div class="axisCard" id="explain2">
-        <div class="axis">
-          <h3 id="exTitle">Attached flow</h3>
-          <span class="k">Lift</span><span class="v" id="exLift">Air bends smoothly over the top. More AOA = more turning = more lift.</span>
-          <span class="k">CP</span><span class="v" id="exCp">Centre of pressure creeps <b>forward</b> as AOA rises.</span>
-          <span class="k">Pilot</span><span class="v" id="exPilot">Normal. The wing is doing its job.</span>
-        </div>
-      </div>
-      <div class="reveal" id="reveal2" hidden>
-        <div class="eyebrow">Your predictions</div>
-        <p id="revA2"></p><p id="revB2"></p>
+      <div class="chart">
+        <div class="eyebrow">Drag vs airspeed · level flight at this weight &amp; altitude</div>
+        <svg viewBox="0 0 360 220" id="dChart">
+          <g font-family="JetBrains Mono,monospace" font-size="11" fill="#a9a9ad">
+            <line x1="40" y1="12" x2="40" y2="180" stroke="#2b2b2f"/><line x1="40" y1="180" x2="350" y2="180" stroke="#2b2b2f"/>
+            <text x="34" y="184" text-anchor="end">0</text><text x="46" y="22" id="dMax">3 kN</text>
+            <text x="40" y="198" text-anchor="middle">40 kt</text><text x="195" y="198" text-anchor="middle">100</text><text x="346" y="198" text-anchor="end">160 kt</text>
+          </g>
+          <polyline id="dPar" fill="none" stroke="#e07a6f" stroke-width="1.5" opacity=".7" points=""/>
+          <polyline id="dInd" fill="none" stroke="#6fb3e0" stroke-width="1.5" opacity=".7" points=""/>
+          <polyline id="dTot" fill="none" stroke="#d8b358" stroke-width="2.5" points=""/>
+          <line id="dMin" x1="0" y1="12" x2="0" y2="180" stroke="#8ad78a" stroke-dasharray="4 4" opacity=".8"/>
+          <circle id="dDot" r="6" fill="#fff" stroke="#0b0b0c" stroke-width="2"/>
+          <g font-family="JetBrains Mono,monospace" font-size="11"><text x="250" y="30" fill="#e07a6f">parasite</text><text x="250" y="44" fill="#6fb3e0">induced</text><text x="250" y="58" fill="#d8b358">total</text></g>
+        </svg>
       </div>
     </div>
   </div>
-  <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="2" placeholder="One sentence you both agree on: what actually causes the stall, and what the pilot has to change to recover."></textarea></div>
-</section>
 
-<!-- ───────── STATION 3 (CG · CP) ───────── -->
-<section class="station" id="s4">
-  <div class="stHead"><span class="num">3</span><div><h2>CG, CP and the pitching moment</h2><p>Lift acts through the centre of pressure. Weight acts through the centre of gravity. They are almost never in the same place — and the gap between them is a lever. Move the AOA, move the CG, watch the lever.</p></div></div>
+  <div class="right">
+    <div class="panel inst">
+      <div class="eyebrow">Instruments</div>
+      <div class="gauges">
+        <div class="g"><span class="k">Lift</span><b id="gL">— N</b><div class="bar"><div id="bL"></div></div></div>
+        <div class="g"><span class="k">Weight</span><b id="gW">— N</b><div class="bar"><div id="bW"></div></div></div>
+        <div class="g"><span class="k">Lift ÷ weight</span><b id="gLW">1.00</b><span class="mult" id="gLWt">level</span></div>
+        <div class="g"><span class="k">Density</span><b id="gRho">1.14 kg/m³</b><span class="mult" id="gRhoP">93%</span></div>
+        <div class="g"><span class="k">Parasite drag</span><b id="gDp">— N</b><span class="mult">∝ V²</span></div>
+        <div class="g"><span class="k">Induced drag</span><b id="gDi">— N</b><span class="mult">∝ 1/V²</span></div>
+        <div class="g"><span class="k">Total drag</span><b id="gD">— N</b><span class="mult" id="gLD">L/D —</span></div>
+        <div class="g"><span class="k">CP − CG arm</span><b id="gArm">—</b><span class="mult" id="gMom">—</span></div>
+        <div class="g"><span class="k">Tail force</span><b id="gTail">—</b><span class="mult" id="gTailT">—</span></div>
+      </div>
+    </div>
 
-  <div class="predict" id="pred4">
-    <div class="pcard" id="pA4">
-      <div class="who">Partner A predicts</div>
-      <label>As angle of attack increases (below the stall), the centre of pressure moves…</label>
-      <div class="opts" data-q="cpMove"><button data-v="fwd">forward</button><button data-v="aft">aft</button><button data-v="stay">it does not move</button><button data-v="cg">to the CG</button></div>
+    <div class="axisCard" id="explain" style="--c:var(--yaw)">
+      <div class="axis">
+        <h3 id="exTitle">Attached flow</h3>
+        <span class="k">Wing</span><span class="v" id="exW">Air bends smoothly over the top. More AOA = more turning = more lift.</span>
+        <span class="k">Balance</span><span class="v" id="exB">Lift pulls up behind the CG; the tail pushes down to hold the nose. Normal.</span>
+        <span class="k">Pilot</span><span class="v" id="exP">Normal. The wing is doing its job.</span>
+      </div>
     </div>
-    <div class="pcard" id="pB4">
-      <div class="who">Partner B predicts</div>
-      <label>CG sits ahead of the CP (normal loading). On its own, the wing's lift tries to pitch the nose…</label>
-      <div class="opts" data-q="noseDir"><button data-v="up">up</button><button data-v="down">down</button><button data-v="none">neither — forces are balanced</button><button data-v="left">left, because of the prop</button></div>
+
+    <div class="panel missions">
+      <div class="eyebrow">Missions — the sim checks each one</div>
+      <ul class="tasks" id="missions"></ul>
     </div>
-    <div class="lockRow"><button class="primary" id="lock4" disabled>Lock both predictions</button><span class="hint">Both must pick before the aircraft unlocks.</span></div>
+
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="1" placeholder="Together, one sentence per idea: what the stall actually is · why the tail pushes down · where minimum drag sits and why · what altitude and weight do to the AOA you need."></textarea></div>
   </div>
-
-  <div class="grid" id="cgcp" hidden>
-    <div>
-      <div class="view">
-        <canvas id="ac" width="760" height="400"></canvas>
-        <div class="hud">
-          <span>AOA <b id="h4Aoa">4°</b></span>
-          <span>CP <b id="h4Cp">34%</b></span>
-          <span>CG <b id="h4Cg">25%</b></span>
-          <span>ARM <b id="h4Arm">9% aft</b></span>
-          <span>NOSE <b id="h4Mom">down</b></span>
-        </div>
-      </div>
-      <div class="controls">
-        <div class="ctl" id="c4Aoa">
-          <label>Angle of attack <small>wing chord vs relative wind</small></label>
-          <input type="range" id="aoa4" min="-2" max="18" value="4" step="0.5" aria-label="Angle of attack">
-          <div class="ends"><span>−2°</span><span>18°</span></div>
-        </div>
-        <div class="ctl" id="c4Cg" style="--c:var(--bad)">
-          <label>Centre of gravity <small>% of wing chord, from the leading edge</small></label>
-          <input type="range" id="cg4" min="10" max="45" value="25" step="1" aria-label="Centre of gravity">
-          <div class="ends"><span>Forward 10%</span><span>Aft 45%</span></div>
-        </div>
-        <div class="ctl" id="c4Pitch" style="--c:var(--yaw)">
-          <label>Hands off <small>nudge the nose up 3° and let go</small></label>
-          <div class="row" style="margin-top:2px"><button class="primary" id="nudge4">Nudge &amp; release</button><button id="hold4">Hold level</button></div>
-          <div class="ends"><span id="pitchState">holding trim</span></div>
-        </div>
-      </div>
-      <div class="row"><label class="toggle"><input type="checkbox" id="showTail" checked> Show tail force</label><label class="toggle"><input type="checkbox" id="showDrag" checked> Show thrust &amp; drag</label><span class="kbd">Vectors are not to scale — direction and position are what matter.</span></div>
-    </div>
-    <div class="panel">
-      <div class="axisCard" id="explain4" style="--c:var(--yaw)">
-        <div class="axis">
-          <h3 id="ex4Title">CP behind the CG — nose-down lever</h3>
-          <span class="k">Lever</span><span class="v" id="ex4L">Lift pulls up behind the CG. That rotates the nose <b>down</b> about the CG.</span>
-          <span class="k">Tail</span><span class="v" id="ex4T">The horizontal stabilizer makes a <b>downward</b> force to hold the nose up. This is the normal, stable layout.</span>
-          <span class="k">AOA ↑</span><span class="v" id="ex4A">CP creeps forward toward the CG → smaller lever → less tail download needed.</span>
-        </div>
-      </div>
-      <table style="margin-top:12px">
-        <tr><th>Moves?</th><th>With AOA</th><th>With loading</th></tr>
-        <tr><td><b>CP</b></td><td>Yes — forward as AOA rises, then aft after the stall</td><td>No</td></tr>
-        <tr><td><b>CG</b></td><td>No</td><td>Yes — fuel, passengers, baggage</td></tr>
-        <tr><td><b>AC</b></td><td>No (≈ ¼ chord)</td><td>No</td></tr>
-      </table>
-      <div class="reveal" id="reveal4" hidden>
-        <div class="eyebrow">Your predictions</div>
-        <p id="revA4"></p><p id="revB4"></p>
-      </div>
-      <div class="challenge" id="chal4">
-        <div class="eyebrow">Do these, in order</div>
-        <ul class="tasks">
-          <li id="t4a"><input type="checkbox" disabled><div><b>Sweep AOA 0° → 15°</b><span>Watch the CP slide forward and the arm shrink.</span></div></li>
-          <li id="t4b"><input type="checkbox" disabled><div><b>Drag the CG aft, past the CP</b><span>The lever flips. Which way does the tail force point now?</span></div></li>
-          <li id="t4c"><input type="checkbox" disabled><div><b>Nudge &amp; release with CG forward, then with CG aft</b><span>One comes back on its own. One does not.</span></div></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="4" placeholder="One sentence you both agree on: why a conventional tail pushes down, and what changes when the CG goes aft."></textarea></div>
-</section>
-
-<!-- ───────── STATION 4 ───────── -->
-<section class="station" id="s3">
-  <div class="stHead"><span class="num">4</span><div><h2>Lift equation what-ifs</h2><p>L = ½ · ρ · V² · A · C<sub>L</sub>. Start from the baseline. For each what-if, A and B each pick a multiplier, then reveal.</p></div></div>
-  <div class="grid">
-    <div class="panel">
-      <div class="eyebrow">Baseline</div>
-      <div class="base">
-        <span><i>ρ</i> 1.225 kg/m³ <small>sea-level standard day</small></span>
-        <span><i>V</i> 50 m/s <small>≈ 97 kt</small></span>
-        <span><i>A</i> 16 m² <small>wing area</small></span>
-        <span><i>C<sub>L</sub></i> 0.48 <small>at about 3° AOA</small></span>
-        <span class="big">L = <b id="baseL">12 250 N</b> <small>≈ 1 200 kg of lift</small></span>
-      </div>
-      <div class="whatifs" id="whatifs"></div>
-    </div>
-    <div class="panel">
-      <div class="eyebrow">Free play — move anything</div>
-      <div class="ctl"><label>Airspeed V <small><span id="vV">50</span> m/s</small></label><input type="range" id="fV" min="20" max="100" value="50"><div class="ends"><span>20</span><span>100</span></div></div>
-      <div class="ctl"><label>Wing area A <small><span id="vA">16</span> m²</small></label><input type="range" id="fA" min="8" max="32" value="16"><div class="ends"><span>8</span><span>32</span></div></div>
-      <div class="ctl"><label>Air density ρ <small><span id="vR">1.225</span> kg/m³</small></label><input type="range" id="fR" min="0.6" max="1.3" step="0.005" value="1.225"><div class="ends"><span>0.6 (≈ 20 000 ft)</span><span>1.3 (cold day)</span></div></div>
-      <div class="ctl"><label>Angle of attack <small><span id="vAoa">3</span>° → C<sub>L</sub> <span id="vCl">0.50</span></small></label><input type="range" id="fAoa" min="-4" max="25" value="3" step="0.5"><div class="ends"><span>−4°</span><span>25°</span></div></div>
-      <div class="liftOut"><span class="k">Lift</span><b id="freeL">12 250 N</b><span class="mult" id="freeMult">× 1.00 of baseline</span></div>
-      <div class="bar"><div id="liftBar"></div></div>
-      <p class="hint">Which slider changes lift the most for the same nudge? That is the one with the square on it.</p>
-    </div>
-  </div>
-  <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="3" placeholder="One sentence you both agree on: why a hot, high-altitude runway needs more takeoff distance."></textarea></div>
-</section>
+</div>
 
 <div class="panel done" id="doneBox" hidden>
-  <div class="eyebrow">All four stations done</div>
-  <p>Read your four sentences out loud to another pair. If they disagree with one, settle it with the slider, not an argument.</p>
+  <div class="eyebrow">All six missions done</div>
+  <p>Swap seats one more time. The new pilot gets 60 seconds to break the aircraft; the recorder has to explain, out loud, why it broke.</p>
 </div>
 
-<footer>Simplified model for teaching. The C<sub>L</sub> curve, stall angle (≈ 16°) and centre-of-pressure travel are <b>typical values for a cambered training-aircraft airfoil</b>, not numbers for a specific aircraft — confirm real figures against the aircraft manual. Sources: FAA <i>Pilot's Handbook of Aeronautical Knowledge</i> (FAA-H-8083-25C), ch. 4–5; NASA Glenn Research Center, "Incorrect Lift Theory" (why air over the top is faster is <i>not</i> because it has farther to go); SAIT ASYS 245 Module 2 Lift &amp; Drag; <i>From the Ground Up</i>, Theory of Flight.</footer>
+<footer>Simplified model for teaching. The C<sub>L</sub> curve, stall angle (≈ 16°, ≈ 14° with flaps), centre-of-pressure travel, drag coefficients (C<sub>D0</sub> 0.03, AR 7.5, e 0.8) and the pitch response are <b>typical values for a light training aircraft</b>, not numbers for a specific type — confirm real figures against the aircraft manual. Atmosphere is ISA. Sources: FAA <i>Pilot's Handbook of Aeronautical Knowledge</i> (FAA-H-8083-25C), ch. 4–5; NASA Glenn Research Center, "Incorrect Lift Theory"; Transport Canada <i>Flight Training Manual</i> (TP 1102), Exercises 3 and 12; SAIT ASYS 245 Module 2 Lift &amp; Drag; <i>From the Ground Up</i>, Theory of Flight.</footer>
 </div>
 
 <script>
 document.getElementById('logo').src='data:image/png;base64,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';
 (function(){
 'use strict';
-var KEY='asys245-m2-lab';
+var KEY='asys245-m2-sim';
 var $=function(s,r){return (r||document).querySelector(s)};
 var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
-var state={};
-try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){state={}}
+var state={};try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){state={}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
-function fmt(n){return Math.round(n).toLocaleString('en-CA').replace(/,/g,' ')}
+function fmt(n,d){return (+n).toLocaleString('en-CA',{minimumFractionDigits:d||0,maximumFractionDigits:d||0}).replace(/,/g,' ')}
+function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v))}
 
-/* ---------- airfoil geometry (NACA 2412-style, chord = 1) ---------- */
+/* ---------- model ---------- */
 function naca(x){ /* returns [yUpper, yLower, yCamber] at x in 0..1 */
   var m=0.02,p=0.4,t=0.12;
   var yt=5*t*(0.2969*Math.sqrt(x)-0.1260*x-0.3516*x*x+0.2843*x*x*x-0.1036*x*x*x*x);
   var yc=x<p? m/(p*p)*(2*p*x-x*x) : m/((1-p)*(1-p))*((1-2*p)+2*p*x-x*x);
   return [yc+yt,yc-yt,yc];
 }
-function foilPath(c,sx){ /* svg path string, chord px c, y scale flip; sx x offset */
-  var up=[],lo=[],cam=[];
-  for(var i=0;i<=60;i++){var x=i/60;var r=naca(x);up.push([(sx||0)+x*c,-r[0]*c]);lo.push([(sx||0)+x*c,-r[1]*c]);cam.push([(sx||0)+x*c,-r[2]*c]);}
-  var d='M'+up.map(function(p){return p[0].toFixed(1)+' '+p[1].toFixed(1)}).join('L');
-  d+='L'+lo.reverse().map(function(p){return p[0].toFixed(1)+' '+p[1].toFixed(1)}).join('L')+'Z';
-  var dc='M'+cam.map(function(p){return p[0].toFixed(1)+' '+p[1].toFixed(1)}).join('L');
-  return {foil:d,camber:dc};
-}
-(function(){ /* Station 1 figure, built from geometry so leaders land on the right thing. Thickness and camber exaggerated for clarity. */
-  var C=400,A=14,r=-A*Math.PI/180,cs=Math.cos(r),sn=Math.sin(r),LE=[210,215];
-  function W(x,y){return [LE[0]+x*cs-y*sn,LE[1]+x*sn+y*cs]} /* local (x right, y down) to world */
-  function prof(x){var m=0.06,p=0.4,t=0.18;var yt=5*t*(0.2969*Math.sqrt(x)-0.1260*x-0.3516*x*x+0.2843*x*x*x-0.1036*x*x*x*x);var yc=x<p?m/(p*p)*(2*p*x-x*x):m/((1-p)*(1-p))*((1-2*p)+2*p*x-x*x);return [yc+yt,yc-yt,yc]}
-  var up=[],lo=[],cam=[];for(var i=0;i<=60;i++){var x=i/60,q=prof(x);up.push(W(x*C,-q[0]*C));lo.push(W(x*C,-q[1]*C));cam.push(W(x*C,-q[2]*C));}
-  function P(a){return a.map(function(p){return p[0].toFixed(1)+' '+p[1].toFixed(1)}).join('L')}
-  var TE=W(C,0),ac=W(0.25*C,0),cp=W(0.36*C,0),cm=cam[33],ch=W(0.82*C,0);
-  var arcR=120,arcEnd=W(arcR,0),arcMid=W(arcR*Math.cos(r/2)*1.0,0);arcMid=[LE[0]+arcR*Math.cos(r/2),LE[1]+arcR*Math.sin(r/2)];
-  var co=[ /* n, target point, callout centre */
-    [1,LE,[120,120]],[2,TE,[690,110]],[3,cm,[430,52]],[4,ch,[600,300]],
-    [5,[95,215],[60,310]],[6,arcMid,[190,310]],[7,cp,[470,310]],[8,ac,[330,310]]];
-  var h='<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round"/></marker></defs>';
-  h+='<g stroke="#6fb3e0" stroke-width="2" marker-end="url(#ah)"><line x1="30" y1="170" x2="120" y2="170"/><line x1="30" y1="215" x2="120" y2="215"/><line x1="30" y1="260" x2="120" y2="260"/></g>';
-  h+='<line x1="'+LE[0]+'" y1="'+LE[1]+'" x2="640" y2="'+LE[1]+'" stroke="#6fb3e0" stroke-width="1.5" stroke-dasharray="6 5" opacity=".8"/>';
-  h+='<path d="M'+P(up)+'L'+P(lo.slice().reverse())+'Z" fill="#1c1c1f" stroke="#d8b358" stroke-width="2"/>';
-  h+='<line x1="'+LE[0]+'" y1="'+LE[1]+'" x2="'+TE[0].toFixed(1)+'" y2="'+TE[1].toFixed(1)+'" stroke="#fff" stroke-width="1.5" stroke-dasharray="6 5"/>';
-  h+='<path d="M'+P(cam)+'" fill="none" stroke="#8ad78a" stroke-width="1.5" stroke-dasharray="3 4"/>';
-  h+='<path d="M'+(LE[0]+arcR)+' '+LE[1]+' A'+arcR+' '+arcR+' 0 0 0 '+arcEnd[0].toFixed(1)+' '+arcEnd[1].toFixed(1)+'" fill="none" stroke="#e07a6f" stroke-width="2"/>';
-  h+='<circle cx="'+cp[0]+'" cy="'+cp[1]+'" r="6" fill="#e07a6f"/><circle cx="'+ac[0]+'" cy="'+ac[1]+'" r="5" fill="#d8b358" stroke="#0b0b0c" stroke-width="1.5"/>';
-  h+='<g font-family="JetBrains Mono,monospace" font-size="15" font-weight="600">';
-  co.forEach(function(c){var t=c[1],k=c[2];var dx=t[0]-k[0],dy=t[1]-k[1],L=Math.hypot(dx,dy),sx=k[0]+dx/L*15,sy=k[1]+dy/L*15;
-    h+='<line x1="'+sx.toFixed(1)+'" y1="'+sy.toFixed(1)+'" x2="'+t[0].toFixed(1)+'" y2="'+t[1].toFixed(1)+'" stroke="#a9a9ad" stroke-dasharray="3 3"/><circle cx="'+k[0]+'" cy="'+k[1]+'" r="14" fill="#d8b358"/><text x="'+k[0]+'" y="'+(k[1]+5)+'" text-anchor="middle" fill="#0b0b0c">'+c[0]+'</text>';});
-  h+='</g><text x="750" y="350" text-anchor="end" font-family="Barlow,sans-serif" font-size="11" fill="#a9a9ad">thickness and camber exaggerated</text>';
-  $('#labelFig').innerHTML=h;
-})();
 
-/* ---------- names + progress ---------- */
-['nameA','nameB'].forEach(function(id){var el=$('#'+id);el.value=state[id]||'';el.addEventListener('input',function(){state[id]=el.value;save();refreshNames()})});
-function nm(k,fb){return (state[k]||'').trim()||fb}
-function refreshNames(){
-  $$('[id^=pA] .who').forEach(function(w){w.textContent=nm('nameA','Partner A')+' predicts'});$$('[id^=pB] .who').forEach(function(w){w.textContent=nm('nameB','Partner B')+' predicts'});
-  $$('.wi .who').forEach(function(w){w.textContent=(w.dataset.p==='A'?nm('nameA','Partner A'):nm('nameB','Partner B'))});
-}
-function progress(){
-  var n=0;['s1','s2','s4','s3'].forEach(function(s){if(state['done_'+s])n++;});
-  $('#prog').textContent=n+' / 4 stations done';
-  $('#doneBox').hidden=n<4;
-  ['s1','s2','s4','s3'].forEach(function(s){$('#'+s).classList.toggle('complete',!!state['done_'+s])});
-}
-function markDone(s){state['done_'+s]=true;save();progress()}
+var A=16,AR=7.5,E=0.8,CD0=0.03,G=9.81,KT=0.5144;
+function CRIT(f){return f?14:16}
+function CL(a,f){var c=CRIT(f),off=f?0.5:0;
+  if(a<=c){var cl=0.08*(a+3)+off;var near=Math.max(0,a-(c-3))/3;return cl-0.08*near*near;}
+  var peak=0.08*(c+3)+off-0.08,d=a-c;return Math.max(0.45+off*0.6,peak-0.1*d-0.002*d*d);}
+function CP(a,f){var c=CRIT(f);if(a<=c)return 40-15*Math.max(0,a+4)/(c+4);return 25+2.5*(a-c);}
+function isaP(ft){return 1013.25*Math.pow(1-6.8756e-6*ft,5.2559)}function isaT(ft){return 15-0.0019812*ft}
+function rho(ft){return isaP(ft)*100/(287.05*(isaT(ft)+273.15))}
+function q(V,ft){return 0.5*rho(ft)*V*V} /* V m/s */
+function forces(a,Vkt,ft,f,mass){var V=Vkt*KT,qq=q(V,ft),cl=CL(a,f),L=qq*A*cl,cd0=CD0+(f?0.035:0),Dp=qq*A*cd0,Di=qq*A*cl*cl/(Math.PI*E*AR);return {cl:cl,L:L,W:mass*G,Dp:Dp,Di:Di,D:Dp+Di,q:qq,V:V}}
+function trimAoa(Vkt,ft,f,mass,fine){ /* AOA for L=W, or null if impossible below stall */
+  var need=mass*G/(q(Vkt*KT,ft)*A);var c=CRIT(f);if(need>CL(c-0.5,f))return null;var lo=-4,hi=c-0.5;for(var i=0;i<30;i++){var m=(lo+hi)/2;if(CL(m,f)<need)lo=m;else hi=m;}return fine?(lo+hi)/2:Math.round((lo+hi))/2;}
 
-/* ---------- notes ---------- */
-$$('textarea[data-note]').forEach(function(t){
-  var k='note'+t.dataset.note; t.value=state[k]||'';
-  t.addEventListener('input',function(){state[k]=t.value;save()});
-});
+/* ---------- names / notes / missions ---------- */
+['nameA','nameB'].forEach(function(id){var el=$('#'+id);el.value=state[id]||'';el.addEventListener('input',function(){state[id]=el.value;save()})});
+$$('textarea[data-note]').forEach(function(t){var k='note'+t.dataset.note;t.value=state[k]||'';t.addEventListener('input',function(){state[k]=t.value;save()})});
+var M=[
+ {id:'m1',t:'Fly level at 100 kt',s:'Auto-trim OFF. At 1 100 kg and 2 350 ft, find the AOA that makes lift = weight (within 3%) at 100 kt.',chk:function(S){return !S.trim&&Math.abs(S.Vkt-100)<=2&&S.ok}},
+ {id:'m2',t:'Stall it, then recover',s:'Raise AOA past the critical angle, watch Cₗ fall and the CP jump aft. Then bring it back below 12°.',chk:function(S,m){if(S.stalled)m.seen=true;return m.seen&&!S.stalled&&S.a<12}},
+ {id:'m3',t:'Slow flight, clean and with flaps',s:'At 60 kt find level flight clean. Then flaps down and find it again. Which needs less AOA?',chk:function(S,m){if(Math.abs(S.Vkt-60)<=2&&S.ok&&!S.f)m.clean=true;if(Math.abs(S.Vkt-60)<=2&&S.ok&&S.f)m.flap=true;return m.clean&&m.flap}},
+ {id:'m4',t:'Find minimum drag (swap seats first)',s:'Auto-trim ON. Sweep the speed and park on the lowest total drag (within 4 kt). Read the parasite and induced numbers there.',chk:function(S){return S.trim&&S.ok&&Math.abs(S.Vkt-S.vMin)<=4}},
+ {id:'m5',t:'Move the CG aft until the tail flips',s:'Drag the CG aft past the CP. Watch the tail force change direction. Then Nudge &amp; release with CG forward and again with CG aft.',chk:function(S,m){if(S.arm<-0.5)m.flip=true;if(S.relFwd)m.rf=true;if(S.relAft)m.ra=true;return m.flip&&m.rf&&m.ra}},
+ {id:'m6',t:'Hot, high and heavy',s:'Auto-trim ON, 100 kt. Take it to 15 000 ft at 1 400 kg. Compare the AOA with mission 1. Then find the altitude where 100 kt can no longer hold the weight.',chk:function(S,m){if(S.trim&&Math.abs(S.Vkt-100)<=2&&S.alt>=15000&&S.mass>=1400)m.hi=true;return !!m.hi}}
+];
+state.m=state.m||{};
+var ul=$('#missions');M.forEach(function(m,i){state.m[m.id]=state.m[m.id]||{};var li=document.createElement('li');li.id=m.id;li.innerHTML='<input type="checkbox" disabled><div><b>'+(i+1)+'. '+m.t+'</b><span>'+m.s+'</span></div>';ul.appendChild(li)});
+function missions(S){var n=0;M.forEach(function(m){var st=state.m[m.id];if(!st.done&&m.chk(S,st)){st.done=true;save()}var li=$('#'+m.id);li.classList.toggle('done',!!st.done);$('input',li).checked=!!st.done;if(st.done)n++});$('#prog').textContent=n+' / 6 missions';$('#doneBox').hidden=n<6}
 
-/* ---------- STATION 1: labels ---------- */
-var TERMS=['Leading edge','Trailing edge','Chord line','Mean camber line','Relative wind','Angle of attack','Centre of pressure','Aerodynamic centre'];
-var ANSWER={1:'Leading edge',2:'Trailing edge',3:'Mean camber line',4:'Chord line',5:'Relative wind',6:'Angle of attack',7:'Centre of pressure',8:'Aerodynamic centre'};
-var WHY={1:'Front of the airfoil, meets the air first.',2:'Back edge where the top and bottom flows rejoin.',3:'Halfway between the top and bottom surfaces — the airfoil’s curve.',4:'Straight line, leading edge to trailing edge.',5:'Airflow coming at the wing, opposite to the flight path.',6:'Angle between the chord line and the relative wind — not the horizon.',7:'The one point lift acts through. It moves as AOA changes.',8:'About ¼ chord back. The pitching moment stays the same here.'};
-(function(){
-  var box=$('#labels');state.labels=state.labels||{};
-  for(var n=1;n<=8;n++){
-    var row=document.createElement('div');row.className='lrow';
-    var who=n<=4?'A':'B';
-    row.innerHTML='<span class="n">'+n+'</span><select data-n="'+n+'" aria-label="Term for callout '+n+'"><option value="">— pick —</option>'+TERMS.map(function(t){return '<option>'+t+'</option>'}).join('')+'</select><span class="who">'+who+'</span><span class="why"></span>';
-    box.appendChild(row);
-    var sel=$('select',row); if(state.labels[n])sel.value=state.labels[n];
-    sel.addEventListener('change',function(){state.labels[this.dataset.n]=this.value;save();this.parentNode.classList.remove('ok','no');$('.why',this.parentNode).textContent=''});
-  }
-  $('#checkLabels').addEventListener('click',function(){
-    var score=0,blank=0;
-    $$('.lrow').forEach(function(r){
-      var sel=$('select',r),n=sel.dataset.n;
-      if(!sel.value){blank++;r.classList.remove('ok','no');return}
-      var ok=sel.value===ANSWER[n];r.classList.toggle('ok',ok);r.classList.toggle('no',!ok);if(ok)score++;
-      $('.why',r).textContent=ok?WHY[n]:'Not that one — look again at where the line points.';
-    });
-    $('#labelScore').textContent=score+' / 8';
-    if(blank){$('#labelFb').textContent='Fill in every number first ('+blank+' blank).';return}
-    $('#labelFb').textContent=score===8?'All eight. Move to Station 2.':'Fix the red ones and check again. Hint: numbers 3 and 4 are both lines, but only one of them is straight.';
-    if(score===8)markDone('s1');
-  });
-})();
+/* ---------- controls ---------- */
+var C={aoa:$('#aoa'),vel:$('#vel'),cg:$('#cg'),wt:$('#wt'),alt:$('#alt'),flaps:$('#flaps'),trim:$('#trim'),showVec:$('#showVec')};
+var defaults={aoa:4,vel:100,cg:25,wt:1100,alt:2350};
+Object.keys(defaults).forEach(function(k){C[k].value=state[k]!=null?state[k]:defaults[k];C[k].addEventListener('input',function(){state[k]=+C[k].value;save();stopRelease()})});
+['flaps','trim','showVec'].forEach(function(k){C[k].checked=state[k]!=null?!!state[k]:(k==='showVec');C[k].addEventListener('change',function(){state[k]=C[k].checked;save();stopRelease()})});
+$('#level').addEventListener('click',function(){Object.keys(defaults).forEach(function(k){C[k].value=defaults[k];state[k]=defaults[k]});C.flaps.checked=false;C.trim.checked=false;state.flaps=false;state.trim=false;save();stopRelease()});
+document.addEventListener('keydown',function(e){if(/input|textarea|select/i.test(document.activeElement.tagName))return;var h=true;
+  if(e.key==='ArrowRight')C.aoa.value=clamp(+C.aoa.value+0.5,-4,22);else if(e.key==='ArrowLeft')C.aoa.value=clamp(+C.aoa.value-0.5,-4,22);
+  else if(e.key==='ArrowUp')C.vel.value=clamp(+C.vel.value+2,40,160);else if(e.key==='ArrowDown')C.vel.value=clamp(+C.vel.value-2,40,160);
+  else if(e.key==='f'||e.key==='F'){C.flaps.checked=!C.flaps.checked;state.flaps=C.flaps.checked}else h=false;
+  if(h){e.preventDefault();state.aoa=+C.aoa.value;state.vel=+C.vel.value;save();stopRelease()}});
 
-/* ---------- aero model (typical cambered airfoil) ---------- */
-var CRIT=16;
-function CL(a){ /* a in degrees */
-  if(a<=CRIT){var cl=0.08*(a+3);var near=Math.max(0,a-(CRIT-3))/3;return cl-0.08*near*near;}  /* rounds the peak */
-  var peak=0.08*(CRIT+3)-0.08; var d=a-CRIT; return Math.max(0.5,peak-0.1*d-0.002*d*d);
-}
-function CP(a){ if(a<=CRIT)return 40-15*Math.max(0,a+4)/(CRIT+4); return 25+2.5*(a-CRIT); }
-function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v))}
+/* ---------- release dynamics ---------- */
+var pitch=0,pitchRate=0,released=false,relT=0,trimA=0,relCg=0;
+function stopRelease(){if(released){released=false;C.aoa.value=trimA;state.aoa=trimA;save()}pitch=0;pitchRate=0;$('#pitchState').textContent='holding trim'}
+$('#nudge').addEventListener('click',function(){released=true;trimA=+C.aoa.value;relCg=+C.cg.value;pitch=3;pitchRate=0;relT=0;$('#pitchState').textContent='released…'});
+function stepRelease(f){relT+=1/60;var a=trimA+pitch,cgp=relCg;var arm=CP(Math.min(a,CRIT(f)+2),f)-cgp,trimArm=CP(trimA,f)-cgp;
+  var Mo=-(arm*Math.max(0.05,CL(Math.min(a,24),f))-trimArm*Math.max(0.05,CL(trimA,f)));var tailRestore=-pitch*0.6;
+  pitchRate+=(Mo*0.9+tailRestore)*0.06-pitchRate*0.04;pitch+=pitchRate*0.5;pitch=clamp(pitch,-12,16);C.aoa.value=clamp(trimA+pitch,-4,22);
+  var set=Math.abs(pitch)<0.3&&Math.abs(pitchRate)<0.05;
+  if(relT>6||set||Math.abs(pitch)>=12){released=false;var ok=Math.abs(pitch)<1.5;$('#pitchState').textContent=ok?'settled back on its own ✓':'diverged — did not come back';
+    if(relCg<=30&&ok)state.relFwd=true;if(relCg>30&&!ok)state.relAft=true;save();C.aoa.value=trimA;state.aoa=trimA;}}
 
-/* ---------- STATION 2: predictions ---------- */
-state.pred2=state.pred2||{};
-$$('#pred2 .opts').forEach(function(g){
-  var q=g.dataset.q;
-  $$('button',g).forEach(function(b){
-    if(state.pred2[q]===b.dataset.v)b.classList.add('sel');
-    b.addEventListener('click',function(){
-      if(state.pred2.locked)return;
-      $$('button',g).forEach(function(x){x.classList.remove('sel')});b.classList.add('sel');
-      state.pred2[q]=b.dataset.v;save();gate2();
-    });
-  });
-});
-function gate2(){
-  var both=state.pred2.stallAngle&&state.pred2.afterStall;
-  $('#lock2').disabled=!both||!!state.pred2.locked;
-  if(state.pred2.locked){$('#sweep').hidden=false;$('#pred2').classList.add('locked');$('#lock2').textContent='Predictions locked';reveal2();}
-}
-$('#lock2').addEventListener('click',function(){state.pred2.locked=true;save();gate2();draw(true)});
-function reveal2(){
-  var a=state.pred2.stallAngle,b=state.pred2.afterStall;
-  var ta={5:'about 5°',10:'about 10°',16:'about 15–18°',30:'about 30°'}[a];
-  var tb={rise:'keeps rising',flat:'levels off',drop:'drops suddenly',zero:'goes to zero'}[b];
-  $('#revA2').innerHTML='<b>'+nm('nameA','A')+'</b> said the stall is at '+ta+'. '+(a==='16'?'<span class="good">Right.</span> This wing lets go at about 16°.':'<span class="bad">Not quite.</span> This wing lets go at about 16° — most training wings stall somewhere around 15–18° of AOA, at any airspeed.');
-  $('#revB2').innerHTML='<b>'+nm('nameB','B')+'</b> said lift '+tb+'. '+(b==='drop'?'<span class="good">Right.</span> The flow separates and C<sub>L</sub> falls fast. It does not go to zero — a stalled wing still makes some lift, just not enough.':'<span class="bad">Not quite.</span> C<sub>L</sub> <b>drops suddenly</b>. It does not go to zero — a stalled wing still makes some lift, just not enough.');
-  $('#reveal2').hidden=false;
-}
-
-/* ---------- STATION 2: canvas ---------- */
-var cv=$('#flow'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
-var aoaEl=$('#aoa');aoaEl.value=state.aoa!=null?state.aoa:4;
-var CH=340,PV=[250,235];/* chord px, pivot (quarter chord) */
-var tick=0,animId=null,sweeping=false,trail=[];
-function rot(a){var r=-a*Math.PI/180;return [Math.cos(r),Math.sin(r)]}
-function foilWorld(a){ /* polygon of rotated airfoil in canvas coords, rotated about quarter chord */
-  var c=rot(a),up=[],lo=[];
-  for(var i=0;i<=80;i++){var x=i/80,n=naca(x);
-    [[n[0],up],[n[1],lo]].forEach(function(q){var X=(x-0.25)*CH,Y=-q[0]*CH;q[1].push([PV[0]+X*c[0]-Y*c[1],PV[1]+X*c[1]+Y*c[0]])});}
-  return {up:up,lo:lo,le:up[0],te:up[up.length-1]};
-}
-function surfY(poly,x){for(var i=1;i<poly.length;i++){var p=poly[i-1],q=poly[i];if((x>=p[0]&&x<=q[0])||(x<=p[0]&&x>=q[0])){var t=(x-p[0])/((q[0]-p[0])||1e-6);return p[1]+t*(q[1]-p[1]);}}return null;}
-function blur(arr,n){for(var k=0;k<2;k++){var o=arr.slice();for(var i=0;i<arr.length;i++){var s=0,c=0;for(var j=-n;j<=n;j++){var idx=i+j;if(idx<0||idx>=arr.length)continue;s+=o[idx];c++;}arr[i]=s/c;}}return arr;}
-function draw(force){
-  var a=parseFloat(aoaEl.value);
-  var stalled=a>CRIT;
-  var sep=stalled? clamp(1-(a-CRIT)/8,0.15,0.95) : 1; /* separation point, fraction of chord */
-  var f=foilWorld(a),cl=CL(a);
-  var xsep=f.le[0]+sep*(f.te[0]-f.le[0]);
-  ctx.clearRect(0,0,W,H);
-  var STEP=5,N=Math.floor(W/STEP)+1;
-  for(var k=-7;k<=7;k++){
-    if(k===0)continue;
-    var h=k*24+(k>0?-6:6),base=PV[1]+h,gap=7+Math.abs(h)*0.5,spread=Math.exp(-Math.abs(h)/90);
-    var ys=[],ysep=(k<0&&stalled)?Math.min(base,(surfY(f.up,xsep)||base)-gap):null;
-    for(var i=0;i<N;i++){var x=i*STEP,y=base;
-      var yu=surfY(f.up,x),yl=surfY(f.lo,x);
-      if(k<0){ if(yu!=null)y=Math.min(base,yu-gap); else if(x<f.le[0]){var d=(f.le[0]-x)/90;y=base-cl*22*spread*Math.exp(-d*d);} }
-      else   { if(yl!=null)y=Math.max(base,yl+gap); else if(x<f.le[0]){var d2=(f.le[0]-x)/90;y=base-cl*8*spread*Math.exp(-d2*d2);} }
-      if(ysep!=null&&x>xsep)y=Math.min(y,ysep);
-      ys.push(y);
-    }
-    blur(ys,7);
-    if(k<0&&stalled&&Math.abs(h)<130){ /* separated, turbulent top flow */
-      for(var i2=0;i2<N;i2++){var x2=i2*STEP;if(x2<xsep)continue;var t=Math.min(1,(x2-xsep)/110),amp=(1-sep)*(14-Math.abs(h)*0.06)*t;
-        ys[i2]+= -(1-sep)*55*t*spread + Math.sin(x2/13+tick/5+k*1.7)*amp;}
-    }
-    ctx.beginPath();ys.forEach(function(y,i){i?ctx.lineTo(i*STEP,y):ctx.moveTo(0,y)});
-    var near=Math.abs(h)<60;
-    ctx.strokeStyle= k<0 ? (near?'rgba(111,179,224,.95)':'rgba(111,179,224,.45)') : (near?'rgba(216,179,88,.9)':'rgba(216,179,88,.45)');
-    ctx.lineWidth=near?1.6:1;ctx.setLineDash([10,8]);ctx.lineDashOffset=-tick*(k<0&&near?2.6:1.6);ctx.stroke();ctx.setLineDash([]);
-  }
-  if(stalled){ctx.fillStyle='rgba(224,122,111,.12)';ctx.beginPath();var ysp=surfY(f.up,xsep)||f.te[1];ctx.moveTo(xsep,ysp);ctx.lineTo(W,ysp-60*(1-sep));ctx.lineTo(W,f.te[1]+14);ctx.lineTo(f.te[0],f.te[1]);ctx.closePath();ctx.fill();}
-  /* airfoil */
-  ctx.beginPath();f.up.forEach(function(p,i){i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1])});f.lo.slice().reverse().forEach(function(p){ctx.lineTo(p[0],p[1])});ctx.closePath();
-  ctx.fillStyle='#1c1c1f';ctx.fill();ctx.strokeStyle=stalled?'#e07a6f':'#d8b358';ctx.lineWidth=2.5;ctx.stroke();
-  /* chord + relative wind */
-  var r=-a*Math.PI/180,LE=f.le,te=f.te;
-  ctx.setLineDash([6,5]);ctx.strokeStyle='rgba(255,255,255,.7)';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(LE[0],LE[1]);ctx.lineTo(te[0],te[1]);ctx.stroke();
-  ctx.strokeStyle='rgba(111,179,224,.8)';ctx.beginPath();ctx.moveTo(LE[0],LE[1]);ctx.lineTo(LE[0]+CH*1.1,LE[1]);ctx.stroke();ctx.setLineDash([]);
-  /* AOA arc */
-  if(Math.abs(a)>0.6){ctx.strokeStyle='#e07a6f';ctx.lineWidth=2;ctx.beginPath();ctx.arc(LE[0],LE[1],90,0,r,a>0);ctx.stroke();
-    ctx.fillStyle='#e07a6f';ctx.font='600 14px JetBrains Mono,monospace';ctx.fillText('AOA '+a.toFixed(1)+'°',LE[0]+102,LE[1]-r*40+5);}
-  /* CP marker + lift vector */
-  var cpf=CP(a)/100,cpx=LE[0]+cpf*CH*Math.cos(r),cpy=LE[1]+cpf*CH*Math.sin(r);
-  var L=cl*70,nx=Math.sin(r),ny=-Math.cos(r);
-  ctx.strokeStyle='#8ad78a';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(cpx,cpy);ctx.lineTo(cpx+nx*L,cpy+ny*L);ctx.stroke();
-  ctx.fillStyle='#8ad78a';ctx.beginPath();ctx.moveTo(cpx+nx*(L+10),cpy+ny*(L+10));ctx.lineTo(cpx+nx*L+ny*6,cpy+ny*L-nx*6);ctx.lineTo(cpx+nx*L-ny*6,cpy+ny*L+nx*6);ctx.closePath();ctx.fill();
-  ctx.font='600 13px JetBrains Mono,monospace';ctx.fillText('LIFT',cpx+nx*(L+16)-14,cpy+ny*(L+16)-6);
-  ctx.fillStyle='#e07a6f';ctx.beginPath();ctx.arc(cpx,cpy,6,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.font='12px JetBrains Mono,monospace';ctx.fillText('CP',cpx-30,cpy+5);
-  /* relative wind label */
-  ctx.fillStyle='#6fb3e0';ctx.font='600 13px JetBrains Mono,monospace';ctx.fillText('RELATIVE WIND →',16,H-18);
-  /* HUD */
-  $('#hAoa').textContent=a.toFixed(1)+'°';$('#hCl').textContent=cl.toFixed(2);$('#hCp').textContent=Math.round(CP(a))+'% chord';
-  var st=stalled?'STALLED':(a>CRIT-3?'separating':(a<0?'attached (neg. AOA)':'attached'));$('#hState').textContent=st;
-  $('#horn').classList.toggle('on',stalled);
-  /* explain card */
-  var ex=$('#explain2');ex.classList.remove('warn','stall');
-  if(stalled){ex.classList.add('stall');$('#exTitle').textContent='Stalled — flow separated';
-    $('#exLift').innerHTML='The air can no longer follow the top surface. It breaks away and tumbles. C<sub>L</sub> <b>drops suddenly</b>; drag shoots up.';
-    $('#exCp').innerHTML='CP jumps <b>aft</b> — the nose wants to drop. That is the wing trying to help you.';
-    $('#exPilot').innerHTML='<b>Reduce AOA.</b> Ease the nose down, add power. Pulling back makes it worse.';}
-  else if(a>CRIT-3){ex.classList.add('warn');$('#exTitle').textContent='Near the critical angle';
-    $('#exLift').innerHTML='Lift is near its maximum but the flow at the back of the wing is starting to let go. Buffet, stall horn.';
-    $('#exCp').innerHTML='CP is about as far <b>forward</b> as it gets (≈ ¼ chord).';
-    $('#exPilot').innerHTML='Stall warning. One more degree and it lets go.';}
-  else if(a<0){$('#exTitle').textContent='Negative angle of attack';
-    $('#exLift').innerHTML='Chord points below the wind. The camber still makes a little lift at 0°; below about −3° lift goes negative.';
-    $('#exCp').innerHTML='CP sits well back on the chord.';
-    $('#exPilot').innerHTML='Pushing over — you float off the seat.';}
-  else{$('#exTitle').textContent='Attached flow';
-    $('#exLift').innerHTML='Air bends smoothly over the top. More AOA = more turning = more lift. C<sub>L</sub> rises almost in a straight line.';
-    $('#exCp').innerHTML='Centre of pressure creeps <b>forward</b> as AOA rises.';
-    $('#exPilot').innerHTML='Normal. The wing is doing its job.';}
-  /* chart */
-  var pts=[],tr=[];
-  function X(aa){return 46+(aa+4)/29*298}function Y(c){return 214-c/1.6*198}
-  for(var aa=-4;aa<=25;aa+=0.5)pts.push(X(aa).toFixed(1)+','+Y(CL(aa)).toFixed(1));
-  $('#clCurve').setAttribute('points',pts.join(' '));
-  if(force||!trail.length)trail=[];
-  trail.push(a);var mn=Math.min.apply(null,trail),mx=Math.max.apply(null,trail);
-  for(var bb=mn;bb<=mx+0.001;bb+=0.5)tr.push(X(bb).toFixed(1)+','+Y(CL(bb)).toFixed(1));
-  $('#clTrail').setAttribute('points',tr.join(' '));
-  var dot=$('#clDot');dot.setAttribute('cx',X(a));dot.setAttribute('cy',Y(cl));dot.setAttribute('fill',stalled?'#e07a6f':'#fff');
-  /* done once they have crossed the stall and come back */
-  if(mn<=8&&mx>CRIT+2&&a<CRIT&&!state.done_s2)markDone('s2');
-}
-function loop(){tick++;if(sweeping){var v=parseFloat(aoaEl.value)+0.15;if(v>25){v=25;sweeping=false;$('#aoaSweep').textContent='Auto sweep'}aoaEl.value=v;state.aoa=v;}draw();animId=requestAnimationFrame(loop)}
-aoaEl.addEventListener('input',function(){state.aoa=parseFloat(aoaEl.value);save();sweeping=false;$('#aoaSweep').textContent='Auto sweep'});
-$('#aoaReset').addEventListener('click',function(){aoaEl.value=4;state.aoa=4;save();trail=[];sweeping=false;draw(true)});
-$('#aoaSweep').addEventListener('click',function(){if(sweeping){sweeping=false;this.textContent='Auto sweep'}else{aoaEl.value=-4;trail=[];sweeping=true;this.textContent='Stop sweep'}});
-document.addEventListener('keydown',function(e){if($('#sweep').hidden||/input|textarea|select/i.test(document.activeElement.tagName))return;if(e.key==='ArrowRight'){aoaEl.value=clamp(parseFloat(aoaEl.value)+0.5,-4,25);state.aoa=parseFloat(aoaEl.value);save()}if(e.key==='ArrowLeft'){aoaEl.value=clamp(parseFloat(aoaEl.value)-0.5,-4,25);state.aoa=parseFloat(aoaEl.value);save()}});
-gate2();refreshNames();
-draw(true);
-if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches)loop();
-try{var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){if(!animId&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches))loop()}else if(animId){cancelAnimationFrame(animId);animId=null}})});io.observe(cv);}catch(e){}
-
-
-/* ---------- STATION 3: CG · CP · pitching moment ---------- */
-state.pred4=state.pred4||{};state.t4=state.t4||{};
-(function(){
-  var st=state.pred4,box=$('#pred4'),qs=['cpMove','noseDir'];
-  $$('.opts',box).forEach(function(g){var q=g.dataset.q;$$('button',g).forEach(function(b){if(st[q]===b.dataset.v)b.classList.add('sel');b.addEventListener('click',function(){if(st.locked)return;$$('button',g).forEach(function(x){x.classList.remove('sel')});b.classList.add('sel');st[q]=b.dataset.v;save();gate4()})})});
-  $('#lock4').addEventListener('click',function(){st.locked=true;save();gate4()});
-})();
-function gate4(){var st=state.pred4;$('#lock4').disabled=!(st.cpMove&&st.noseDir)||!!st.locked;
-  if(st.locked){$('#cgcp').hidden=false;$('#pred4').classList.add('locked');$('#lock4').textContent='Predictions locked';
-    $('#revA4').innerHTML='<b>'+nm('nameA','A')+'</b> said the CP moves '+({fwd:'forward',aft:'aft',stay:'nowhere',cg:'to the CG'}[st.cpMove])+'. '+(st.cpMove==='fwd'?'<span class="good">Right.</span>':'<span class="bad">Not quite.</span>')+' On a cambered wing the CP moves <b>forward</b> as AOA rises, then jumps aft after the stall. The CG never moves with AOA.';
-    $('#revB4').innerHTML='<b>'+nm('nameB','B')+'</b> said nose '+({up:'up',down:'down',none:'neither',left:'left'}[st.noseDir])+'. '+(st.noseDir==='down'?'<span class="good">Right.</span>':'<span class="bad">Not quite.</span>')+' Lift behind the CG is a <b>nose-down</b> lever. That is why a conventional tail makes a downward force — it holds the nose up against the wing.';
-    $('#reveal4').hidden=false;draw4();}}
-var cv4=$('#ac'),cx=cv4.getContext('2d'),W4=cv4.width,H4=cv4.height;
-var aoa4=$('#aoa4'),cg4=$('#cg4');aoa4.value=state.aoa4!=null?state.aoa4:4;cg4.value=state.cg4!=null?state.cg4:25;
-var pitch=0,pitchRate=0,released=false,tailTrim=0,anim4=null,relT=0,relCg=null,t4=state.t4;
-var CH4=170,WX=330,WY=205;/* wing LE position, chord px */
-function tick4(){save();$$('#chal4 li').forEach(function(li){var k=li.id.slice(2);li.classList.toggle('done',!!t4[k]);$('input',li).checked=!!t4[k]});if(t4.a&&t4.b&&t4.c)markDone('s4')}
-function draw4(){
-  var a=parseFloat(aoa4.value),cgp=parseFloat(cg4.value),cl=Math.max(0.05,CL(a)),cpp=CP(a);
-  var th=-(pitch)*Math.PI/180,cs=Math.cos(th),sn=Math.sin(th);
-  function Wd(x,y){return [WX+x*cs-y*sn,WY+x*sn+y*cs]} /* aircraft-fixed → canvas; x aft from wing LE, y down */
-  cx.clearRect(0,0,W4,H4);
-  /* relative wind */
-  cx.strokeStyle='rgba(111,179,224,.7)';cx.lineWidth=1.5;cx.setLineDash([8,6]);for(var i=0;i<3;i++){cx.beginPath();cx.moveTo(20,120+i*70);cx.lineTo(150,120+i*70);cx.stroke();}cx.setLineDash([]);
-  cx.fillStyle='#6fb3e0';cx.font='600 12px JetBrains Mono,monospace';cx.fillText('RELATIVE WIND →',20,100);
-  /* fuselage */
-  var nose=Wd(-190,8),tail=Wd(330,-6);
-  cx.strokeStyle='#a9a9ad';cx.lineWidth=6;cx.lineCap='round';cx.beginPath();cx.moveTo(nose[0],nose[1]);cx.lineTo(tail[0],tail[1]);cx.stroke();cx.lineCap='butt';
-  /* wing (airfoil at AOA relative to fuselage ~ a-2°) */
-  var inc=(a-2)*Math.PI/180;var up=[],lo=[];
-  for(var i2=0;i2<=40;i2++){var x=i2/40,n=naca(x);var X=x*CH4,Yu=-n[0]*CH4*1.4,Yl=-n[1]*CH4*1.4;
-    up.push(Wd(X*Math.cos(inc)+Yu*Math.sin(inc),-X*Math.sin(inc)+Yu*Math.cos(inc)));lo.push(Wd(X*Math.cos(inc)+Yl*Math.sin(inc),-X*Math.sin(inc)+Yl*Math.cos(inc)));}
-  cx.beginPath();up.forEach(function(p,i){i?cx.lineTo(p[0],p[1]):cx.moveTo(p[0],p[1])});lo.slice().reverse().forEach(function(p){cx.lineTo(p[0],p[1])});cx.closePath();cx.fillStyle='#1c1c1f';cx.fill();cx.strokeStyle=a>CRIT?'#e07a6f':'#d8b358';cx.lineWidth=2;cx.stroke();
-  /* tail */
+/* ---------- drawing ---------- */
+var cv=$('#ac'),cx=cv.getContext('2d'),W=cv.width,H=cv.height,tick=0;
+var CH=170,WX=330,WY=215;
+function draw(){
+  tick++;
+  var f=C.flaps.checked,mass=+C.wt.value,alt=+C.alt.value,Vkt=+C.vel.value,cgp=+C.cg.value;
+  if(released)stepRelease(f);
+  else if(C.trim.checked){var ta=trimAoa(Vkt,alt,f,mass);if(ta!=null){C.aoa.value=ta}else{C.aoa.value=CRIT(f)-0.5}}
+  var a=+C.aoa.value,F=forces(a,Vkt,alt,f,mass),cpp=CP(a,f),stalled=a>CRIT(f),arm=cpp-cgp;
+  var ok=Math.abs(F.L-F.W)/F.W<=0.03&&!stalled;
+  /* ---- canvas ---- */
+  var th=-pitch*Math.PI/180,cs=Math.cos(th),sn=Math.sin(th);
+  function Wd(x,y){return [WX+x*cs-y*sn,WY+x*sn+y*cs]}
+  cx.clearRect(0,0,W,H);
+  /* streamlines */
+  var inc=(a-2)*Math.PI/180,sep=stalled?clamp(1-(a-CRIT(f))/8,0.15,0.9):1;
+  var sp=1+Vkt/60;
+  for(var k=-4;k<=4;k++){if(k===0)continue;var h=k*22+(k>0?-4:4);cx.beginPath();
+    for(var x=0;x<=W;x+=6){var y=WY+h;var rel=(x-WX)/CH;
+      if(rel>-0.6&&rel<1.6){var g=Math.exp(-Math.pow((rel-0.45)/0.7,2));var lift=F.cl*22*g;var thick=0;
+        if(rel>0&&rel<1){var tt=0.12*CH*1.4*2*Math.sqrt(rel)*(1-rel)*1.4;thick=k<0?-tt*0.5:tt*0.5}
+        y=WY+h-lift*(k<0?1:0.5)+thick*(1-Math.min(1,Math.abs(h)/120));
+        if(k<0&&stalled&&rel>sep){var tur=(rel-sep)*(1-sep)*60;y-=tur*Math.min(1,Math.abs(h)<90?1:0)+Math.sin(x/12+tick/5+k)*(1-sep)*10}}
+      x?cx.lineTo(x,y):cx.moveTo(x,y);}
+    cx.strokeStyle=k<0?'rgba(111,179,224,.55)':'rgba(216,179,88,.5)';cx.lineWidth=1.2;cx.setLineDash([10,8]);cx.lineDashOffset=-tick*sp*(k<0?1.4:1);cx.stroke();cx.setLineDash([]);}
+  cx.fillStyle='#6fb3e0';cx.font='600 12px JetBrains Mono,monospace';cx.textAlign='right';cx.fillText('RELATIVE WIND →  '+Vkt+' kt',W-16,H-16);cx.textAlign='left';
+  /* fuselage, wing, tail */
+  var nose=Wd(-190,8),tail=Wd(330,-6);cx.strokeStyle='#a9a9ad';cx.lineWidth=6;cx.lineCap='round';cx.beginPath();cx.moveTo(nose[0],nose[1]);cx.lineTo(tail[0],tail[1]);cx.stroke();cx.lineCap='butt';
+  var up=[],lo=[];for(var i=0;i<=40;i++){var xx=i/40,n=naca(xx);var X=xx*CH,Yu=-n[0]*CH*1.4,Yl=-n[1]*CH*1.4;up.push(Wd(X*Math.cos(inc)+Yu*Math.sin(inc),-X*Math.sin(inc)+Yu*Math.cos(inc)));lo.push(Wd(X*Math.cos(inc)+Yl*Math.sin(inc),-X*Math.sin(inc)+Yl*Math.cos(inc)))}
+  cx.beginPath();up.forEach(function(p,i){i?cx.lineTo(p[0],p[1]):cx.moveTo(p[0],p[1])});lo.slice().reverse().forEach(function(p){cx.lineTo(p[0],p[1])});cx.closePath();cx.fillStyle='#1c1c1f';cx.fill();cx.strokeStyle=stalled?'#e07a6f':'#d8b358';cx.lineWidth=2;cx.stroke();
+  if(f){var fa=Wd(CH*0.78*Math.cos(inc),-CH*0.78*Math.sin(inc)),fb=Wd(CH*0.78*Math.cos(inc)+CH*0.25*Math.cos(inc-0.6),-CH*0.78*Math.sin(inc)+CH*0.25*Math.sin(inc-0.6)*-1+CH*0.25*0.56);cx.strokeStyle='#6fb3e0';cx.lineWidth=4;cx.beginPath();cx.moveTo(fa[0],fa[1]);cx.lineTo(fa[0]+34,fa[1]+22);cx.stroke();}
   var t1=Wd(270,-4),t2=Wd(335,-4);cx.strokeStyle='#d8b358';cx.lineWidth=4;cx.beginPath();cx.moveTo(t1[0],t1[1]);cx.lineTo(t2[0],t2[1]);cx.stroke();
   var f1=Wd(290,-6),f2=Wd(335,-62);cx.lineWidth=3;cx.beginPath();cx.moveTo(f1[0],f1[1]);cx.lineTo(f2[0],f2[1]);cx.stroke();
-  /* chord line + AOA arc */
-  var le=Wd(0,0),te=Wd(CH4*Math.cos(inc),-CH4*Math.sin(inc));cx.setLineDash([5,4]);cx.strokeStyle='rgba(255,255,255,.6)';cx.lineWidth=1;cx.beginPath();cx.moveTo(le[0],le[1]);cx.lineTo(te[0],te[1]);cx.stroke();
-  cx.strokeStyle='rgba(111,179,224,.6)';cx.beginPath();cx.moveTo(le[0],le[1]);cx.lineTo(le[0]+CH4,le[1]);cx.stroke();cx.setLineDash([]);
+  /* chord, wind line, AOA arc */
+  var le=Wd(0,0),te=Wd(CH*Math.cos(inc),-CH*Math.sin(inc));cx.setLineDash([5,4]);cx.strokeStyle='rgba(255,255,255,.6)';cx.lineWidth=1;cx.beginPath();cx.moveTo(le[0],le[1]);cx.lineTo(te[0],te[1]);cx.stroke();
+  cx.strokeStyle='rgba(111,179,224,.6)';cx.beginPath();cx.moveTo(le[0],le[1]);cx.lineTo(le[0]+CH,le[1]);cx.stroke();cx.setLineDash([]);
   var ang=Math.atan2(te[1]-le[1],te[0]-le[0]);cx.strokeStyle='#e07a6f';cx.lineWidth=2;cx.beginPath();cx.arc(le[0],le[1],48,0,ang,ang<0);cx.stroke();
   cx.fillStyle='#e07a6f';cx.font='600 12px JetBrains Mono,monospace';cx.fillText('AOA '+a.toFixed(1)+'°',le[0]-95,le[1]-34);
-  /* points */
-  var cp=Wd(cpp/100*CH4*Math.cos(inc),-cpp/100*CH4*Math.sin(inc)),cg=Wd(cgp/100*CH4,6),ac=Wd(0.25*CH4*Math.cos(inc),-0.25*CH4*Math.sin(inc));
-  /* vectors */
+  /* points & vectors */
+  var cp=Wd(cpp/100*CH*Math.cos(inc),-cpp/100*CH*Math.sin(inc)),cg=Wd(cgp/100*CH,6),ac=Wd(0.25*CH*Math.cos(inc),-0.25*CH*Math.sin(inc));
   function vec(p,dx,dy,col,lbl,side){cx.strokeStyle=col;cx.fillStyle=col;cx.lineWidth=3;cx.beginPath();cx.moveTo(p[0],p[1]);cx.lineTo(p[0]+dx,p[1]+dy);cx.stroke();var L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L;cx.beginPath();cx.moveTo(p[0]+dx+ux*10,p[1]+dy+uy*10);cx.lineTo(p[0]+dx-uy*6,p[1]+dy+ux*6);cx.lineTo(p[0]+dx+uy*6,p[1]+dy-ux*6);cx.closePath();cx.fill();cx.font='600 12px JetBrains Mono,monospace';cx.fillText(lbl,p[0]+dx+(side||8),p[1]+dy-4);}
-  var Lpx=45+cl*60;
-  vec(cp,0,-Lpx,'#8ad78a','LIFT');
-  vec(cg,0,110,'#ffffff','WEIGHT');
-  var arm=cpp-cgp; /* % chord; + = CP aft of CG → nose-down */
-  var tailF=arm*cl*2.2; /* px; + means download needed */
-  var tp=Wd(300,-4);
-  if($('#showTail').checked&&Math.abs(tailF)>1.5)vec(tp,0,Math.max(-70,Math.min(70,tailF)),'#d8b358',tailF>0?'TAIL DOWN':'TAIL UP',10);
-  if($('#showDrag').checked){var dp=Wd(CH4*Math.cos(inc)+12,-CH4*Math.sin(inc)-30);vec(dp,45+a*2,0,'#e07a6f','DRAG');var en=Wd(-175,8);vec(en,-50,0,'#6fb3e0','THRUST',-66);}
-  /* CP, CG, AC markers */
+  var scale=95/F.W;
+  if(C.showVec.checked){
+    vec(cp,0,-clamp(F.L*scale,8,150),'#8ad78a','LIFT '+fmt(F.L/1000,1)+' kN');
+    vec(cg,0,95,'#ffffff','WEIGHT '+fmt(F.W/1000,1)+' kN');
+    var tailF=arm*F.cl*2.2,tp=Wd(300,-4);if(Math.abs(tailF)>1.5)vec(tp,0,clamp(tailF,-70,70),'#d8b358',tailF>0?'TAIL DOWN':'TAIL UP',10);
+    var dp=Wd(CH*Math.cos(inc)+12,-CH*Math.sin(inc)-30);vec(dp,clamp(F.D*scale*3,20,120),0,'#e07a6f','DRAG '+fmt(F.D/1000,2)+' kN');
+    var en=Wd(-175,8);vec(en,-clamp(F.D*scale*3,20,120),0,'#6fb3e0','THRUST',-66);}
   cx.fillStyle='#e07a6f';cx.beginPath();cx.arc(cp[0],cp[1],6,0,7);cx.fill();cx.fillStyle='#fff';cx.font='600 11px JetBrains Mono,monospace';cx.fillText('CP',cp[0]-7,cp[1]+20);
   cx.strokeStyle='#fff';cx.lineWidth=2;cx.beginPath();cx.arc(cg[0],cg[1],7,0,7);cx.stroke();cx.fillStyle='#fff';cx.beginPath();cx.moveTo(cg[0],cg[1]);cx.arc(cg[0],cg[1],7,0,Math.PI/2);cx.closePath();cx.fill();cx.beginPath();cx.moveTo(cg[0],cg[1]);cx.arc(cg[0],cg[1],7,Math.PI,Math.PI*1.5);cx.closePath();cx.fill();cx.fillText('CG',cg[0]-7,cg[1]+22);
   cx.fillStyle='#d8b358';cx.beginPath();cx.arc(ac[0],ac[1],4,0,7);cx.fill();cx.fillText('AC',ac[0]-7,ac[1]-10);
-  /* moment arrow about CG */
   var dir=arm>0.5?1:(arm<-0.5?-1:0);
-  if(dir){cx.strokeStyle=dir>0?'#e07a6f':'#d8b358';cx.lineWidth=2.5;cx.beginPath();cx.arc(cg[0],cg[1],34,dir>0?Math.PI*1.15:Math.PI*0.3,dir>0?Math.PI*1.85:Math.PI*0.85,false);cx.stroke();
-    var ea=dir>0?Math.PI*1.85:Math.PI*0.3,ex=cg[0]+34*Math.cos(ea),ey=cg[1]+34*Math.sin(ea);cx.fillStyle=cx.strokeStyle;cx.beginPath();cx.arc(ex,ey,4,0,7);cx.fill();
-    cx.font='600 12px JetBrains Mono,monospace';cx.fillText(dir>0?'NOSE DOWN':'NOSE UP',cg[0]+46,cg[1]+58);}
-  /* HUD */
-  $('#h4Aoa').textContent=a.toFixed(1)+'°';$('#h4Cp').textContent=Math.round(cpp)+'%';$('#h4Cg').textContent=Math.round(cgp)+'%';
-  $('#h4Arm').textContent=Math.abs(arm).toFixed(0)+'% '+(arm>0.5?'aft':(arm<-0.5?'fwd':'—'));$('#h4Mom').textContent=dir>0?'down':(dir<0?'UP':'balanced');
-  var ex=$('#explain4');
-  if(a>CRIT){ex.style.setProperty('--c','var(--bad)');$('#ex4Title').textContent='Stalled — CP jumps aft';$('#ex4L').innerHTML='Flow has separated. The CP moves <b>aft</b>, the nose-down lever gets longer, and lift has dropped.';$('#ex4T').innerHTML='The nose drops by itself. That is the wing helping you recover — if the CG is forward.';$('#ex4A').innerHTML='With an aft CG the nose may <b>not</b> drop. That is why aft-CG stalls are the dangerous ones.';}
-  else if(dir>0){ex.style.setProperty('--c','var(--yaw)');$('#ex4Title').textContent='CP behind the CG — nose-down lever';$('#ex4L').innerHTML='Lift pulls up <b>behind</b> the CG. That rotates the nose <b>down</b> about the CG.';$('#ex4T').innerHTML='The stabilizer makes a <b>downward</b> force to hold the nose up. Normal, stable layout — let go and it settles back.';$('#ex4A').innerHTML='AOA ↑ → CP creeps forward → smaller arm → less tail download needed.';}
-  else if(dir<0){ex.style.setProperty('--c','var(--bad)');$('#ex4Title').textContent='CP ahead of the CG — nose-up lever';$('#ex4L').innerHTML='Lift now pulls up <b>ahead</b> of the CG. The nose wants to pitch <b>up</b>.';$('#ex4T').innerHTML='The tail has to push <b>up</b> to hold it. Worse: pitch up a little and the CP moves further forward — the lever grows. <b>Unstable.</b>';$('#ex4A').innerHTML='This is "CG aft of limit". Harder to recover from a stall, light and twitchy in pitch.';}
-  else{ex.style.setProperty('--c','var(--gold)');$('#ex4Title').textContent='CP on the CG — no lever';$('#ex4L').innerHTML='Lift and weight line up. No pitching moment from the wing at this AOA.';$('#ex4T').innerHTML='The tail has almost nothing to do. Change AOA and the lever comes back.';$('#ex4A').innerHTML='There is only one AOA where this happens for a given CG.';}
-  /* tasks */
-  if(!released){if(a<=0.5)t4.a0=true;if(t4.a0&&a>=15)t4.a=true;}
-  if(arm<-0.5)t4.bAft=true;if(t4.bAft&&arm>0.5)t4.b=true;
-  tick4();
+  if(dir){cx.strokeStyle=dir>0?'#e07a6f':'#d8b358';cx.lineWidth=2.5;cx.beginPath();cx.arc(cg[0],cg[1],34,dir>0?Math.PI*1.15:Math.PI*0.3,dir>0?Math.PI*1.85:Math.PI*0.85,false);cx.stroke();var ea=dir>0?Math.PI*1.85:Math.PI*0.3;cx.fillStyle=cx.strokeStyle;cx.beginPath();cx.arc(cg[0]+34*Math.cos(ea),cg[1]+34*Math.sin(ea),4,0,7);cx.fill();cx.font='600 12px JetBrains Mono,monospace';cx.fillText(dir>0?'NOSE DOWN':'NOSE UP',cg[0]+46,cg[1]+58);}
+  /* ---- HUD / instruments ---- */
+  $('#hAoa').textContent=a.toFixed(1)+'°';$('#hV').textContent=Vkt+' kt';$('#hCl').textContent=F.cl.toFixed(2);$('#hCp').textContent=Math.round(cpp)+'%';$('#hCg').textContent=cgp+'%';
+  $('#hFlow').textContent=stalled?'STALLED':(a>CRIT(f)-3?'separating':'attached');$('#horn').classList.toggle('on',stalled);
+  var ratio=F.L/F.W,tag=$('#stateTag');var st=stalled?(ratio>1.03?'STALLED — PULLING '+ratio.toFixed(1)+' g':'STALLED — SINKING'):(ratio>1.03?'CLIMBING · '+ratio.toFixed(2)+' g':(ratio<0.97?'SINKING':'LEVEL'));tag.textContent=st;tag.className='state '+(st==='LEVEL'?'ok':(st.indexOf('CLIMBING')===0?'up':'bad'));
+  $('#vAoa').textContent=a.toFixed(1);$('#vV').textContent=Vkt;$('#vCg').textContent=cgp;$('#vW').textContent=mass;$('#vAlt').textContent=fmt(alt);
+  $('#gL').textContent=fmt(F.L)+' N';$('#gW').textContent=fmt(F.W)+' N';$('#bL').style.width=clamp(F.L/F.W*50,1,100)+'%';$('#bW').style.width='50%';$('#bL').style.background=ok?'#8ad78a':'#e07a6f';
+  $('#gLW').textContent=ratio.toFixed(2);$('#gLWt').textContent=stalled?'stalled':(ratio>1.03?'more lift than weight':(ratio<0.97?'less lift than weight':'level'));
+  $('#gRho').textContent=rho(alt).toFixed(3)+' kg/m³';$('#gRhoP').textContent=(rho(alt)/1.225*100).toFixed(0)+'% of sea level';
+  $('#gDp').textContent=fmt(F.Dp)+' N';$('#gDi').textContent=fmt(F.Di)+' N';$('#gD').textContent=fmt(F.D)+' N';$('#gLD').textContent='L/D '+(F.L/F.D).toFixed(1);
+  $('#gArm').textContent=Math.abs(arm).toFixed(0)+'% '+(dir>0?'aft':(dir<0?'ahead':'on CG'));$('#gMom').textContent=dir>0?'CP behind CG → nose-down':(dir<0?'CP ahead of CG → nose-UP':'no lever');
+  var tailFN=Math.abs(arm)*F.cl*F.q*A/100*0.3;$('#gTail').textContent=(dir?fmt(tailFN)+' N':'≈ 0');$('#gTailT').textContent=dir>0?'pushing DOWN':(dir<0?'pushing UP':'—');
+  /* explain */
+  var ex=$('#explain');
+  if(stalled){ex.style.setProperty('--c','var(--bad)');$('#exTitle').textContent='Stalled — flow separated';$('#exW').innerHTML='The air can no longer follow the top surface. Cₗ <b>drops suddenly</b>, drag shoots up, lift is less than weight.';$('#exB').innerHTML='CP jumps <b>aft</b> — the nose wants to drop. That is the wing helping you, if the CG is forward.';$('#exP').innerHTML='<b>Reduce AOA.</b> Nose down, add power. Pulling back makes it worse.';}
+  else if(dir<0){ex.style.setProperty('--c','var(--bad)');$('#exTitle').textContent='CP ahead of the CG — unstable';$('#exW').innerHTML='Lift now pulls up <b>ahead</b> of the CG. The nose wants to pitch up on its own.';$('#exB').innerHTML='The tail has to push <b>up</b>. Pitch up a little and the CP moves further forward — the lever grows. Try Nudge &amp; release.';$('#exP').innerHTML='"CG aft of limit." Light, twitchy, hard to recover from a stall.';}
+  else if(a>CRIT(f)-3){ex.style.setProperty('--c','var(--gold)');$('#exTitle').textContent='Near the critical angle';$('#exW').innerHTML='Lift is near its maximum but the flow at the back of the wing is starting to let go. Buffet, stall horn.';$('#exB').innerHTML='CP is about as far forward as it gets. Small tail download.';$('#exP').innerHTML='Stall warning. One more degree and it lets go — at <b>any</b> airspeed.';}
+  else if(Vkt<70){ex.style.setProperty('--c','var(--pitch)');$('#exTitle').textContent='Slow flight — induced drag country';$('#exW').innerHTML='Low speed means a big AOA to make enough lift. Big AOA = big tip vortices = <b>induced drag</b> dominates.';$('#exB').innerHTML='Flaps add camber: same lift at a lower AOA, more drag too. That is what they are for.';$('#exP').innerHTML='Behind the power curve: slower needs <b>more</b> power, not less.';}
+  else if(Vkt>130){ex.style.setProperty('--c','var(--bad)');$('#exTitle').textContent='Fast — parasite drag country';$('#exW').innerHTML='Tiny AOA is enough. Parasite drag grows with V²: double the speed, four times the drag.';$('#exB').innerHTML='CP sits well back on the chord. Bigger nose-down lever, bigger tail download.';$('#exP').innerHTML='Every extra knot costs more than the last one.';}
+  else{ex.style.setProperty('--c','var(--yaw)');$('#exTitle').textContent='Attached flow — cruise';$('#exW').innerHTML='Air bends smoothly over the top. More AOA = more turning = more lift. Cₗ rises almost in a straight line.';$('#exB').innerHTML='Lift pulls up behind the CG; the tail pushes down to hold the nose. Normal, stable.';$('#exP').innerHTML='Near minimum drag the two drag families are about equal — check the chart.';}
+  /* ---- charts ---- */
+  function X1(aa){return 40+(aa+4)/26*310}function Y1(c){return 180-c/2*168}
+  var p1=[],p2=[];for(var aa=-4;aa<=22;aa+=0.5){p1.push(X1(aa).toFixed(1)+','+Y1(CL(aa,false)).toFixed(1));p2.push(X1(aa).toFixed(1)+','+Y1(CL(aa,true)).toFixed(1))}
+  $('#clClean').setAttribute('points',p1.join(' '));$('#clFlap').setAttribute('points',p2.join(' '));$('#clDot').setAttribute('cx',X1(a));$('#clDot').setAttribute('cy',Y1(F.cl));$('#clDot').setAttribute('fill',stalled?'#e07a6f':'#fff');
+  var dmax=0,pts=[],pp=[],pi=[],vMin=0,dBest=1e9;
+  for(var v=40;v<=160;v+=2){var ta2=trimAoa(v,alt,f,mass,true);if(ta2==null){pts.push(null);pp.push(null);pi.push(null);continue}var FF=forces(ta2,v,alt,f,mass);if(FF.D<dBest){dBest=FF.D;vMin=v}dmax=Math.max(dmax,FF.D);pts.push([v,FF.D]);pp.push([v,FF.Dp]);pi.push([v,FF.Di])}
+  dmax=Math.max(dmax,F.D)*1.1||1;$('#dMax').textContent=fmt(dmax/1000,1)+' kN';
+  function X2(v){return 40+(v-40)/120*310}function Y2(d){return 180-d/dmax*168}
+  function poly(arr){return arr.filter(function(p){return p}).map(function(p){return X2(p[0]).toFixed(1)+','+Y2(p[1]).toFixed(1)}).join(' ')}
+  $('#dTot').setAttribute('points',poly(pts));$('#dPar').setAttribute('points',poly(pp));$('#dInd').setAttribute('points',poly(pi));
+  $('#dMin').setAttribute('x1',X2(vMin));$('#dMin').setAttribute('x2',X2(vMin));$('#dDot').setAttribute('cx',X2(Vkt));$('#dDot').setAttribute('cy',Y2(F.D));$('#dDot').setAttribute('fill',ok?'#fff':'#a9a9ad');
+  /* missions */
+  missions({a:a,Vkt:Vkt,alt:alt,mass:mass,f:f,trim:C.trim.checked,ok:ok,stalled:stalled,arm:arm,vMin:vMin,relFwd:state.relFwd,relAft:state.relAft});
 }
-function nudge(){released=true;relCg=parseFloat(cg4.value);var a0=parseFloat(aoa4.value);state.aoaTrim=a0;pitch=3;pitchRate=0;relT=0;$('#pitchState').textContent='released…';
-  if(anim4)cancelAnimationFrame(anim4);
-  (function step(){if(!released)return;relT+=1/60;
-    var a=state.aoaTrim+pitch;var cgp=relCg;var arm=CP(Math.min(a,CRIT+2))-cgp;var trimArm=CP(state.aoaTrim)-cgp;
-    /* restoring moment = change in arm×lift vs trim; tail holds its trim value */
-    var M=-(arm*Math.max(0.05,CL(Math.min(a,24)))-trimArm*Math.max(0.05,CL(state.aoaTrim)));
-    var stab=(cgp<30?1:0)*0; /* AC/tail stability folded into CP model below */
-    var tailRestore=-(pitch)*0.6; /* stabilizer always resists pitch change */
-    pitchRate+= (M*0.9+tailRestore)*0.06 - pitchRate*0.04;pitch+=pitchRate*0.5;
-    pitch=Math.max(-12,Math.min(16,pitch));aoa4.value=Math.max(-2,Math.min(18,state.aoaTrim+pitch));
-    draw4();
-    var set=Math.abs(pitch)<0.3&&Math.abs(pitchRate)<0.05;
-    if(relT>6||set||Math.abs(pitch)>=12){released=false;var ok=Math.abs(pitch)<1.5;$('#pitchState').textContent=ok?'settled back on its own ✓':'diverged — did not come back';
-      if(relCg<=30)t4.cFwd=ok;else t4.cAft=!ok;if(t4.cFwd&&t4.cAft)t4.c=true;save();tick4();return;}
-    anim4=requestAnimationFrame(step);})();}
-$('#nudge4').addEventListener('click',nudge);
-$('#hold4').addEventListener('click',function(){released=false;pitch=0;pitchRate=0;if(state.aoaTrim!=null)aoa4.value=state.aoaTrim;$('#pitchState').textContent='holding trim';draw4()});
-aoa4.addEventListener('input',function(){released=false;pitch=0;state.aoa4=parseFloat(aoa4.value);save();$('#pitchState').textContent='holding trim';draw4()});
-cg4.addEventListener('input',function(){released=false;pitch=0;state.cg4=parseFloat(cg4.value);save();$('#pitchState').textContent='holding trim';draw4()});
-$('#showTail').addEventListener('change',draw4);$('#showDrag').addEventListener('change',draw4);
-gate4();draw4();
-
-/* ---------- STATION 4 ---------- */
-var RHO0=1.225,V0=50,A0=16,CL0=0.48,L0=0.5*RHO0*V0*V0*A0*CL0;
-$('#baseL').textContent=fmt(L0)+' N';
-var WI=[
- {id:'v2',t:'Double the airspeed (50 → 100 m/s)',calc:function(){return 0.5*RHO0*100*100*A0*CL0},ans:'4',why:'V is <b>squared</b>. 2² = 4. This is why speed matters more than anything else on the wing.'},
- {id:'a2',t:'Double the wing area (16 → 32 m²)',calc:function(){return 0.5*RHO0*V0*V0*32*CL0},ans:'2',why:'A is not squared. Twice the wing, twice the lift — and roughly twice the drag.'},
- {id:'r2',t:'Halve the air density (sea level → about 22 000 ft)',calc:function(){return 0.5*(RHO0/2)*V0*V0*A0*CL0},ans:'0.5',why:'ρ is linear. Half the air, half the lift at the same true airspeed. Hot, high runways work the same way.'}
-];
-state.wi=state.wi||{};
-var MUL=['0.5','1','2','4'];
-WI.forEach(function(w){
-  var s=state.wi[w.id]=state.wi[w.id]||{};
-  var el=document.createElement('div');el.className='wi';el.innerHTML='<div class="wt">'+w.t+'</div>'+
-   ['A','B'].map(function(p){return '<div class="wp"><span class="who" data-p="'+p+'"></span><div class="opts" data-p="'+p+'">'+MUL.map(function(m){return '<button data-v="'+m+'">× '+m+'</button>'}).join('')+'</div></div>'}).join('')+
-   '<div class="row"><button class="primary rev" disabled>Reveal</button><span class="out"></span></div><p class="fb"></p>';
-  $('#whatifs').appendChild(el);
-  ['A','B'].forEach(function(p){var g=$('.opts[data-p='+p+']',el);$$('button',g).forEach(function(b){if(s[p]===b.dataset.v)b.classList.add('sel');b.addEventListener('click',function(){if(s.rev)return;$$('button',g).forEach(function(x){x.classList.remove('sel')});b.classList.add('sel');s[p]=b.dataset.v;save();upd()})})});
-  var rev=$('.rev',el);
-  function upd(){rev.disabled=!(s.A&&s.B)||!!s.rev;if(s.rev)show()}
-  function show(){var L=w.calc();$('.out',el).innerHTML='L = <b>'+fmt(L)+' N</b> → × '+(L/L0).toFixed(1);
-    $('.fb',el).innerHTML=['A','B'].map(function(p){return '<b>'+(p==='A'?nm('nameA','A'):nm('nameB','B'))+'</b> × '+s[p]+(s[p]===w.ans?' <span class="good">✓</span>':' <span class="bad">✗</span>')}).join(' · ')+'<br>'+w.why;
-    el.classList.add('revealed');rev.textContent='Revealed';
-    if(WI.every(function(q){return state.wi[q.id].rev}))markDone('s3');}
-  rev.addEventListener('click',function(){s.rev=true;save();upd()});
-  upd();
-});
-refreshNames();
-/* free play */
-function free(){var V=+$('#fV').value,A=+$('#fA').value,R=+$('#fR').value,a=+$('#fAoa').value,cl=CL(a);
-  $('#vV').textContent=V;$('#vA').textContent=A;$('#vR').textContent=R.toFixed(3);$('#vAoa').textContent=a;$('#vCl').textContent=cl.toFixed(2);
-  var L=0.5*R*V*V*A*cl;$('#freeL').textContent=fmt(L)+' N';$('#freeMult').textContent='× '+(L/L0).toFixed(2)+' of baseline'+(a>CRIT?' — stalled':'');
-  $('#liftBar').style.width=clamp(L/L0/8*100,1,100)+'%';$('#liftBar').style.background=a>CRIT?'#e07a6f':'#8ad78a';}
-['fV','fA','fR','fAoa'].forEach(function(id){$('#'+id).addEventListener('input',free)});free();
-
-/* ---------- reset ---------- */
-$('#resetAll').addEventListener('click',function(){if(!confirm('Clear names, predictions, labels and notes for this lab?'))return;try{localStorage.removeItem(KEY)}catch(e){}location.reload()});
-progress();
+var animId=null;function loop(){draw();animId=requestAnimationFrame(loop)}
+draw();
+if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches)loop();else{['input','change'].forEach(function(ev){document.addEventListener(ev,draw)})}
+$('#resetAll').addEventListener('click',function(){if(!confirm('Clear names, missions and notes for this sim?'))return;try{localStorage.removeItem(KEY)}catch(e){}location.reload()});
 })();
 
 </script>
