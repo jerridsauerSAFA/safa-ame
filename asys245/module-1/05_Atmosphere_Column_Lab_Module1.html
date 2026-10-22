@@ -1,0 +1,545 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>SAFA Atmosphere Column Lab</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Three-station pair lab. Same look as the Module 3 Flight Controls Lab (SAFA black / gold / white). */
+:root{
+  --bg:#0b0b0c; --panel:#141416; --panel2:#1c1c1f; --line:#2b2b2f;
+  --fg:#ffffff; --muted:#a9a9ad; --gold:#d8b358; --gold-dim:#8a7238; --gold-soft:rgba(216,179,88,.14);
+  --roll:#d8b358; --pitch:#6fb3e0; --yaw:#8ad78a; --bad:#e07a6f;
+  --display:"Barlow Condensed",Impact,sans-serif; --body:"Barlow",Arial,sans-serif; --mono:"JetBrains Mono",Menlo,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.45;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:18px 40px}
+.wrap{max-width:1180px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;align-items:center;gap:18px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:14px}
+header img{height:56px;width:auto}
+header h1{font-family:var(--display);font-weight:700;font-size:clamp(28px,4vw,40px);letter-spacing:.02em;margin:0;line-height:1;text-wrap:balance}
+header .sub{color:var(--muted);margin:4px 0 0;font-size:14px}
+a.back{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold)}a.back:hover{color:var(--fg)}.eyebrow{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--gold)}
+.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:18px}
+@media (max-width:860px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.view{position:relative;background:radial-gradient(ellipse at 50% 70%,#17171a 0%,#0b0b0c 75%);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+canvas#sky{display:block;width:100%;height:auto;max-width:100%}
+.hud{position:absolute;left:12px;top:10px;display:flex;gap:14px;font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;flex-wrap:wrap}
+.hud b{color:var(--fg);font-weight:600}
+.hud .r b{color:var(--roll)}.hud .p b{color:var(--pitch)}.hud .y b{color:var(--yaw)}
+.ball{position:absolute;right:12px;top:10px;display:flex;flex-direction:column;align-items:center;gap:3px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.ballTrack{width:120px;height:18px;border:1px solid var(--line);border-radius:9px;background:var(--panel2);position:relative}
+.ballTrack:before,.ballTrack:after{content:"";position:absolute;top:0;bottom:0;width:1px;background:var(--gold-dim)}
+.ballTrack:before{left:48px}.ballTrack:after{right:48px}
+#ball{position:absolute;top:3px;left:54px;width:12px;height:12px;border-radius:50%;background:var(--fg);transition:left .12s linear}
+.controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+@media (max-width:560px){.controls{grid-template-columns:1fr}}
+.ctl{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.ctl{--c:var(--gold)}#cEle{--c:var(--pitch)}#cRud{--c:var(--yaw)}
+.ctl label{color:var(--c)}.ctl input[type=range]{accent-color:var(--c)}
+.ctl.active{border-color:var(--c);box-shadow:inset 0 0 0 1px var(--c)}
+.ctl label{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:.03em}
+.ctl label small{font-family:var(--mono);font-size:11px;color:var(--muted);font-weight:400}
+.ctl .ends{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+input[type=range]{width:100%;margin:0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}
+button{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:8px 14px;cursor:pointer}
+button:hover{border-color:var(--gold)}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+button.primary{background:var(--gold);color:var(--bg);border-color:var(--gold)}
+.toggle{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);cursor:pointer}
+.toggle input{accent-color:var(--gold)}
+.kbd{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:auto}
+.kbd kbd{border:1px solid var(--line);border-radius:3px;padding:0 4px;color:var(--fg)}
+/* readout */
+.axis{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:baseline;padding:10px 0;border-top:1px solid var(--line)}
+.axis:first-of-type{border-top:0;padding-top:0}
+.axis .k{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.axis .v{font-size:15px}
+.axis h3{grid-column:1/-1;margin:0 0 2px;font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block}
+.axisCard{border-radius:8px;padding:12px;border:1px solid var(--line);background:var(--panel2);transition:border-color .2s}
+.axisCard.on{border-color:var(--c);box-shadow:inset 3px 0 0 var(--c)}
+.axisCard+.axisCard{margin-top:10px}
+.idle{color:var(--muted);font-size:14px;margin:0 0 10px}
+.tasks{counter-reset:t;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.tasks li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;padding:8px 10px;background:var(--panel2);border:1px solid var(--line);border-radius:8px}
+.tasks li input{accent-color:var(--gold);margin-top:3px}
+.tasks li.done{opacity:.55}
+.tasks b{font-family:var(--display);font-size:17px;font-weight:600;letter-spacing:.02em;display:block}
+.tasks span{font-size:13.5px;color:var(--muted)}
+.quiz .q{padding:10px 0;border-top:1px solid var(--line)}
+.quiz .q:first-child{border-top:0}
+.quiz p{margin:0 0 6px;font-weight:500}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opts button{font-family:var(--body);text-transform:none;letter-spacing:0;font-size:14px;padding:6px 10px}
+.opts button.ok{border-color:var(--yaw);color:var(--yaw)}
+.opts button.no{border-color:var(--bad);color:var(--bad)}
+.fb{font-size:13px;color:var(--muted);margin-top:6px;min-height:1em}
+.score{font-family:var(--mono);color:var(--gold);font-size:13px}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--display);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:12px;color:var(--gold)}
+.tbl{overflow-x:auto}
+footer{color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:10px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* lab-specific additions */
+.pair .names{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.pair label{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:.03em}
+.pair input{font-family:var(--body);font-size:15px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;color:var(--fg);padding:7px 10px;width:150px}
+.pair input:focus{outline:none;border-color:var(--gold)}
+.hint{color:var(--muted);font-size:13px}
+.prog{font-family:var(--mono);font-size:12px;color:var(--gold);margin-left:auto}
+.station{display:flex;flex-direction:column;gap:14px;padding:16px;border:1px solid var(--line);border-radius:12px;background:#0f0f11}
+.station.complete{border-color:var(--gold-dim)}
+.stHead{display:flex;gap:14px;align-items:flex-start}
+.stHead h2{font-family:var(--display);font-weight:700;font-size:28px;margin:0;letter-spacing:.02em;line-height:1}
+.stHead p{margin:4px 0 0;color:var(--muted);font-size:14px;max-width:70ch}
+.num{flex:none;width:38px;height:38px;border-radius:50%;background:var(--gold);color:var(--bg);font-family:var(--display);font-weight:700;font-size:22px;display:flex;align-items:center;justify-content:center}
+.station.complete .num:after{content:"✓";font-size:16px;margin-left:2px}
+.view svg,canvas#flow,canvas#col{display:block;width:100%;height:auto;max-width:100%}
+.labels{display:flex;flex-direction:column;gap:6px}
+.lrow{display:grid;grid-template-columns:auto 1fr auto;gap:8px 10px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+.lrow .n{font-family:var(--mono);font-weight:600;color:var(--gold);width:18px}
+.lrow select{font-family:var(--body);font-size:14px;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;min-width:0}
+.lrow .who{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.lrow .why{grid-column:1/-1;font-size:12.5px;color:var(--muted);min-height:0}
+.lrow.ok{border-color:var(--yaw)}.lrow.ok .n{color:var(--yaw)}
+.lrow.no{border-color:var(--bad)}.lrow.no .n{color:var(--bad)}
+.predict{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:700px){.predict{grid-template-columns:1fr}}
+.pcard{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.pcard .who,.wi .who{font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:.04em;color:var(--gold);text-transform:uppercase}
+.pcard label{font-size:15px}
+.opts button.sel{border-color:var(--gold);background:var(--gold-soft);color:var(--gold)}
+.predict.locked .opts button:not(.sel){opacity:.4}
+.lockRow{grid-column:1/-1;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+button:disabled{opacity:.45;cursor:not-allowed}
+.controls.one{grid-template-columns:1fr}
+#sweep .ends span:nth-child(2){color:var(--bad)}
+.horn{position:absolute;right:12px;top:10px;font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.14em;color:var(--bad);border:2px solid var(--bad);border-radius:6px;padding:2px 10px;opacity:0;transition:opacity .15s}
+.horn.on{opacity:1;animation:blink .5s steps(2) infinite}
+@keyframes blink{to{opacity:.25}}
+#explain2{--c:var(--yaw);border-color:var(--c);box-shadow:inset 3px 0 0 var(--c);margin-top:12px}
+#explain2.warn{--c:var(--gold)}#explain2.stall{--c:var(--bad)}
+#explain2 h3{font-size:20px}
+.reveal{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.reveal p{margin:6px 0;font-size:14px}
+.good{color:var(--yaw);font-weight:600}.bad{color:var(--bad);font-weight:600}
+.mine{background:#fff;border:1px solid #9aa5b1;border-radius:8px;padding:10px 12px;color:#111}
+.mine .lbl{display:block;font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#1d5fa0;margin-bottom:6px}
+.mine textarea{width:100%;min-height:6.4em;resize:vertical;border:0;outline:none;font:15px/1.6em var(--body);color:#111;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.6em - 1px),#c9d1da calc(1.6em - 1px),#c9d1da 1.6em);background-attachment:local;padding:0}
+.base{display:grid;grid-template-columns:repeat(2,1fr);gap:8px 14px;font-family:var(--mono);font-size:14px;margin:8px 0 14px}
+.base span{display:flex;flex-direction:column}
+.base i{font-style:normal;color:var(--gold);font-weight:600}
+.base small{color:var(--muted);font-size:11px;font-family:var(--body)}
+.base .big{grid-column:1/-1;font-size:18px;border-top:1px solid var(--line);padding-top:8px}
+.base .big b{color:var(--yaw)}
+.whatifs{display:flex;flex-direction:column;gap:10px}
+.wi{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
+.wi .wt{font-family:var(--display);font-weight:600;font-size:18px;letter-spacing:.02em}
+.wi .wp{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center}
+.wi .who{font-size:13px;min-width:70px}
+.wi.revealed .opts button:not(.sel){opacity:.4}
+.wi .out{font-family:var(--mono);font-size:14px}
+.wi .row{margin-top:0}
+.liftOut{display:flex;align-items:baseline;gap:12px;margin-top:12px;font-family:var(--mono)}
+.liftOut .k{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.liftOut b{font-size:26px;color:var(--yaw)}
+.liftOut .mult{font-size:12px;color:var(--muted)}
+.bar{height:10px;background:var(--panel2);border:1px solid var(--line);border-radius:5px;overflow:hidden;margin-top:6px}
+#liftBar{height:100%;width:12%;background:var(--yaw);transition:width .15s}
+.panel .ctl+.ctl{margin-top:8px}
+.done{border-color:var(--gold)}
+sub{font-size:.7em}
+#clCurve{opacity:.4}
+.units{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0 12px}
+.units div{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;display:flex;flex-direction:column}
+.units .k{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.units b{font-family:var(--display);font-size:24px;font-weight:600;color:var(--fg)}
+#explain1,#explain3{--c:var(--pitch);border-color:var(--c);box-shadow:inset 3px 0 0 var(--c)}
+#explain1 h3,#explain3 h3{font-size:20px}
+.twin{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:700px){.twin{grid-template-columns:1fr}}
+.law{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:10px}
+#lawB{--c:var(--pitch)}#lawC{--c:var(--bad)}
+.law .eyebrow{color:var(--c)}
+.bal{height:170px;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 60%,#17171a 0%,#0b0b0c 75%);border:1px solid var(--line);border-radius:8px}
+.balloon{width:70px;height:70px;border-radius:50%;background:var(--gold-soft);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;color:var(--fg);transition:width .15s,height .15s;max-width:160px;max-height:160px}
+.law .ctl{--c:inherit}
+.math{display:flex;flex-direction:column;gap:2px;font-family:var(--mono);font-size:13px}
+.math span:first-child{color:var(--gold);font-weight:600}
+.law-why{margin:0;font-size:13px;color:var(--muted)}
+.dayOut{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.dayOut div{display:flex;flex-direction:column;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.dayOut .k{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.dayOut b{font-family:var(--display);font-size:26px;font-weight:600;color:var(--yaw)}
+.dayOut .mult{font-size:12px;color:var(--muted)}
+.bars{display:flex;flex-direction:column;gap:8px}
+.brow{display:grid;grid-template-columns:200px 1fr 60px;gap:10px;align-items:center;font-size:13px}
+@media (max-width:560px){.brow{grid-template-columns:1fr 60px}.brow span{grid-column:1/-1}}
+.brow b{font-family:var(--mono);font-size:13px;text-align:right}
+.bar{height:10px;background:var(--panel2);border:1px solid var(--line);border-radius:5px;overflow:hidden}
+.bar div{height:100%;width:50%;background:var(--yaw);transition:width .15s}
+.convert{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+.cv{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-family:var(--mono);font-size:14px;margin-top:8px}
+.cv label{display:flex;align-items:center;gap:6px;color:var(--gold)}
+.cv input{width:90px;font-family:var(--mono);font-size:14px;background:var(--panel2);border:1px solid var(--line);border-radius:6px;color:var(--fg);padding:5px 8px}
+.cv b{color:var(--fg)}
+</style>
+<div class="wrap">
+<header>
+  <img id="logo" alt="SAFA">
+  <div>
+    <div class="eyebrow"><a class="back" href="./">← Module 1</a> · South Alberta Flight Academy · ASYS 245</div>
+    <h1>Atmosphere Column Lab</h1>
+    <p class="sub">Work in pairs. Predict first, then test, then agree on one sentence. Three stations, about 25 minutes.</p>
+  </div>
+</header>
+
+<div class="panel pair">
+  <div class="eyebrow">Your pair</div>
+  <div class="names">
+    <label>Partner A <input id="nameA" placeholder="name" maxlength="24"></label>
+    <label>Partner B <input id="nameB" placeholder="name" maxlength="24"></label>
+    <span class="hint">A predicts first on every station. B predicts second. Then you test together.</span>
+    <span class="prog" id="prog">0 / 3 stations done</span>
+    <button id="resetAll" title="Clear names, predictions and notes">Reset lab</button>
+  </div>
+</div>
+
+<!-- ───────── STATION 1 ───────── -->
+<section class="station" id="s1">
+  <div class="stHead"><span class="num">1</span><div><h2>Climb the column</h2><p>Standard day (ISA). Ride the slider from sea level to 30,000 ft and watch pressure, temperature and density. The slider stays locked until both of you have predicted.</p></div></div>
+
+  <div class="predict" id="pred1">
+    <div class="pcard" id="pA1">
+      <div class="who">Partner A predicts</div>
+      <label>At 18,000 ft, air pressure is about what fraction of sea-level pressure?</label>
+      <div class="opts" data-q="pFrac"><button data-v="0.75">¾</button><button data-v="0.5">½</button><button data-v="0.25">¼</button><button data-v="0.1">1/10</button></div>
+    </div>
+    <div class="pcard" id="pB1">
+      <div class="who">Partner B predicts</div>
+      <label>On a standard day, what is the air temperature at 10,000 ft?</label>
+      <div class="opts" data-q="t10"><button data-v="15">15 °C</button><button data-v="5">5 °C</button><button data-v="-5">−5 °C</button><button data-v="-25">−25 °C</button></div>
+    </div>
+    <div class="lockRow"><button class="primary" id="lock1" disabled>Lock both predictions</button><span class="hint">Both must pick before the slider unlocks.</span></div>
+  </div>
+
+  <div class="grid" id="climb" hidden>
+    <div>
+      <div class="view">
+        <canvas id="col" width="760" height="460"></canvas>
+        <div class="hud">
+          <span>ALT <b id="hAlt">0 ft</b></span>
+          <span>PRESS <b id="hP">1013 hPa</b></span>
+          <span>TEMP <b id="hT">15 °C</b></span>
+          <span>DENSITY <b id="hD">100%</b></span>
+        </div>
+      </div>
+      <div class="controls one">
+        <div class="ctl">
+          <label>Altitude <small>feet above sea level</small></label>
+          <input type="range" id="alt" min="0" max="30000" value="0" step="250" aria-label="Altitude">
+          <div class="ends"><span>Sea level</span><span>YXH 2,350 ft</span><span>30,000 ft</span></div>
+        </div>
+      </div>
+      <div class="row">
+        <button id="altSea">Sea level</button>
+        <button id="altYxh">Medicine Hat (2,350 ft)</button>
+        <button id="altClimb">Auto climb</button>
+        <span class="kbd"><kbd>↑</kbd><kbd>↓</kbd> 250 ft</span>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="eyebrow">Readout — same pressure, three units</div>
+      <div class="units">
+        <div><span class="k">psi</span><b id="uPsi">14.7</b></div>
+        <div><span class="k">inHg</span><b id="uInhg">29.92</b></div>
+        <div><span class="k">hPa = mb</span><b id="uHpa">1013.2</b></div>
+        <div><span class="k">°C</span><b id="uC">15.0</b></div>
+        <div><span class="k">°F</span><b id="uF">59.0</b></div>
+        <div><span class="k">kg/m³</span><b id="uRho">1.225</b></div>
+      </div>
+      <div class="axisCard" id="explain1">
+        <div class="axis">
+          <h3 id="ex1Title">Sea level — the standard</h3>
+          <span class="k">Pressure</span><span class="v" id="ex1P">14.7 psi = 29.92 inHg = 1013.2 hPa. Same pressure, three units. Know all three.</span>
+          <span class="k">Why it drops</span><span class="v" id="ex1W">Pressure is the <b>weight of the air above you</b>. Climb, and there is less air overhead.</span>
+          <span class="k">Density</span><span class="v" id="ex1D">Less pressure → the gas spreads out (Boyle) → fewer molecules per m³.</span>
+        </div>
+      </div>
+      <div class="reveal" id="reveal1" hidden>
+        <div class="eyebrow">Your predictions</div>
+        <p id="revA1"></p><p id="revB1"></p>
+      </div>
+    </div>
+  </div>
+  <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="1" placeholder="One sentence you both agree on: why pressure, temperature and density all fall as you climb — and which one falls fastest."></textarea></div>
+</section>
+
+<!-- ───────── STATION 2 ───────── -->
+<section class="station" id="s2">
+  <div class="stHead"><span class="num">2</span><div><h2>Boyle and Charles — one balloon, two laws</h2><p>A sealed balloon of air. Change one thing at a time. The other is held steady — that is the whole trick of each law.</p></div></div>
+
+  <div class="predict" id="pred2">
+    <div class="pcard" id="pA2">
+      <div class="who">Partner A predicts</div>
+      <label>Lift the balloon to 18,000 ft where pressure is about half. Temperature held steady. Its volume…</label>
+      <div class="opts" data-q="boyle"><button data-v="0.5">halves</button><button data-v="1">stays the same</button><button data-v="2">doubles</button><button data-v="4">quadruples</button></div>
+    </div>
+    <div class="pcard" id="pB2">
+      <div class="who">Partner B predicts</div>
+      <label>Cool the balloon from 20 °C to −20 °C at constant pressure. Its volume…</label>
+      <div class="opts" data-q="charles"><button data-v="half">shrinks by half</button><button data-v="little">shrinks a little (≈ 14%)</button><button data-v="same">stays the same</button><button data-v="grow">grows</button></div>
+    </div>
+    <div class="lockRow"><button class="primary" id="lock2" disabled>Lock both predictions</button><span class="hint">Both must pick before the balloon unlocks.</span></div>
+  </div>
+
+  <div class="grid" id="gas" hidden>
+    <div>
+      <div class="twin">
+        <div class="law" id="lawB">
+          <div class="eyebrow">Boyle · temperature held at 15 °C</div>
+          <div class="bal"><div class="balloon" id="balB"><span id="balBv">1.00 L</span></div></div>
+          <div class="ctl"><label>Altitude <small><span id="bAlt">0</span> ft</small></label><input type="range" id="bAltIn" min="0" max="30000" value="0" step="500"><div class="ends"><span>Sea level</span><span>30,000 ft</span></div></div>
+          <div class="math"><span>p₁V₁ = p₂V₂</span><span id="mB">1013 × 1.00 = 1013 × 1.00</span></div>
+          <p class="law-why">Pressure down → volume up. Multiply them and you get the same number every time.</p>
+        </div>
+        <div class="law" id="lawC">
+          <div class="eyebrow">Charles · pressure held at 1013 hPa</div>
+          <div class="bal"><div class="balloon" id="balC"><span id="balCv">1.00 L</span></div></div>
+          <div class="ctl"><label>Temperature <small><span id="cT">20</span> °C = <span id="cK">293</span> K</small></label><input type="range" id="cTIn" min="-40" max="60" value="20" step="1"><div class="ends"><span>Freezer −40 °C</span><span>Hot sun 60 °C</span></div></div>
+          <div class="math"><span>V₁ ÷ T₁ = V₂ ÷ T₂</span><span id="mC">1.00 ÷ 293 = 1.00 ÷ 293</span></div>
+          <p class="law-why">Kelvin only. −20 °C is 253 K, not "negative" — the gas has not lost half its heat.</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="eyebrow">Which law is which</div>
+      <table>
+        <tr><th></th><th>Boyle</th><th>Charles</th></tr>
+        <tr><td>Held steady</td><td>Temperature</td><td>Pressure</td></tr>
+        <tr><td>Changes</td><td>p and V, opposite ways</td><td>T and V, same way</td></tr>
+        <tr><td>Hook</td><td>"Boyle = boil" → the law where temperature is locked</td><td>Charles → "Celsius? No — kelvin"</td></tr>
+        <tr><td>On the aircraft</td><td>Altimeter, cabin pressure, tire pressure after climb</td><td>Tires and struts on a cold morning, oleo pressure</td></tr>
+      </table>
+      <div class="reveal" id="reveal2" hidden>
+        <div class="eyebrow">Your predictions</div>
+        <p id="revA2"></p><p id="revB2"></p>
+      </div>
+    </div>
+  </div>
+  <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="2" placeholder="One sentence you both agree on: what each law holds constant, and why Charles only works in kelvin."></textarea></div>
+</section>
+
+<!-- ───────── STATION 3 ───────── -->
+<section class="station" id="s3">
+  <div class="stHead"><span class="num">3</span><div><h2>A hot day in Medicine Hat</h2><p>YXH sits at 2,350 ft — never at "sea level" conditions. Change the day's temperature and watch what the engine and wing have to work with.</p></div></div>
+
+  <div class="predict" id="pred3">
+    <div class="pcard" id="pA3">
+      <div class="who">Partner A predicts</div>
+      <label>A +32 °C July afternoon at YXH versus a standard day. The air density…</label>
+      <div class="opts" data-q="hot"><button data-v="up">goes up</button><button data-v="same">stays the same</button><button data-v="down">goes down</button><button data-v="dep">depends on the wind</button></div>
+    </div>
+    <div class="pcard" id="pB3">
+      <div class="who">Partner B predicts</div>
+      <label>Which of these is standard sea-level pressure?</label>
+      <div class="opts" data-q="std"><button data-v="psi">14.7 psi</button><button data-v="inhg">29.92 inHg</button><button data-v="hpa">1013.2 hPa</button><button data-v="all">all three</button></div>
+    </div>
+    <div class="lockRow"><button class="primary" id="lock3" disabled>Lock both predictions</button><span class="hint">Both must pick before the day unlocks.</span></div>
+  </div>
+
+  <div class="grid" id="day" hidden>
+    <div class="panel">
+      <div class="eyebrow">Medicine Hat · 2,350 ft · pressure ≈ 931 hPa (standard)</div>
+      <div class="ctl"><label>Outside air temperature <small><span id="dT">7</span> °C</small></label><input type="range" id="dTIn" min="-35" max="38" value="7" step="1"><div class="ends"><span>−35 °C January</span><span>standard 10 °C</span><span>+38 °C July</span></div></div>
+      <div class="dayOut">
+        <div><span class="k">Density</span><b id="dRho">1.11 kg/m³</b><span class="mult" id="dPct">91% of sea-level standard</span></div>
+        <div><span class="k">Density altitude</span><b id="dDA">≈ 2 350 ft</b><span class="mult">the altitude the aircraft "feels"</span></div>
+      </div>
+      <div class="bars">
+        <div class="brow"><span>Lift at the same airspeed</span><div class="bar"><div id="barL"></div></div><b id="barLv">×1.00</b></div>
+        <div class="brow"><span>Engine power (normally aspirated)</span><div class="bar"><div id="barE"></div></div><b id="barEv">×1.00</b></div>
+        <div class="brow"><span>Takeoff roll</span><div class="bar"><div id="barR"></div></div><b id="barRv">×1.00</b></div>
+      </div>
+      <p class="hint">Bars are relative to a standard day at YXH. Simplified — the real numbers come from the aircraft's performance charts.</p>
+      <div class="row"><button id="dayCold">−30 °C</button><button id="dayStd">Standard</button><button id="dayHot">+32 °C</button></div>
+    </div>
+    <div class="panel">
+      <div class="axisCard" id="explain3">
+        <div class="axis">
+          <h3 id="ex3Title">Standard day at YXH</h3>
+          <span class="k">Chain</span><span class="v" id="ex3C">↑ temperature → ↑ volume → ↓ density. Same chain as Charles' law, just outdoors.</span>
+          <span class="k">Engine</span><span class="v" id="ex3E">Fewer oxygen molecules per gulp of air → less fuel it can burn → less power.</span>
+          <span class="k">Wing &amp; prop</span><span class="v" id="ex3W">Lift and thrust both carry ρ in the equation. Thin air, less of both.</span>
+        </div>
+      </div>
+      <div class="reveal" id="reveal3" hidden>
+        <div class="eyebrow">Your predictions</div>
+        <p id="revA3"></p><p id="revB3"></p>
+      </div>
+      <div class="convert">
+        <div class="eyebrow">Converter — check your own numbers</div>
+        <div class="cv"><label>°C <input type="number" id="cvC" value="15" step="0.5"></label><span>=</span><b id="cvF">59.0 °F</b><span>=</span><b id="cvK">288.15 K</b></div>
+        <div class="cv"><label>hPa <input type="number" id="cvH" value="1013.2" step="0.1"></label><span>=</span><b id="cvPsi">14.70 psi</b><span>=</span><b id="cvIn">29.92 inHg</b></div>
+      </div>
+    </div>
+  </div>
+  <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="3" placeholder="One sentence you both agree on: why a hot afternoon at YXH is the worst time to be heavy on takeoff."></textarea></div>
+</section>
+
+<div class="panel done" id="doneBox" hidden>
+  <div class="eyebrow">All three stations done</div>
+  <p>Read your three sentences out loud to another pair. If they disagree with one, settle it with the slider, not an argument.</p>
+</div>
+
+<footer>Simplified model for teaching. Column values follow the <b>International Standard Atmosphere</b> (sea level 15 °C, 1013.25 hPa, 1.225 kg/m³, lapse rate 1.98 °C per 1,000 ft up to 36,000 ft). Density altitude and the performance bars are approximations — use the aircraft's performance charts for real planning. Sources: ICAO Doc 7488 <i>Manual of the ICAO Standard Atmosphere</i>; Transport Canada <i>Aeronautical Information Manual</i> (TP 14371), MET; FAA <i>Pilot's Handbook of Aeronautical Knowledge</i> (FAA-H-8083-25C), ch. 4 and 11; SAIT ASYS 245 Module 1 Atmosphere.</footer>
+</div>
+
+<script>
+document.getElementById('logo').src='data:image/png;base64,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';
+(function(){
+'use strict';
+var KEY='asys245-m1-lab';
+var $=function(s,r){return (r||document).querySelector(s)};
+var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var state={};
+try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){state={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function fmt(n,d){return (+n).toLocaleString('en-CA',{minimumFractionDigits:d||0,maximumFractionDigits:d||0}).replace(/,/g,' ')}
+function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v))}
+
+/* ---------- ISA ---------- */
+var P0=1013.25,T0=15,RHO0=1.225,R=287.05;
+function isaT(ft){return T0-0.0019812*ft}                     /* °C, troposphere */
+function isaP(ft){return P0*Math.pow(1-6.8756e-6*ft,5.2559)}   /* hPa */
+function rho(p,tc){return p*100/(R*(tc+273.15))}
+function psi(h){return h*0.0145038}function inhg(h){return h*0.02953}function F(c){return c*9/5+32}
+
+/* ---------- names + progress ---------- */
+['nameA','nameB'].forEach(function(id){var el=$('#'+id);el.value=state[id]||'';el.addEventListener('input',function(){state[id]=el.value;save();refreshNames()})});
+function nm(k,fb){return (state[k]||'').trim()||fb}
+function refreshNames(){$$('[id^=pA] .who').forEach(function(w){w.textContent=nm('nameA','Partner A')+' predicts'});$$('[id^=pB] .who').forEach(function(w){w.textContent=nm('nameB','Partner B')+' predicts'})}
+function progress(){var n=0;['s1','s2','s3'].forEach(function(s){if(state['done_'+s])n++;$('#'+s).classList.toggle('complete',!!state['done_'+s])});$('#prog').textContent=n+' / 3 stations done';$('#doneBox').hidden=n<3}
+function markDone(s){if(state['done_'+s])return;state['done_'+s]=true;save();progress()}
+$$('textarea[data-note]').forEach(function(t){var k='note'+t.dataset.note;t.value=state[k]||'';t.addEventListener('input',function(){state[k]=t.value;save()})});
+
+/* ---------- generic predict/lock ---------- */
+function setupPredict(n,onLock){
+  var st=state['pred'+n]=state['pred'+n]||{},box=$('#pred'+n),qs=$$('.opts',box).map(function(g){return g.dataset.q});
+  $$('.opts',box).forEach(function(g){var q=g.dataset.q;$$('button',g).forEach(function(b){if(st[q]===b.dataset.v)b.classList.add('sel');b.addEventListener('click',function(){if(st.locked)return;$$('button',g).forEach(function(x){x.classList.remove('sel')});b.classList.add('sel');st[q]=b.dataset.v;save();gate()})})});
+  var lock=$('#lock'+n);
+  function gate(){var both=qs.every(function(q){return st[q]});lock.disabled=!both||!!st.locked;if(st.locked){box.classList.add('locked');lock.textContent='Predictions locked';onLock(st)}}
+  lock.addEventListener('click',function(){st.locked=true;save();gate()});
+  gate();return st;
+}
+function verdict(who,said,ok,truth){return '<b>'+who+'</b> said '+said+'. '+(ok?'<span class="good">Right.</span> ':'<span class="bad">Not quite.</span> ')+truth}
+
+/* ================= STATION 1 ================= */
+var cv=$('#col'),ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+var altEl=$('#alt');altEl.value=state.alt||0;
+var climbing=false,anim=null,seen={lo:false,hi:false};
+var TOP=30000,Y0=H-40,Y1=56;
+var RND=(function(){var a=[],x=12345;for(var i=0;i<1400;i++){x=(x*1103515245+12345)%2147483648;a.push(x/2147483648)}return a})();
+function yOf(ft){return Y0-(ft/TOP)*(Y0-Y1)}
+function drawCol(){
+  var ft=parseFloat(altEl.value),p=isaP(ft),t=isaT(ft),d=rho(p,t);
+  ctx.clearRect(0,0,W,H);
+  /* column bands: density shading */
+  var x0=120,x1=300;
+  for(var y=Y1;y<Y0;y+=4){var f=(Y0-y)/(Y0-Y1),pp=isaP(f*TOP),dd=rho(pp,isaT(f*TOP))/RHO0;ctx.fillStyle='rgba(111,179,224,'+(0.06+dd*0.42)+')';ctx.fillRect(x0,y,x1-x0,4);}
+  ctx.strokeStyle='#2b2b2f';ctx.lineWidth=1;ctx.strokeRect(x0,Y1,x1-x0,Y0-Y1);
+  /* molecule dots: density */
+  ctx.fillStyle='rgba(255,255,255,.8)';
+  for(var i=0;i<460;i++){var yy=Y1+RND[i*3]*(Y0-Y1);var frac=(Y0-yy)/(Y0-Y1);var dens=rho(isaP(frac*TOP),isaT(frac*TOP))/RHO0;if(RND[i*3+1]<dens){var xx=x0+6+RND[i*3+2]*(x1-x0-12);ctx.fillRect(xx,yy,2,2);}}
+  /* ticks */
+  ctx.font='11px JetBrains Mono,monospace';ctx.fillStyle='#a9a9ad';ctx.textAlign='right';
+  for(var a=0;a<=TOP;a+=5000){var y=yOf(a);ctx.fillText(fmt(a)+' ft',x0-8,y+4);ctx.strokeStyle='#2b2b2f';ctx.beginPath();ctx.moveTo(x0-4,y);ctx.lineTo(x0,y);ctx.stroke();}
+  /* sea level + YXH */
+  ctx.textAlign='left';ctx.fillStyle='#6fb3e0';ctx.fillRect(x0,Y0,x1-x0+8,3);ctx.fillText('SEA LEVEL · 15 °C · 1013 hPa',x1+12,Y0+4);
+  var yy2=yOf(2350);ctx.strokeStyle='#d8b358';ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(x0,yy2);ctx.lineTo(x1+6,yy2);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#d8b358';ctx.fillText('YXH 2,350 ft',x1+12,yy2+4);
+  /* 36,000 label */
+  ctx.fillStyle='#a9a9ad';ctx.fillText('lapse rate −1.98 °C / 1,000 ft',x1+12,Y1+4);
+  /* aircraft marker */
+  var ya=yOf(ft);ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(x0,ya);ctx.lineTo(x1,ya);ctx.stroke();
+  ctx.fillStyle='#fff';ctx.beginPath();ctx.moveTo(x1+2,ya);ctx.lineTo(x1+22,ya-7);ctx.lineTo(x1+22,ya+7);ctx.closePath();ctx.fill();
+  /* readout stack right */
+  var rx=360,ry=96;
+  function line(lbl,val,col){ctx.fillStyle='#a9a9ad';ctx.font='11px JetBrains Mono,monospace';ctx.fillText(lbl,rx,ry);ctx.fillStyle=col;ctx.font='600 26px Barlow Condensed,Impact,sans-serif';ctx.fillText(val,rx,ry+30);ry+=72;}
+  line('PRESSURE',fmt(p,0)+' hPa  ·  '+(p/P0*100).toFixed(0)+'% of sea level','#6fb3e0');
+  line('TEMPERATURE',t.toFixed(1)+' °C  ·  '+F(t).toFixed(0)+' °F','#e07a6f');
+  line('DENSITY',d.toFixed(3)+' kg/m³  ·  '+(d/RHO0*100).toFixed(0)+'%','#8ad78a');
+  /* bars */
+  var by=ry-10;[['p',p/P0,'#6fb3e0'],['T',(t+56.5)/(T0+56.5),'#e07a6f'],['ρ',d/RHO0,'#8ad78a']].forEach(function(b,i){ctx.fillStyle='#1c1c1f';ctx.fillRect(rx,by+i*18,360,10);ctx.fillStyle=b[2];ctx.fillRect(rx,by+i*18,360*clamp(b[1],0,1),10);ctx.fillStyle='#a9a9ad';ctx.font='11px JetBrains Mono,monospace';ctx.fillText(b[0],rx-16,by+i*18+9);});
+  ctx.fillStyle='#a9a9ad';ctx.font='11px JetBrains Mono,monospace';ctx.fillText('fraction of the sea-level value (T on the kelvin scale)',rx,by+60);
+  /* hud + units */
+  $('#hAlt').textContent=fmt(ft)+' ft';$('#hP').textContent=fmt(p)+' hPa';$('#hT').textContent=t.toFixed(1)+' °C';$('#hD').textContent=(d/RHO0*100).toFixed(0)+'%';
+  $('#uPsi').textContent=psi(p).toFixed(2);$('#uInhg').textContent=inhg(p).toFixed(2);$('#uHpa').textContent=p.toFixed(1);$('#uC').textContent=t.toFixed(1);$('#uF').textContent=F(t).toFixed(1);$('#uRho').textContent=d.toFixed(3);
+  /* explain */
+  if(ft<500){$('#ex1Title').textContent='Sea level — the standard';$('#ex1P').innerHTML='14.7 psi = 29.92 inHg = 1013.2 hPa. Same pressure, three units. Know all three.';$('#ex1W').innerHTML='Pressure is the <b>weight of the air above you</b>. Climb, and there is less air overhead.';$('#ex1D').innerHTML='Less pressure → the gas spreads out (Boyle) → fewer molecules per m³.';}
+  else if(ft<3000){$('#ex1Title').textContent='Medicine Hat — already 8% down';$('#ex1P').innerHTML='YXH sits at 2,350 ft: about '+fmt(isaP(2350))+' hPa on a standard day. Your altimeter is set to a sea-level number so the needle still reads field elevation.';$('#ex1W').innerHTML='We are never at "sea level" conditions here. Every performance chart starts with that correction.';$('#ex1D').innerHTML='Density '+(rho(isaP(2350),isaT(2350))/RHO0*100).toFixed(0)+'% of standard before the day even warms up.';}
+  else if(ft<12000){$('#ex1Title').textContent='Climbing — all three fall together';$('#ex1P').innerHTML='At 10,000 ft pressure is about '+(isaP(10000)/P0*100).toFixed(0)+'% of sea level and the temperature is '+isaT(10000).toFixed(0)+' °C.';$('#ex1W').innerHTML='Pressure falls fastest near the ground because the air is densest there — most of the atmosphere’s weight is in the first few thousand feet.';$('#ex1D').innerHTML='Above about 10,000 ft a pilot needs oxygen for long periods: same % oxygen, far fewer molecules.';}
+  else if(ft<20000){$('#ex1Title').textContent='18,000 ft — half the atmosphere is below you';$('#ex1P').innerHTML='Pressure ≈ '+(isaP(18000)/P0*100).toFixed(0)+'% of sea level. Half the air’s weight is underneath you.';$('#ex1W').innerHTML='Temperature keeps dropping at a steady 1.98 °C per 1,000 ft — the <b>lapse rate</b>.';$('#ex1D').innerHTML='Density is only '+(rho(isaP(18000),isaT(18000))/RHO0*100).toFixed(0)+'%. A wing needs a much higher true airspeed for the same lift.';}
+  else{$('#ex1Title').textContent='Jet country';$('#ex1P').innerHTML='At 30,000 ft pressure is about '+(isaP(30000)/P0*100).toFixed(0)+'% of sea level and it is '+isaT(30000).toFixed(0)+' °C outside.';$('#ex1W').innerHTML='Thin air = less drag, so jets cruise here. True airspeed is up roughly 2% per 1,000 ft for the same indicated speed.';$('#ex1D').innerHTML='Engines need to be pressurized and the cabin pumped up — nobody breathes this unaided.';}
+  if(ft<=500)seen.lo=true;if(ft>=18000)seen.hi=true;
+  if(seen.lo&&seen.hi&&state.pred1&&state.pred1.locked)markDone('s1');
+}
+var st1=setupPredict(1,function(st){$('#climb').hidden=false;drawCol();
+  var a=st.pFrac,b=st.t10;
+  $('#revA1').innerHTML=verdict(nm('nameA','A'),'about '+({'0.75':'¾','0.5':'½','0.25':'¼','0.1':'1/10'}[a]),a==='0.5','At 18,000 ft pressure is about <b>half</b> of sea level ('+fmt(isaP(18000))+' hPa). Half the atmosphere’s weight is below you.');
+  $('#revB1').innerHTML=verdict(nm('nameB','B'),b+' °C',b==='-5','Standard day: 15 °C minus 1.98 °C per 1,000 ft → about <b>−5 °C</b> at 10,000 ft.');
+  $('#reveal1').hidden=false;});
+altEl.addEventListener('input',function(){state.alt=+altEl.value;save();climbing=false;$('#altClimb').textContent='Auto climb';drawCol()});
+$('#altSea').addEventListener('click',function(){altEl.value=0;state.alt=0;save();drawCol()});
+$('#altYxh').addEventListener('click',function(){altEl.value=2250;state.alt=2250;save();drawCol()});
+$('#altClimb').addEventListener('click',function(){if(climbing){climbing=false;this.textContent='Auto climb';return}altEl.value=0;climbing=true;this.textContent='Stop climb';
+  (function step(){if(!climbing)return;var v=+altEl.value+125;if(v>=TOP){v=TOP;climbing=false;$('#altClimb').textContent='Auto climb'}altEl.value=v;state.alt=v;drawCol();if(climbing)anim=requestAnimationFrame(step);else save()})();});
+document.addEventListener('keydown',function(e){if($('#climb').hidden||/input|textarea|select/i.test(document.activeElement.tagName))return;if(e.key==='ArrowUp'){altEl.value=clamp(+altEl.value+250,0,TOP);state.alt=+altEl.value;save();drawCol()}if(e.key==='ArrowDown'){altEl.value=clamp(+altEl.value-250,0,TOP);state.alt=+altEl.value;save();drawCol()}});
+drawCol();
+
+/* ================= STATION 2 ================= */
+var seen2={b:false,c:false};
+function balloon(el,vol){var s=Math.cbrt(vol);el.style.width=el.style.height=(70*s)+'px';}
+function drawB(){var ft=+$('#bAltIn').value,p=isaP(ft),v=P0/p;$('#bAlt').textContent=fmt(ft);balloon($('#balB'),v);$('#balBv').textContent=v.toFixed(2)+' L';$('#mB').textContent=fmt(P0)+' × 1.00 = '+fmt(p)+' × '+v.toFixed(2);if(ft>=18000)seen2.b=true;check2()}
+function drawC(){var c=+$('#cTIn').value,k=c+273.15,v=k/293.15;$('#cT').textContent=c;$('#cK').textContent=Math.round(k);balloon($('#balC'),v);$('#balCv').textContent=v.toFixed(2)+' L';$('#mC').textContent='1.00 ÷ 293 = '+v.toFixed(2)+' ÷ '+Math.round(k);if(c<=-20)seen2.c=true;check2()}
+function check2(){if(seen2.b&&seen2.c&&state.pred2&&state.pred2.locked)markDone('s2')}
+setupPredict(2,function(st){$('#gas').hidden=false;drawB();drawC();
+  $('#revA2').innerHTML=verdict(nm('nameA','A'),'it '+({'0.5':'halves','1':'stays the same','2':'doubles','4':'quadruples'}[st.boyle]),st.boyle==='2','Half the pressure → <b>double</b> the volume (p₁V₁ = p₂V₂). This is why a balloon released at the surface keeps swelling until it bursts.');
+  $('#revB2').innerHTML=verdict(nm('nameB','B'),'it '+({half:'shrinks by half',little:'shrinks a little',same:'stays the same',grow:'grows'}[st.charles]),st.charles==='little','293 K → 253 K is only a 14% drop, so the volume <b>shrinks about 14%</b>. "Half" is the trap — you only get that if you wrongly use °C.');
+  $('#reveal2').hidden=false;});
+$('#bAltIn').addEventListener('input',drawB);$('#cTIn').addEventListener('input',drawC);
+
+/* ================= STATION 3 ================= */
+var PYXH=isaP(2350),TSTD=isaT(2350),RSTD=rho(PYXH,TSTD);
+var seen3={cold:false,hot:false};
+function densAlt(d){ /* invert ISA density for an approximate density altitude */ var lo=-6000,hi=40000;for(var i=0;i<40;i++){var m=(lo+hi)/2;if(rho(isaP(m),isaT(m))>d)lo=m;else hi=m;}return (lo+hi)/2;}
+function drawDay(){var t=+$('#dTIn').value,d=rho(PYXH,t),f=d/RSTD,da=densAlt(d);
+  $('#dT').textContent=t;$('#dRho').textContent=d.toFixed(3)+' kg/m³';$('#dPct').textContent=(d/RHO0*100).toFixed(0)+'% of sea-level standard';$('#dDA').textContent='≈ '+fmt(Math.round(da/50)*50)+' ft';
+  var lift=f,eng=f,roll=1/(f*f); /* simplified: roll ∝ 1/ρ² when power also falls */
+  function bar(id,v,vid,max){$('#'+id).style.width=clamp(v/max*100,2,100)+'%';$('#'+id).style.background=v<0.97&&id!=='barR'||id==='barR'&&v>1.03?'#e07a6f':'#8ad78a';$('#'+vid).textContent='×'+v.toFixed(2)}
+  bar('barL',lift,'barLv',1.3);bar('barE',eng,'barEv',1.3);bar('barR',roll,'barRv',1.8);
+  if(t>=28){$('#ex3Title').textContent='Hot afternoon — the air got thin';$('#ex3C').innerHTML='At '+t+' °C the density is '+(f*100).toFixed(0)+'% of a standard day here. The aircraft performs as if it were at ≈ '+fmt(Math.round(da/100)*100)+' ft.';$('#ex3E').innerHTML='The engine makes about '+(f*100).toFixed(0)+'% of its standard power. The prop bites thinner air too.';$('#ex3W').innerHTML='Takeoff roll about '+(roll*100-100).toFixed(0)+'% longer, climb rate down. Heavy + hot + high is the classic accident recipe.';}
+  else if(t<=-15){$('#ex3Title').textContent='Cold morning — free performance';$('#ex3C').innerHTML='At '+t+' °C the air is '+(f*100).toFixed(0)+'% as dense as standard. The aircraft "feels" like it is at ≈ '+fmt(Math.round(da/100)*100)+' ft.';$('#ex3E').innerHTML='More oxygen per gulp → more power. Short takeoff, strong climb.';$('#ex3W').innerHTML='Same density chain, opposite direction: ↓ temperature → ↓ volume → ↑ density. (Cold also means carb ice and stiff oleos — not free of problems.)';}
+  else{$('#ex3Title').textContent='Near a standard day at YXH';$('#ex3C').innerHTML='↑ temperature → ↑ volume → ↓ density. Same chain as Charles’ law, just outdoors.';$('#ex3E').innerHTML='Fewer oxygen molecules per gulp of air → less fuel it can burn → less power.';$('#ex3W').innerHTML='Lift and thrust both carry ρ in the equation. Thin air, less of both.';}
+  if(t<=-25)seen3.cold=true;if(t>=30)seen3.hot=true;if(seen3.cold&&seen3.hot&&state.pred3&&state.pred3.locked)markDone('s3');
+}
+setupPredict(3,function(st){$('#day').hidden=false;drawDay();
+  $('#revA3').innerHTML=verdict(nm('nameA','A'),'density '+({up:'goes up',same:'stays the same',down:'goes down',dep:'depends on the wind'}[st.hot]),st.hot==='down','Hot air expands → density <b>goes down</b>. At +32 °C YXH behaves like an airport near '+fmt(Math.round(densAlt(rho(PYXH,32))/100)*100)+' ft.');
+  $('#revB3').innerHTML=verdict(nm('nameB','B'),({psi:'14.7 psi',inhg:'29.92 inHg',hpa:'1013.2 hPa',all:'all three'}[st.std]),st.std==='all','<b>All three</b> are the same standard pressure in different units: 14.7 psi = 29.92 inHg = 1013.2 hPa (= 1013.2 mb).');
+  $('#reveal3').hidden=false;});
+$('#dTIn').addEventListener('input',drawDay);
+$('#dayCold').addEventListener('click',function(){$('#dTIn').value=-30;drawDay()});$('#dayStd').addEventListener('click',function(){$('#dTIn').value=Math.round(TSTD);drawDay()});$('#dayHot').addEventListener('click',function(){$('#dTIn').value=32;drawDay()});
+/* converter */
+function conv(){var c=+$('#cvC').value||0,h=+$('#cvH').value||0;$('#cvF').textContent=F(c).toFixed(1)+' °F';$('#cvK').textContent=(c+273.15).toFixed(2)+' K';$('#cvPsi').textContent=psi(h).toFixed(2)+' psi';$('#cvIn').textContent=inhg(h).toFixed(2)+' inHg'}
+$('#cvC').addEventListener('input',conv);$('#cvH').addEventListener('input',conv);conv();
+
+refreshNames();progress();
+$('#resetAll').addEventListener('click',function(){if(!confirm('Clear names, predictions and notes for this lab?'))return;try{localStorage.removeItem(KEY)}catch(e){}location.reload()});
+})();
+
+</script>
+</body></html>
