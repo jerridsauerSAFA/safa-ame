@@ -99,7 +99,7 @@ footer{color:var(--muted);font-size:12px;border-top:1px solid var(--line);paddin
 .stHead p{margin:4px 0 0;color:var(--muted);font-size:14px;max-width:70ch}
 .num{flex:none;width:38px;height:38px;border-radius:50%;background:var(--gold);color:var(--bg);font-family:var(--display);font-weight:700;font-size:22px;display:flex;align-items:center;justify-content:center}
 .station.complete .num:after{content:"✓";font-size:16px;margin-left:2px}
-.view svg,canvas#flow{display:block;width:100%;height:auto;max-width:100%}
+.view svg,canvas#flow,canvas#ac{display:block;width:100%;height:auto;max-width:100%}
 .labels{display:flex;flex-direction:column;gap:6px}
 .lrow{display:grid;grid-template-columns:auto 1fr auto;gap:8px 10px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
 .lrow .n{font-family:var(--mono);font-weight:600;color:var(--gold);width:18px}
@@ -155,6 +155,12 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .done{border-color:var(--gold)}
 sub{font-size:.7em}
 #clCurve{opacity:.4}
+
+.challenge{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.challenge .tasks li div{display:flex;flex-direction:column}
+.challenge .tasks li.done{opacity:1;border-color:var(--yaw)}
+.challenge .tasks li.done b{color:var(--yaw)}
+#c4Pitch .ends span{text-transform:none;letter-spacing:0;font-family:var(--mono)}
 </style>
 <div class="wrap">
 <header>
@@ -162,7 +168,7 @@ sub{font-size:.7em}
   <div>
     <div class="eyebrow"><a class="back" href="./">← Module 2</a> · South Alberta Flight Academy · ASYS 245</div>
     <h1>Airfoil &amp; Stall Lab</h1>
-    <p class="sub">Work in pairs. Predict first, then test, then agree on one sentence. Three stations, about 25 minutes.</p>
+    <p class="sub">Work in pairs. Predict first, then test, then agree on one sentence. Four stations, about 30 minutes.</p>
   </div>
 </header>
 
@@ -172,7 +178,7 @@ sub{font-size:.7em}
     <label>Partner A <input id="nameA" placeholder="name" maxlength="24"></label>
     <label>Partner B <input id="nameB" placeholder="name" maxlength="24"></label>
     <span class="hint">A predicts first on every station. B predicts second. Then you test together.</span>
-    <span class="prog" id="prog">0 / 3 stations done</span>
+    <span class="prog" id="prog">0 / 4 stations done</span>
     <button id="resetAll" title="Clear names, predictions and notes">Reset lab</button>
   </div>
 </div>
@@ -269,9 +275,90 @@ sub{font-size:.7em}
   <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="2" placeholder="One sentence you both agree on: what actually causes the stall, and what the pilot has to change to recover."></textarea></div>
 </section>
 
-<!-- ───────── STATION 3 ───────── -->
+<!-- ───────── STATION 3 (CG · CP) ───────── -->
+<section class="station" id="s4">
+  <div class="stHead"><span class="num">3</span><div><h2>CG, CP and the pitching moment</h2><p>Lift acts through the centre of pressure. Weight acts through the centre of gravity. They are almost never in the same place — and the gap between them is a lever. Move the AOA, move the CG, watch the lever.</p></div></div>
+
+  <div class="predict" id="pred4">
+    <div class="pcard" id="pA4">
+      <div class="who">Partner A predicts</div>
+      <label>As angle of attack increases (below the stall), the centre of pressure moves…</label>
+      <div class="opts" data-q="cpMove"><button data-v="fwd">forward</button><button data-v="aft">aft</button><button data-v="stay">it does not move</button><button data-v="cg">to the CG</button></div>
+    </div>
+    <div class="pcard" id="pB4">
+      <div class="who">Partner B predicts</div>
+      <label>CG sits ahead of the CP (normal loading). On its own, the wing's lift tries to pitch the nose…</label>
+      <div class="opts" data-q="noseDir"><button data-v="up">up</button><button data-v="down">down</button><button data-v="none">neither — forces are balanced</button><button data-v="left">left, because of the prop</button></div>
+    </div>
+    <div class="lockRow"><button class="primary" id="lock4" disabled>Lock both predictions</button><span class="hint">Both must pick before the aircraft unlocks.</span></div>
+  </div>
+
+  <div class="grid" id="cgcp" hidden>
+    <div>
+      <div class="view">
+        <canvas id="ac" width="760" height="400"></canvas>
+        <div class="hud">
+          <span>AOA <b id="h4Aoa">4°</b></span>
+          <span>CP <b id="h4Cp">34%</b></span>
+          <span>CG <b id="h4Cg">25%</b></span>
+          <span>ARM <b id="h4Arm">9% aft</b></span>
+          <span>NOSE <b id="h4Mom">down</b></span>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="ctl" id="c4Aoa">
+          <label>Angle of attack <small>wing chord vs relative wind</small></label>
+          <input type="range" id="aoa4" min="-2" max="18" value="4" step="0.5" aria-label="Angle of attack">
+          <div class="ends"><span>−2°</span><span>18°</span></div>
+        </div>
+        <div class="ctl" id="c4Cg" style="--c:var(--bad)">
+          <label>Centre of gravity <small>% of wing chord, from the leading edge</small></label>
+          <input type="range" id="cg4" min="10" max="45" value="25" step="1" aria-label="Centre of gravity">
+          <div class="ends"><span>Forward 10%</span><span>Aft 45%</span></div>
+        </div>
+        <div class="ctl" id="c4Pitch" style="--c:var(--yaw)">
+          <label>Hands off <small>nudge the nose up 3° and let go</small></label>
+          <div class="row" style="margin-top:2px"><button class="primary" id="nudge4">Nudge &amp; release</button><button id="hold4">Hold level</button></div>
+          <div class="ends"><span id="pitchState">holding trim</span></div>
+        </div>
+      </div>
+      <div class="row"><label class="toggle"><input type="checkbox" id="showTail" checked> Show tail force</label><label class="toggle"><input type="checkbox" id="showDrag" checked> Show thrust &amp; drag</label><span class="kbd">Vectors are not to scale — direction and position are what matter.</span></div>
+    </div>
+    <div class="panel">
+      <div class="axisCard" id="explain4" style="--c:var(--yaw)">
+        <div class="axis">
+          <h3 id="ex4Title">CP behind the CG — nose-down lever</h3>
+          <span class="k">Lever</span><span class="v" id="ex4L">Lift pulls up behind the CG. That rotates the nose <b>down</b> about the CG.</span>
+          <span class="k">Tail</span><span class="v" id="ex4T">The horizontal stabilizer makes a <b>downward</b> force to hold the nose up. This is the normal, stable layout.</span>
+          <span class="k">AOA ↑</span><span class="v" id="ex4A">CP creeps forward toward the CG → smaller lever → less tail download needed.</span>
+        </div>
+      </div>
+      <table style="margin-top:12px">
+        <tr><th>Moves?</th><th>With AOA</th><th>With loading</th></tr>
+        <tr><td><b>CP</b></td><td>Yes — forward as AOA rises, then aft after the stall</td><td>No</td></tr>
+        <tr><td><b>CG</b></td><td>No</td><td>Yes — fuel, passengers, baggage</td></tr>
+        <tr><td><b>AC</b></td><td>No (≈ ¼ chord)</td><td>No</td></tr>
+      </table>
+      <div class="reveal" id="reveal4" hidden>
+        <div class="eyebrow">Your predictions</div>
+        <p id="revA4"></p><p id="revB4"></p>
+      </div>
+      <div class="challenge" id="chal4">
+        <div class="eyebrow">Do these, in order</div>
+        <ul class="tasks">
+          <li id="t4a"><input type="checkbox" disabled><div><b>Sweep AOA 0° → 15°</b><span>Watch the CP slide forward and the arm shrink.</span></div></li>
+          <li id="t4b"><input type="checkbox" disabled><div><b>Drag the CG aft, past the CP</b><span>The lever flips. Which way does the tail force point now?</span></div></li>
+          <li id="t4c"><input type="checkbox" disabled><div><b>Nudge &amp; release with CG forward, then with CG aft</b><span>One comes back on its own. One does not.</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="4" placeholder="One sentence you both agree on: why a conventional tail pushes down, and what changes when the CG goes aft."></textarea></div>
+</section>
+
+<!-- ───────── STATION 4 ───────── -->
 <section class="station" id="s3">
-  <div class="stHead"><span class="num">3</span><div><h2>Lift equation what-ifs</h2><p>L = ½ · ρ · V² · A · C<sub>L</sub>. Start from the baseline. For each what-if, A and B each pick a multiplier, then reveal.</p></div></div>
+  <div class="stHead"><span class="num">4</span><div><h2>Lift equation what-ifs</h2><p>L = ½ · ρ · V² · A · C<sub>L</sub>. Start from the baseline. For each what-if, A and B each pick a multiplier, then reveal.</p></div></div>
   <div class="grid">
     <div class="panel">
       <div class="eyebrow">Baseline</div>
@@ -299,8 +386,8 @@ sub{font-size:.7em}
 </section>
 
 <div class="panel done" id="doneBox" hidden>
-  <div class="eyebrow">All three stations done</div>
-  <p>Read your three sentences out loud to another pair. If they disagree with one, settle it with the slider, not an argument.</p>
+  <div class="eyebrow">All four stations done</div>
+  <p>Read your four sentences out loud to another pair. If they disagree with one, settle it with the slider, not an argument.</p>
 </div>
 
 <footer>Simplified model for teaching. The C<sub>L</sub> curve, stall angle (≈ 16°) and centre-of-pressure travel are <b>typical values for a cambered training-aircraft airfoil</b>, not numbers for a specific aircraft — confirm real figures against the aircraft manual. Sources: FAA <i>Pilot's Handbook of Aeronautical Knowledge</i> (FAA-H-8083-25C), ch. 4–5; NASA Glenn Research Center, "Incorrect Lift Theory" (why air over the top is faster is <i>not</i> because it has farther to go); SAIT ASYS 245 Module 2 Lift &amp; Drag; <i>From the Ground Up</i>, Theory of Flight.</footer>
@@ -363,15 +450,14 @@ function foilPath(c,sx){ /* svg path string, chord px c, y scale flip; sx x offs
 ['nameA','nameB'].forEach(function(id){var el=$('#'+id);el.value=state[id]||'';el.addEventListener('input',function(){state[id]=el.value;save();refreshNames()})});
 function nm(k,fb){return (state[k]||'').trim()||fb}
 function refreshNames(){
-  $('#pA2 .who').textContent=nm('nameA','Partner A')+' predicts';
-  $('#pB2 .who').textContent=nm('nameB','Partner B')+' predicts';
+  $$('[id^=pA] .who').forEach(function(w){w.textContent=nm('nameA','Partner A')+' predicts'});$$('[id^=pB] .who').forEach(function(w){w.textContent=nm('nameB','Partner B')+' predicts'});
   $$('.wi .who').forEach(function(w){w.textContent=(w.dataset.p==='A'?nm('nameA','Partner A'):nm('nameB','Partner B'))});
 }
 function progress(){
-  var n=0;['s1','s2','s3'].forEach(function(s){if(state['done_'+s])n++;});
-  $('#prog').textContent=n+' / 3 stations done';
-  $('#doneBox').hidden=n<3;
-  ['s1','s2','s3'].forEach(function(s){$('#'+s).classList.toggle('complete',!!state['done_'+s])});
+  var n=0;['s1','s2','s4','s3'].forEach(function(s){if(state['done_'+s])n++;});
+  $('#prog').textContent=n+' / 4 stations done';
+  $('#doneBox').hidden=n<4;
+  ['s1','s2','s4','s3'].forEach(function(s){$('#'+s).classList.toggle('complete',!!state['done_'+s])});
 }
 function markDone(s){state['done_'+s]=true;save();progress()}
 
@@ -555,7 +641,105 @@ draw(true);
 if(!window.matchMedia||!window.matchMedia('(prefers-reduced-motion: reduce)').matches)loop();
 try{var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){if(!animId&&!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches))loop()}else if(animId){cancelAnimationFrame(animId);animId=null}})});io.observe(cv);}catch(e){}
 
-/* ---------- STATION 3 ---------- */
+
+/* ---------- STATION 3: CG · CP · pitching moment ---------- */
+state.pred4=state.pred4||{};state.t4=state.t4||{};
+(function(){
+  var st=state.pred4,box=$('#pred4'),qs=['cpMove','noseDir'];
+  $$('.opts',box).forEach(function(g){var q=g.dataset.q;$$('button',g).forEach(function(b){if(st[q]===b.dataset.v)b.classList.add('sel');b.addEventListener('click',function(){if(st.locked)return;$$('button',g).forEach(function(x){x.classList.remove('sel')});b.classList.add('sel');st[q]=b.dataset.v;save();gate4()})})});
+  $('#lock4').addEventListener('click',function(){st.locked=true;save();gate4()});
+})();
+function gate4(){var st=state.pred4;$('#lock4').disabled=!(st.cpMove&&st.noseDir)||!!st.locked;
+  if(st.locked){$('#cgcp').hidden=false;$('#pred4').classList.add('locked');$('#lock4').textContent='Predictions locked';
+    $('#revA4').innerHTML='<b>'+nm('nameA','A')+'</b> said the CP moves '+({fwd:'forward',aft:'aft',stay:'nowhere',cg:'to the CG'}[st.cpMove])+'. '+(st.cpMove==='fwd'?'<span class="good">Right.</span>':'<span class="bad">Not quite.</span>')+' On a cambered wing the CP moves <b>forward</b> as AOA rises, then jumps aft after the stall. The CG never moves with AOA.';
+    $('#revB4').innerHTML='<b>'+nm('nameB','B')+'</b> said nose '+({up:'up',down:'down',none:'neither',left:'left'}[st.noseDir])+'. '+(st.noseDir==='down'?'<span class="good">Right.</span>':'<span class="bad">Not quite.</span>')+' Lift behind the CG is a <b>nose-down</b> lever. That is why a conventional tail makes a downward force — it holds the nose up against the wing.';
+    $('#reveal4').hidden=false;draw4();}}
+var cv4=$('#ac'),cx=cv4.getContext('2d'),W4=cv4.width,H4=cv4.height;
+var aoa4=$('#aoa4'),cg4=$('#cg4');aoa4.value=state.aoa4!=null?state.aoa4:4;cg4.value=state.cg4!=null?state.cg4:25;
+var pitch=0,pitchRate=0,released=false,tailTrim=0,anim4=null,relT=0,relCg=null,t4=state.t4;
+var CH4=170,WX=330,WY=205;/* wing LE position, chord px */
+function tick4(){save();$$('#chal4 li').forEach(function(li){var k=li.id.slice(2);li.classList.toggle('done',!!t4[k]);$('input',li).checked=!!t4[k]});if(t4.a&&t4.b&&t4.c)markDone('s4')}
+function draw4(){
+  var a=parseFloat(aoa4.value),cgp=parseFloat(cg4.value),cl=Math.max(0.05,CL(a)),cpp=CP(a);
+  var th=-(pitch)*Math.PI/180,cs=Math.cos(th),sn=Math.sin(th);
+  function Wd(x,y){return [WX+x*cs-y*sn,WY+x*sn+y*cs]} /* aircraft-fixed → canvas; x aft from wing LE, y down */
+  cx.clearRect(0,0,W4,H4);
+  /* relative wind */
+  cx.strokeStyle='rgba(111,179,224,.7)';cx.lineWidth=1.5;cx.setLineDash([8,6]);for(var i=0;i<3;i++){cx.beginPath();cx.moveTo(20,120+i*70);cx.lineTo(150,120+i*70);cx.stroke();}cx.setLineDash([]);
+  cx.fillStyle='#6fb3e0';cx.font='600 12px JetBrains Mono,monospace';cx.fillText('RELATIVE WIND →',20,100);
+  /* fuselage */
+  var nose=Wd(-190,8),tail=Wd(330,-6);
+  cx.strokeStyle='#a9a9ad';cx.lineWidth=6;cx.lineCap='round';cx.beginPath();cx.moveTo(nose[0],nose[1]);cx.lineTo(tail[0],tail[1]);cx.stroke();cx.lineCap='butt';
+  /* wing (airfoil at AOA relative to fuselage ~ a-2°) */
+  var inc=(a-2)*Math.PI/180;var up=[],lo=[];
+  for(var i2=0;i2<=40;i2++){var x=i2/40,n=naca(x);var X=x*CH4,Yu=-n[0]*CH4*1.4,Yl=-n[1]*CH4*1.4;
+    up.push(Wd(X*Math.cos(inc)+Yu*Math.sin(inc),-X*Math.sin(inc)+Yu*Math.cos(inc)));lo.push(Wd(X*Math.cos(inc)+Yl*Math.sin(inc),-X*Math.sin(inc)+Yl*Math.cos(inc)));}
+  cx.beginPath();up.forEach(function(p,i){i?cx.lineTo(p[0],p[1]):cx.moveTo(p[0],p[1])});lo.slice().reverse().forEach(function(p){cx.lineTo(p[0],p[1])});cx.closePath();cx.fillStyle='#1c1c1f';cx.fill();cx.strokeStyle=a>CRIT?'#e07a6f':'#d8b358';cx.lineWidth=2;cx.stroke();
+  /* tail */
+  var t1=Wd(270,-4),t2=Wd(335,-4);cx.strokeStyle='#d8b358';cx.lineWidth=4;cx.beginPath();cx.moveTo(t1[0],t1[1]);cx.lineTo(t2[0],t2[1]);cx.stroke();
+  var f1=Wd(290,-6),f2=Wd(335,-62);cx.lineWidth=3;cx.beginPath();cx.moveTo(f1[0],f1[1]);cx.lineTo(f2[0],f2[1]);cx.stroke();
+  /* chord line + AOA arc */
+  var le=Wd(0,0),te=Wd(CH4*Math.cos(inc),-CH4*Math.sin(inc));cx.setLineDash([5,4]);cx.strokeStyle='rgba(255,255,255,.6)';cx.lineWidth=1;cx.beginPath();cx.moveTo(le[0],le[1]);cx.lineTo(te[0],te[1]);cx.stroke();
+  cx.strokeStyle='rgba(111,179,224,.6)';cx.beginPath();cx.moveTo(le[0],le[1]);cx.lineTo(le[0]+CH4,le[1]);cx.stroke();cx.setLineDash([]);
+  var ang=Math.atan2(te[1]-le[1],te[0]-le[0]);cx.strokeStyle='#e07a6f';cx.lineWidth=2;cx.beginPath();cx.arc(le[0],le[1],48,0,ang,ang<0);cx.stroke();
+  cx.fillStyle='#e07a6f';cx.font='600 12px JetBrains Mono,monospace';cx.fillText('AOA '+a.toFixed(1)+'°',le[0]-95,le[1]-34);
+  /* points */
+  var cp=Wd(cpp/100*CH4*Math.cos(inc),-cpp/100*CH4*Math.sin(inc)),cg=Wd(cgp/100*CH4,6),ac=Wd(0.25*CH4*Math.cos(inc),-0.25*CH4*Math.sin(inc));
+  /* vectors */
+  function vec(p,dx,dy,col,lbl,side){cx.strokeStyle=col;cx.fillStyle=col;cx.lineWidth=3;cx.beginPath();cx.moveTo(p[0],p[1]);cx.lineTo(p[0]+dx,p[1]+dy);cx.stroke();var L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L;cx.beginPath();cx.moveTo(p[0]+dx+ux*10,p[1]+dy+uy*10);cx.lineTo(p[0]+dx-uy*6,p[1]+dy+ux*6);cx.lineTo(p[0]+dx+uy*6,p[1]+dy-ux*6);cx.closePath();cx.fill();cx.font='600 12px JetBrains Mono,monospace';cx.fillText(lbl,p[0]+dx+(side||8),p[1]+dy-4);}
+  var Lpx=45+cl*60;
+  vec(cp,0,-Lpx,'#8ad78a','LIFT');
+  vec(cg,0,110,'#ffffff','WEIGHT');
+  var arm=cpp-cgp; /* % chord; + = CP aft of CG → nose-down */
+  var tailF=arm*cl*2.2; /* px; + means download needed */
+  var tp=Wd(300,-4);
+  if($('#showTail').checked&&Math.abs(tailF)>1.5)vec(tp,0,Math.max(-70,Math.min(70,tailF)),'#d8b358',tailF>0?'TAIL DOWN':'TAIL UP',10);
+  if($('#showDrag').checked){var dp=Wd(CH4*Math.cos(inc)+12,-CH4*Math.sin(inc)-30);vec(dp,45+a*2,0,'#e07a6f','DRAG');var en=Wd(-175,8);vec(en,-50,0,'#6fb3e0','THRUST',-66);}
+  /* CP, CG, AC markers */
+  cx.fillStyle='#e07a6f';cx.beginPath();cx.arc(cp[0],cp[1],6,0,7);cx.fill();cx.fillStyle='#fff';cx.font='600 11px JetBrains Mono,monospace';cx.fillText('CP',cp[0]-7,cp[1]+20);
+  cx.strokeStyle='#fff';cx.lineWidth=2;cx.beginPath();cx.arc(cg[0],cg[1],7,0,7);cx.stroke();cx.fillStyle='#fff';cx.beginPath();cx.moveTo(cg[0],cg[1]);cx.arc(cg[0],cg[1],7,0,Math.PI/2);cx.closePath();cx.fill();cx.beginPath();cx.moveTo(cg[0],cg[1]);cx.arc(cg[0],cg[1],7,Math.PI,Math.PI*1.5);cx.closePath();cx.fill();cx.fillText('CG',cg[0]-7,cg[1]+22);
+  cx.fillStyle='#d8b358';cx.beginPath();cx.arc(ac[0],ac[1],4,0,7);cx.fill();cx.fillText('AC',ac[0]-7,ac[1]-10);
+  /* moment arrow about CG */
+  var dir=arm>0.5?1:(arm<-0.5?-1:0);
+  if(dir){cx.strokeStyle=dir>0?'#e07a6f':'#d8b358';cx.lineWidth=2.5;cx.beginPath();cx.arc(cg[0],cg[1],34,dir>0?Math.PI*1.15:Math.PI*0.3,dir>0?Math.PI*1.85:Math.PI*0.85,false);cx.stroke();
+    var ea=dir>0?Math.PI*1.85:Math.PI*0.3,ex=cg[0]+34*Math.cos(ea),ey=cg[1]+34*Math.sin(ea);cx.fillStyle=cx.strokeStyle;cx.beginPath();cx.arc(ex,ey,4,0,7);cx.fill();
+    cx.font='600 12px JetBrains Mono,monospace';cx.fillText(dir>0?'NOSE DOWN':'NOSE UP',cg[0]+46,cg[1]+58);}
+  /* HUD */
+  $('#h4Aoa').textContent=a.toFixed(1)+'°';$('#h4Cp').textContent=Math.round(cpp)+'%';$('#h4Cg').textContent=Math.round(cgp)+'%';
+  $('#h4Arm').textContent=Math.abs(arm).toFixed(0)+'% '+(arm>0.5?'aft':(arm<-0.5?'fwd':'—'));$('#h4Mom').textContent=dir>0?'down':(dir<0?'UP':'balanced');
+  var ex=$('#explain4');
+  if(a>CRIT){ex.style.setProperty('--c','var(--bad)');$('#ex4Title').textContent='Stalled — CP jumps aft';$('#ex4L').innerHTML='Flow has separated. The CP moves <b>aft</b>, the nose-down lever gets longer, and lift has dropped.';$('#ex4T').innerHTML='The nose drops by itself. That is the wing helping you recover — if the CG is forward.';$('#ex4A').innerHTML='With an aft CG the nose may <b>not</b> drop. That is why aft-CG stalls are the dangerous ones.';}
+  else if(dir>0){ex.style.setProperty('--c','var(--yaw)');$('#ex4Title').textContent='CP behind the CG — nose-down lever';$('#ex4L').innerHTML='Lift pulls up <b>behind</b> the CG. That rotates the nose <b>down</b> about the CG.';$('#ex4T').innerHTML='The stabilizer makes a <b>downward</b> force to hold the nose up. Normal, stable layout — let go and it settles back.';$('#ex4A').innerHTML='AOA ↑ → CP creeps forward → smaller arm → less tail download needed.';}
+  else if(dir<0){ex.style.setProperty('--c','var(--bad)');$('#ex4Title').textContent='CP ahead of the CG — nose-up lever';$('#ex4L').innerHTML='Lift now pulls up <b>ahead</b> of the CG. The nose wants to pitch <b>up</b>.';$('#ex4T').innerHTML='The tail has to push <b>up</b> to hold it. Worse: pitch up a little and the CP moves further forward — the lever grows. <b>Unstable.</b>';$('#ex4A').innerHTML='This is "CG aft of limit". Harder to recover from a stall, light and twitchy in pitch.';}
+  else{ex.style.setProperty('--c','var(--gold)');$('#ex4Title').textContent='CP on the CG — no lever';$('#ex4L').innerHTML='Lift and weight line up. No pitching moment from the wing at this AOA.';$('#ex4T').innerHTML='The tail has almost nothing to do. Change AOA and the lever comes back.';$('#ex4A').innerHTML='There is only one AOA where this happens for a given CG.';}
+  /* tasks */
+  if(!released){if(a<=0.5)t4.a0=true;if(t4.a0&&a>=15)t4.a=true;}
+  if(arm<-0.5)t4.bAft=true;if(t4.bAft&&arm>0.5)t4.b=true;
+  tick4();
+}
+function nudge(){released=true;relCg=parseFloat(cg4.value);var a0=parseFloat(aoa4.value);state.aoaTrim=a0;pitch=3;pitchRate=0;relT=0;$('#pitchState').textContent='released…';
+  if(anim4)cancelAnimationFrame(anim4);
+  (function step(){if(!released)return;relT+=1/60;
+    var a=state.aoaTrim+pitch;var cgp=relCg;var arm=CP(Math.min(a,CRIT+2))-cgp;var trimArm=CP(state.aoaTrim)-cgp;
+    /* restoring moment = change in arm×lift vs trim; tail holds its trim value */
+    var M=-(arm*Math.max(0.05,CL(Math.min(a,24)))-trimArm*Math.max(0.05,CL(state.aoaTrim)));
+    var stab=(cgp<30?1:0)*0; /* AC/tail stability folded into CP model below */
+    var tailRestore=-(pitch)*0.6; /* stabilizer always resists pitch change */
+    pitchRate+= (M*0.9+tailRestore)*0.06 - pitchRate*0.04;pitch+=pitchRate*0.5;
+    pitch=Math.max(-12,Math.min(16,pitch));aoa4.value=Math.max(-2,Math.min(18,state.aoaTrim+pitch));
+    draw4();
+    var set=Math.abs(pitch)<0.3&&Math.abs(pitchRate)<0.05;
+    if(relT>6||set||Math.abs(pitch)>=12){released=false;var ok=Math.abs(pitch)<1.5;$('#pitchState').textContent=ok?'settled back on its own ✓':'diverged — did not come back';
+      if(relCg<=30)t4.cFwd=ok;else t4.cAft=!ok;if(t4.cFwd&&t4.cAft)t4.c=true;save();tick4();return;}
+    anim4=requestAnimationFrame(step);})();}
+$('#nudge4').addEventListener('click',nudge);
+$('#hold4').addEventListener('click',function(){released=false;pitch=0;pitchRate=0;if(state.aoaTrim!=null)aoa4.value=state.aoaTrim;$('#pitchState').textContent='holding trim';draw4()});
+aoa4.addEventListener('input',function(){released=false;pitch=0;state.aoa4=parseFloat(aoa4.value);save();$('#pitchState').textContent='holding trim';draw4()});
+cg4.addEventListener('input',function(){released=false;pitch=0;state.cg4=parseFloat(cg4.value);save();$('#pitchState').textContent='holding trim';draw4()});
+$('#showTail').addEventListener('change',draw4);$('#showDrag').addEventListener('change',draw4);
+gate4();draw4();
+
+/* ---------- STATION 4 ---------- */
 var RHO0=1.225,V0=50,A0=16,CL0=0.48,L0=0.5*RHO0*V0*V0*A0*CL0;
 $('#baseL').textContent=fmt(L0)+' N';
 var WI=[
