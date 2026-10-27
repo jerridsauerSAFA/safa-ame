@@ -37,7 +37,11 @@ else:
     links = '<link rel="stylesheet" href="%sassets/safa-nav.css">' % root
     cls = ''
 
-# 5. sheets, theme colour, body attributes, script
+# 5. app tags, sheets, theme colour, body attributes, script
+HEAD = ('<link rel="manifest" href="{r}manifest.webmanifest">\n<link rel="icon" type="image/png" sizes="32x32" href="{r}assets/icons/favicon-32.png">\n'
+        '<link rel="apple-touch-icon" href="{r}assets/icons/apple-touch-icon.png">\n<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">\n'
+        '<meta name="apple-mobile-web-app-title" content="ASYS 245"><meta name="apple-mobile-web-app-status-bar-style" content="black">\n').format(r=root)
+links = HEAD + links.replace('assets/safa-nav.css">', 'assets/safa-nav.css">\n<link rel="stylesheet" href="%sassets/safa-touch.css">' % root, 1)
 s = s.replace('</head>', links + '\n<meta name="theme-color" content="#0b0b0c">\n</head>', 1)
 def body(m):
     attrs = m.group(1)

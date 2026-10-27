@@ -103,4 +103,25 @@
     h.style.marginTop=(-pt)+'px'; f.style.marginBottom=(-pb)+'px';
   }
   bleed(); addEventListener('resize',bleed);
+
+  /* offline: save the course on this device (https or localhost only) */
+  if('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost')){
+    addEventListener('load',function(){ navigator.serviceWorker.register(ROOT+'sw.js',{scope:ROOT}).catch(function(){}); });
+  }
+
+  /* "Put it on your phone" card — home page only, hidden once installed or dismissed */
+  var card=document.getElementById('install');
+  if(card){
+    var KEY='asys245-install-dismissed', standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+    var dismissed=false; try{ dismissed=localStorage.getItem(KEY)==='1'; }catch(e){}
+    var ua=navigator.userAgent, ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+    var txt=card.querySelector('.how'), btn=card.querySelector('.go'), no=card.querySelector('.no'), deferred=null;
+    function show(){ if(!standalone&&!dismissed) card.hidden=false; }
+    if(ios){ txt.innerHTML='Tap <b>Share</b> (the square with an arrow pointing up), then <b>Add to Home Screen</b>. It opens full screen and works without a connection.'; btn.hidden=true; show(); }
+    addEventListener('beforeinstallprompt',function(e){ e.preventDefault(); deferred=e; btn.hidden=false;
+      txt.textContent='Adds an ASYS 245 icon to your home screen. Opens full screen and works without a connection.'; show(); });
+    btn.addEventListener('click',function(){ if(!deferred) return; deferred.prompt(); deferred.userChoice.then(function(){ deferred=null; card.hidden=true; }); });
+    no.addEventListener('click',function(){ card.hidden=true; try{ localStorage.setItem(KEY,'1'); }catch(e){} });
+    addEventListener('appinstalled',function(){ card.hidden=true; });
+  }
 })();
