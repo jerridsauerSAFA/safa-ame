@@ -1,0 +1,81 @@
+/* SAFA · ASYS 245 navigation chrome — v1 (Oct 2026)
+   Top bar, module sheet, breadcrumb/chip strip, footer.
+   Tokens are private (--n-*) and scoped to the nav elements, so this file can sit on any page
+   (including the labs, which define their own --bg/--line/--gold) without changing anything else.
+   Follows the phone's light/dark setting; a page that is always dark sets <body data-nav-theme="dark">. */
+
+.sb,.s-sub,dialog.sheet,.sf{
+  --n-black:#0b0b0c; --n-gold:#d8b358; --n-gold-ink:#1a1300; --n-gold-deep:#7a6a36;
+  --n-card:#ffffff; --n-card-2:#f0eee9; --n-ink:#1a1a1a; --n-ink-2:#4a4944; --n-ink-3:#67655d;
+  --n-line:#dcdad4; --n-line-2:#c9c7c0; --n-bar-line:#2a2a2e;
+  --n-h:56px; --n-font:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --n-display:"Barlow Condensed","Inter",system-ui,sans-serif;
+  --n-chip-on-bg:var(--n-black); --n-chip-on-ink:var(--n-gold);
+}
+@media(prefers-color-scheme:dark){
+  .sb,.s-sub,dialog.sheet,.sf{
+    --n-gold-deep:#d8b358; --n-card:#1b1b1e; --n-card-2:#232327; --n-ink:#ecebe6; --n-ink-2:#c8c6bf; --n-ink-3:#9a988f;
+    --n-line:#2e2e32; --n-line-2:#3a3a3e; --n-chip-on-bg:var(--n-gold); --n-chip-on-ink:var(--n-gold-ink);
+  }
+}
+body[data-nav-theme="dark"] .sb,body[data-nav-theme="dark"] .s-sub,body[data-nav-theme="dark"] dialog.sheet,body[data-nav-theme="dark"] .sf{
+  --n-gold-deep:#d8b358; --n-card:#1c1c1f; --n-card-2:#232327; --n-ink:#ecebe6; --n-ink-2:#c8c6bf; --n-ink-3:#9a988f;
+  --n-line:#2b2b2f; --n-line-2:#3a3a3e; --n-chip-on-bg:var(--n-gold); --n-chip-on-ink:var(--n-gold-ink);
+}
+.sb *,.s-sub *,dialog.sheet *,.sf *{box-sizing:border-box}
+
+/* ---------- top bar ---------- */
+.sb{position:sticky;top:0;z-index:1000;background:var(--n-black);color:#fff;border-bottom:1px solid var(--n-bar-line);
+  height:calc(var(--n-h) + env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px);font-family:var(--n-font);width:100%;max-width:100%}
+.sb .in{max-width:960px;margin:0 auto;height:var(--n-h);display:flex;align-items:center;justify-content:space-between;padding:0 8px 0 16px;gap:12px}
+.sb .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;min-height:44px}
+.sb .brand img{height:26px;width:auto;display:block;max-width:none}
+.sb .brand span{font:700 1.05rem/1 var(--n-display);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;color:#fff}
+.sb .brand small{display:block;font:500 .66rem/1.1 var(--n-font);letter-spacing:.12em;color:var(--n-gold);text-transform:uppercase;margin-top:3px}
+.sb .menu{background:transparent;border:0;color:var(--n-gold);min-width:44px;min-height:44px;padding:0 8px;display:flex;align-items:center;gap:8px;font:600 .9rem var(--n-font);border-radius:8px;cursor:pointer;box-shadow:none}
+.sb .menu svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.sb .menu:active{background:#1c1c20}
+.sb :focus-visible,.s-sub :focus-visible,dialog.sheet :focus-visible,.sf :focus-visible{outline:2px solid var(--n-gold);outline-offset:2px}
+
+/* ---------- module sheet ---------- */
+dialog.sheet{border:0;padding:0;margin:0;max-width:none;max-height:none;width:100%;height:100%;background:transparent;color:var(--n-ink);font-family:var(--n-font);font-size:16px;line-height:1.4}
+dialog.sheet::backdrop{background:rgba(0,0,0,.55)}
+dialog.sheet .panel{position:absolute;right:0;top:0;bottom:0;width:min(360px,92vw);background:var(--n-card);border-left:1px solid var(--n-line);display:flex;flex-direction:column;overflow:auto;-webkit-overflow-scrolling:touch}
+dialog.sheet .head{display:flex;align-items:center;justify-content:space-between;padding:env(safe-area-inset-top,0px) 8px 0 20px;background:var(--n-black);color:#fff;min-height:calc(var(--n-h) + env(safe-area-inset-top,0px));position:sticky;top:0}
+dialog.sheet .head b{font:700 1.1rem var(--n-display);letter-spacing:.06em;text-transform:uppercase}
+dialog.sheet .head button{background:transparent;border:0;color:var(--n-gold);min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+dialog.sheet .head svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+dialog.sheet .grp{padding:14px 20px 4px;font:600 .72rem var(--n-font);letter-spacing:.14em;text-transform:uppercase;color:var(--n-gold-deep)}
+dialog.sheet a{display:flex;align-items:center;gap:12px;padding:12px 20px;min-height:48px;text-decoration:none;color:var(--n-ink);border-bottom:1px solid var(--n-line);font-size:1rem}
+dialog.sheet a .n{font:700 .95rem var(--n-display);letter-spacing:.04em;color:var(--n-gold-deep);min-width:34px}
+dialog.sheet a.on{background:var(--n-card-2);box-shadow:inset 4px 0 0 var(--n-gold)}
+dialog.sheet a.soon{color:var(--n-ink-3);cursor:default}
+dialog.sheet a.soon .n{color:var(--n-ink-3)}
+dialog.sheet .soonpill{margin-left:auto;font:600 .68rem var(--n-font);letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--n-line-2);border-radius:999px;padding:2px 8px;white-space:nowrap;color:var(--n-ink-3)}
+dialog.sheet .foot{margin-top:auto;padding:16px 20px calc(16px + env(safe-area-inset-bottom,0px));font-size:.8rem;color:var(--n-ink-3)}
+
+/* ---------- breadcrumb + chip strip (sits directly under the top bar) ---------- */
+.s-sub{width:100%;max-width:100%;font-family:var(--n-font)}
+.s-sub .in{max-width:960px;margin:0 auto;padding:10px 16px 2px}
+.s-sub.narrow .in{max-width:720px}
+.s-crumb{font-size:.82rem;line-height:1.3;color:var(--n-ink-3);margin:0 0 8px;display:flex;flex-wrap:wrap;gap:2px 6px;align-items:center}
+.s-crumb a{color:var(--n-ink-3);text-decoration:none;min-height:32px;display:inline-flex;align-items:center}
+.s-crumb a:hover{color:var(--n-gold-deep)}
+.s-crumb .sep{color:var(--n-line-2)}
+.s-crumb .here{color:var(--n-ink-2);font-weight:600}
+.s-chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 -16px 6px;padding:2px 16px 6px;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity}
+.s-chips::-webkit-scrollbar{display:none}
+.s-chips a{flex:0 0 auto;scroll-snap-align:center;font:600 .85rem/1 var(--n-font);padding:0 14px;min-height:40px;display:inline-flex;align-items:center;border-radius:999px;border:1px solid var(--n-line-2);background:var(--n-card);color:var(--n-ink-2);text-decoration:none;white-space:nowrap}
+.s-chips a.on{background:var(--n-chip-on-bg);color:var(--n-chip-on-ink);border-color:var(--n-chip-on-bg)}
+
+/* ---------- footer ---------- */
+.sf{background:var(--n-black);color:#c8c6bf;border-top:1px solid var(--n-bar-line);padding:28px 16px calc(28px + env(safe-area-inset-bottom,0px));margin-top:auto;font-family:var(--n-font);width:100%;max-width:100%}
+.sf .in{max-width:960px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.sf .logos{display:flex;align-items:center;gap:14px}
+.sf .logos img{height:40px;width:auto;display:block;max-width:none}
+.sf .logos .tile{background:#fff;border-radius:8px;padding:5px 8px;display:flex;align-items:center}
+.sf .logos .tile img{height:30px}
+.sf small{font-size:.78rem;line-height:1.5;max-width:42ch;color:#c8c6bf}
+.sf a{color:var(--n-gold);text-decoration:none}
+
+@media print{.sb,.s-sub,.sf,dialog.sheet{display:none!important}}

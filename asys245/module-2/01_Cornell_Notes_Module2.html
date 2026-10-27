@@ -5,30 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>ASYS 245 Lift & Drag Notes</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <style>
-:root{
-  --bg:#F4F6F8; --surface:#FFFFFF; --cue:#E6EDF3; --line:#CBD5DE; --ink:#16232E; --muted:#526170;
-  --accent:#1D5C8F; --accent-ink:#FFFFFF; --formula:#B8690F; --formula-bg:#FFF4E3;
-  --ok:#2E7D4F; --ok-bg:#E4F3EA; --bad:#B3402B; --bad-bg:#FBE8E3; --shadow:0 1px 2px rgba(22,35,46,.08);
-  --dia-bg:#F9FBFC; --dia-line:#3A4A58; --dia-fill:#D6E4F0; --dia-hi:#E7A34A;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0F171E; --surface:#182430; --cue:#1F2E3B; --line:#33475A; --ink:#E6EDF3; --muted:#9FB0BF;
-    --accent:#6FB0E8; --accent-ink:#0F171E; --formula:#F0B35B; --formula-bg:#2C2416;
-    --ok:#6CCB8F; --ok-bg:#16301F; --bad:#F08A72; --bad-bg:#3A1C15; --shadow:none;
-    --dia-bg:#131E27; --dia-line:#C4D2DE; --dia-fill:#2B4257; --dia-hi:#F0B35B;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0F171E; --surface:#182430; --cue:#1F2E3B; --line:#33475A; --ink:#E6EDF3; --muted:#9FB0BF;
-  --accent:#6FB0E8; --accent-ink:#0F171E; --formula:#F0B35B; --formula-bg:#2C2416;
-  --ok:#6CCB8F; --ok-bg:#16301F; --bad:#F08A72; --bad-bg:#3A1C15; --shadow:none;
-  --dia-bg:#131E27; --dia-line:#C4D2DE; --dia-fill:#2B4257; --dia-hi:#F0B35B;
-}
+
+
+
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+body{margin:0}
 h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
 h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
 h2{font-size:1.6rem;font-weight:700;letter-spacing:.01em}
@@ -45,7 +28,7 @@ header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
 .progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
 .bar label{font-size:.9rem;display:inline-flex;gap:.4rem;align-items:center;cursor:pointer;user-select:none}
 .bar input{accent-color:var(--accent);width:1.1rem;height:1.1rem}
-.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.35rem .8rem;border-radius:4px;cursor:pointer}
+.btn{font:600 .9rem var(--font);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.35rem .8rem;border-radius:4px;cursor:pointer}
 .btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .btn:focus-visible,.bar input:focus-visible,details summary:focus-visible,.opt:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 /* cornell grid */
@@ -63,7 +46,7 @@ header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
 .f{font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:500;color:var(--formula);background:var(--formula-bg);padding:.05em .35em;border-radius:3px;white-space:nowrap}
 .big{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:1.35rem;color:var(--formula);background:var(--formula-bg);padding:.25rem .7rem;border-radius:4px;margin:.4rem 0}
 .fig{margin:.9rem 0 .3rem;background:var(--dia-bg);border:1px solid var(--line);border-radius:4px;padding:.5rem;overflow-x:auto}
-.fig svg{display:block;max-width:100%;height:auto;margin:0 auto;font-family:"Source Sans 3",sans-serif}
+.fig svg{display:block;max-width:100%;height:auto;margin:0 auto;font-family:var(--font)}
 .cap{font-size:.8rem;color:var(--muted);margin:.2rem 0 0;font-style:italic}
 details.more{margin-top:.8rem;border-left:3px solid var(--accent);padding-left:.8rem}
 details.more summary{cursor:pointer;font-weight:600;color:var(--accent);font-size:.92rem;list-style:none}
@@ -78,7 +61,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 .study .body.open>.reveal{display:none}
 .study .body.open>ul{display:block}
 .study .body.open>.fig{display:block}
-.reveal button{width:100%;text-align:left;font:600 1rem "Source Sans 3",sans-serif;background:transparent;border:1px dashed var(--line);border-radius:4px;color:var(--muted);padding:1rem;cursor:pointer}
+.reveal button{width:100%;text-align:left;font:600 1rem var(--font);background:transparent;border:1px dashed var(--line);border-radius:4px;color:var(--muted);padding:1rem;cursor:pointer}
 .reveal button:hover{border-color:var(--accent);color:var(--accent)}
 .check{display:inline-flex;align-items:center;gap:.4rem;margin-top:.7rem;font-size:.85rem;color:var(--muted);cursor:pointer}
 .check input{accent-color:var(--ok)}
@@ -93,7 +76,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 .qcard{border:1px solid var(--line);border-radius:4px;padding:.9rem 1rem;background:var(--surface)}
 .qcard p{margin:0 0 .5rem;font-weight:600}
 .opts{display:grid;gap:.4rem}
-.opt{text-align:left;font:1rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:.5rem .7rem;border-radius:4px;cursor:pointer}
+.opt{text-align:left;font:1rem var(--font);border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:.5rem .7rem;border-radius:4px;cursor:pointer}
 .opt:hover{border-color:var(--accent)}
 .opt.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ink)}
 .opt.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--ink)}
@@ -109,16 +92,20 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 }
 @media (prefers-reduced-motion:reduce){.progress i{transition:none}}
 </style>
+<link rel="stylesheet" href="../../assets/safa-nav.css">
+<link rel="stylesheet" href="../../assets/safa-touch.css">
+<link rel="stylesheet" href="../../assets/safa.css">
+<meta name="theme-color" content="#0b0b0c">
 </head>
-<body>
+<body class="study-page" data-mod="2" data-page="notes">
 <style>
-.mine{margin:.9rem 0 .4rem;border:1px solid #c9d3dd;border-radius:6px;padding:.5rem .7rem .4rem;background:#fff}
-.mine .lbl{display:block;font:600 .72rem "Barlow Condensed",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#1D5C8F;margin-bottom:.35rem}
-.mine textarea{display:block;width:100%;height:9.6em;box-sizing:border-box;border:0;padding:0;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.6em - 1px),#c9d3dd calc(1.6em - 1px),#c9d3dd 1.6em);background-attachment:local;font:inherit;font-size:.95rem;line-height:1.6em;color:#111;resize:vertical}
-.mine textarea:focus{outline:2px solid #1D5C8F;outline-offset:2px}
-.mine textarea::placeholder{color:#8a949e}
+.mine{margin:.9rem 0 .4rem;border:1px solid var(--line);border-radius:6px;padding:.5rem .7rem .4rem;background:var(--surface)}
+.mine .lbl{display:block;font:600 .72rem "Barlow Condensed",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.35rem}
+.mine textarea{display:block;width:100%;height:9.6em;box-sizing:border-box;border:0;padding:0;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.6em - 1px),var(--line) calc(1.6em - 1px),var(--line) 1.6em);background-attachment:local;font:inherit;font-size:.95rem;line-height:1.6em;color:var(--ink);resize:vertical}
+.mine textarea:focus{outline:2px solid var(--accent);outline-offset:2px}
+.mine textarea::placeholder{color:var(--ink-3)}
 .mine .lines{display:none}
-@media print{.mine textarea{display:none!important}.mine .lines{display:block!important;height:9.6em;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.6em - 1px),#b8c2cc calc(1.6em - 1px),#b8c2cc 1.6em);-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media print{.mine textarea{display:none!important}.mine .lines{display:block!important;height:9.6em;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(1.6em - 1px),#9aa5b1 calc(1.6em - 1px),#9aa5b1 1.6em);-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 </style>
 <div class="wrap">
 <header class="top">
@@ -127,7 +114,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     <h1>Lift &amp; Drag</h1>
     <p>The four forces, how a wing makes lift, every kind of drag and why wings and tails are shaped the way they are. Read the notes, then switch on <b>Study mode</b> to test yourself from the cue questions.</p>
   </div>
-  <div class="meta">SAFA · Super T Aviation<br>Module 2 · from course decks</div>
+  <div class="meta">SAFA · SAIT<br>Module 2 · from course decks</div>
 </header>
 
 <div class="bar" role="toolbar" aria-label="Study tools">
@@ -572,5 +559,6 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 })();
 </script>
 
+<script src="../../assets/safa.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,9 @@
+/* SAFA · ASYS 245 touch sizing — phones and tablets only (pointer:coarse); desktop is untouched.
+   Brings labs and study tools up to the 44 px touch-target guidance (Apple HIG) and well past WCAG 2.2's 24 px minimum. */
+@media (pointer:coarse){
+  button:not(.sb button):not(dialog.sheet button),.btn,[role=button]{min-height:44px}
+  input[type=range]{min-height:36px}
+  input[type=checkbox],input[type=radio]{width:22px;height:22px;flex:0 0 auto}
+  select{min-height:44px}
+  a.btn,[role=button]{display:inline-flex;align-items:center;justify-content:center}
+}

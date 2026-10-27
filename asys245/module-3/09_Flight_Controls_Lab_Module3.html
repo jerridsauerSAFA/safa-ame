@@ -1,4 +1,7 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><link rel="stylesheet" href="../../assets/safa-nav.css">
+<link rel="stylesheet" href="../../assets/safa-touch.css">
+<meta name="theme-color" content="#0b0b0c">
+</head><body data-mod="3" data-page="lab" data-nav-theme="dark">
 <title>SAFA Flight Controls Lab</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
@@ -34,7 +37,7 @@ canvas#sky{display:block;width:100%;height:auto;max-width:100%}
 .ballTrack:before{left:48px}.ballTrack:after{right:48px}
 #ball{position:absolute;top:3px;left:54px;width:12px;height:12px;border-radius:50%;background:var(--fg);transition:left .12s linear}
 .controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
-@media (max-width:560px){.controls{grid-template-columns:1fr}}
+@media (max-width:560px){.controls{grid-template-columns:1fr}.ball{top:38px}.ball span{display:none}}
 .ctl{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
 .ctl{--c:var(--gold)}#cEle{--c:var(--pitch)}#cRud{--c:var(--yaw)}
 .ctl label{color:var(--c)}.ctl input[type=range]{accent-color:var(--c)}
@@ -442,4 +445,5 @@ Q.forEach((it,i)=>{const d=document.createElement('div');d.className='q';d.inner
   qz.appendChild(d);});
 </script>
 
+<script src="../../assets/safa.js" defer></script>
 </body></html>

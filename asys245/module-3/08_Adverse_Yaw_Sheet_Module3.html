@@ -57,8 +57,11 @@ td:first-child{font:700 8.4pt "Barlow Condensed",sans-serif}
 .src{font-size:6pt;color:var(--muted);margin-top:4px}
 @media screen{.pbar{max-width:7.9in;margin:0 auto 10px;display:flex;gap:8px}.pbar a,.pbar button{font:600 14px "Source Sans 3",sans-serif;border:1px solid #d9d4c6;background:#fff;color:#0b0b0c;padding:6px 12px;border-radius:4px;cursor:pointer;text-decoration:none}body{background:#eee;padding:16px 0}.page{background:#fff;padding:.3in;box-shadow:0 1px 4px rgba(0,0,0,.15)}}
 </style>
+<link rel="stylesheet" href="../../assets/safa-nav.css">
+<link rel="stylesheet" href="../../assets/safa-touch.css">
+<meta name="theme-color" content="#0b0b0c">
 </head>
-<body>
+<body data-mod="3" data-page="yawsheet">
 <div class="pbar"><button type="button" onclick="window.print()">Print this sheet</button><a href="./">← Module 3</a></div>
 <div class="page">
 <header class="band">
@@ -190,5 +193,8 @@ td:first-child{font:700 8.4pt "Barlow Condensed",sans-serif}
 </div>
 <p class="src">Sources: SAIT ASYS 245 Module 3 slides (Jeppesen <i>Airframe Technician</i> pp. 1-23 to 1-26), SAFA class notes; FAA <i>Pilot's Handbook of Aeronautical Knowledge</i> (FAA-H-8083-25) and <i>AMT Handbook: Airframe</i> (FAA-H-8083-31). Connects to Module 2 (camber, induced drag) and Module 4 (ailerons, spoilers).</p>
 </div>
+<style>@media screen{.page{zoom:var(--fit,1)}}@media print{.page{zoom:1!important}}</style>
+<script>(function(){var p=document.querySelector('.page');if(!p)return;function fit(){p.style.setProperty('--fit',1);var w=p.offsetWidth,a=document.documentElement.clientWidth-24;p.style.setProperty('--fit',w>a?(a/w).toFixed(3):1);}fit();addEventListener('resize',fit);})();</script>
+<script src="../../assets/safa.js" defer></script>
 </body>
 </html>

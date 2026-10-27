@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>ASYS 245 Module 5 · Flashcards</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <style>
-:root{--bg:#F4F6F8;--surface:#FFFFFF;--cue:#E6EDF3;--line:#CBD5DE;--ink:#16232E;--muted:#526170;--accent:#1D5C8F;--accent-ink:#FFFFFF;--formula:#B8690F;--formula-bg:#FFF4E3;--ok:#2E7D4F;--ok-bg:#E4F3EA;--bad:#B3402B;--bad-bg:#FBE8E3;--shadow:0 2px 6px rgba(22,35,46,.10)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--bad:#F08A72;--bad-bg:#3A1C15;--shadow:none}}
-:root[data-theme="dark"]{--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--formula:#F0B35B;--formula-bg:#2C2416;--ok:#6CCB8F;--ok-bg:#16301F;--bad:#F08A72;--bad-bg:#3A1C15;--shadow:none}
+
+
+
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+body{margin:0}
 h1,h2{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
 h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
 .wrap{max-width:720px;margin:0 auto}
@@ -20,9 +20,9 @@ header.top{padding-block:2rem 1rem;border-bottom:2px solid var(--ink)}
 header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
 .meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted)}
 .bar{display:flex;flex-wrap:wrap;gap:.5rem .8rem;align-items:center;padding-block:.8rem}
-.chip{font:600 .85rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.3rem .7rem;border-radius:999px;cursor:pointer}
+.chip{font:600 .85rem var(--font);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.3rem .7rem;border-radius:999px;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.btn{font:600 .9rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.5rem .9rem;border-radius:4px;cursor:pointer}
+.btn{font:600 .9rem var(--font);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.5rem .9rem;border-radius:4px;cursor:pointer}
 .btn.ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ink)} .btn.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--ink)}
 .btn:focus-visible,.chip:focus-visible,.card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .stats{display:flex;gap:1rem 1.5rem;flex-wrap:wrap;font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--muted);padding-block:.3rem .8rem}
@@ -50,8 +50,12 @@ header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
 .foot{font-size:.85rem;color:var(--muted);margin-top:2rem}
 @media (prefers-reduced-motion:reduce){.card{transition:none}.progress i{transition:none}}
 </style>
+<link rel="stylesheet" href="../../assets/safa-nav.css">
+<link rel="stylesheet" href="../../assets/safa-touch.css">
+<link rel="stylesheet" href="../../assets/safa.css">
+<meta name="theme-color" content="#0b0b0c">
 </head>
-<body>
+<body class="study-page" data-mod="5" data-page="cards">
 <div class="wrap">
 <header class="top">
   <div class="eyebrow">Flashcards · ASYS 245 · Module 5</div>
@@ -162,5 +166,6 @@ var CARDS=[
 })();
 </script>
 
+<script src="../../assets/safa.js" defer></script>
 </body>
 </html>

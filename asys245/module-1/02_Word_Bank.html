@@ -5,15 +5,19 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>ASYS 245 Word Bank</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="../../assets/safa-nav.css">
+<link rel="stylesheet" href="../../assets/safa-touch.css">
+<link rel="stylesheet" href="../../assets/safa.css">
+<meta name="theme-color" content="#0b0b0c">
 </head>
-<body>
+<body class="study-page" data-mod="" data-page="wordbank">
 <style>
-:root{--bg:#F4F6F8;--surface:#FFFFFF;--cue:#E6EDF3;--line:#CBD5DE;--ink:#16232E;--muted:#526170;--accent:#1D5C8F;--accent-ink:#FFFFFF;--t2:#B8690F;--t2-bg:#FFF4E3;--t3:#1D5C8F;--t3-bg:#E3EEF8;--new:#2E7D4F;--new-bg:#E4F3EA;--shadow:0 1px 2px rgba(22,35,46,.08)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--t2:#F0B35B;--t2-bg:#2C2416;--t3:#8CC1EE;--t3-bg:#1B2F42;--new:#6CCB8F;--new-bg:#16301F;--shadow:none}}
-:root[data-theme="dark"]{--bg:#0F171E;--surface:#182430;--cue:#1F2E3B;--line:#33475A;--ink:#E6EDF3;--muted:#9FB0BF;--accent:#6FB0E8;--accent-ink:#0F171E;--t2:#F0B35B;--t2-bg:#2C2416;--t3:#8CC1EE;--t3-bg:#1B2F42;--new:#6CCB8F;--new-bg:#16301F;--shadow:none}
+
+
+
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;padding-block:0 4rem;padding-inline:16px}
+body{margin:0}
 h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
 h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
 h2{font-size:1.45rem;font-weight:700;letter-spacing:.01em}
@@ -25,13 +29,13 @@ header.top p{margin:.25rem 0 0;color:var(--muted);max-width:62ch}
 .legend{display:flex;flex-wrap:wrap;gap:1rem 1.5rem;margin-top:1rem;font-size:.9rem;color:var(--muted)}
 .legend b{color:var(--ink)}
 .bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:.6rem;display:flex;flex-wrap:wrap;gap:.5rem .8rem;align-items:center;margin-inline:-16px;padding-inline:16px}
-.bar input[type=search]{flex:1 1 12rem;font:1rem "Source Sans 3",sans-serif;padding:.45rem .7rem;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);min-width:0}
-.bar select{font:.95rem "Source Sans 3",sans-serif;padding:.4rem .5rem;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);max-width:100%}
-.chip{font:600 .85rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.3rem .7rem;border-radius:999px;cursor:pointer}
+.bar input[type=search]{flex:1 1 12rem;font:1rem var(--font);padding:.45rem .7rem;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);min-width:0}
+.bar select{font:.95rem var(--font);padding:.4rem .5rem;border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);max-width:100%}
+.chip{font:600 .85rem var(--font);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.3rem .7rem;border-radius:999px;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .bar label{font-size:.9rem;display:inline-flex;gap:.4rem;align-items:center;cursor:pointer;user-select:none}
 .bar input[type=checkbox]{accent-color:var(--accent);width:1.05rem;height:1.05rem}
-.btn{font:600 .85rem "Source Sans 3",sans-serif;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.35rem .8rem;border-radius:4px;cursor:pointer}
+.btn{font:600 .85rem var(--font);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.35rem .8rem;border-radius:4px;cursor:pointer}
 .btn:focus-visible,.chip:focus-visible,.bar input:focus-visible,.bar select:focus-visible,.entry:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .count{font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--muted);margin:1rem 0 .5rem}
 .group{margin-top:1.25rem}
@@ -63,7 +67,7 @@ mark{background:var(--t2-bg);color:inherit;padding:0 .1em}
     <p>Every Tier 2 and Tier 3 word from the course, with a plain definition, one aviation example and synonyms. Search it, filter it, or hide the definitions and quiz yourself. New words are added after each Thursday class.</p>
     <div class="legend"><span><b>Tier 2</b> — school words that show up in every subject (<i>proportional, inversely, deflect</i>)</span><span><b>Tier 3</b> — aviation and physics words (<i>airfoil, datum, actuator</i>)</span></div>
   </div>
-  <div class="meta">SAFA · Super T Aviation<br>Updated <span id="upd">UPDATED</span><br><span id="total">N</span> words</div>
+  <div class="meta">SAFA · SAIT<br>Updated <span id="upd">UPDATED</span><br><span id="total">N</span> words</div>
 </header>
 
 <div class="bar" role="toolbar" aria-label="Filters">
@@ -136,5 +140,6 @@ var MODS=["Mod 1 Atmosphere", "Mod 2 Lift & Drag", "Mod 3 Stability & Control", 
 })();
 </script>
 
+<script src="../../assets/safa.js" defer></script>
 </body>
 </html>
