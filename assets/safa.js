@@ -117,7 +117,13 @@
     var ua=navigator.userAgent, ios=/iPhone|iPad|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
     var txt=card.querySelector('.how'), btn=card.querySelector('.go'), no=card.querySelector('.no'), deferred=null;
     function show(){ if(!standalone&&!dismissed) card.hidden=false; }
-    if(ios){ txt.innerHTML='Tap <b>Share</b> (the square with an arrow pointing up), then <b>Add to Home Screen</b>. It opens full screen and works without a connection.'; btn.hidden=true; show(); }
+    var framed=false; try{ framed=window.self!==window.top; }catch(e){ framed=true; }
+    if(framed){ /* inside the Google Site embed: installing here would save the Google Site, so send them to the real site */
+      txt.innerHTML='To get the ASYS 245 app icon and offline study, open the full site first, then install it from there.';
+      btn.hidden=false; btn.textContent='Open full site';
+      btn.addEventListener('click',function(){ window.open(ROOT,'_blank','noopener'); });
+      show();
+    } else if(ios){ txt.innerHTML='Tap <b>Share</b> (the square with an arrow pointing up), then <b>Add to Home Screen</b>. It opens full screen and works without a connection.'; btn.hidden=true; show(); }
     addEventListener('beforeinstallprompt',function(e){ e.preventDefault(); deferred=e; btn.hidden=false;
       txt.textContent='Adds an ASYS 245 icon to your home screen. Opens full screen and works without a connection.'; show(); });
     btn.addEventListener('click',function(){ if(!deferred) return; deferred.prompt(); deferred.userChoice.then(function(){ deferred=null; card.hidden=true; }); });
