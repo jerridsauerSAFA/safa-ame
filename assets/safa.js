@@ -58,9 +58,9 @@
   d.addEventListener('click',function(e){ if(e.target===d) d.close(); });
 
   /* breadcrumb + chips (inside main / .w, before its first child) */
-  var main=document.querySelector('main')||document.querySelector('.w');
+  var main=document.querySelector('main')||document.querySelector('.w')||document.querySelector('.wrap');
   if(main && (mod||isWB)){
-    var cr=document.createElement('nav'); cr.className='crumb'; cr.setAttribute('aria-label','Breadcrumb');
+    var cr=document.createElement('nav'); cr.className='s-crumb'; cr.setAttribute('aria-label','Breadcrumb');
     var parts='<a href="'+ROOT+'">Modules</a>';
     if(mod){
       parts+='<span class="sep">›</span>';
@@ -73,7 +73,7 @@
     } else parts+='<span class="sep">›</span><span class="here">Word Bank</span>';
     cr.innerHTML=parts; main.insertBefore(cr,main.firstChild);
     if(mod && page!=='hub'){
-      var ch=document.createElement('nav'); ch.className='chips'; ch.setAttribute('aria-label','Study sets in this module');
+      var ch=document.createElement('nav'); ch.className='s-chips'; ch.setAttribute('aria-label','Study sets in this module');
       var cs='<a href="'+ROOT+mod.dir+'">Mod '+mod.n+' home</a>';
       mod.pages.forEach(function(p){ cs+='<a href="'+ROOT+mod.dir+p[2]+'"'+(p[0]===page?' class="on" aria-current="page"':'')+'>'+esc(p[1])+'</a>'; });
       cs+='<a href="'+ROOT+WB+'">Word Bank</a>';
