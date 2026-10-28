@@ -2,7 +2,7 @@
    Usage on any page:
      <link rel="stylesheet" href="../../assets/safa-nav.css">   (nav chrome only — safe on any page)
      <link rel="stylesheet" href="../../assets/safa.css">       (full SAFA page styling — study pages and hubs only)
-     <body data-mod="4" data-page="notes">   data-mod optional; data-page = a key in MODS[n].pages, "hub", "home" or "wordbank";
+     <body data-mod="4" data-page="notes">   data-mod optional; data-page = a key in MODS[n].pages, "hub", "home", "wordbank" or "exam";
                                              data-label overrides the breadcrumb label; data-nav-theme="dark" for always-dark pages
      <script src="../../assets/safa.js" defer></script>
    Builds: sticky top bar, module sheet, breadcrumb + chip strip, footer. Nothing else on the page changes. */
@@ -32,10 +32,10 @@
     {n:13,t:'Windows',soon:true},
     {n:'LG',t:'Landing Gear · Tundra Tires & Skis',soon:true}
   ];
-  var WB = 'asys245/module-1/02_Word_Bank.html';
+  var WB = 'asys245/module-1/02_Word_Bank.html', EX = 'asys245/exam-1/';
   var b = document.body, modN = b.getAttribute('data-mod'), page = b.getAttribute('data-page')||'';
   var mod = null; MODS.forEach(function(m){ if(String(m.n)===String(modN)) mod=m; });
-  var isWB = page==='wordbank', isHub = page==='hub'||page==='home';
+  var isWB = page==='wordbank', isEX = page==='exam', isHub = page==='hub'||page==='home';
   function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
   var MENU='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
   var X='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
@@ -51,6 +51,7 @@
   var items='<div class="grp">Course</div>';
   items+='<a href="'+ROOT+'"'+(page==='home'?' class="on" aria-current="page"':'')+'><span class="n">⌂</span>All modules</a>';
   items+='<a href="'+ROOT+WB+'"'+(isWB?' class="on" aria-current="page"':'')+'><span class="n">WB</span>Word Bank</a>';
+  items+='<a href="'+ROOT+EX+'"'+(isEX?' class="on" aria-current="page"':'')+'><span class="n">EX</span>Exam 1 mock exams</a>';
   items+='<div class="grp">Modules</div>';
   MODS.forEach(function(m){
     if(m.soon) items+='<a class="soon" aria-disabled="true"><span class="n">'+m.n+'</span>'+esc(m.t)+'<span class="soonpill">soon</span></a>';
@@ -63,7 +64,7 @@
   d.addEventListener('click',function(e){ if(e.target===d) d.close(); });
 
   /* breadcrumb + chip strip, directly under the bar */
-  if(mod||isWB){
+  if(mod||isWB||isEX){
     var sub=document.createElement('div'); sub.className='s-sub'+(isHub?' narrow':'');
     var parts='<a href="'+ROOT+'">Modules</a>';
     if(mod){
@@ -73,7 +74,7 @@
         var cur=null; mod.pages.forEach(function(p){ if(p[0]===page) cur=p; });
         parts+='<a href="'+ROOT+mod.dir+'">Mod '+mod.n+'</a><span class="sep" aria-hidden="true">›</span><span class="here">'+esc(b.getAttribute('data-label')||(cur?cur[1]:'Study'))+'</span>';
       }
-    } else parts+='<span class="sep" aria-hidden="true">›</span><span class="here">Word Bank</span>';
+    } else parts+='<span class="sep" aria-hidden="true">›</span><span class="here">'+(isEX?'Exam 1 mock exams':'Word Bank')+'</span>';
     var html='<div class="in"><nav class="s-crumb" aria-label="Breadcrumb">'+parts+'</nav>';
     if(mod && page!=='hub'){
       html+='<nav class="s-chips" aria-label="Study sets in this module"><a href="'+ROOT+mod.dir+'">Mod '+mod.n+' home</a>';
@@ -103,6 +104,24 @@
     h.style.marginTop=(-pt)+'px'; f.style.marginBottom=(-pb)+'px';
   }
   bleed(); addEventListener('resize',bleed);
+
+  /* deep link to a Cornell section: …/01_Cornell_Notes_ModuleN.html#sec-4 scrolls to that row and flashes it gold */
+  var sec=/^#sec-(\d+)$/.exec(location.hash), row=sec&&document.querySelector('.row[data-sec="'+sec[1]+'"]');
+  if(row){
+    setTimeout(function(){
+      row.scrollIntoView({block:'start'});
+      /* clear the sticky top bar and any sticky page toolbar under it */
+      var under=0;
+      Array.prototype.forEach.call(document.querySelectorAll('body>*,body>*>*'),function(el){
+        var ps=getComputedStyle(el).position; if(ps!=='sticky'&&ps!=='fixed') return;
+        var r=el.getBoundingClientRect(); if(r.top<=2&&r.bottom>under&&r.bottom<320) under=r.bottom;
+        if(r.top>2&&r.top<=under+2&&r.bottom<320) under=r.bottom;
+      });
+      window.scrollBy(0,row.getBoundingClientRect().top-under-10);
+      row.style.transition='box-shadow .5s'; row.style.borderRadius='10px'; row.style.boxShadow='0 0 0 3px #d8b358';
+      setTimeout(function(){ row.style.boxShadow='none'; },2600);
+    },80);
+  }
 
   /* offline: save the course on this device (https or localhost only) */
   if('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost')){
