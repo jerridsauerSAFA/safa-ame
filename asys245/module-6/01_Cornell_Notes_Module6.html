@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>ASYS 245 Module 6 · Cornell Notes · Weight & Balance</title>
+<title>ASYS 245 Module 6 · Cornell Notes · Performance: Stall & High-Speed Flight</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <style>
 
@@ -123,8 +123,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 <header class="top">
   <div>
     <div class="eyebrow">Cornell Notes · ASYS 245 · Module 6</div>
-    <h1>Weight &amp; Balance</h1>
-    <p>Why weight and balance decide whether an aircraft may fly, the four words everything is built on (datum, arm, moment, CG), how an AME weighs an aircraft, and how to calculate and record the empty weight and CG — including amendments, addendums and ballast. Read the notes, then switch on <b>Study mode</b> to test yourself from the cue questions.</p>
+    <h1>Performance: Stall &amp; High-Speed Flight</h1>
+    <p>Why wings stall and where the stall starts; how the boundary layer gives a wing its "effective shape"; and what happens as an aircraft gets close to the speed of sound — Mach, shock waves, wave drag and the wings designed to cope. Read the notes, then switch on <b>Study mode</b> to test yourself from the cue questions.</p>
   </div>
   <div class="meta">SAFA · SAIT ASYS 245<br>Module 6 · built from the course decks</div>
 </header>
@@ -132,322 +132,155 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 <div class="bar" role="toolbar" aria-label="Study tools">
   <label><input type="checkbox" id="studyToggle"> Study mode (hide notes, recall from cues)</label>
   <div class="grow"><div class="progress" aria-hidden="true"><i id="pbar"></i></div></div>
-  <span class="meta" id="ptext">0 / 12 sections checked</span>
+  <span class="meta" id="ptext">0 / 6 sections checked</span>
   <button class="btn" id="resetBtn" type="button">Reset</button>
 </div>
 
 <section class="notes" id="notes" aria-label="Cornell notes">
 
 <div class="row" data-sec="1">
-  <div class="cue"><h3>Why Weight &amp; Balance Matters</h3><p class="q">What does too much weight do to an aircraft, what does a CG too far forward or aft do, and who is responsible for which W&amp;B report?</p><span class="tag">AME = empty · Pilot = loaded</span></div>
+  <div class="cue"><h3>The Boundary Layer</h3><p class="q">What is the boundary layer, and how does it give a wing an "effective shape" that is different from its real shape?</p><span class="tag">Sticky air</span></div>
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li>Most modern aircraft are designed so that with <b>every seat, the baggage bay and the tanks all full, they are overloaded</b>. Every flight is a trade: full load means less fuel and range; full range means leaving people or bags behind.</li>
-      <li><b>Overloading</b> hurts everything: higher take-off speed and <b>longer take-off run</b>; <b>lower rate and angle of climb</b>; <b>lower service ceiling</b>; <b>slower cruise</b>; <b>shorter range</b>; <b>poorer manoeuvrability</b>; higher landing speed and <b>longer landing roll</b>; and <b>extra stress on the structure</b>, especially the landing gear.</li>
-      <li><b>Balance</b> (where the CG sits) decides stability and control. CG <b>too far forward</b>: the aircraft may <b>not rotate</b> for take-off; longitudinal control is reduced. CG <b>too far aft</b>: the aircraft may <b>over-control in pitch</b>; longitudinal stability is reduced (Module 3).</li>
-      <li>It is <b>illegal</b> to fly an aircraft outside its allowable weight and balance <b>envelope</b>.</li>
-      <li>Two reports, two owners: the <b>AME calculates and provides the empty weight and empty CG</b>; the <b>pilot calculates the loaded weight and loaded CG</b> for each flight from the AME's numbers.</li>
+      <li>Air molecules <b>right against a surface stick to it</b> — their speed is zero. The molecules just above are slowed by bumping into the stuck ones, and they slow the layer above them, and so on.</li>
+      <li>The farther from the surface, the less the surface matters. The result is a <b>thin layer</b> where the air speed goes from <b>zero</b> at the surface up to the <b>free-stream</b> speed away from it. That layer is the <b>boundary layer</b>.</li>
+      <li>The airflow outside reacts to the <b>edge of the boundary layer</b> as if it were the surface. So every object has an <b>effective shape</b> that is slightly different from (slightly fatter than) its physical shape.</li>
+      <li>If the boundary layer <b>separates</b> (lifts off the surface), the effective shape becomes <b>very</b> different from the real one — and the wing stops working like a wing.</li>
+      <li>Keeping the boundary layer <b>attached</b> is what slots, slats, slotted flaps and vortex generators are all about (Module 4).</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Side view of an aircraft with a CG envelope: too far forward, within limits, too far aft">
-      <path d="M60 70 L300 70 L340 60 L300 50 L60 50 Z" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
-      <rect x="150" y="30" width="80" height="20" rx="3" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
-      <path d="M300 50 L310 25 L335 25 L340 60" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
-      <rect x="150" y="88" width="80" height="10" fill="var(--dia-hi)" stroke="var(--dia-line)"/>
-      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="190" y="112" fill="var(--formula)" font-weight="700">CG range (envelope)</text><text x="100" y="112">too far forward</text><text x="100" y="124" fill="var(--muted)">won't rotate · heavy nose</text><text x="290" y="112">too far aft</text><text x="290" y="124" fill="var(--muted)">over-controls · unstable</text></g>
-      <circle cx="185" cy="60" r="6" fill="var(--formula)"/><line x1="185" y1="66" x2="185" y2="88" stroke="var(--formula)" stroke-dasharray="3 2"/>
-    </svg><p class="cap">The CG must sit inside the envelope. Forward of it the aircraft is nose-heavy and may not rotate; aft of it the aircraft is unstable.</p></div>
-    <details class="more"><summary>Go deeper</summary><p>This is the module where the AME's arithmetic goes straight into the pilot's hands. Every loaded W&amp;B a pilot does starts from the empty weight and empty CG you signed for. A wrong number in the hangar is a wrong number on every flight until the next weighing — which is why the regulations treat the W&amp;B report as a required technical record, not a nice-to-have.</p></details>
+    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Velocity profile of the boundary layer: zero speed at the surface growing to free-stream speed at the edge">
+      <rect x="20" y="110" width="380" height="14" fill="var(--dia-line)"/>
+      <path d="M60 110 Q70 70 150 30" stroke="var(--dia-hi)" stroke-width="2.5" fill="none" stroke-dasharray="4 3"/>
+      <g stroke="var(--dia-line)" stroke-width="2"><line x1="60" y1="105" x2="66" y2="105"/><line x1="60" y1="92" x2="80" y2="92"/><line x1="60" y1="78" x2="100" y2="78"/><line x1="60" y1="64" x2="118" y2="64"/><line x1="60" y1="50" x2="135" y2="50"/><line x1="60" y1="36" x2="148" y2="36"/></g>
+      <g fill="var(--dia-line)"><polygon points="66,102 72,105 66,108"/><polygon points="80,89 86,92 80,95"/><polygon points="100,75 106,78 100,81"/><polygon points="118,61 124,64 118,67"/><polygon points="135,47 141,50 135,53"/><polygon points="148,33 154,36 148,39"/></g>
+      <g stroke="var(--dia-line)" stroke-width="2"><line x1="260" y1="36" x2="340" y2="36"/><line x1="260" y1="60" x2="340" y2="60"/><line x1="260" y1="84" x2="340" y2="84"/></g><g fill="var(--dia-line)"><polygon points="340,33 346,36 340,39"/><polygon points="340,57 346,60 340,63"/><polygon points="340,81 346,84 340,87"/></g>
+      <g font-size="11" fill="var(--ink)"><text x="210" y="134" text-anchor="middle" fill="var(--muted)">surface — air speed here is zero</text><text x="160" y="24" fill="var(--formula)" font-weight="700">edge of boundary layer</text><text x="300" y="104" text-anchor="middle">free stream (full speed)</text></g>
+    </svg><p class="cap">Inside the boundary layer the speed climbs from zero at the skin to full speed at the edge. The outside flow "sees" that edge as the wing.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>The boundary layer is why surface condition matters so much to an AME. Frost, dents, bad rivet lines or a rough paint repair thicken the layer and make it separate sooner — the wing stalls earlier and at a higher speed than the book says. On a small wing the boundary layer is only millimetres thick, which is why a strip of frost the thickness of sandpaper is enough to change the stall.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="1" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
 
 <div class="row" data-sec="2">
-  <div class="cue"><h3>Datum, Arm, Moment, CG</h3><p class="q">Define datum, arm, moment and centre of gravity, and give the sign convention for arms.</p><span class="tag">The four words</span></div>
+  <div class="cue"><h3>Stall &amp; Stall Patterns</h3><p class="q">What causes a wing to stall, and why do designers want the stall to start at the wing root?</p><span class="tag">Root first</span></div>
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li><b>Datum</b> — an <b>imaginary vertical plane</b> from which all horizontal measurements are taken, with the aircraft in the <b>level flight attitude</b>. Where is it? <b>Wherever the manufacturer says</b> — find it in the <b>AMM, POH or TCDS</b>. Common datums: the <b>firewall</b>, the <b>spinner</b>, the <b>nose</b>.</li>
-      <li><b>Arm</b> — the <b>horizontal distance</b> (inches) from the datum to an item. It is a <b>distance</b>. Fuselage stations (FS) are numbered by their distance from the datum.</li>
-      <li><b>Sign convention:</b> <b>aft</b> of the datum = <b>positive (+)</b>; <b>forward</b> of the datum = <b>negative (−)</b>. Put the datum at the nose and every arm is positive.</li>
-      <li>Side to side uses <b>butt lines (BL)</b> from the centreline (BL 0): <b>right = +</b>, <b>left = −</b>.</li>
-      <li><b>Moment</b> — <b>weight × arm</b> (lb·in). Keep the signs: a positive weight at a negative arm is a negative moment; a <b>removed</b> item (negative weight) at a negative arm is a <b>positive</b> moment.</li>
-      <li><b>Centre of gravity (CG)</b> — the point where the nose-heavy and tail-heavy moments are <b>exactly equal</b>: the <b>balance point</b>. It can be written as inches from the datum, a station number, or a percentage of MAC.</li>
+      <li>For a thin airfoil, lift is <b>directly proportional to angle of attack</b> at small angles (roughly <b>+10° to −10°</b>). More angle, more lift — in a straight line.</li>
+      <li>Past that, the <b>boundary layer separates</b> from the top of the wing. Lift <b>drops abruptly</b> and drag jumps. That is a <b>stall</b>. A stall is about <b>angle of attack</b>, not speed — the wing can stall at any speed if the angle is high enough.</li>
+      <li><b>Different wing shapes stall in different patterns</b>: a rectangular wing tends to stall at the <b>root first</b>; tapered and swept wings tend to stall at the <b>tips first</b>.</li>
+      <li>The <b>desirable</b> pattern is <b>root first</b>: the tips, where the <b>ailerons</b> are, keep flying, so the pilot keeps <b>roll control</b> at high angles of attack and gets a warning (buffet) before the whole wing lets go.</li>
+      <li>A tip-first stall is nasty: one tip usually goes before the other, the aircraft rolls, and the ailerons are already in stalled air. Designers fix it with <b>washout</b> (tip set at a lower angle), <b>stall strips</b> at the root, or tip slots/slats.</li>
+      <li><b>Stall recovery</b> = reduce the angle of attack: nose down, then power, then level the wings.</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Side view of an aircraft with the datum plane at the firewall, a negative arm forward to the propeller and positive arms aft to the main wheels and tail">
-      <path d="M70 75 L310 75 L350 65 L310 55 L70 55 Z" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
-      <path d="M310 55 L320 30 L345 30 L350 65" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
-      <rect x="55" y="52" width="6" height="26" fill="var(--dia-line)"/>
-      <line x1="110" y1="20" x2="110" y2="125" stroke="var(--formula)" stroke-width="3" stroke-dasharray="6 3"/>
-      <circle cx="160" cy="92" r="6" fill="var(--dia-line)"/><circle cx="330" cy="92" r="4" fill="var(--dia-line)"/>
-      <g stroke="var(--dia-line)" stroke-width="1.5"><line x1="110" y1="110" x2="160" y2="110"/><line x1="110" y1="120" x2="330" y2="120"/><line x1="58" y1="110" x2="110" y2="110"/></g>
-      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="110" y="15" fill="var(--formula)" font-weight="700">DATUM (firewall)</text><text x="84" y="106">− arm</text><text x="135" y="106">+ arm</text><text x="220" y="134">+ arms aft of the datum</text><text x="40" y="140" fill="var(--muted)" text-anchor="start">forward = negative</text><text x="380" y="140" fill="var(--muted)" text-anchor="end">aft = positive</text></g>
-    </svg><p class="cap">Everything is measured from the datum. Aft is +, forward is −. Moment = weight × arm, signs included.</p></div>
-    <details class="more"><summary>Go deeper</summary><p>Why not just put the datum at the CG? Because the CG moves every time you load the aircraft. The datum is a fixed reference the manufacturer chose once, so every arm in every manual, STC and equipment list is measured from the same place for the life of the type. Check the datum before you check anything else — an arm from the wrong datum is wrong in every row of the table.</p></details>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Plan view of two wings: a rectangular wing stalling at the root first with the ailerons still working, and a tapered wing stalling at the tips first">
+      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><rect x="20" y="40" width="180" height="40" rx="4"/><path d="M230 40 L400 52 L400 68 L230 80 Z"/></g>
+      <g fill="var(--dia-hi)" opacity=".8"><rect x="80" y="42" width="60" height="36"/><path d="M230 42 L262 44 L262 76 L230 78 Z"/><path d="M368 50 L398 53 L398 67 L368 70 Z"/></g>
+      <g fill="none" stroke="var(--formula)" stroke-width="3"><line x1="24" y1="78" x2="70" y2="78"/><line x1="150" y1="78" x2="196" y2="78"/><line x1="232" y1="78" x2="262" y2="76"/><line x1="368" y1="69" x2="398" y2="67"/></g>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="110" y="30" font-weight="700">rectangular: root stalls first ✓</text><text x="110" y="100" fill="var(--muted)">tips and ailerons keep flying</text><text x="315" y="30" font-weight="700">tapered / swept: tips first ✗</text><text x="315" y="100" fill="var(--muted)">ailerons in stalled air, wing drops</text><text x="210" y="130" fill="var(--formula)">gold = stalled area · orange line = aileron</text></g>
+    </svg><p class="cap">Designers want the stall to start at the root so the ailerons keep working and the pilot gets a warning.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Why does a rectangular wing stall at the root? Its tip vortex spills around the tip and actually reduces the local angle of attack out there, so the tip is the last part to reach the critical angle. A tapered wing has a weaker tip vortex and a higher local lift coefficient near the tip, so the tip goes first. A stall strip is a small triangular strip on the root leading edge that trips the flow early on purpose — an AME replaces it in exactly the spot the manual shows, because moving it changes the stall behaviour.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="2" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
 
 <div class="row" data-sec="3">
-  <div class="cue"><h3>The Principle: Moments Sum to Zero</h3><p class="q">State the first principle of weight and balance and show how it gives the formula for the CG.</p><span class="tag">CG = ΣM ÷ ΣW</span></div>
+  <div class="cue"><h3>Vortex Generators</h3><p class="q">What is a vortex generator, and how does a tiny fin delay the stall?</p><span class="tag">Energize the layer</span></div>
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li><b>First principle:</b> the <b>sum of the moments about any point of a stationary object is zero</b>. That is what "balanced" means.</li>
-      <li>Teeter-totter: a 25 lb child and a 50 lb child on a 12 ft plank. Datum at child A. Moments: 25 × 0 = 0 and 50 × 12 = 600. The pivot must carry 75 lb at Y where 75 × Y = 600 → <b>Y = 8 ft</b> from child A. Trial and error works on a teeter-totter — not on a 737.</li>
-      <li>So the rule: <span class="big">CG = total moment ÷ total weight</span></li>
-      <li>Use the <b>four-column table</b>: <b>item · weight · arm · moment</b>. Work out each moment (weight × arm), then <b>add the weights</b> and <b>add the moments</b>, then divide.</li>
-      <li><b>Never add the arms.</b> The CG is a "master arm" that comes out of the division, not a sum.</li>
-      <li>Deck example: 52,900 lb·in ÷ 495 lb = <b>106.9"</b> aft of the datum.</li>
+      <li><b>Vortex generators (VGs)</b> are <b>small fins</b> in a row along the top of the wing (sometimes on the tail too).</li>
+      <li>As air flows back across the wing it <b>loses energy</b> in the boundary layer. As it loses energy it starts to <b>separate</b> — and separation is a stall.</li>
+      <li>Each VG spins off a <b>small vortex</b>. The vortex <b>mixes the fast, high-energy air</b> from outside the boundary layer <b>down into it</b>, re-energizing the slow air near the skin.</li>
+      <li>Result: the boundary layer stays attached to a <b>higher angle of attack</b> → the wing is less likely to stall, the stall speed drops, and the controls keep working longer.</li>
+      <li>Common as a bolt-on STOL kit on bush aircraft; also used ahead of ailerons and on the fin. The cost is a small amount of extra drag in cruise.</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Teeter-totter with a 25 pound child at the left end, a 50 pound child at the right end, and the pivot 8 feet from the left">
-      <line x1="40" y1="70" x2="380" y2="70" stroke="var(--dia-line)" stroke-width="5"/>
-      <polygon points="266,72 250,105 282,105" fill="var(--dia-hi)" stroke="var(--dia-line)" stroke-width="2"/>
-      <rect x="40" y="40" width="26" height="28" rx="4" fill="var(--dia-fill)" stroke="var(--dia-line)"/><rect x="340" y="30" width="40" height="38" rx="4" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
-      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="53" y="58" font-weight="700">25 lb</text><text x="360" y="54" font-weight="700">50 lb</text><text x="53" y="30" fill="var(--formula)">datum (arm 0)</text><text x="360" y="22" fill="var(--muted)">arm 12 ft</text><text x="266" y="122" fill="var(--formula)" font-weight="700">pivot = CG at 8 ft</text><text x="150" y="92" fill="var(--muted)">25×0 + 50×12 = 600 lb·ft ÷ 75 lb = 8 ft</text></g>
-    </svg><p class="cap">Total moment 600 lb·ft divided by total weight 75 lb puts the balance point 8 ft from the lighter child.</p></div>
-    <details class="more"><summary>Go deeper</summary><p>The teeter-totter and the aircraft are the same problem. On the aircraft the "children" are the scale readings under each wheel, the "pivot" is the CG you are looking for, and the ground pushing up on the wheels is the negative total weight that makes the moments sum to zero. Spreadsheets do the multiplying, but you still have to get the signs right and resist adding the arm column.</p></details>
+    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Side view of a wing top surface with a vortex generator fin creating a small vortex that pulls high energy air into the boundary layer">
+      <path d="M20 110 Q120 60 230 70 Q330 80 400 110" stroke="var(--dia-line)" stroke-width="3" fill="var(--dia-fill)"/>
+      <polygon points="120,80 126,62 130,80" fill="var(--formula)"/>
+      <path d="M135 70 q10 -10 20 0 q10 10 20 0 q10 -10 20 0 q10 10 20 0 q10 -10 20 0" stroke="var(--dia-hi)" stroke-width="2.5" fill="none"/>
+      <g stroke="var(--dia-line)" stroke-width="1.5" fill="none"><path d="M30 40 L120 40"/><path d="M30 25 L120 25"/><path d="M160 32 Q210 40 250 58"/></g>
+      <g fill="var(--dia-line)"><polygon points="118,37 124,40 118,43"/><polygon points="118,22 124,25 118,28"/><polygon points="246,53 252,59 244,60"/></g>
+      <g font-size="11" fill="var(--ink)"><text x="126" y="58" fill="var(--formula)" font-weight="700">vortex generator</text><text x="255" y="52" fill="var(--formula)">high-energy air pulled in</text><text x="30" y="20" fill="var(--muted)">fast free-stream air</text><text x="210" y="128" text-anchor="middle" fill="var(--muted)">boundary layer stays attached further back → later stall</text></g>
+    </svg><p class="cap">A small fin spins off a vortex that stirs fast air into the tired boundary layer, so it stays attached longer.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Look at the top of a Cessna 180 or a Bonanza with a STOL kit: a neat row of little aluminum tabs about a third of the way back from the leading edge. Each one is only a few centimetres tall — about the thickness of the boundary layer — and that is the point. It only needs to reach the fast air just outside the layer to drag some of it down. For the AME, VG kits come with an STC: position, spacing and count are fixed by the approval, and a missing VG is a snag, not a cosmetic fault.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="3" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
 
 <div class="row" data-sec="4">
-  <div class="cue"><h3>Weight Terms</h3><p class="q">Define empty weight, useful load, and the maximum ramp, take-off, landing and zero-fuel weights.</p><span class="tag">Useful load = max gross − empty</span></div>
+  <div class="cue"><h3>Mach Number &amp; the Speed of Sound</h3><p class="q">What is Mach number, what is critical Mach number, and why does the speed of sound change with altitude?</p><span class="tag">M = V ÷ a</span></div>
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li><b>Maximum (gross) weight</b> — the most the aircraft and everything in it may weigh in flight. Found in the <b>Type Certificate Data Sheet (TCDS)</b> / Aircraft Specifications.</li>
-      <li><b>Maximum ramp (taxi) weight</b> — the heaviest it may be on the ground. <b>Maximum take-off weight</b> — the heaviest at the start of the take-off roll. The difference is the fuel burned starting and taxiing.</li>
-      <li><b>Maximum landing weight</b> — the heaviest it may land at (on a wide-body it can be 100,000 lb or more below take-off weight). <b>Maximum zero-fuel weight</b> — the heaviest with no usable fuel; anything above it must be fuel.</li>
-      <li><b>Empty weight</b> — the aircraft with everything that is <b>fixed in place and installed</b>: airframe, powerplant, required and optional equipment, fixed ballast, full engine coolant, hydraulic fluid, <b>residual (unusable) fuel</b>, oil, radios. <b>Empty weight CG</b> = where it balances in that condition.</li>
-      <li><b>Useful load = maximum gross weight − empty weight.</b> That is everything you can legally add: crew, passengers, baggage, usable fuel. Aircraft certified in both <b>normal and utility</b> categories may list two useful loads.</li>
-      <li><b>Minimum fuel</b> — the fuel for about <b>30 minutes at cruise power</b>; used in W&amp;B calculations where the load is otherwise critical.</li>
+      <li><b>Mach number</b> = the aircraft's speed <b>divided by the speed of sound</b>. Mach 0.5 = half the speed of sound; Mach 2 = twice it.</li>
+      <li>The "speed of sound" is really the speed at which a <b>small disturbance (pressure wave) travels through the air</b>. Sound itself is just what the brain makes of those waves.</li>
+      <li>In the standard atmosphere at sea level it is about <b>761 mph</b> (about 661 knots). It depends on <b>air temperature</b> — <b>colder air = slower speed of sound</b>. So at high altitude, where it is cold, an aircraft reaches a given Mach number at a lower true airspeed.</li>
+      <li><b>Critical Mach number (M<sub>crit</sub>)</b> = the <b>aircraft</b> speed at which the air flowing <b>over the wing</b> first reaches <b>Mach 1</b>. The air over the top of a wing is faster than the aircraft, so the wing goes supersonic locally before the aircraft does.</li>
+      <li>Below M<sub>crit</sub> every bit of flow over the surface is subsonic. At M<sub>crit</sub> the fastest spot on the top surface just touches Mach 1.</li>
+      <li>History: <b>14 October 1947</b> — Capt. <b>Chuck Yeager</b> flew the rocket-powered <b>Bell X-1</b> "Glamorous Glennis" past Mach 1, air-launched from a B-29. Bullet-shaped fuselage, thin strong wings, and an <b>adjustable horizontal stabilizer</b> made it possible.</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Stacked bar showing empty weight plus useful load equal to maximum gross weight, with ramp, take-off, landing and zero-fuel limits marked">
-      <rect x="40" y="60" width="200" height="40" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
-      <rect x="240" y="60" width="140" height="40" fill="var(--dia-hi)" stroke="var(--dia-line)" stroke-width="2"/>
-      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="140" y="84" font-weight="700">empty weight</text><text x="310" y="84" font-weight="700">useful load</text><text x="210" y="125" fill="var(--formula)" font-weight="700">empty weight + useful load = maximum gross weight</text><text x="140" y="45" fill="var(--muted)" font-size="9.5">airframe · engine · equipment · residual fuel · oil</text><text x="310" y="45" fill="var(--muted)" font-size="9.5">people · bags · usable fuel</text><text x="210" y="143" fill="var(--muted)" font-size="10">limits: ramp ≥ take-off ≥ landing · zero-fuel = everything but fuel</text></g>
-    </svg><p class="cap">Useful load is what is left after the empty weight — and it is often less than people expect.</p></div>
-    <details class="more"><summary>Go deeper</summary><p>The deck's practice aircraft has a maximum gross weight of 1,670 lb and an empty weight of 1,176 lb, so the useful load is only about 494 lb. Put a 250 lb pilot in and 244 lb is left for passengers, bags and fuel — and fuel is 6 lb per gallon. That is why "full tanks, full seats, full baggage" is an overload on most light aircraft, and why the pilot's loaded W&amp;B is not optional.</p></details>
+    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Airfoil below and at critical Mach number: at critical Mach the flow over the top surface just reaches Mach 1">
+      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><path d="M20 80 Q80 40 160 70 Q110 95 20 80 Z"/><path d="M230 80 Q290 40 370 70 Q320 95 230 80 Z"/></g>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="90" y="24" font-weight="700">(A) below Mcrit</text><text x="90" y="110" fill="var(--muted)">all flow over the wing below Mach 1</text><text x="300" y="24" font-weight="700" fill="var(--formula)">(B) at Mcrit</text><text x="300" y="110" fill="var(--muted)">fastest spot on top just reaches Mach 1</text><text x="210" y="134" fill="var(--formula)">Mach = aircraft speed ÷ speed of sound</text></g>
+      <circle cx="285" cy="52" r="6" fill="var(--formula)"/><text x="285" y="44" font-size="10" text-anchor="middle" fill="var(--formula)" font-weight="700">M 1.0</text>
+    </svg><p class="cap">The aircraft can still be well below Mach 1 (about 0.8) when the air over its wing first hits Mach 1 — that is critical Mach.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Why temperature and not altitude? A pressure wave moves by molecules bumping their neighbours, and warm molecules move faster, so the wave travels faster. Cold air slows it. At 35,000 ft on a standard day the speed of sound is only about 575 kt, against about 661 kt at sea level — so an airliner cruising at Mach 0.82 is doing roughly 470 kt true. That is also why the X-1 was flown high: colder air meant Mach 1 arrived at a lower, safer true airspeed.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="4" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
 
 <div class="row" data-sec="5">
-  <div class="cue"><h3>The W&amp;B Report &amp; the Rules</h3><p class="q">What does the empty weight and balance report contain, which regulations require it, and when must an aircraft be reweighed?</p><span class="tag">CAR 605.92 · Std 571 App C</span></div>
+  <div class="cue"><h3>Shock Waves, Transonic Flight &amp; Shock Stall</h3><p class="q">What is a shock wave, what changes as air passes through one, and what happens to drag in the transonic range?</p><span class="tag">Wave drag</span></div>
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li>Every aircraft leaves the factory with a <b>weight and balance report</b> in its records. It gives the <b>empty weight</b> and the <b>empty weight CG</b>, and must be <b>current and accurate</b>.</li>
-      <li><b>CAR 605.92</b> — the owner must keep an <b>empty weight and balance report</b> that meets <b>Chapter 571 of the Airworthiness Manual</b> (Standard 571 Appendix C: Aircraft Weight and Balance Control).</li>
-      <li><b>Standard 625 Appendix C</b> — <b>large aircraft</b> are <b>reweighed every five years</b> (unless on an approved fleet W&amp;B control program), or after major work — <b>including paint</b>, which weighs a lot.</li>
-      <li><b>Private / small aircraft</b> — the factory report is <b>amended</b> when equipment is added or removed; a full reweigh is not required unless the records are lost.</li>
-      <li>Reweigh when: the report is <b>lost</b>; the paper trail back to the last weighing is <b>broken</b>; or a change cannot be calculated accurately.</li>
-      <li>A new report or amendment is needed after any change to empty weight or CG (<b>Std 571 App C (2)(a)</b>) — floats, skis, radios, seats. Practically, <b>hardware like washers, screws, clamps and lockwire does not</b>.</li>
+      <li>A <b>shock wave</b> is a very thin wall in the air where the flow jumps from <b>supersonic to subsonic</b>. A <b>normal</b> shock wave stands at right angles (perpendicular) to the surface.</li>
+      <li>As air passes <b>through</b> a shock wave: <b>pressure increases</b>, <b>temperature increases</b>, <b>velocity decreases</b> (and density increases — the air is suddenly squeezed).</li>
+      <li>Shock waves form in stages: first on the <b>top</b> surface only (A), then also on the <b>bottom</b> (B), and finally the <b>whole airfoil</b> is supersonic with a bow wave ahead of it (C). The pressure jump reaching the ground is the <b>sonic boom</b>.</li>
+      <li><b>Transonic flight</b> = the transition from subsonic to supersonic, from about <b>critical Mach (≈ 0.8) to about Mach 1.3</b>. Some of the flow is subsonic and some supersonic at the same time.</li>
+      <li><b>Drag increases greatly</b> in the transonic range. Energy is dumped into the air as heat and pressure jumps, and the engine has to make up for it. This extra drag is called <b>wave drag</b>. The Mach number where the drag rise really begins is the <b>critical drag Mach (M<sub>crd</sub>)</b>.</li>
+      <li><b>Shock stall</b> = the shock wave <b>separates the boundary layer</b> behind it. Lift is lost and buffet starts, even though the angle of attack is low. A stall caused by speed, not by angle.</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 130" width="420" height="130" role="img" aria-label="Decision flow: a change to the aircraft leads to either a calculated amendment or a reweigh">
-      <g font-size="11" fill="var(--ink)" text-anchor="middle">
-        <rect x="10" y="40" width="110" height="44" rx="6" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="65" y="58" font-weight="700">change made</text><text x="65" y="74" fill="var(--muted)">radio · floats · paint</text>
-        <rect x="160" y="10" width="120" height="44" rx="6" fill="var(--dia-hi)" stroke="var(--dia-line)"/><text x="220" y="28" font-weight="700">weight &amp; arm known?</text><text x="220" y="44" fill="var(--muted)">→ calculate: amendment</text>
-        <rect x="160" y="74" width="120" height="44" rx="6" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="220" y="92" font-weight="700">not known / record lost</text><text x="220" y="108" fill="var(--muted)">→ put it on the scales</text>
-        <rect x="310" y="40" width="100" height="44" rx="6" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="360" y="58" font-weight="700">report updated</text><text x="360" y="74" fill="var(--muted)">before next flight</text>
-      </g>
-      <g stroke="var(--dia-line)" stroke-width="2" fill="none"><path d="M120 62 L160 32"/><path d="M120 62 L160 96"/><path d="M280 32 L310 62"/><path d="M280 96 L310 62"/></g>
-    </svg><p class="cap">Known weight and arm → calculate an amendment. Unknown, or the paper trail is broken → reweigh.</p></div>
-    <details class="more"><summary>Go deeper</summary><p>"Including paint" surprises people. A full repaint on a light aircraft can add 10–20 lb, and on an airliner hundreds of pounds, all of it spread over the skin where the arm is long. That is why a large aircraft's five-year reweigh clock is reset by major work, and why a stripped-and-repainted aircraft is weighed rather than calculated.</p></details>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Three stages of shock wave formation on an airfoil, plus the changes through a shock wave">
+      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><path d="M15 70 Q55 45 115 65 Q75 85 15 70 Z"/><path d="M150 70 Q190 45 250 65 Q210 85 150 70 Z"/><path d="M285 70 Q325 45 385 65 Q345 85 285 70 Z"/></g>
+      <g stroke="var(--formula)" stroke-width="3"><line x1="80" y1="30" x2="80" y2="54"/><line x1="215" y1="30" x2="215" y2="54"/><line x1="222" y1="78" x2="222" y2="98"/><line x1="350" y1="30" x2="350" y2="52"/><line x1="356" y1="78" x2="356" y2="98"/></g>
+      <path d="M298 30 Q282 65 298 100" stroke="var(--formula)" stroke-width="3" fill="none"/>
+      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="65" y="20" font-weight="700">A · top only</text><text x="200" y="20" font-weight="700">B · top + bottom</text><text x="335" y="20" font-weight="700">C · all supersonic</text><text x="65" y="112" fill="var(--muted)">just past Mcrit</text><text x="200" y="112" fill="var(--muted)">transonic</text><text x="335" y="112" fill="var(--muted)">bow wave ahead</text><text x="210" y="138" fill="var(--formula)" font-weight="700">through a shock: pressure ↑ · temperature ↑ · velocity ↓</text></g>
+    </svg><p class="cap">Shock waves (orange) appear on top first, then below, then a bow wave ahead once the whole airfoil is supersonic.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Think of the shock wave as a traffic jam. Supersonic air cannot "hear" the wing coming — pressure information travels at the speed of sound, and the air is moving faster than that — so it piles into the obstacle without warning and slams to a slower speed in a wall a few molecules thick. Behind that wall the air is hotter, denser and slower, and that sudden pressure jump pushes the boundary layer off the surface. Early jets that got too fast hit shock stall and "Mach tuck": the shock moved aft, the centre of pressure moved with it, and the nose dropped into a dive the elevator could not fix.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="5" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
 
 <div class="row" data-sec="6">
-  <div class="cue"><h3>Weighing: Equipment &amp; Preparation</h3><p class="q">What scales are used, how is the aircraft levelled, and what must be done before the readings count?</p><span class="tag">Level · Clean · Closed hangar</span></div>
+  <div class="cue"><h3>Wings for High-Speed Flight</h3><p class="q">Name two wing design features that suit transonic and supersonic flight, and say what each one does.</p><span class="tag">Sweep · Thin</span></div>
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li><b>Mechanical (beam) scales</b> — like a doctor's scale: slide the weight until the bar floats between the stops. Usually only to <b>300 lb</b>, and accuracy is a concern.</li>
-      <li><b>Electronic load cells</b> — <b>platform</b> type (tire sits on the platform) or <b>top-of-jack</b> type (cell built into the jack). <b>At least three</b> scales or load cells; the readings are the <b>scale weight</b>.</li>
-      <li>The aircraft must be in the <b>level flight attitude</b>: use the <b>levelling means</b> from the <b>TCDS / AMM / POH</b> (e.g. Cessna 185: datum = front face of firewall, levelling means = <b>upper door sill</b>) with a <b>spirit level</b>, or a <b>plumb bob</b> from the wing leading edge. Jack or deflate tires until level.</li>
-      <li>Why level? <b>Tail low → CG appears further aft</b> than it is; <b>tail high → CG appears too far forward</b>.</li>
-      <li>Weigh in a <b>closed hangar, fans off, no air currents</b>; outside only if wind and moisture are negligible. Aircraft <b>clean and dry</b> — remove dirt, oil, grease, moisture.</li>
-      <li><b>Configure per the manual:</b> flaps, spoilers, slats as instructed; all equipment on the certificated list installed and in place; <b>baggage bays empty</b>; items not normally carried removed; inspection plates, caps, cowlings, doors and exits <b>fitted and in flight position</b>. Hydraulic systems <b>full</b>; drinking water and lavatory tanks <b>drained</b> (unless the manufacturer says otherwise).</li>
-      <li><b>Tare weight</b> — chocks, blocks or stands sitting on the scales are <b>subtracted</b> from the scale reading.</li>
+      <li><b>Sweepback</b>: angling the wing back <b>reduces the effective Mach number along the chord</b>. Only the part of the airflow that runs straight across the wing (chordwise) counts for shock formation; the spanwise part is "wasted". A swept wing can therefore fly faster before reaching critical Mach.</li>
+      <li><b>Thin wings with sharp leading edges</b>: a blunt nose pushes a <b>bow wave</b> out ahead of it (lots of drag). A sharp leading edge lets the bow wave <b>attach to the leading edge</b> and become an <b>oblique shock wave</b>.</li>
+      <li>When the shocks are <b>oblique</b> (slanted), <b>all</b> the air around the wing stays supersonic and smooth — far less wave drag than a detached normal shock.</li>
+      <li>Example: the <b>Lockheed F-104 Starfighter</b> — a high-altitude interceptor with tiny, razor-thin, sharp-edged wings; the first US jet fighter to fly at <b>twice the speed of sound</b>. NASA used it as a chase plane.</li>
+      <li>The trade-off: thin, swept wings make poor lift at low speed, so these aircraft need high landing speeds, big flaps or blown flaps.</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Aircraft on three platform scales with a spirit level on the door sill, showing that a tail-low attitude moves the apparent CG aft">
-      <path d="M90 60 L300 60 L340 50 L300 40 L90 40 Z" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
-      <path d="M300 40 L310 18 L335 18 L340 50" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
-      <rect x="170" y="32" width="50" height="8" rx="2" fill="var(--dia-hi)" stroke="var(--dia-line)"/>
-      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><rect x="100" y="82" width="36" height="12"/><rect x="180" y="82" width="36" height="12"/><rect x="290" y="82" width="36" height="12"/></g>
-      <g stroke="var(--dia-line)" stroke-width="2"><line x1="118" y1="60" x2="118" y2="82"/><line x1="198" y1="60" x2="198" y2="82"/><line x1="308" y1="55" x2="308" y2="82"/></g>
-      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="195" y="28" fill="var(--formula)" font-weight="700">spirit level on the levelling means</text><text x="118" y="108">nose scale</text><text x="198" y="108">main scales (L + R)</text><text x="308" y="108">tail / jack point</text><text x="210" y="130" fill="var(--muted)">tail low → CG reads too far aft · tail high → reads too far forward</text></g>
-    </svg><p class="cap">At least three weighing points, level per the TCDS, in a closed hangar with the fans off.</p></div>
-    <details class="more"><summary>Go deeper</summary><p>Levelling is where most weighing errors come from. The arms in the manual are measured with the aircraft level; tilt it and the wheels are no longer under the stations the manual assumes, so the moments are wrong even though the scales are right. Small nose-wheel aircraft are often levelled by taking the nose wheel off and resting the fork on the scale — then the removed wheel is weighed separately and added back in the table.</p></details>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Plan view comparing a straight wing with a swept wing and the reduced chordwise component of the airflow; plus a blunt nose with a detached bow wave versus a sharp nose with an attached oblique shock">
+      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><rect x="20" y="40" width="40" height="80"/><path d="M90 40 L130 40 L170 120 L130 120 Z"/></g>
+      <g stroke="var(--dia-line)" stroke-width="2"><line x1="8" y1="80" x2="20" y2="80"/><line x1="78" y1="80" x2="90" y2="80"/></g>
+      <line x1="112" y1="80" x2="140" y2="80" stroke="var(--formula)" stroke-width="2"/><line x1="112" y1="80" x2="128" y2="112" stroke="var(--muted)" stroke-width="2" stroke-dasharray="3 2"/>
+      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><path d="M250 80 Q255 55 290 60 L330 80 L290 100 Q255 105 250 80 Z"/><path d="M345 80 L410 68 L410 92 Z"/></g>
+      <path d="M240 50 Q232 80 240 110" stroke="var(--formula)" stroke-width="3" fill="none"/>
+      <g stroke="var(--formula)" stroke-width="3"><line x1="345" y1="80" x2="395" y2="40"/><line x1="345" y1="80" x2="395" y2="120"/></g>
+      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="40" y="32" font-weight="700">straight</text><text x="130" y="32" font-weight="700">swept</text><text x="95" y="140" fill="var(--formula)">sweep: less of the flow crosses the chord → higher Mcrit</text><text x="290" y="40" font-weight="700">blunt: bow wave</text><text x="290" y="130" fill="var(--muted)">detached, high drag</text><text x="380" y="22" font-weight="700" fill="var(--formula)">sharp: oblique</text><text x="380" y="140" fill="var(--muted)">attached, low drag</text></g>
+    </svg><p class="cap">Sweep lowers the Mach number the wing "feels"; a sharp, thin leading edge turns the bow wave into an attached oblique shock.</p></div>
+    <details class="more"><summary>Go deeper</summary><p>Sweep is a trick of geometry. If a wing is swept 35°, the airflow crossing the chord is the free stream multiplied by cos 35° — about 82%. So the wing "feels" Mach 0.82 when the aircraft is at Mach 1.0. That is why nearly every airliner has 25–35° of sweep: it buys cruise speed without the brutal low-speed handling of a true supersonic wing. The F-104 went the other way — almost no sweep, but a wing so thin and sharp that ground crews fitted guards on the leading edges.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="6" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
-    <label class="check"><input type="checkbox" class="done"> Got it</label>
-  </div>
-</div>
-
-<div class="row" data-sec="7">
-  <div class="cue"><h3>Fuel, Oil &amp; Standard Weights</h3><p class="q">How much fuel and oil is in the empty weight, what are the three fuel conditions for weighing, and what are the standard fluid weights?</p><span class="tag">6 · 6.7 · 7.5 · 8.35 lb/gal</span></div>
-  <div class="body">
-    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
-    <ul>
-      <li>Empty weight includes only <b>residual (unusable) fuel</b>. So weigh in one of <b>three conditions</b>: (1) <b>no fuel at all</b> — then <b>add</b> the unusable fuel's weight, arm and moment mathematically; (2) <b>only residual fuel</b> in tanks and lines; (3) <b>tanks full</b> — then <b>subtract</b> the usable fuel mathematically.</li>
-      <li>Fuel weight depends on density: use a <b>hydrometer</b> to measure it when weighing with full tanks.</li>
-      <li><b>Oil:</b> for aircraft certified <b>since 1978, full engine oil is normally part of the empty weight</b> — confirm in the TCDS. If the TCDS says only <b>residual oil</b>, either drain to residual or subtract the extra oil mathematically.</li>
-      <li><b>Standard weights</b> when the exact weight is not known: aviation gasoline <b>6 lb/gal</b> · turbine fuel <b>6.7 lb/gal</b> · lubricating oil <b>7.5 lb/gal</b> · water <b>8.35 lb/gal</b>.</li>
-      <li><b>Crew and passengers:</b> use the current standard weights in the <b>TC AIM</b> (TP 14371) unless actual weights are known.</li>
-      <li>Constant-speed-drive oil tanks <b>full</b>; hydraulic reservoirs <b>full</b>; water and lavatory tanks <b>drained</b> — unless the manufacturer says otherwise.</li>
-    </ul>
-    <div class="fig"><svg viewBox="0 0 420 120" width="420" height="120" role="img" aria-label="Four fluid cans labelled with standard weights per gallon: avgas 6, jet fuel 6.7, oil 7.5, water 8.35">
-      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><rect x="30" y="35" width="70" height="60" rx="6"/><rect x="130" y="30" width="70" height="65" rx="6"/><rect x="230" y="24" width="70" height="71" rx="6"/><rect x="330" y="18" width="70" height="77" rx="6"/></g>
-      <g font-size="11" fill="var(--ink)" text-anchor="middle" font-weight="700"><text x="65" y="60">avgas</text><text x="165" y="58">jet fuel</text><text x="265" y="55">oil</text><text x="365" y="52">water</text></g>
-      <g font-size="13" fill="var(--formula)" text-anchor="middle" font-weight="700"><text x="65" y="82">6</text><text x="165" y="82">6.7</text><text x="265" y="82">7.5</text><text x="365" y="82">8.35</text></g>
-      <text x="210" y="113" font-size="10" text-anchor="middle" fill="var(--muted)">pounds per US gallon — use the real density (hydrometer) when it matters</text>
-    </svg><p class="cap">The four standard fluid weights. People: from the TC AIM.</p></div>
-    <details class="more"><summary>Go deeper</summary><p>Fuel density changes with temperature and type, which is why a hydrometer matters when you weigh with full tanks — on a 40-gallon aircraft a 5% density error is 12 lb sitting at the fuel arm. The 1978 oil rule exists because older type certificates were written when oil was treated as a consumable; read the TCDS note rather than assuming.</p></details>
-    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="7" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
-    <label class="check"><input type="checkbox" class="done"> Got it</label>
-  </div>
-</div>
-
-<div class="row" data-sec="8">
-  <div class="cue"><h3>Worked Weighing: Empty Weight &amp; CG</h3><p class="q">Walk through the steps of weighing an aircraft and the six-column table, using the practice example.</p><span class="tag">1176.37 lb @ 30.90"</span></div>
-  <div class="body">
-    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
-    <ul>
-      <li><b>Steps:</b> read the manufacturer's weighing procedure → load/configure as specified → clean, dry, fans off → level on the scales → weigh → weigh the <b>tare</b> items → find the <b>arms</b> from the weighing points to the datum (wheel centrelines / jack points, from the AMM) → calculate → <b>build the W&amp;B report</b>.</li>
-      <li><b>Practice aircraft</b> (datum ahead of the nose wheel): right main <b>423 lb @ FS 46.81</b>; left main <b>415 lb @ FS 46.81</b>; nose <b>331 lb @ FS −10.00</b>. Weighed with <b>no fuel</b> (add unusable fuel 9.00 lb @ FS 40.00), <b>full oil</b> that must come out (−13.13 lb @ FS −14.70), and the <b>nose wheel assembly removed</b> to level it (add 11.50 lb @ FS −10.00).</li>
-      <li>Moments: −3,310.00 · +19,800.63 · +19,426.15 · +193.01 (negative × negative) · +360.00 · −115.00.</li>
-      <li><b>Totals:</b> weight <b>1,176.37 lb</b>, moment <b>36,354.78 lb·in</b>. CG = 36,354.78 ÷ 1,176.37 = <b>30.90" aft of the datum</b>.</li>
-      <li>Max gross 1,670 lb → <b>useful load = 1,670 − 1,176.37 = 493.63 lb</b>.</li>
-      <li>Sanity check: the CG sits <b>between</b> the nose wheel (−10) and the mains (46.81), and closer to the mains because they carry more weight. If your CG is outside the stations, something is wrong.</li>
-    </ul>
-    <div class="fig"><svg viewBox="0 0 420 165" width="420" height="165" role="img" aria-label="Six-row weight and balance table for the practice aircraft with totals and CG">
-      <g font-size="10" fill="var(--ink)" font-family="JetBrains Mono,monospace">
-        <rect x="10" y="8" width="400" height="18" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
-        <text x="16" y="21" font-weight="700">Item</text><text x="200" y="21" font-weight="700" text-anchor="end">Weight</text><text x="270" y="21" font-weight="700" text-anchor="end">Arm</text><text x="400" y="21" font-weight="700" text-anchor="end">Moment</text>
-        <text x="16" y="40">Nose</text><text x="200" y="40" text-anchor="end">331.00</text><text x="270" y="40" text-anchor="end">−10.00</text><text x="400" y="40" text-anchor="end">−3,310.00</text>
-        <text x="16" y="55">Right main</text><text x="200" y="55" text-anchor="end">423.00</text><text x="270" y="55" text-anchor="end">46.81</text><text x="400" y="55" text-anchor="end">19,800.63</text>
-        <text x="16" y="70">Left main</text><text x="200" y="70" text-anchor="end">415.00</text><text x="270" y="70" text-anchor="end">46.81</text><text x="400" y="70" text-anchor="end">19,426.15</text>
-        <text x="16" y="85">Oil (remove)</text><text x="200" y="85" text-anchor="end">−13.13</text><text x="270" y="85" text-anchor="end">−14.70</text><text x="400" y="85" text-anchor="end">193.01</text>
-        <text x="16" y="100">Unusable fuel (add)</text><text x="200" y="100" text-anchor="end">9.00</text><text x="270" y="100" text-anchor="end">40.00</text><text x="400" y="100" text-anchor="end">360.00</text>
-        <text x="16" y="115">Nose wheel assy (add)</text><text x="200" y="115" text-anchor="end">11.50</text><text x="270" y="115" text-anchor="end">−10.00</text><text x="400" y="115" text-anchor="end">−115.00</text>
-        <line x1="10" y1="122" x2="410" y2="122" stroke="var(--dia-line)"/>
-        <text x="16" y="138" font-weight="700">Totals → empty wt · CG</text><text x="200" y="138" text-anchor="end" font-weight="700" fill="var(--formula)">1,176.37</text><text x="270" y="138" text-anchor="end" font-weight="700" fill="var(--formula)">30.90</text><text x="400" y="138" text-anchor="end" font-weight="700" fill="var(--formula)">36,354.78</text>
-        <text x="210" y="157" text-anchor="middle" fill="var(--muted)">CG = 36,354.78 ÷ 1,176.37 = 30.90" · do NOT add the arm column</text>
-      </g>
-    </svg><p class="cap">The practice table from the deck. Removed items get a negative weight; two negatives make a positive moment.</p></div>
-    <details class="more"><summary>Go deeper</summary><p>Notice the oil row: −13.13 lb at −14.70" gives <b>+193.01</b> lb·in. Taking weight out of the nose moves the CG <b>aft</b>, so the moment has to go up — the signs are doing the physics for you. If a removed item ever gives you a moment in the wrong direction, you have a sign error. The test question is usually exactly this table: fill it in, total it, divide.</p></details>
-    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="8" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
-    <label class="check"><input type="checkbox" class="done"> Got it</label>
-  </div>
-</div>
-
-<div class="row" data-sec="9">
-  <div class="cue"><h3>Lateral CG &amp; Helicopters</h3><p class="q">How is lateral CG calculated, and why is CG more critical on a helicopter?</p><span class="tag">Butt lines · Cyclic authority</span></div>
-  <div class="body">
-    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
-    <ul>
-      <li><b>Lateral CG</b> = the balance point <b>left or right of the longitudinal axis</b>. Arms are <b>butt lines</b> from BL 0 (the centreline): <b>right +</b>, <b>left −</b>.</li>
-      <li>Same table, same rule. Practice aircraft: nose 331 lb @ BL 0 → 0; right main 423 lb @ +39.2 → +16,581.6; left main 415 lb @ −39.2 → −16,268.0. Total moment <b>+313.6</b> ÷ 1,176.37 lb = <b>+0.266" (right)</b>. Barely off centre.</li>
-      <li>Helicopters have a CG just like aeroplanes, but it is <b>more critical and more limited</b>. The limits are set by <b>cyclic control authority</b> — is there enough cyclic left to control the aircraft in every flight condition?</li>
-      <li>A helicopter needs both a <b>longitudinal CG envelope</b> and a <b>lateral offset moment</b> limit, so lateral W&amp;B is a routine calculation there (Bell 206 levelling pads are on the transmission deck, right side).</li>
-      <li>Empty-weight CG ranges are rare for aeroplanes but <b>common for helicopters</b>.</li>
-    </ul>
-    <div class="fig"><svg viewBox="0 0 420 130" width="420" height="130" role="img" aria-label="Front view of an aircraft showing butt line zero at the centreline with the right main at plus 39.2 and left main at minus 39.2">
-      <line x1="40" y1="55" x2="380" y2="55" stroke="var(--dia-line)" stroke-width="5"/>
-      <rect x="185" y="35" width="50" height="40" rx="8" fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"/>
-      <line x1="210" y1="15" x2="210" y2="110" stroke="var(--formula)" stroke-width="2" stroke-dasharray="5 3"/>
-      <g fill="var(--dia-line)"><circle cx="130" cy="90" r="7"/><circle cx="290" cy="90" r="7"/><circle cx="210" cy="92" r="5"/></g>
-      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="210" y="12" fill="var(--formula)" font-weight="700">BL 0 — centreline</text><text x="130" y="112">left main · BL −39.2</text><text x="290" y="112">right main · BL +39.2</text><text x="210" y="126" fill="var(--muted)">(viewed from the front; right = +, left = −)</text></g>
-    </svg><p class="cap">Lateral CG uses butt lines instead of fuselage stations — same table, same division.</p></div>
-    <details class="more"><summary>Go deeper</summary><p>Why does a helicopter care so much? The rotor disc tilts to move the aircraft, and the cyclic has a fixed amount of travel. If the CG is too far forward, the pilot runs out of aft cyclic in a hover and the nose keeps dropping; too far sideways and there is no lateral cyclic left in a crosswind. A fixed-wing aircraft has a tail that resists; a helicopter has only the cyclic.</p></details>
-    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="9" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
-    <label class="check"><input type="checkbox" class="done"> Got it</label>
-  </div>
-</div>
-
-<div class="row" data-sec="10">
-  <div class="cue"><h3>CG Range, the Envelope &amp; MAC</h3><p class="q">What is the CG range, how do the limits change with weight, and how is CG expressed on large aircraft?</p><span class="tag">% MAC</span></div>
-  <div class="body">
-    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
-    <ul>
-      <li>The <b>CG range</b> is the span between a <b>forward limit</b> and an <b>aft limit</b> (both arms) inside which the aircraft must balance. The <b>operating CG range</b> applies to the loaded, ready-for-flight aircraft — every aircraft has one. An <b>empty-weight CG range</b> is listed only for some types (mostly helicopters); otherwise the TCDS says "none".</li>
-      <li>The limits can <b>change with weight</b>. Piper Seneca (gear down): fwd limit <b>+86.4" at 4,000 lb</b>, <b>+82.0" at 3,400 lb</b>, <b>+80.7" at 2,780 lb</b>; aft limit <b>+94.6"</b> throughout; straight-line variation between points. Retracting the gear changes the moment (−32 lb·in). Normal and utility categories may each have limits.</li>
-      <li><b>Checking:</b> use the <b>most current W&amp;B report</b> and the <b>equipment list</b> to find the moments, work out the new CG, then <b>plot it on the CG envelope chart</b>. <b>Outside the limits = the aircraft cannot fly.</b> Quick check: if your CG lands outside the station diagram, something is wrong.</li>
-      <li><b>Large aircraft</b> (business jets to jumbos) give the CG as a <b>percentage of the Mean Aerodynamic Chord (MAC)</b> — the chord of an imaginary airfoil with the same aerodynamic behaviour as the real wing. It is useful for loading passengers and cargo.</li>
-      <li>The TCDS lists the MAC's leading and trailing edges from the datum: <b>MAC = TEMAC − LEMAC</b>. Then <b>% MAC = (CG − LEMAC) ÷ MAC × 100</b>. Example: 78" chord, CG range 15.6"–28.08" aft of the leading edge = <b>20%–36% MAC</b>.</li>
-      <li>This ties back to longitudinal stability (Module 3): the CG sits <b>ahead of the wing's centre of lift</b>.</li>
-    </ul>
-    <div class="fig"><svg viewBox="0 0 420 160" width="420" height="160" role="img" aria-label="CG envelope chart: weight on the vertical axis, CG arm on the horizontal, with the forward limit sloping aft as weight increases and a loaded point inside">
-      <g stroke="var(--dia-line)" stroke-width="1.5" fill="none"><line x1="60" y1="130" x2="400" y2="130"/><line x1="60" y1="130" x2="60" y2="15"/></g>
-      <polygon points="120,130 200,25 330,25 330,130" fill="var(--dia-hi)" opacity=".35" stroke="var(--formula)" stroke-width="2"/>
-      <circle cx="250" cy="80" r="6" fill="var(--formula)"/>
-      <circle cx="105" cy="60" r="5" fill="none" stroke="var(--bad)" stroke-width="2"/>
-      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="150" y="70" transform="rotate(-53 150 70)" fill="var(--formula)">forward limit</text><text x="345" y="80" transform="rotate(-90 345 80)" fill="var(--formula)">aft limit</text><text x="250" y="100" font-weight="700">loaded CG — OK</text><text x="105" y="48" fill="var(--bad)">out — no fly</text><text x="230" y="150" fill="var(--muted)">CG arm aft of datum → (or % MAC)</text><text x="20" y="75" transform="rotate(-90 20 75)" fill="var(--muted)">weight ↑</text><text x="265" y="18" fill="var(--muted)">max gross weight</text></g>
-    </svg><p class="cap">Plot weight against CG. The forward limit often moves aft as weight goes up; outside the shape the aircraft cannot legally fly.</p></div>
-    <details class="more"><summary>Go deeper</summary><p>Why does the forward limit move aft at high weight? At high weight the elevator has to produce more tail force to rotate and flare; letting the CG sit further forward would ask for more than the elevator can give. The aft limit is about stability and rarely changes. For airliners, % MAC lets a load controller compare any aircraft of the type on one chart, which is why cargo and passenger loading systems work in % MAC rather than inches.</p></details>
-    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="10" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
-    <label class="check"><input type="checkbox" class="done"> Got it</label>
-  </div>
-</div>
-
-<div class="row" data-sec="11">
-  <div class="cue"><h3>Equipment Changes: Amendments</h3><p class="q">After an equipment change, how do you find the new empty weight and CG without reweighing, and what must be recorded?</p><span class="tag">Calculate · Log · Supersede</span></div>
-  <div class="body">
-    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
-    <ul>
-      <li>Any equipment change or alteration → a new empty weight and CG, either by <b>weighing</b> or by <b>calculating</b>. Calculating is acceptable when the <b>exact weight and arm of every change is known</b> (from the STC, AMM or the part).</li>
-      <li>An <b>amendment</b> = a W&amp;B report whose new empty weight and CG are <b>computed</b>, not weighed. Row 1 is always the <b>previous report</b> (its weight, CG and moment, with its date — the factory report is amendment 0). Then <b>removed items as negative weights</b>, <b>added items as positive</b>. Total the weights and moments; divide.</li>
-      <li>Deck example: 2,350 lb @ +24.7"; install radio 5.8 lb @ −28", GPS 7.3 lb @ −26", ELT 2.8 lb @ +105"; remove strobe 1.4 lb @ +75", ADF 3 lb @ −28", seat 34 lb @ +60". Result: weight <b>down 22.5 lb</b>, CG <b>forward 0.67"</b>. (The ADF, removed from a negative arm, gives a <b>positive</b> moment.)</li>
-      <li><b>Floats:</b> 1,250 lb @ 27.2" (moment 34,000); remove main gear 132 lb @ 20" and tailwheel 20 lb @ 200"; add floats 308 lb @ 24" (from the STC). New: <b>1,406 lb @ 24.72"</b>. No reweigh needed.</li>
-      <li><b>Skis practice:</b> 1,176.38 lb @ 30.91"; remove wheels/tires 22.8 lb @ 46.81" and nose wheel 11.5 lb @ −10"; add main skis 62 lb @ 42.5" and nose ski 25 lb @ −12.3". New: <b>1,229.08 lb @ 30.70"</b>; useful load <b>440.92 lb</b>.</li>
-      <li><b>Std 571 App C:</b> whoever made the change enters it in the <b>journey log before the next flight</b>: (i) <b>description</b> of the change, (ii) <b>effective date</b>, (iii) <b>weight and arm of each item</b> installed or removed. Transcribe it to the W&amp;B report. Mark the old report <b>"Superseded"</b> with date and signature and <b>keep it</b> — if the paper trail back to the last weighing is broken, the aircraft must be <b>reweighed</b>.</li>
-    </ul>
-    <div class="fig"><svg viewBox="0 0 420 130" width="420" height="130" role="img" aria-label="Amendment table for the float installation: previous report, gear removed, floats added, new totals">
-      <g font-size="10" fill="var(--ink)" font-family="JetBrains Mono,monospace">
-        <rect x="10" y="8" width="400" height="18" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
-        <text x="16" y="21" font-weight="700">Floats amendment</text><text x="230" y="21" font-weight="700" text-anchor="end">Weight</text><text x="300" y="21" font-weight="700" text-anchor="end">Arm</text><text x="400" y="21" font-weight="700" text-anchor="end">Moment</text>
-        <text x="16" y="40">Previous report (amend. 0)</text><text x="230" y="40" text-anchor="end">1,250.0</text><text x="300" y="40" text-anchor="end">27.2</text><text x="400" y="40" text-anchor="end">34,000</text>
-        <text x="16" y="55">Main gear removed</text><text x="230" y="55" text-anchor="end">−132.0</text><text x="300" y="55" text-anchor="end">20.0</text><text x="400" y="55" text-anchor="end">−2,640</text>
-        <text x="16" y="70">Tailwheel removed</text><text x="230" y="70" text-anchor="end">−20.0</text><text x="300" y="70" text-anchor="end">200.0</text><text x="400" y="70" text-anchor="end">−4,000</text>
-        <text x="16" y="85">Floats + hardware added (STC)</text><text x="230" y="85" text-anchor="end">308.0</text><text x="300" y="85" text-anchor="end">24.0</text><text x="400" y="85" text-anchor="end">7,392</text>
-        <line x1="10" y1="92" x2="410" y2="92" stroke="var(--dia-line)"/>
-        <text x="16" y="108" font-weight="700">Amended totals</text><text x="230" y="108" text-anchor="end" font-weight="700" fill="var(--formula)">1,406.0</text><text x="300" y="108" text-anchor="end" font-weight="700" fill="var(--formula)">24.72</text><text x="400" y="108" text-anchor="end" font-weight="700" fill="var(--formula)">34,752</text>
-        <text x="210" y="125" text-anchor="middle" fill="var(--muted)">CG moved forward about 2.5" — no scales needed</text>
-      </g>
-    </svg><p class="cap">An amendment starts from the previous report, removes with negative weights, adds with positive, and divides.</p></div>
-    <details class="more"><summary>Go deeper</summary><p>The journey-log entry is the legal part. The amendment is only as good as its chain: factory report → amendment 1 → amendment 2 → today. Each one must reference the one before it, and each superseded page stays in the records. Lose one link and nobody can prove what the aircraft weighs, so it goes back on the scales. That is also why "temporary removal for repair" does not need an amendment — the item is coming back.</p></details>
-    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="11" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
-    <label class="check"><input type="checkbox" class="done"> Got it</label>
-  </div>
-</div>
-
-<div class="row" data-sec="12">
-  <div class="cue"><h3>Addendums, Ballast &amp; the Equipment List</h3><p class="q">What is an addendum, what is ballast and how do you place it, and what goes on the equipment list?</p><span class="tag">Arm = moment ÷ weight</span></div>
-  <div class="body">
-    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
-    <ul>
-      <li><b>Addendum</b> = <b>one of several empty W&amp;B configurations</b> kept inside one report or amendment. Wheels in the fall, floats in the spring? Don't write a new amendment each time — keep a <b>float addendum</b> and a <b>wheel addendum</b>. When the configuration changes, make a <b>log entry</b> saying which addendum is in effect. Same idea for cargo/passenger, medevac, camera fits.</li>
-      <li><b>Ballast</b> = weight added on purpose at a chosen location to bring the CG into the envelope. <b>Fixed</b> ballast is bolted in by the AME and needs a W&amp;B change; <b>removable</b> ballast is put in by the pilot before flight (water ballast in sailplanes).</li>
-      <li><b>Where to put it:</b> you need a moment equal and opposite to the one you are cancelling, so <b>arm = moment ÷ weight</b>. Example: a 90 lb system with a net moment of +550 lb·in and a spare 50 lb weight: arm = −550 ÷ 50 = <b>−11"</b> — 11" forward of the datum. The <b>longer the arm, the more effect</b> per pound; close to the CG it does almost nothing.</li>
-      <li><b>Equipment list</b> — required by <b>Std 571 App C (1)(a)</b>: every item <b>not part of the type design</b> (fire extinguisher, transponder, engine heater, wheel pants, floats) listed with its <b>weight, arm and moment</b>. It is <b>part of the W&amp;B report</b>; on light aircraft it is often in the <b>POH / AFM</b>. Before weighing, check the aircraft <b>matches</b> the list — fix one or the other.</li>
-      <li><b>Review:</b> empty W&amp;B = AME; loaded W&amp;B = pilot; datum and levelling = POH / TCDS / AMM; moment = weight × arm; moments about a stationary object sum to zero; CG = ΣM ÷ ΣW; amendment = calculated update; addendum = one of several configurations.</li>
-    </ul>
-    <div class="fig"><svg viewBox="0 0 420 130" width="420" height="130" role="img" aria-label="Beam with a plus 550 moment on the right balanced by a 50 pound ballast placed 11 inches to the left">
-      <line x1="60" y1="70" x2="360" y2="70" stroke="var(--dia-line)" stroke-width="5"/>
-      <polygon points="210,72 196,100 224,100" fill="var(--dia-hi)" stroke="var(--dia-line)" stroke-width="2"/>
-      <rect x="300" y="40" width="40" height="28" rx="4" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
-      <rect x="120" y="44" width="30" height="24" rx="4" fill="var(--formula)"/>
-      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="320" y="32">net moment +550 lb·in</text><text x="135" y="34" fill="var(--formula)" font-weight="700">ballast 50 lb</text><text x="135" y="86">arm = −550 ÷ 50 = −11"</text><text x="210" y="118" fill="var(--muted)">equal and opposite moment → balanced → moments sum to zero</text></g>
-    </svg><p class="cap">Ballast works by moment: pick the weight, solve for the arm — or pick the arm, solve for the weight.</p></div>
-    <details class="more"><summary>Go deeper</summary><p>Ballast is the last resort, not the first. A nose-heavy aircraft can often be fixed by moving equipment aft (a battery relocation is a classic) rather than carrying dead weight — every pound of ballast comes straight out of the useful load for the life of the aircraft. When you do fit fixed ballast, it goes in the equipment list, in the amendment, and in a placard if it must never be removed.</p></details>
-    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="12" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -456,39 +289,24 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 
 <section class="box sum" aria-label="Summary">
   <div class="eyebrow">Summary</div>
-  <p style="margin:.5rem 0 0;max-width:70ch">Weight decides performance; balance decides stability and control; and it is illegal to fly outside the envelope. The AME provides the empty weight and empty CG, the pilot works out the loaded ones. Everything is measured from the datum (aft +, forward −; butt lines right +, left −): arm is a distance, moment is weight × arm, and because the moments on a stationary object sum to zero, CG = total moment ÷ total weight — never add the arms. Empty weight includes everything fixed and installed plus residual fuel and (since 1978) full oil; useful load is max gross minus empty. The report is a required record (CAR 605.92, Std 571 App C); large aircraft are reweighed every five years or after major work including paint. To weigh: configure per the manual, clean and dry, closed hangar, level on at least three scales using the TCDS levelling means, subtract tare, account for fuel and oil (6 / 6.7 / 7.5 / 8.35 lb/gal), and fill the table. Check the CG against the envelope — the limits can change with weight, and large aircraft use % MAC. After an equipment change, calculate an amendment from the previous report (removed = negative), log it before the next flight, supersede the old page and keep it. Addendums hold alternate configurations; ballast is placed by arm = moment ÷ weight; the equipment list records everything outside the type design.</p>
+  <p style="margin:.5rem 0 0;max-width:70ch">Air sticks to a surface and forms a boundary layer; when it separates the wing stalls, ideally root first so the ailerons keep working; vortex generators delay separation. Mach number is speed divided by the speed of sound, which depends on temperature; at critical Mach the flow over the wing first hits Mach 1, shock waves appear (pressure and temperature up, velocity down), wave drag rises sharply through the transonic range, and shock stall can follow. Sweepback and thin sharp wings are the designer's answers.</p>
 </section>
 
 <section class="box" aria-label="Key terms">
   <div class="eyebrow">Key terms</div>
-  <div class="terms">
-    <div><b>Datum</b>Imaginary vertical plane all horizontal arms are measured from; set by the manufacturer (AMM / POH / TCDS).</div>
-    <div><b>Arm</b>Horizontal distance from the datum; aft +, forward −.</div>
-    <div><b>Moment</b>Weight × arm, in lb·in, signs included.</div>
-    <div><b>Centre of gravity (CG)</b>Balance point — where nose-heavy and tail-heavy moments are equal.</div>
-    <div><b>First principle</b>Moments about any point of a stationary object sum to zero.</div>
-    <div><b>CG formula</b>CG = total moment ÷ total weight.</div>
-    <div><b>Fuselage station / butt line</b>Arm positions along the length (FS) / across the width (BL, right +).</div>
-    <div><b>Empty weight</b>Aircraft with fixed, installed equipment, residual fuel and oil; no crew, passengers, usable fuel, bags.</div>
-    <div><b>Useful load</b>Max gross weight − empty weight.</div>
-    <div><b>Max ramp / take-off / landing / zero-fuel weight</b>Heaviest allowed on the ground / at brake release / at touchdown / with no usable fuel.</div>
-    <div><b>Minimum fuel</b>About 30 minutes at cruise power.</div>
-    <div><b>TCDS</b>Type Certificate Data Sheet — limits, datum, levelling means, CG range, MAC.</div>
-    <div><b>CAR 605.92 / Std 571 App C</b>Owner must keep an empty W&amp;B report / how it is built and amended.</div>
-    <div><b>Std 625 App C</b>Large aircraft reweighed every five years.</div>
-    <div><b>Levelling means</b>The reference the manufacturer gives for setting level flight attitude on the ground.</div>
-    <div><b>Load cell</b>Electronic weighing sensor — platform or top-of-jack type.</div>
-    <div><b>Tare weight</b>Chocks, blocks or stands on the scale — subtract it.</div>
-    <div><b>Residual (unusable) fuel</b>The fuel that stays in the tanks and lines; part of empty weight.</div>
-    <div><b>Hydrometer</b>Measures fuel density so full tanks can be subtracted accurately.</div>
-    <div><b>Standard weights</b>Avgas 6 · jet fuel 6.7 · oil 7.5 · water 8.35 lb/gal.</div>
-    <div><b>CG range / envelope</b>Forward and aft limits (may change with weight) the loaded CG must stay inside.</div>
-    <div><b>Mean aerodynamic chord (MAC)</b>Chord of an equivalent airfoil; MAC = TEMAC − LEMAC; large-aircraft CG is given in % MAC.</div>
-    <div><b>Amendment</b>A calculated (not weighed) update to the empty W&amp;B after a change; old page marked Superseded and kept.</div>
-    <div><b>Addendum</b>One of several empty-weight configurations inside a report (floats / wheels).</div>
-    <div><b>Ballast</b>Weight added on purpose to move the CG; fixed or removable. Arm = moment ÷ weight.</div>
-    <div><b>Equipment list</b>Every installed item not in the type design, with weight, arm and moment; part of the W&amp;B report.</div>
-    <div><b>Supplemental Type Certificate (STC)</b>Approval for a third-party change (floats, skis) that may give the W&amp;B data for the package.</div>
+  <div class="terms">    <div><b>Boundary layer</b>Thin layer where air speed goes from zero at the surface to free stream.</div>
+    <div><b>Separation</b>Boundary layer lifting off the surface — the cause of a stall.</div>
+    <div><b>Stall pattern</b>Where the stall starts on the wing; root-first is desirable.</div>
+    <div><b>Vortex generator</b>Small fin that stirs high-energy air into the boundary layer to delay the stall.</div>
+    <div><b>Mach number</b>Aircraft speed ÷ speed of sound.</div>
+    <div><b>Speed of sound</b>Speed a small pressure disturbance travels; ~761 mph at standard sea level; falls as air gets colder.</div>
+    <div><b>Critical Mach (Mcrit)</b>Aircraft speed at which airflow over the wing first reaches Mach 1.</div>
+    <div><b>Shock wave</b>Thin wall where flow drops from supersonic to subsonic; pressure and temperature up, velocity down.</div>
+    <div><b>Transonic</b>Mcrit (~0.8) to ~Mach 1.3 — mixed subsonic and supersonic flow.</div>
+    <div><b>Wave drag</b>Sharp drag rise from shock waves in the transonic range.</div>
+    <div><b>Shock stall</b>Shock-induced separation of the boundary layer.</div>
+    <div><b>Sweepback</b>Angled-back wing that lowers the effective Mach number along the chord.</div>
+    <div><b>Oblique shock</b>Slanted shock attached to a sharp leading edge; all flow stays supersonic.</div>
   </div>
 </section>
 
@@ -499,7 +317,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   <div class="score" id="score"></div>
 </section>
 
-<p class="flag">Source: ASYS 245 Module 6 Weight &amp; Balance course deck plus the SAIT AXT ASYS 220 Weight &amp; Balance deck (worked weighing, amendment, addendum and ballast examples), both built on FAA-H-8083-1B and CARs Standard 571 Appendix C. Built from the decks before class notes — it will be reconciled against the class notes when they arrive. Regulatory references are as stated in the decks; confirm current wording at tc.canada.ca for any real job.</p>
+<p class="flag">Source: ASYS 245 Module 6 course deck (Aircraft Performance — Aerodynamic Stall and High-Speed Flight), condensed. Built from the deck before class notes — it will be reconciled against the class notes when they arrive. Typical values (speed of sound in knots, the stall pattern by wing shape) are standard textbook values — confirm against the POH or manual for any real aircraft.</p>
 </div>
 
 <script>
@@ -521,23 +339,18 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   document.querySelectorAll('.reveal button').forEach(function(btn){ btn.addEventListener('click',function(){ btn.closest('.body').classList.add('open'); }); });
   document.getElementById('resetBtn').addEventListener('click',function(){ state={done:{},study:false,notes:state.notes||{}}; save(); boxes.forEach(function(b){ b.checked=false; }); toggle.checked=false; applyStudy(); progress(); buildQuiz(); });
   var Q=[
-    {q:'Who is responsible for the empty weight and balance report, and who for the loaded one?',o:['Pilot — both','AME — empty; pilot — loaded','Transport Canada — both'],a:1,fb:'The AME weighs, calculates and provides the empty weight and CG; the pilot works out the loaded weight and CG for each flight from those numbers.'},
-    {q:'A CG too far forward can mean…',o:['the aircraft may not rotate for take-off','the aircraft over-controls in pitch','nothing — only aft CG matters'],a:0,fb:'Forward = nose-heavy: may not rotate, reduced longitudinal control. Aft = over-controls, reduced stability.'},
-    {q:'The datum is…',o:['the main wheel centreline','an imaginary vertical plane chosen by the manufacturer that all arms are measured from','always the firewall'],a:1,fb:'It is wherever the manufacturer says — find it in the AMM, POH or TCDS. Firewall, spinner and nose are common choices.'},
-    {q:'An item 15 inches forward of the datum has an arm of…',o:['+15','−15','0'],a:1,fb:'Aft of the datum is positive, forward is negative. Put the datum at the nose and every arm comes out positive.'},
-    {q:'Moment equals…',o:['weight ÷ arm','weight × arm','arm ÷ weight'],a:1,fb:'Weight × arm, in lb·in, keeping the signs of both.'},
-    {q:'To find the CG from a weight-and-balance table you…',o:['add the arms and divide by the number of items','divide total moment by total weight','divide total weight by total moment'],a:1,fb:'CG = ΣM ÷ ΣW. Never add the arm column — the CG comes out of the division.'},
-    {q:'Useful load is…',o:['maximum gross weight − empty weight','empty weight + fuel','maximum landing weight − fuel'],a:0,fb:'Everything you may legally add: crew, passengers, bags and usable fuel.'},
-    {q:'A large aircraft must be reweighed…',o:['every year','every five years, or after major work including paint','only if the report is lost'],a:1,fb:'Standard 625 Appendix C: every five years unless on an approved fleet program. Paint counts as major work — it weighs a lot.'},
-    {q:'The aircraft is weighed slightly tail-low. The calculated CG will appear…',o:['too far aft','too far forward','unchanged'],a:0,fb:'Tail low = CG reads further aft than it is; tail high = too far forward. Level it using the TCDS levelling means.'},
-    {q:'When weighing for empty weight, the fuel on board should be…',o:['full tanks, no correction','residual (unusable) fuel only — or corrected mathematically to that','half tanks'],a:1,fb:'Three options: no fuel (add unusable back), residual only, or full tanks (subtract usable). Use a hydrometer for the density.'},
-    {q:'Standard weight of aviation gasoline',o:['6 lb/gal','6.7 lb/gal','7.5 lb/gal'],a:0,fb:'Avgas 6 · jet fuel 6.7 · oil 7.5 · water 8.35 lb/gal.'},
-    {q:'A removed item weighing 13 lb sits at an arm of −14.7 in. Its moment in the table is…',o:['−191 lb·in','+191 lb·in','0'],a:1,fb:'Removed = negative weight; negative × negative arm = positive moment. Taking weight out of the nose moves the CG aft.'},
-    {q:'The chocks under the wheels on the scales are…',o:['part of the empty weight','tare weight — subtracted from the scale reading','ignored'],a:1,fb:'Anything on the scale that is not part of the aircraft is tare and comes off the reading.'},
-    {q:'After installing a new radio with known weight and arm, the AME should…',o:['reweigh the whole aircraft','calculate an amendment, log it before the next flight and supersede the old report','do nothing until the next annual'],a:1,fb:'Known weight and arm → calculate. Journey-log entry: description, date, weight and arm of each item. Keep the superseded page.'},
-    {q:'An aircraft that swaps between wheels and floats each season should have…',o:['a new amendment every swap','a report with two addendums and a log entry saying which is in effect','a reweigh every swap'],a:1,fb:'An addendum is one of several empty-weight configurations inside one report.'},
-    {q:'You need a −550 lb·in moment and have a 50 lb ballast weight. Where does it go?',o:['11 in forward of the datum (arm −11)','11 in aft of the datum (arm +11)','at the CG'],a:0,fb:'Arm = moment ÷ weight = −550 ÷ 50 = −11 in. Longer arm = more effect per pound.'},
-    {q:'On large aircraft the CG is usually expressed as…',o:['inches from the nose wheel','a percentage of the mean aerodynamic chord (% MAC)','a station number only'],a:1,fb:'MAC = TEMAC − LEMAC from the TCDS; % MAC = (CG − LEMAC) ÷ MAC × 100. Handy for loading passengers and cargo.'}
+    {q:'The boundary layer is…',o:['the thin layer where air speed goes from zero at the surface up to free-stream speed','the layer of ice on a cold wing','the air above the critical angle of attack'],a:0,fb:'Air sticks to the skin and slows the layers above it. The outside flow treats the edge of that layer as the wing\'s shape.'},
+    {q:'Designers want the stall to begin at the wing root because…',o:['the root is stronger','the tips and ailerons keep flying, so roll control is kept','it is easier to repair'],a:1,fb:'Root-first = ailerons still in flowing air and a buffet warning before the whole wing lets go.'},
+    {q:'A vortex generator delays the stall by…',o:['adding camber to the wing','pulling high-energy air into the boundary layer so it stays attached','reducing the wing area'],a:1,fb:'Each small fin spins a vortex that mixes fast outside air down into the tired boundary layer.'},
+    {q:'Critical Mach number is the speed at which…',o:['the whole aircraft reaches Mach 1','the airflow over the wing first reaches Mach 1','the engine cannot produce more thrust'],a:1,fb:'Air over the top of the wing is faster than the aircraft, so it goes supersonic first — typically when the aircraft is around Mach 0.8.'},
+    {q:'As air passes through a shock wave, pressure, temperature and velocity…',o:['all increase','pressure and temperature increase, velocity decreases','all decrease'],a:1,fb:'The air is suddenly squeezed: pressure up, temperature up, speed down (and density up).'},
+    {q:'Why does sweepback help at high speed?',o:['it reduces the effective Mach number along the chord, raising critical Mach','it makes the wing lighter','it increases lift at low speed'],a:0,fb:'Only the flow crossing the chord counts for shock formation. Sweep means less of the airflow does that, so shocks form later. Thin, sharp wings are the other answer.'},
+    {q:'A wing stalls because…',o:['the airspeed is too low','the angle of attack is too high and the boundary layer separates','the engine loses power'],a:1,fb:'Angle, not speed, causes the stall. Past the critical angle the boundary layer separates and lift drops abruptly — at any airspeed.'},
+    {q:'The speed of sound depends on…',o:['air pressure','air density','air temperature'],a:2,fb:'Only temperature. Cold air passes a pressure wave more slowly, which is why the speed of sound is lower at altitude.'},
+    {q:'The transonic range is roughly…',o:['Mach 0.3 to 0.8','Mach 0.8 to 1.3','Mach 1.3 to 3.0'],a:1,fb:'From critical Mach (about 0.8) to about Mach 1.3 — mixed subsonic and supersonic flow, shock waves and a sharp rise in wave drag.'},
+    {q:'A tapered or swept wing tends to stall tip-first. A typical fix is…',o:['a bigger engine','washout or stall strips','a thicker fuselage'],a:1,fb:'Washout (twist so the tips fly at a lower angle) and stall strips (make the root stall first) move the stall inboard so the ailerons keep working.'},
+    {q:'A thin wing with a sharp leading edge in supersonic flight produces…',o:['a detached bow wave','an attached oblique shock','no shock wave at all'],a:1,fb:'A sharp edge lets the shock attach as a slanted (oblique) shock and all the flow stays supersonic — far less drag than the bow wave off a blunt edge.'},
+    {q:'Shock stall is…',o:['a stall caused by a shock wave separating the boundary layer','a stall at very low airspeed','a stall caused by ice on the wing'],a:0,fb:'At high speed and low angle of attack the shock wave on the wing can tear the boundary layer off — buffet and a nose-down pitch with no high angle of attack.'}
   ];
   var quiz=document.getElementById('quiz'), score=document.getElementById('score'); var got={};
   function buildQuiz(){ quiz.innerHTML=''; got={}; score.textContent='';

@@ -21,11 +21,12 @@
       ['notes','Notes','01_Cornell_Notes_Module3.html'],['cards','Cards','03_Flashcards_Module3.html'],['sheet','Sheet','04_Formula_Sheet_Module3.html'],['map','Map','05_Stability_Control_Map_Module3.html'],['table','Table','06_Stability_Control_Table_Module3.html'],['lab','Controls lab','09_Flight_Controls_Lab_Module3.html'],['yaw','Adverse yaw lab','07_Adverse_Yaw_Lab_Module3.html'],['yawsheet','Yaw sheet','08_Adverse_Yaw_Sheet_Module3.html']]},
     {n:4,t:'Flight Controls',dir:'asys245/module-4/',pages:[
       ['notes','Notes','01_Cornell_Notes_Module4.html'],['cards','Cards','03_Flashcards_Module4.html'],['sheet','Sheet','04_Formula_Sheet_Module4.html'],['poster','C172 poster','05_C172_Secondary_Flight_Controls_Module4.html'],['lab3','Controls lab','../module-3/09_Flight_Controls_Lab_Module3.html']]},
-    {n:5,t:'Performance & Phases of Flight',dir:'asys245/module-5/',pages:[
-      ['notes','Notes','01_Cornell_Notes_Module5.html'],['cards','Cards','03_Flashcards_Module5.html'],['sheet','Sheet','04_Formula_Sheet_Module5.html'],['lab2','Stall simulator','../module-2/05_Airfoil_Stall_Lab_Module2.html']]},
-    {n:6,t:'Weight & Balance',dir:'asys245/module-6/',pages:[
-      ['notes','Notes','01_Cornell_Notes_Module6.html'],['cards','Cards','03_Flashcards_Module6.html'],['sheet','Sheet','04_Formula_Sheet_Module6.html']]},
-    {n:7,t:'Airfoil Construction & Performance',soon:true},
+    {n:5,t:'Phases of Flight',dir:'asys245/module-5/',pages:[
+      ['notes','Notes','01_Cornell_Notes_Module5.html'],['cards','Cards','03_Flashcards_Module5.html'],['sheet','Sheet','04_Formula_Sheet_Module5.html']]},
+    {n:6,t:'Performance: Stall & High-Speed Flight',dir:'asys245/module-6/',pages:[
+      ['notes','Notes','01_Cornell_Notes_Module6.html'],['cards','Cards','03_Flashcards_Module6.html'],['sheet','Sheet','04_Formula_Sheet_Module6.html'],['lab2','Stall simulator','../module-2/05_Airfoil_Stall_Lab_Module2.html']]},
+    {n:7,t:'Weight & Balance',dir:'asys245/module-7/',pages:[
+      ['notes','Notes','01_Cornell_Notes_Module7.html'],['cards','Cards','03_Flashcards_Module7.html'],['sheet','Sheet','04_Formula_Sheet_Module7.html']]},
     {n:8,t:'ATA Chapters',soon:true},
     {n:'H',t:'Hydraulics',soon:true},
     {n:12,t:'Doors',soon:true},
