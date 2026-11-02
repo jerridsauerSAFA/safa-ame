@@ -64,7 +64,7 @@ header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
 <div class="wrap">
 <header class="top">
   <div class="eyebrow">Flashcards · ASYS 245 · Module 1 · Day 1</div>
-  <h1>Theory of Flight Cards</h1>
+  <h1>The Atmosphere Cards</h1>
   <p>Read the front, say the answer out loud, flip to check. Mark <b>Got it</b> or <b>Again</b> — cards you miss come back until you get them twice. Progress saves on this device.</p>
 </header>
 
@@ -93,12 +93,12 @@ header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
 <div class="kbd">Space = flip · 1 = Again · 2 = Got it</div>
 <div class="done" id="done" hidden><h2>Set complete</h2><p id="doneMsg"></p><button class="btn" id="doneRestart" type="button">Go again</button></div>
 
-<p class="foot">Built from Day 1 class notes (Sept 10, 2026). New cards are added after each Thursday class. Reference values: ISA sea level 15 °C, 29.92 inHg / 1013.2 hPa / 14.7 psi; dry air 78 % N₂, 21 % O₂.</p>
+<p class="foot">Built from Day 1 class notes (Sept 10, 2026). New cards are added after each Thursday class. Reference values: ISA sea level 15 °C, 29.92 inHg / 1013.2 mb / 14.7 psi; dry air 78 % N₂, 21 % O₂.</p>
 </div>
 
 <script>
 var CARDS=[
- {t:'term',q:'Composition of dry air?',a:'<b>78 % nitrogen</b>, <b>21 % oxygen</b>, ~1 % other gases.',w:'Same mix at every altitude — only the amount of air changes.'},
+ {t:'term',q:'Composition of air (dry air)?',a:'<b>78 % nitrogen</b>, <b>21 % oxygen</b>, ~1 % other gases.',w:'Same mix at every altitude — only the amount of air changes.'},
  {t:'term',q:'The four properties that determine the state of a gas',a:'<b>Pressure, temperature, mass, volume.</b>',w:'Change one and at least one other changes.'},
  {t:'term',q:'Define density',a:'<b>Mass divided by volume</b> — how tightly packed the air is. <span class="f">D = m / V</span>',w:'Cold air = dense air.'},
  {t:'term',q:'Define air pressure',a:'The <b>weight of the air above</b> a given location.',w:'Climb higher → less air above you → lower pressure.'},
@@ -117,10 +117,10 @@ var CARDS=[
  {t:'law',q:'Chain: ↑ temperature → ? volume → ? density',a:'↑ Temp → <b>↑ Volume</b> → <b>↓ Density</b>',w:'And the reverse: ↓ Temp → ↓ Volume → ↑ Density.'},
  {t:'law',q:'↓ pressure → ? gas volume',a:'<b>↑ gas volume</b> — the gas expands.',w:'Why a sealed chip bag puffs up at altitude.'},
  {t:'law',q:'Continuity: A × V = ?',a:'<span class="f">A × V = constant</span> — narrow the area, the fluid <b>speeds up</b>.',w:'Then Bernoulli: faster → lower pressure.'},
- {t:'number',q:'Standard sea-level pressure in psi',a:'<b>14.7 psi</b>',w:'Same pressure as 29.92 inHg and 1013.2 hPa.'},
+ {t:'number',q:'Standard sea-level pressure in psi',a:'<b>14.7 psi</b>',w:'Same pressure as 29.92 inHg and 1013.2 mb.'},
  {t:'number',q:'Standard sea-level pressure in inches of mercury',a:'<b>29.92 inHg</b>',w:'The altimeter setting you will hear for the rest of your career.'},
- {t:'number',q:'Standard sea-level pressure in millibars / hectopascals',a:'<b>1013.2 mb</b> = <b>1013.2 hPa</b>',w:'1 mb = 1 hPa.'},
- {t:'number',q:'Standard sea-level temperature (°C and °F)',a:'<b>15 °C</b> = <b>59 °F</b>',w:'°F = °C × 1.8 + 32.'},
+ {t:'number',q:'Standard sea-level pressure in millibars',a:'<b>1013.2 mb</b>',w:'Same pressure as 29.92 inHg and 14.7 psi.'},
+ {t:'number',q:'Standard sea-level temperature (°C and °F)',a:'<b>15 °C</b> = <b>59 °F</b>',w:'Know both numbers.'},
  {t:'number',q:'Medicine Hat airport altitude',a:'<b>2,350 ft</b> above sea level',w:'So MH is never at sea-level conditions — lower pressure, thinner air.'},
  {t:'number',q:'Percentage of nitrogen in dry air',a:'<b>78 %</b>',w:'Oxygen 21 %, other ≈ 1 %.'},
  {t:'apply',q:'It is −20 °C in Medicine Hat this morning. Better or worse take-off performance than +30 °C? Why?',a:'<b>Better.</b> Cold air → smaller volume → <b>higher density</b> → more lift from the wing and more oxygen per stroke in the engine.',w:'↓ Temp = ↓ Volume = ↑ Density = ↑ performance.'},

@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "SAFA · ASYS 245 Theory of Flight",
+  "name": "SAFA · ASYS 245 Aircraft Systems 1",
   "short_name": "ASYS 245",
-  "description": "Study sets for SAIT ASYS 245 Theory of Flight, built from each class for South Alberta Flight Academy students: Cornell notes, flashcards, reference sheets, simulators and a course Word Bank.",
+  "description": "Study sets for SAIT ASYS 245 Aircraft Systems 1, built from each class for South Alberta Flight Academy students: Cornell notes, flashcards, reference sheets, simulators and a course Word Bank.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

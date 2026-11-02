@@ -44,7 +44,7 @@
 
   /* top bar */
   var h=document.createElement('header'); h.className='sb';
-  h.innerHTML='<div class="in"><a class="brand" href="'+ROOT+'" aria-label="ASYS 245 home"><img src="'+ROOT+'assets/safa-white.png" alt="SAFA" width="37" height="26"><span>ASYS 245<small>Theory of Flight</small></span></a>'+
+  h.innerHTML='<div class="in"><a class="brand" href="'+ROOT+'" aria-label="ASYS 245 home"><img src="'+ROOT+'assets/safa-white.png" alt="SAFA" width="37" height="26"><span>ASYS 245<small>Aircraft Systems 1</small></span></a>'+
     '<button class="menu" type="button" aria-haspopup="dialog" aria-controls="safa-sheet"><span>Modules</span>'+MENU+'</button></div>';
   b.insertBefore(h,b.firstChild);
 
@@ -92,7 +92,7 @@
   /* footer */
   var f=document.createElement('footer'); f.className='sf';
   f.innerHTML='<div class="in"><div class="logos"><img src="'+ROOT+'assets/safa-white.png" alt="South Alberta Flight Academy" width="57" height="40"><span class="tile"><img src="'+ROOT+'assets/sait-logo.png" alt="SAIT" width="22" height="30"></span></div>'+
-    '<small>ASYS 245 Theory of Flight study sets, built from each class for South Alberta Flight Academy students. Not an official SAIT publication — confirm anything safety-critical against the manual. <a href="'+ROOT+'">All modules</a></small></div>';
+    '<small>ASYS 245 Aircraft Systems 1 study sets, built from each class for South Alberta Flight Academy students. Not an official SAIT publication — confirm anything safety-critical against the manual. <a href="'+ROOT+'">All modules</a></small></div>';
   b.appendChild(f);
 
   /* edge to edge: pages that pad their own <body> (the labs) would otherwise inset the bar, strip and footer */
