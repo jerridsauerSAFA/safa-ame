@@ -79,19 +79,19 @@ details[open] summary::before{content:"– "}
   <div>
     <div class="eyebrow">Reference sheet · ASYS 245 · Module 4</div>
     <h1>Flight Controls Reference</h1>
-    <p>Module 4 is a hardware module: tables of what each surface, tab and fitting does, the numbers an AME must know, and two quick calculators for tabs and cable stretch. Print it for the binder.</p>
+    <p>What each surface and tab does, the flap types, the rules to remember and one quick calculator for why a tiny tab works. Print it for the binder.</p>
   </div>
   <div><div class="meta">SAFA · SAIT<br>Module 4</div><br><button class="btn" type="button" onclick="window.print()">Print</button></div>
 </header>
 
 <h3 style="margin-top:1.5rem">Numbers to remember</h3>
 <div class="ref">
-  <div><div class="l">Fairlead</div><div class="v">≤ 3°</div><div class="s">bend — more needs a pulley</div></div>
-  <div><div class="l">Turnbuckle</div><div class="v">≤ 3 threads</div><div class="s">showing, then safety it</div></div>
+  <div><div class="l">Primary controls</div><div class="v">3</div><div class="s">ailerons · elevator · rudder</div></div>
+  <div><div class="l">Flap types</div><div class="v">4</div><div class="s">plain → split → slotted → Fowler</div></div>
   <div><div class="l">Flap rule</div><div class="v">first ~20°</div><div class="s">lift; after that mostly drag</div></div>
   <div><div class="l">Trim tab</div><div class="v">opposite</div><div class="s">to the surface it moves</div></div>
   <div><div class="l">Anti-servo tab</div><div class="v">same way</div><div class="s">as the stabilator — adds feel</div></div>
-  <div><div class="l">Control work</div><div class="v">CAR 571.10</div><div class="s">independent inspection</div></div>
+  <div><div class="l">Mass balance</div><div class="v">ahead of hinge</div><div class="s">stops flutter</div></div>
 </div>
 
 <h3 style="margin-top:1.75rem">Control surfaces &amp; what they do</h3>
@@ -126,20 +126,8 @@ details[open] summary::before{content:"– "}
   <tr><td><b>Fowler</b></td><td>Slides back and down on tracks</td><td>Highest (adds area)</td><td>Low at small settings</td><td>Airliners (double/triple slotted)</td></tr>
 </table>
 
-<h3 style="margin-top:1.75rem">Cable and rod hardware</h3>
-<table class="tbl">
-  <tr><th>Part</th><th>Job</th><th>Check</th></tr>
-  <tr><td><b>Pulley</b></td><td>Change cable direction</td><td>Guard in place; turns freely; no flat spots</td></tr>
-  <tr><td><b>Fairlead</b></td><td>Guide a cable past structure</td><td>Bend ≤ 3°; no wear grooves</td></tr>
-  <tr><td><b>Turnbuckle</b></td><td>Adjust tension</td><td>≤ 3 threads showing; safetied</td></tr>
-  <tr><td><b>Bellcrank / quadrant</b></td><td>Change direction or ratio</td><td>Bearings free; no play</td></tr>
-  <tr><td><b>Torque tube</b></td><td>Carry motion as a twist</td><td>No cracks at welds; bearings secure</td></tr>
-  <tr><td><b>Push-pull rod</b></td><td>Rigid link</td><td>Straight; jam nut tight; wire will NOT pass the check hole</td></tr>
-  <tr><td><b>Stops</b></td><td>Limit travel</td><td>Primary at the surface, secondary at the cockpit — surface stop hits first</td></tr>
-  <tr><td><b>Tensiometer</b></td><td>Measure cable tension</td><td>Correct for temperature per chart</td></tr>
-</table>
 
-<h3 style="margin-top:1.75rem">Two quick calculators</h3>
+<h3 style="margin-top:1.75rem">One quick calculator</h3>
 <div class="grid">
 
 <div class="fc">
@@ -157,33 +145,11 @@ details[open] summary::before{content:"– "}
   </div>
 </div>
 
-<div class="fc">
-  <div class="head"><div class="k">Temperature correction</div><h2>Cable tension vs temperature</h2></div>
-  <div class="big">T<sub>set</sub> = T<sub>chart</sub> ± Δ</div>
-  <div class="body">
-    <div class="vars"><b>T<sub>chart</sub></b><span>tension the manual gives at the reference temperature (often 70 °F / 21 °C)</span><b>Δ</b><span>correction from the chart for today's hangar temperature</span></div>
-    <p class="words">Aluminum structure grows and shrinks more than the steel cable. Cold hangar → cable reads tighter; hot → looser. Always set tension using the chart for the temperature you are working in.</p>
-    <p class="hold">Never carry a remembered "40 lb" from one aircraft to another — the number belongs to the type and the chart.</p>
-    <details><summary>Worked example</summary><p class="ex">A chart says 40 lb at 70 °F and the correction line shows about −0.3 lb per °F below reference. In a 40 °F hangar (30 °F colder): <code>40 − 0.3 × 30 = 31 lb</code> on the tensiometer today, so that it reads 40 lb in normal conditions. (Illustrative slope — read the real chart.)</p></details>
-    <div class="calc" data-calc="tension">
-      <div class="row"><label>Chart tension <input type="number" id="c_t" value="40"></label><label>Slope (lb/°F) <input type="number" id="c_s" value="0.3" step="0.05"></label><label>Today °F <input type="number" id="c_now" value="40"></label><label>Ref °F <input type="number" id="c_ref" value="70"></label></div>
-      <div class="row">Set to <span class="out" id="c_out">31</span> lb</div>
-    </div>
-  </div>
-</div>
 
 </div>
 
-<h3 style="margin-top:1.75rem">After any flight-control work</h3>
-<table class="tbl">
-  <tr><th>Step</th><th>What you confirm</th></tr>
-  <tr><td><b>1. Rig</b></td><td>Neutral positions with rigging pins; travel with a protractor; tension with the tensiometer and chart</td></tr>
-  <tr><td><b>2. Secure</b></td><td>Turnbuckles safetied, jam nuts tight, check holes pass the wire test (wire must NOT go through), pulley guards on</td></tr>
-  <tr><td><b>3. Control check</b></td><td>Correct direction · full travel to the stops · free and smooth · no fouling at full deflection</td></tr>
-  <tr><td><b>4. Independent inspection</b></td><td>Second qualified person inspects and signs — <b>CAR 571.10</b></td></tr>
-</table>
 
-<p class="foot">Source: ASYS 245 Module 4 course decks (Flight Controls Parts A and B). Fairlead, turnbuckle and inspection rules are the standard Canadian AME training values; the aircraft maintenance manual always governs a real job.</p>
+<p class="foot">Source: ASYS 245 Module 4 course decks (Flight Controls Parts A and B). The aircraft maintenance manual always governs a real job.</p>
 </div>
 
 <script>
@@ -193,7 +159,6 @@ details[open] summary::before{content:"– "}
   function fmt(x,d){ return isFinite(x)?(+x.toFixed(d)).toLocaleString():'—'; }
   function calc(){
     set('t_out', fmt(n('t_f')*n('t_d'),1));
-    set('c_out', fmt(n('c_t')+n('c_s')*(n('c_now')-n('c_ref')),1));
   }
   document.querySelectorAll('.calc input').forEach(function(i){ i.addEventListener('input',calc); });
   calc();
