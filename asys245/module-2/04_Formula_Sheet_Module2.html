@@ -112,7 +112,7 @@ details[open] summary::before{content:"– "}
   <div class="body">
     <div class="vars"><b>D</b><span>drag</span><b>C<sub>D</sub></b><span>drag coefficient — found in a wind tunnel</span><b>ρ, V, A</b><span>as for lift</span></div>
     <p class="words">Same shape as the lift equation. Drag also grows with the square of speed.</p>
-    <p class="hold">C<sub>D</sub> bundles form, skin friction and induced drag. Rearranged: <b>C<sub>D</sub> = D ÷ (½ρV²A)</b> — measure D, work backwards.</p>
+    <p class="hold">C<sub>D</sub> bundles skin friction, form, interference and induced drag. Rearranged: <b>C<sub>D</sub> = D ÷ (½ρV²A)</b> — measure D, work backwards.</p>
     <details><summary>Worked example</summary><p class="ex">C<sub>D</sub> = 0.03, same air, V = 50 m/s, A = 16 m²: <code>D = 0.03 × 0.5 × 1.225 × 2500 × 16 = 735 N</code>. Lift ÷ drag = 12,250 ÷ 735 ≈ <code>16.7</code> — the lift-to-drag ratio.</p></details>
     <div class="calc" data-calc="drag">
       <div class="row"><label>C<sub>D</sub> <input type="number" id="d_cd" value="0.03" step="0.005"></label><label>ρ <input type="number" id="d_rho" value="1.225" step="0.005"></label><label>V <input type="number" id="d_v" value="50"></label><label>A <input type="number" id="d_a" value="16"></label></div>
@@ -147,7 +147,7 @@ details[open] summary::before{content:"– "}
   <div class="body">
     <div class="vars"><b>span</b><span>wingtip to wingtip</span><b>chord</b><span>average front-to-back width</span></div>
     <p class="words">Long and narrow = high aspect ratio = less induced drag for the same lift.</p>
-    <p class="hold">Gliders ≈ 20–30. Cessna 172 ≈ 7.3. Fighters ≈ 2–4. (For a tapered wing engineers use span² ÷ area — same idea.)</p>
+    <p class="hold">Gliders ≈ 20–30. Cessna 172 ≈ 7.5. Fighters ≈ 2–4. (For a tapered wing engineers use span² ÷ area — same idea.)</p>
     <details><summary>Worked example</summary><p class="ex">Cessna 172: span 11.0 m, wing area 16.2 m² → average chord 1.47 m → <code>AR = 11.0 ÷ 1.47 ≈ 7.5</code>.</p></details>
     <div class="calc" data-calc="ar">
       <div class="row"><label>span <input type="number" id="r_s" value="11.0" step="0.1"></label><label>chord <input type="number" id="r_c" value="1.47" step="0.01"></label></div>

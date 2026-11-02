@@ -250,7 +250,7 @@ sub{font-size:.7em}
       <div class="controls one">
         <div class="ctl">
           <label>Altitude <small>feet above sea level</small></label>
-          <input type="range" id="alt" min="0" max="30000" value="0" step="250" aria-label="Altitude">
+          <input type="range" id="alt" min="0" max="30000" value="0" step="50" aria-label="Altitude">
           <div class="ends"><span>Sea level</span><span>YXH 2,350 ft</span><span>30,000 ft</span></div>
         </div>
       </div>
@@ -301,7 +301,7 @@ sub{font-size:.7em}
     <div class="pcard" id="pB2">
       <div class="who">Partner B predicts</div>
       <label>Cool the balloon from 20 °C to −20 °C at constant pressure. Its volume…</label>
-      <div class="opts" data-q="charles"><button data-v="half">shrinks by half</button><button data-v="little">shrinks a little (≈ 14%)</button><button data-v="same">stays the same</button><button data-v="grow">grows</button></div>
+      <div class="opts" data-q="charles"><button data-v="little">shrinks</button><button data-v="same">stays the same</button><button data-v="grow">grows</button><button data-v="half">doubles</button></div>
     </div>
     <div class="lockRow"><button class="primary" id="lock2" disabled>Lock both predictions</button><span class="hint">Both must pick before the balloon unlocks.</span></div>
   </div>
@@ -319,9 +319,9 @@ sub{font-size:.7em}
         <div class="law" id="lawC">
           <div class="eyebrow">Charles · pressure held at 1013 mb</div>
           <div class="bal"><div class="balloon" id="balC"><span id="balCv">1.00 L</span></div></div>
-          <div class="ctl"><label>Temperature <small><span id="cT">20</span> °C = <span id="cK">293</span> K</small></label><input type="range" id="cTIn" min="-40" max="60" value="20" step="1"><div class="ends"><span>Freezer −40 °C</span><span>Hot sun 60 °C</span></div></div>
-          <div class="math"><span>V₁ ÷ T₁ = V₂ ÷ T₂</span><span id="mC">1.00 ÷ 293 = 1.00 ÷ 293</span></div>
-          <p class="law-why">Kelvin only. −20 °C is 253 K, not "negative" — the gas has not lost half its heat.</p>
+          <div class="ctl"><label>Temperature <small><span id="cT">20</span> °C</small></label><span id="cK" hidden></span><input type="range" id="cTIn" min="-40" max="60" value="20" step="1"><div class="ends"><span>Freezer −40 °C</span><span>Hot sun 60 °C</span></div></div>
+          <div class="math"><span>V = c × T · pressure held</span><span id="mC">T ↑ = V ↑ · T ↓ = V ↓</span></div>
+          <p class="law-why">Warm it and it swells; cool it and it shrinks — in a straight line. Boyle is the curve, Charles is the line.</p>
         </div>
       </div>
     </div>
@@ -331,8 +331,8 @@ sub{font-size:.7em}
         <tr><th></th><th>Boyle</th><th>Charles</th></tr>
         <tr><td>Held steady</td><td>Temperature</td><td>Pressure</td></tr>
         <tr><td>Changes</td><td>p and V, opposite ways</td><td>T and V, same way</td></tr>
-        <tr><td>Hook</td><td>"Boyle = boil" → the law where temperature is locked</td><td>Charles → "Celsius? No — kelvin"</td></tr>
-        <tr><td>On the aircraft</td><td>Altimeter, cabin pressure, tire pressure after climb</td><td>Tires and struts on a cold morning, oleo pressure</td></tr>
+        <tr><td>Hook</td><td>"Boyle = boil" → the law where temperature is locked</td><td>Charles → pressure locked; V and T move together (straight line)</td></tr>
+        <tr><td>On the aircraft</td><td>Altimeter, cabin pressure, tire pressure after climb</td><td>Hot-air balloon; a balloon left in a cold hangar goes limp</td></tr>
       </table>
       <div class="reveal" id="reveal2" hidden>
         <div class="eyebrow">Your predictions</div>
@@ -340,7 +340,7 @@ sub{font-size:.7em}
       </div>
     </div>
   </div>
-  <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="2" placeholder="One sentence you both agree on: what each law holds constant, and why Charles only works in kelvin."></textarea></div>
+  <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="2" placeholder="One sentence you both agree on: what each law holds constant, and which graph is a line and which is a curve."></textarea></div>
 </section>
 
 <!-- ───────── STATION 3 ───────── -->
@@ -363,7 +363,7 @@ sub{font-size:.7em}
 
   <div class="grid" id="day" hidden>
     <div class="panel">
-      <div class="eyebrow">Medicine Hat · 2,350 ft · pressure ≈ 931 mb (standard)</div>
+      <div class="eyebrow">Medicine Hat · 2,350 ft · pressure ≈ 930 mb (standard)</div>
       <div class="ctl"><label>Outside air temperature <small><span id="dT">7</span> °C</small></label><input type="range" id="dTIn" min="-35" max="38" value="7" step="1"><div class="ends"><span>−35 °C January</span><span>standard 10 °C</span><span>+38 °C July</span></div></div>
       <div class="dayOut">
         <div><span class="k">Density</span><b id="dRho">1.11 kg/m³</b><span class="mult" id="dPct">91% of sea-level standard</span></div>
@@ -392,7 +392,7 @@ sub{font-size:.7em}
       </div>
       <div class="convert">
         <div class="eyebrow">Converter — check your own numbers</div>
-        <div class="cv"><label>°C <input type="number" id="cvC" value="15" step="0.5"></label><span>=</span><b id="cvF">59.0 °F</b><span>=</span><b id="cvK">288.15 K</b></div>
+        <div class="cv"><label>°C <input type="number" id="cvC" value="15" step="0.5"></label><span>=</span><b id="cvF">59.0 °F</b><b id="cvK" hidden></b></div>
         <div class="cv"><label>mb <input type="number" id="cvH" value="1013.2" step="0.1"></label><span>=</span><b id="cvPsi">14.70 psi</b><span>=</span><b id="cvIn">29.92 inHg</b></div>
       </div>
     </div>
@@ -483,7 +483,7 @@ function drawCol(){
   line('DENSITY',d.toFixed(3)+' kg/m³  ·  '+(d/RHO0*100).toFixed(0)+'%','#8ad78a');
   /* bars */
   var by=ry-10;[['p',p/P0,'#6fb3e0'],['T',(t+56.5)/(T0+56.5),'#e07a6f'],['ρ',d/RHO0,'#8ad78a']].forEach(function(b,i){ctx.fillStyle='#1c1c1f';ctx.fillRect(rx,by+i*18,360,10);ctx.fillStyle=b[2];ctx.fillRect(rx,by+i*18,360*clamp(b[1],0,1),10);ctx.fillStyle='#a9a9ad';ctx.font='11px JetBrains Mono,monospace';ctx.fillText(b[0],rx-16,by+i*18+9);});
-  ctx.fillStyle='#a9a9ad';ctx.font='11px JetBrains Mono,monospace';ctx.fillText('fraction of the sea-level value (T on the kelvin scale)',rx,by+60);
+  ctx.fillStyle='#a9a9ad';ctx.font='11px JetBrains Mono,monospace';ctx.fillText('fraction of the sea-level value',rx,by+60);
   /* hud + units */
   $('#hAlt').textContent=fmt(ft)+' ft';$('#hP').textContent=fmt(p)+' mb';$('#hT').textContent=t.toFixed(1)+' °C';$('#hD').textContent=(d/RHO0*100).toFixed(0)+'%';
   $('#uPsi').textContent=psi(p).toFixed(2);$('#uInhg').textContent=inhg(p).toFixed(2);$('#uHpa').textContent=p.toFixed(1);$('#uC').textContent=t.toFixed(1);$('#uF').textContent=F(t).toFixed(1);$('#uRho').textContent=d.toFixed(3);
@@ -492,7 +492,7 @@ function drawCol(){
   else if(ft<3000){$('#ex1Title').textContent='Medicine Hat — already 8% down';$('#ex1P').innerHTML='YXH sits at 2,350 ft: about '+fmt(isaP(2350))+' mb on a standard day. Your altimeter is set to a sea-level number so the needle still reads field elevation.';$('#ex1W').innerHTML='We are never at "sea level" conditions here. Every performance chart starts with that correction.';$('#ex1D').innerHTML='Density '+(rho(isaP(2350),isaT(2350))/RHO0*100).toFixed(0)+'% of standard before the day even warms up.';}
   else if(ft<12000){$('#ex1Title').textContent='Climbing — all three fall together';$('#ex1P').innerHTML='At 10,000 ft pressure is about '+(isaP(10000)/P0*100).toFixed(0)+'% of sea level and the temperature is '+isaT(10000).toFixed(0)+' °C.';$('#ex1W').innerHTML='Pressure falls fastest near the ground because the air is densest there — most of the atmosphere’s weight is in the first few thousand feet.';$('#ex1D').innerHTML='Above about 10,000 ft a pilot needs oxygen for long periods: same % oxygen, far fewer molecules.';}
   else if(ft<20000){$('#ex1Title').textContent='18,000 ft — half the atmosphere is below you';$('#ex1P').innerHTML='Pressure ≈ '+(isaP(18000)/P0*100).toFixed(0)+'% of sea level. Half the air’s weight is underneath you.';$('#ex1W').innerHTML='Temperature keeps dropping at a steady 1.98 °C per 1,000 ft — the <b>lapse rate</b>.';$('#ex1D').innerHTML='Density is only '+(rho(isaP(18000),isaT(18000))/RHO0*100).toFixed(0)+'%. A wing needs a much higher true airspeed for the same lift.';}
-  else{$('#ex1Title').textContent='Jet country';$('#ex1P').innerHTML='At 30,000 ft pressure is about '+(isaP(30000)/P0*100).toFixed(0)+'% of sea level and it is '+isaT(30000).toFixed(0)+' °C outside.';$('#ex1W').innerHTML='Thin air = less drag, so jets cruise here. True airspeed is up roughly 2% per 1,000 ft for the same indicated speed.';$('#ex1D').innerHTML='Engines need to be pressurized and the cabin pumped up — nobody breathes this unaided.';}
+  else{$('#ex1Title').textContent='Jet country';$('#ex1P').innerHTML='At 30,000 ft pressure is about '+(isaP(30000)/P0*100).toFixed(0)+'% of sea level and it is '+isaT(30000).toFixed(0)+' °C outside.';$('#ex1W').innerHTML='Thin air = less drag, so jets cruise here. True airspeed is up roughly 2% per 1,000 ft for the same indicated speed.';$('#ex1D').innerHTML='The cabin has to be pressurized — nobody breathes this unaided.';}
   if(ft<=500)seen.lo=true;if(ft>=18000)seen.hi=true;
   if(seen.lo&&seen.hi&&state.pred1&&state.pred1.locked)markDone('s1');
 }
@@ -503,7 +503,7 @@ var st1=setupPredict(1,function(st){$('#climb').hidden=false;drawCol();
   $('#reveal1').hidden=false;});
 altEl.addEventListener('input',function(){state.alt=+altEl.value;save();climbing=false;$('#altClimb').textContent='Auto climb';drawCol()});
 $('#altSea').addEventListener('click',function(){altEl.value=0;state.alt=0;save();drawCol()});
-$('#altYxh').addEventListener('click',function(){altEl.value=2250;state.alt=2250;save();drawCol()});
+$('#altYxh').addEventListener('click',function(){altEl.value=2350;state.alt=2350;save();drawCol()});
 $('#altClimb').addEventListener('click',function(){if(climbing){climbing=false;this.textContent='Auto climb';return}altEl.value=0;climbing=true;this.textContent='Stop climb';
   (function step(){if(!climbing)return;var v=+altEl.value+125;if(v>=TOP){v=TOP;climbing=false;$('#altClimb').textContent='Auto climb'}altEl.value=v;state.alt=v;drawCol();if(climbing)anim=requestAnimationFrame(step);else save()})();});
 document.addEventListener('keydown',function(e){if($('#climb').hidden||/input|textarea|select/i.test(document.activeElement.tagName))return;if(e.key==='ArrowUp'){altEl.value=clamp(+altEl.value+250,0,TOP);state.alt=+altEl.value;save();drawCol()}if(e.key==='ArrowDown'){altEl.value=clamp(+altEl.value-250,0,TOP);state.alt=+altEl.value;save();drawCol()}});
@@ -513,11 +513,11 @@ drawCol();
 var seen2={b:false,c:false};
 function balloon(el,vol){var s=Math.cbrt(vol);el.style.width=el.style.height=(70*s)+'px';}
 function drawB(){var ft=+$('#bAltIn').value,p=isaP(ft),v=P0/p;$('#bAlt').textContent=fmt(ft);balloon($('#balB'),v);$('#balBv').textContent=v.toFixed(2)+' L';$('#mB').textContent=fmt(P0)+' × 1.00 = '+fmt(p)+' × '+v.toFixed(2);if(ft>=18000)seen2.b=true;check2()}
-function drawC(){var c=+$('#cTIn').value,k=c+273.15,v=k/293.15;$('#cT').textContent=c;$('#cK').textContent=Math.round(k);balloon($('#balC'),v);$('#balCv').textContent=v.toFixed(2)+' L';$('#mC').textContent='1.00 ÷ 293 = '+v.toFixed(2)+' ÷ '+Math.round(k);if(c<=-20)seen2.c=true;check2()}
+function drawC(){var c=+$('#cTIn').value,k=c+273.15,v=k/293.15;$('#cT').textContent=c;$('#cK').textContent=Math.round(k);balloon($('#balC'),v);$('#balCv').textContent=v.toFixed(2)+' L';$('#mC').textContent=(c<20?'T ↓ = V ↓':c>20?'T ↑ = V ↑':'start: 20 °C, 1.00 L');if(c<=-20)seen2.c=true;check2()}
 function check2(){if(seen2.b&&seen2.c&&state.pred2&&state.pred2.locked)markDone('s2')}
 setupPredict(2,function(st){$('#gas').hidden=false;drawB();drawC();
   $('#revA2').innerHTML=verdict(nm('nameA','A'),'it '+({'0.5':'halves','1':'stays the same','2':'doubles','4':'quadruples'}[st.boyle]),st.boyle==='2','Half the pressure → <b>double</b> the volume (p₁V₁ = p₂V₂). This is why a balloon released at the surface keeps swelling until it bursts.');
-  $('#revB2').innerHTML=verdict(nm('nameB','B'),'it '+({half:'shrinks by half',little:'shrinks a little',same:'stays the same',grow:'grows'}[st.charles]),st.charles==='little','293 K → 253 K is only a 14% drop, so the volume <b>shrinks about 14%</b>. "Half" is the trap — you only get that if you wrongly use °C.');
+  $('#revB2').innerHTML=verdict(nm('nameB','B'),'it '+({half:'doubles',little:'shrinks',same:'stays the same',grow:'grows'}[st.charles]),st.charles==='little','Charles\' Law: cool a gas at constant pressure and its volume <b>shrinks</b> — T ↓ = V ↓. Warm it and it swells. Straight-line graph.');
   $('#reveal2').hidden=false;});
 $('#bAltIn').addEventListener('input',drawB);$('#cTIn').addEventListener('input',drawC);
 
@@ -537,7 +537,7 @@ function drawDay(){var t=+$('#dTIn').value,d=rho(PYXH,t),f=d/RSTD,da=densAlt(d);
 }
 setupPredict(3,function(st){$('#day').hidden=false;drawDay();
   $('#revA3').innerHTML=verdict(nm('nameA','A'),'density '+({up:'goes up',same:'stays the same',down:'goes down',dep:'depends on the wind'}[st.hot]),st.hot==='down','Hot air expands → density <b>goes down</b>. At +32 °C YXH behaves like an airport near '+fmt(Math.round(densAlt(rho(PYXH,32))/100)*100)+' ft.');
-  $('#revB3').innerHTML=verdict(nm('nameB','B'),({psi:'14.7 psi',inhg:'29.92 inHg',hpa:'1013.2 mb',all:'all three'}[st.std]),st.std==='all','<b>All three</b> are the same standard pressure in different units: 14.7 psi = 29.92 inHg = 1013.2 mb (= 1013.2 mb).');
+  $('#revB3').innerHTML=verdict(nm('nameB','B'),({psi:'14.7 psi',inhg:'29.92 inHg',hpa:'1013.2 mb',all:'all three'}[st.std]),st.std==='all','<b>All three</b> are the same standard pressure in different units: 14.7 psi = 29.92 inHg = 1013.2 mb.');
   $('#reveal3').hidden=false;});
 $('#dTIn').addEventListener('input',drawDay);
 $('#dayCold').addEventListener('click',function(){$('#dTIn').value=-30;drawDay()});$('#dayStd').addEventListener('click',function(){$('#dTIn').value=Math.round(TSTD);drawDay()});$('#dayHot').addEventListener('click',function(){$('#dTIn').value=32;drawDay()});

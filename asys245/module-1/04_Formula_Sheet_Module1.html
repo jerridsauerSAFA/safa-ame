@@ -114,9 +114,9 @@ details[open] summary::before{content:"– "}
     <div class="vars"><b>V</b><span>volume</span><b>T</b><span>temperature</span><b>c</b><span>a constant</span></div>
     <p class="words">Heat a gas and it expands; cool it and it shrinks. Proportional: both move together.</p>
     <p class="hold">Held constant: <b>pressure</b>. Graph: <b>straight line</b>.</p>
-    <details><summary>Worked example</summary><p class="ex">A balloon is 2.0 L at 20 °C. Warm it to 40 °C and it grows to about <code>2.14 L</code> — not double, because the law works on absolute temperature (the calculator below handles that for you).</p></details>
+    <details><summary>Worked example</summary><p class="ex">A balloon in a warm room is carried into a freezer: pressure stays the same, temperature drops, so the volume <code>shrinks</code> — T ↓ = V ↓. Bring it into the sun and it <code>swells</code>. The graph is a straight line; Boyle's is a curve.</p></details>
     <div class="calc" data-calc="charles">
-      <div class="row"><code style="font-family:'JetBrains Mono',monospace">V₁ ÷ T₁ = V₂ ÷ T₂</code> (enter °C — the calculator does the absolute-temperature step for you)</div>
+      <div class="row"><code style="font-family:'JetBrains Mono',monospace">V₁ ÷ T₁ = V₂ ÷ T₂</code> (the calculator shows which way the volume goes)</div>
       <div class="row"><label>V₁ <input type="number" id="c_v1" value="2"></label><label>T₁ °C <input type="number" id="c_t1" value="20"></label><label>T₂ °C <input type="number" id="c_t2" value="40"></label></div>
       <div class="row">V₂ = <span class="out" id="c_out">2.14</span></div>
     </div>
@@ -197,7 +197,7 @@ details[open] summary::before{content:"– "}
   <div class="body">
     <p class="words">Less air above you → lower pressure. Standard temperature also falls with height.</p>
     <p class="hold">Works well in the lower atmosphere (below ~10,000 ft). Medicine Hat at 2,350 ft on a standard day: about <b>27.6 inHg</b> and <b>10 °C</b>.</p>
-    <details><summary>Worked example</summary><p class="ex">Medicine Hat, 2,350 ft: <code>29.92 − 2.35 = 27.57 inHg</code>; <code>15 − (2 × 2.35) = 10.3 °C</code>.</p></details>
+    <details><summary>Worked example</summary><p class="ex">Medicine Hat, 2,350 ft: <code>29.92 − 2.35 ≈ 27.5 inHg</code>; <code>15 − (2 × 2.35) = 10.3 °C</code>.</p></details>
     <div class="calc" data-calc="alt">
       <div class="row"><label>Altitude ft <input type="number" id="h_ft" value="2350" step="50"></label></div>
       <div class="row">Pressure ≈ <span class="out" id="h_p">27.57 inHg</span> &nbsp; Temp ≈ <span class="out" id="h_t">10.3 °C</span></div>

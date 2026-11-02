@@ -79,7 +79,7 @@ details[open] summary::before{content:"– "}
   <div>
     <div class="eyebrow">Reference sheet · ASYS 245 · Module 3</div>
     <h1>Stability &amp; Control Reference</h1>
-    <p>Module 3 has few formulas and many rules. This sheet is the rules on one page: the axis table, the stability ladder, the CG rules, and the one formula that runs the whole module — moment = force × arm. Print it for the binder.</p>
+    <p>Module 3 has few formulas and many rules. This sheet is the rules on one page: the axis table, the stability ladder, and the one formula that runs the whole module — moment = force × arm. Print it for the binder.</p>
   </div>
   <div><div class="meta">SAFA · SAIT ASYS 245<br>Module 3</div><br><button class="btn" type="button" onclick="window.print()">Print</button></div>
 </header>
@@ -88,7 +88,7 @@ details[open] summary::before{content:"– "}
 <div class="ref">
   <div><div class="l">Axes</div><div class="v">3 axes · 3 controls</div><div class="s">all cross at the CG</div></div>
   <div><div class="l">CG rule</div><div class="v">CG ahead of lift</div><div class="s">tail pushes down → stable</div></div>
-  <div><div class="l">Aft CG</div><div class="v">DANGER</div><div class="s">unstable, may not recover from stall</div></div>
+  <div><div class="l">Aft CG</div><div class="v">unstable</div><div class="s">longitudinally — tail cannot balance the wing</div></div>
   <div><div class="l">Lateral &gt; directional</div><div class="v">Dutch roll</div><div class="s">yaw damper fixes it</div></div>
   <div><div class="l">Directional &gt; lateral</div><div class="v">Spiral</div><div class="s">slow tightening bank</div></div>
   <div><div class="l">Adverse yaw</div><div class="v">4 fixes</div><div class="s">differential · Frise · interconnect · spoilers</div></div>
@@ -146,15 +146,8 @@ details[open] summary::before{content:"– "}
 
 </div>
 
-<h3 style="margin-top:1.75rem">CG out of limits</h3>
-<table class="tbl">
-  <tr><th></th><th>CG too far forward</th><th>CG too far aft</th></tr>
-  <tr><td><b>Stability</b></td><td>Too much — sluggish</td><td>Too little — twitchy, may be unstable</td></tr>
-  <tr><td><b>Controls</b></td><td>Heavy; may run out of elevator in the flare</td><td>Very light; easy to over-control</td></tr>
-  <tr><td><b>Stall</b></td><td>Higher stall speed (tail downforce adds to weight)</td><td>Easy to stall or spin; may <b>not recover</b></td></tr>
-  <tr><td><b>Cruise</b></td><td>More trim drag, slower</td><td>Less drag, faster — the trap</td></tr>
-  <tr><td><b>Verdict</b></td><td>Poor performance</td><td><b>Dangerous</b></td></tr>
-</table>
+<h3 style="margin-top:1.75rem">CG and pitch stability</h3>
+<p class="hold">CG too far <b>aft</b> → longitudinally <b>unstable</b>. CG too far <b>forward</b> → still stable, but nose heavy: higher stall speed, hard to raise the nose. The CG must sit inside the published range — working it out is Weight &amp; Balance (Module 7).</p>
 
 <h3 style="margin-top:1.75rem">Two wobbles — which is which</h3>
 <table class="tbl">
@@ -170,11 +163,11 @@ details[open] summary::before{content:"– "}
   <tr><th>Fix</th><th>How it works</th></tr>
   <tr><td><b>Differential ailerons</b></td><td>The up-going aileron travels <b>farther</b> than the down-going one → drag on the inside wing matches the outside.</td></tr>
   <tr><td><b>Frise ailerons</b></td><td>The up-going aileron's <b>nose pokes below the wing</b> into the airflow, adding drag on the inside.</td></tr>
-  <tr><td><b>Aileron–rudder interconnect</b></td><td>A spring or cable adds a little <b>rudder</b> automatically when ailerons move.</td></tr>
-  <tr><td><b>Spoilers / flaperons</b></td><td>A spoiler rises on the down-going wing — it <b>kills lift and adds drag</b> on the same side, so no yaw the wrong way.</td></tr>
+  <tr><td><b>Aileron–rudder interconnect</b></td><td>Springs add a little <b>rudder</b> automatically when ailerons move.</td></tr>
+  <tr><td><b>Roll spoilers</b></td><td>A spoiler rises on the down-going wing — it <b>kills lift and adds drag</b> on the same side, so no yaw the wrong way.</td></tr>
 </table>
 
-<p class="foot">Source: ASYS 245 Module 3 course decks (Jeppesen A&amp;P General, stability section). Worked numbers are illustrative. Module 6 (Weight &amp; Balance) uses the same moment formula with real aircraft data.</p>
+<p class="foot">Source: ASYS 245 Module 3 course decks (Jeppesen A&amp;P General, stability section). Worked numbers are illustrative. Module 7 (Weight &amp; Balance) uses the same moment formula with real aircraft data.</p>
 </div>
 
 <script>
