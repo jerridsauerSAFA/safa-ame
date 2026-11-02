@@ -125,7 +125,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 <div class="bar" role="toolbar" aria-label="Study tools">
   <label><input type="checkbox" id="studyToggle"> Study mode (hide notes, recall from cues)</label>
   <div class="grow"><div class="progress" aria-hidden="true"><i id="pbar"></i></div></div>
-  <span class="meta" id="ptext">0 / 10 sections checked</span>
+  <span class="meta" id="ptext">0 / 11 sections checked</span>
   <button class="btn" id="resetBtn" type="button">Reset</button>
 </div>
 
@@ -284,14 +284,14 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li><b>Induced drag</b> = "drag due to lift". More lift = more induced drag. Wingtip vortices → downwash → the lift vector tilts back.</li>
       <li><span class="f">Total drag = Parasite + Induced</span></li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Drag family tree: total drag splits into parasite (skin friction, form, interference) and induced">
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Drag family tree: total drag splits into parasite (skin friction, form, interference) and induced (due to lift)">
       <rect x="150" y="8" width="120" height="30" rx="4" fill="var(--dia-hi)" stroke="var(--dia-line)"/><text x="210" y="28" text-anchor="middle" font-size="13" font-weight="700" fill="#16232E">TOTAL DRAG</text>
       <rect x="40" y="60" width="150" height="28" rx="4" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="115" y="79" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">PARASITE (not lift)</text>
-      <rect x="240" y="60" width="150" height="28" rx="4" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="315" y="79" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">INDUCED (due to lift)</text>
+      <rect x="240" y="60" width="150" height="28" rx="4" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="315" y="79" text-anchor="middle" font-size="12" font-weight="700" fill="var(--ink)">INDUCED</text>
       <g stroke="var(--dia-line)" stroke-width="1.5"><line x1="180" y1="38" x2="115" y2="60"/><line x1="240" y1="38" x2="315" y2="60"/><line x1="60" y1="88" x2="60" y2="112"/><line x1="115" y1="88" x2="115" y2="112"/><line x1="170" y1="88" x2="170" y2="112"/><line x1="315" y1="88" x2="315" y2="112"/></g>
-      <g font-size="10.5" fill="var(--ink)" text-anchor="middle"><rect x="20" y="112" width="80" height="26" rx="3" fill="var(--dia-bg)" stroke="var(--dia-line)"/><text x="60" y="129">skin friction</text><rect x="105" y="112" width="60" height="26" rx="3" fill="var(--dia-bg)" stroke="var(--dia-line)"/><text x="135" y="129">form</text><rect x="170" y="112" width="80" height="26" rx="3" fill="var(--dia-bg)" stroke="var(--dia-line)"/><text x="210" y="129">interference</text><rect x="265" y="112" width="100" height="26" rx="3" fill="var(--dia-bg)" stroke="var(--dia-line)"/><text x="315" y="129">tip vortices</text></g>
+      <g font-size="10.5" fill="var(--ink)" text-anchor="middle"><rect x="20" y="112" width="80" height="26" rx="3" fill="var(--dia-bg)" stroke="var(--dia-line)"/><text x="60" y="129">skin friction</text><rect x="105" y="112" width="60" height="26" rx="3" fill="var(--dia-bg)" stroke="var(--dia-line)"/><text x="135" y="129">form</text><rect x="170" y="112" width="80" height="26" rx="3" fill="var(--dia-bg)" stroke="var(--dia-line)"/><text x="210" y="129">interference</text><rect x="265" y="112" width="100" height="26" rx="3" fill="var(--dia-bg)" stroke="var(--dia-line)"/><text x="315" y="129">due to lift</text></g>
     </svg></div>
-    <details class="more"><summary>Go deeper</summary><p>The drag equation mirrors the lift equation: D = C<sub>D</sub> · ½ρV² · A. C<sub>D</sub> is harder to pin down than C<sub>L</sub> because it bundles form, friction, interference and induced drag, and engineers must choose which area to use (wing area, frontal area or total surface area).</p></details>
+    <details class="more"><summary>Go deeper</summary><p><b>Drag has its own equation, and it looks just like the lift equation:</b> D = C<sub>D</sub> · ½ρV² · A. Same air density (ρ), same speed (V), same area (A) — only the coefficient changes. C<sub>L</sub> says how good a shape is at making lift; <b>C<sub>D</sub> says how much it resists the air</b>.</p><p><b>Why C<sub>D</sub> is the awkward one:</b> it is one number that has to stand in for all four kinds of drag at once (skin friction, form, interference <i>and</i> induced). It is measured, not calculated — put the shape in a wind tunnel, read the drag, and work the number backwards.</p><p><b>What to take from it:</b> drag goes up with the <b>square</b> of speed, exactly like lift. Double the speed and the airframe is pushing through four times the drag — which is why a clean, smooth, streamlined aircraft matters more the faster it flies.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="5" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
@@ -400,7 +400,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 <div class="row" data-sec="9">
   <div class="cue">
     <h3>Wing Design</h3>
-    <p class="q">Define planform, aspect ratio, sweep, dihedral and anhedral, and what each is for.</p>
+    <p class="q">Define planform, aspect ratio, biplane vs monoplane, swept and swing wings, and dihedral / flat / anhedral — and what each is for.</p>
     <span class="tag">Shape = job</span>
   </div>
   <div class="body">
@@ -408,19 +408,24 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     <ul>
       <li><b>Planform</b> = the wing's shape seen from above. <b>Span</b> = wingtip to wingtip.</li>
       <li><b>Aspect ratio (AR)</b> = how long and narrow the wing is: <span class="f">AR = span² ÷ area</span> = <span class="f">span ÷ average chord</span>. High AR → less induced drag for the same lift. Gliders.</li>
-      <li><b>Biplane</b> → lots of lift at low speed, lots of drag. <b>Monoplane</b> → less drag, faster.</li>
+      <li><b>Biplane</b> → lots of lift at low speed, lots of drag.</li>
+      <li><b>Monoplane</b> → less drag, faster.</li>
       <li><b>Swept wing</b> → for fast aircraft. Cuts drag near the speed of sound; the sweep "fools" the air into seeing a longer chord. Peak drag ≈ ¼ of a straight wing.</li>
+      <li><b>Swing wing</b> → a wing that can <b>change its sweep angle in flight</b>, folding back for speed or swinging forward (straighter) for low-speed lift and landing. Example: F-14 Tomcat.</li>
       <li><b>Dihedral</b> = wings angled <b>up</b>. The low wing meets the air at a higher AOA → more lift → rolls back level. <b>Roll stability</b>.</li>
+      <li><b>Flat wing</b> = the design <b>between</b> dihedral and anhedral: <b>flat across from wingtip to wingtip</b>, no angle up or down. Neutral — neither the extra roll stability of dihedral nor the agility of anhedral.</li>
       <li><b>Anhedral</b> = wings angled <b>down</b>. Less roll stability, more manoeuvrable (fighters), or to cancel the pendulum effect of a high wing.</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Planforms: high aspect ratio, low aspect ratio, swept; front views: dihedral and anhedral">
-      <rect x="10" y="30" width="130" height="14" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="75" y="22" text-anchor="middle" font-size="10.5" fill="var(--ink)">high aspect ratio</text>
-      <rect x="20" y="70" width="110" height="34" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="75" y="120" text-anchor="middle" font-size="10.5" fill="var(--ink)">low aspect ratio</text>
-      <path d="M210 20 L270 70 L270 90 L210 40 L150 90 L150 70 Z" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="210" y="112" text-anchor="middle" font-size="10.5" fill="var(--ink)">swept (fast)</text>
-      <path d="M300 60 L350 48 L400 60" stroke="var(--dia-line)" stroke-width="5" fill="none"/><text x="350" y="40" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink)">dihedral ↑ stable</text>
-      <path d="M300 100 L350 112 L400 100" stroke="var(--dia-line)" stroke-width="5" fill="none"/><text x="350" y="132" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink)">anhedral ↓ agile</text>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Planforms: high aspect ratio, low aspect ratio, swept, swing wing; front views: dihedral, flat and anhedral">
+      <rect x="10" y="22" width="110" height="12" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="65" y="15" text-anchor="middle" font-size="10" fill="var(--ink)">high aspect ratio</text>
+      <rect x="20" y="52" width="90" height="30" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="65" y="96" text-anchor="middle" font-size="10" fill="var(--ink)">low aspect ratio</text>
+      <path d="M185 18 L235 58 L235 74 L185 34 L135 74 L135 58 Z" fill="var(--dia-fill)" stroke="var(--dia-line)"/><text x="185" y="92" text-anchor="middle" font-size="10" fill="var(--ink)">swept (fast)</text>
+      <path d="M185 108 L250 112 L250 120 L185 118 L120 120 L120 112 Z" fill="var(--dia-fill)" stroke="var(--dia-line)"/><path d="M185 108 L240 136 L246 130 L185 118 L124 130 L130 136 Z" fill="none" stroke="var(--dia-hi)" stroke-width="1.5" stroke-dasharray="3 2"/><text x="185" y="147" text-anchor="middle" font-size="10" fill="var(--ink)">swing wing (sweep changes in flight)</text>
+      <path d="M290 42 L345 30 L400 42" stroke="var(--dia-line)" stroke-width="5" fill="none"/><text x="345" y="22" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ink)">dihedral ↑ stable</text>
+      <path d="M290 80 L400 80" stroke="var(--dia-line)" stroke-width="5" fill="none"/><text x="345" y="70" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ink)">flat · neutral</text>
+      <path d="M290 112 L345 124 L400 112" stroke="var(--dia-line)" stroke-width="5" fill="none"/><text x="345" y="142" text-anchor="middle" font-size="10" font-weight="700" fill="var(--ink)">anhedral ↓ agile</text>
     </svg></div>
-    <details class="more"><summary>Go deeper</summary><p>Every wing is a trade: the Cessna 150's high straight wing is stable and slow; a Challenger's swept low wing is fast but needs more runway. Aspect ratio is the cleanest lever on induced drag — which is why sailplanes have wings like blades.</p><p>AR practice: span 10 m, average chord 1 m → AR = 10 ÷ 1 = <b>10</b> (long, narrow). Span 10 m, area 25 m² → AR = 100 ÷ 25 = <b>4</b> (short, wide).</p></details>
+    <details class="more"><summary>Go deeper</summary><p>Every wing is a trade: the Cessna 150's high straight wing is stable and slow; a Challenger's swept low wing is fast but needs more runway. A swing wing tries to have both — straight for take-off and landing, swept for speed — at the cost of a heavy, complex pivot. Swing wing and flat wing are not in the SAIT deck; they are added from class. Aspect ratio is the cleanest lever on induced drag — which is why sailplanes have wings like blades.</p><p>AR practice: span 10 m, average chord 1 m → AR = 10 ÷ 1 = <b>10</b> (long, narrow). Span 10 m, area 25 m² → AR = 100 ÷ 25 = <b>4</b> (short, wide).</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="9" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
@@ -429,36 +434,68 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 <!-- 10 TAIL DESIGN -->
 <div class="row" data-sec="10">
   <div class="cue">
-    <h3>Tail Design &amp; the Three Axes</h3>
+    <h3>Tail Design</h3>
     <p class="q">Which tail surface gives which kind of stability? Conventional tail vs T-tail?</p>
-    <span class="tag">Pitch · Yaw · Roll</span>
+    <span class="tag">Horizontal · Vertical</span>
   </div>
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li><b>Horizontal stabilizer</b> → <b>longitudinal stability</b> = pitch (nose up/down) about the <b>lateral axis</b> (wingtip to wingtip).</li>
-      <li>Controls: <b>pitch → elevator</b> · <b>roll → ailerons</b> · <b>yaw → rudder</b>.</li>
-      <li><b>Vertical stabilizer</b> (+ rudder) → <b>directional stability</b> = yaw (nose left/right) about the <b>vertical axis</b>.</li>
-      <li>Wings + dihedral → <b>lateral stability</b> = roll about the <b>longitudinal axis</b> (nose to tail).</li>
+      <li>The tail is the aircraft's <b>stabilizer</b>: the wing makes the lift, the tail keeps the aircraft pointed where it should be.</li>
+      <li><b>Horizontal stabilizer</b> (+ elevator) → <b>longitudinal stability</b> = steadies <b>pitch</b> (nose up / down).</li>
+      <li><b>Vertical stabilizer</b> (fin + rudder) → <b>directional stability</b> = steadies <b>yaw</b> (nose left / right).</li>
       <li><b>Conventional tail</b>: the wing wants to pitch nose-down, so the tail is designed to make a <b>downward force</b> that holds the nose up. The CG must stay inside its limits: too far <b>aft</b> → unstable in pitch; too far <b>forward</b> → nose-heavy and hard to raise the nose.</li>
       <li><b>T-tail</b>: stabilizer on top of the fin — out of the wing's wake and engine blast, so more predictable at low speed. Downside: <b>heavier</b> (fin must be stronger).</li>
+      <li>Each tail surface works about one of the <b>three axes</b> — next section.</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 200" width="420" height="200" role="img" aria-label="Three axes on an aircraft top view, and side views of a conventional tail and a T-tail">
-      <ellipse cx="110" cy="80" rx="18" ry="60" fill="var(--dia-fill)" stroke="var(--dia-line)"/><rect x="30" y="72" width="160" height="12" fill="var(--dia-fill)" stroke="var(--dia-line)"/><rect x="80" y="126" width="60" height="8" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
-      <line x1="110" y1="10" x2="110" y2="150" stroke="var(--dia-hi)" stroke-width="2"/><text x="114" y="18" font-size="10" fill="var(--ink)">longitudinal (roll)</text>
-      <line x1="20" y1="78" x2="200" y2="78" stroke="var(--formula)" stroke-width="2"/><text x="150" y="98" font-size="10" fill="var(--ink)">lateral (pitch)</text>
-      <circle cx="110" cy="78" r="5" fill="var(--bad)"/><text x="118" y="60" font-size="10" fill="var(--ink)">vertical (yaw) ⊙</text>
-      <g transform="translate(230,20)">
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Side views of a conventional tail and a T-tail, with the horizontal stabilizer pushing down and the fin steadying yaw">
+      <g transform="translate(15,10)">
         <path d="M0 60 L120 60 L150 50 L170 50 L170 58 L120 70 L0 70Z" fill="var(--dia-fill)" stroke="var(--dia-line)"/><path d="M8 60 L2 30 L22 30 L34 60Z" fill="var(--dia-fill)" stroke="var(--dia-line)"/><rect x="0" y="52" width="40" height="5" fill="var(--dia-line)"/>
-        <text x="60" y="95" font-size="10.5" font-weight="700" fill="var(--ink)">conventional</text>
+        <line x1="20" y1="76" x2="20" y2="100" stroke="var(--dia-hi)" stroke-width="2"/><path d="M15 96 L20 106 L25 96Z" fill="var(--dia-hi)"/><text x="30" y="104" font-size="9.5" fill="var(--ink)">stab pushes down</text>
+        <text x="12" y="24" font-size="9.5" fill="var(--ink)">fin → yaw</text>
+        <text x="85" y="125" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink)">conventional</text>
       </g>
-      <g transform="translate(230,95)">
+      <g transform="translate(225,10)">
         <path d="M0 60 L120 60 L150 50 L170 50 L170 58 L120 70 L0 70Z" fill="var(--dia-fill)" stroke="var(--dia-line)"/><path d="M8 60 L2 30 L22 30 L34 60Z" fill="var(--dia-fill)" stroke="var(--dia-line)"/><rect x="-6" y="28" width="40" height="5" fill="var(--dia-line)"/>
-        <text x="60" y="95" font-size="10.5" font-weight="700" fill="var(--ink)">T-tail (stab on top)</text>
+        <text x="40" y="24" font-size="9.5" fill="var(--ink)">stab on top: clean air, heavier fin</text>
+        <text x="85" y="125" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--ink)">T-tail</text>
       </g>
     </svg></div>
-    <details class="more"><summary>Go deeper</summary><p>Tails borrow the same design ideas as wings — sweep, dihedral, anhedral — and their layout depends on where the engines and wing sit. Module 3 goes deep on stability; for now know which surface controls which axis.</p></details>
+    <details class="more"><summary>Go deeper</summary><p>Tails borrow the same design ideas as wings — sweep, dihedral, anhedral — and their layout depends on where the engines and wing sit (a rear-engined jet almost always carries a T-tail so the stabilizer clears the exhaust). Module 3 goes deep on stability; for now know which surface steadies which motion.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="10" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
+    <label class="check"><input type="checkbox" class="done"> Got it</label>
+  </div>
+</div>
+
+<!-- 11 THREE AXES -->
+<div class="row" data-sec="11">
+  <div class="cue">
+    <h3>The Three Axes</h3>
+    <p class="q">Name the three axes, the motion about each, the control that makes it, and the surface that steadies it.</p>
+    <span class="tag">Pitch · Roll · Yaw</span>
+  </div>
+  <div class="body">
+    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
+    <ul>
+      <li>All three axes pass through the <b>centre of gravity</b>. Every movement an aircraft makes is a rotation about one of them.</li>
+      <li><b>Lateral axis</b> (wingtip to wingtip) → <b>pitch</b> · control = <b>elevator</b> · steadied by the <b>horizontal stabilizer</b> (longitudinal stability).</li>
+      <li><b>Longitudinal axis</b> (nose to tail) → <b>roll</b> · control = <b>ailerons</b> · steadied by the <b>wings + dihedral</b> (lateral stability).</li>
+      <li><b>Vertical axis</b> (top to bottom) → <b>yaw</b> · control = <b>rudder</b> · steadied by the <b>vertical stabilizer</b> (directional stability).</li>
+      <li>Watch the names: the <b>lateral</b> axis gives <b>longitudinal</b> stability, and the <b>longitudinal</b> axis gives <b>lateral</b> stability. The stability is named for the direction it holds, not the axis.</li>
+    </ul>
+    <div class="fig"><svg viewBox="0 0 420 170" width="420" height="170" role="img" aria-label="Top view of an aircraft with the longitudinal, lateral and vertical axes through the centre of gravity, each labelled with its motion and control">
+      <ellipse cx="150" cy="85" rx="18" ry="62" fill="var(--dia-fill)" stroke="var(--dia-line)"/><rect x="60" y="77" width="180" height="12" fill="var(--dia-fill)" stroke="var(--dia-line)"/><rect x="118" y="132" width="64" height="8" fill="var(--dia-fill)" stroke="var(--dia-line)"/>
+      <line x1="150" y1="10" x2="150" y2="160" stroke="var(--dia-hi)" stroke-width="2"/><text x="156" y="20" font-size="10" fill="var(--ink)">longitudinal axis</text>
+      <line x1="40" y1="83" x2="260" y2="83" stroke="var(--formula)" stroke-width="2"/><text x="195" y="104" font-size="10" fill="var(--ink)">lateral axis</text>
+      <circle cx="150" cy="83" r="5" fill="var(--bad)"/><text x="158" y="64" font-size="10" fill="var(--ink)">vertical axis ⊙ at the CG</text>
+      <g font-size="10.5" fill="var(--ink)">
+        <rect x="285" y="22" width="125" height="38" rx="4" fill="var(--dia-bg)" stroke="var(--dia-hi)"/><text x="347" y="38" text-anchor="middle" font-weight="700">ROLL · ailerons</text><text x="347" y="53" text-anchor="middle" fill="var(--muted)">longitudinal axis</text>
+        <rect x="285" y="66" width="125" height="38" rx="4" fill="var(--dia-bg)" stroke="var(--formula)"/><text x="347" y="82" text-anchor="middle" font-weight="700">PITCH · elevator</text><text x="347" y="97" text-anchor="middle" fill="var(--muted)">lateral axis</text>
+        <rect x="285" y="110" width="125" height="38" rx="4" fill="var(--dia-bg)" stroke="var(--bad)"/><text x="347" y="126" text-anchor="middle" font-weight="700">YAW · rudder</text><text x="347" y="141" text-anchor="middle" fill="var(--muted)">vertical axis</text>
+      </g>
+    </svg></div>
+    <details class="more"><summary>Go deeper</summary><p>A quick way to remember the pairs: the control surface is always on the far end of the axis it works. Ailerons sit out on the wings (far from the longitudinal axis) and roll the aircraft about it; the elevator and rudder sit at the tail (far from the CG) and pitch and yaw it. Longer lever arm, more leverage, smaller surface.</p></details>
+    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="11" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
 </div>
@@ -467,7 +504,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 
 <section class="box sum" aria-label="Summary">
   <div class="eyebrow">Summary</div>
-  <p style="margin:.5rem 0 0;max-width:70ch">Four forces act on an aircraft — lift and weight, thrust and drag — and level cruise means they balance. A wing makes lift by turning air downward (Newton) and by speeding air over its curved top so static pressure drops (Bernoulli); lift rises with wing area, density, angle of attack and the square of speed, until the critical angle where the flow separates and the wing stalls. Drag comes in two families: parasite drag (skin friction, form, interference), which grows with speed, and induced drag from wingtip vortices, which shrinks with speed — total drag is a U-curve. Winglets tame the vortices; ground effect within one wingspan cuts induced drag. Wing shape sets the job: aspect ratio, sweep, dihedral and anhedral trade efficiency, speed and stability. The tail finishes the design — horizontal stabilizer for pitch, vertical for yaw — with the T-tail trading weight for cleaner air.</p>
+  <p style="margin:.5rem 0 0;max-width:70ch">Four forces act on an aircraft — lift and weight, thrust and drag — and level cruise means they balance. A wing makes lift by turning air downward (Newton) and by speeding air over its curved top so static pressure drops (Bernoulli); lift rises with wing area, density, angle of attack and the square of speed, until the critical angle where the flow separates and the wing stalls. Drag comes in two families: parasite drag (skin friction, form, interference), which grows with speed, and induced drag — drag due to lift — which shrinks with speed — total drag is a U-curve. Winglets tame the vortices; ground effect within one wingspan cuts induced drag. Wing shape sets the job: biplane or monoplane, aspect ratio, swept or swing wing, and dihedral, flat or anhedral all trade efficiency, speed and stability. The tail finishes the design — horizontal stabilizer steadies pitch, vertical steadies yaw, and the T-tail trades weight for cleaner air. Every motion is a rotation about one of three axes through the CG: pitch (lateral axis, elevator), roll (longitudinal axis, ailerons) and yaw (vertical axis, rudder).</p>
 </section>
 
 <section class="box" aria-label="Key terms">
@@ -482,13 +519,15 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     <div><b>Aerodynamic centre</b>Point where pitching moment stays constant, ≈ ¼ chord.</div>
     <div><b>Stall</b>Sudden loss of lift when the critical angle of attack is exceeded.</div>
     <div><b>Parasite drag</b>Skin friction + form + interference. Grows with speed.</div>
-    <div><b>Induced drag</b>Drag caused by making lift (tip vortices). Shrinks with speed.</div>
+    <div><b>Induced drag</b>Drag due to lift. Shrinks with speed.</div>
     <div><b>Boundary layer</b>Thin layer of air stuck to the surface; laminar then turbulent.</div>
     <div><b>Transition point</b>Where the boundary layer turns from laminar to turbulent.</div>
     <div><b>Aspect ratio</b>Span² ÷ area (or span ÷ average chord). High = long and narrow = less induced drag.</div>
     <div><b>Mean camber line</b>Line halfway between the airfoil's top and bottom surfaces.</div>
     <div><b>Elevator · ailerons · rudder</b>Control pitch · roll · yaw.</div>
-    <div><b>Dihedral / anhedral</b>Wings angled up (stable) or down (agile).</div>
+    <div><b>Dihedral / flat / anhedral</b>Wings angled up (stable), flat tip to tip (neutral) or down (agile).</div>
+    <div><b>Swing wing</b>Wing whose sweep angle changes in flight: forward for lift, back for speed.</div>
+    <div><b>Three axes</b>Lateral (pitch) · longitudinal (roll) · vertical (yaw) — all through the CG.</div>
     <div><b>Ground effect</b>Extra lift, less induced drag within one wingspan of the ground.</div>
     <div><b>T-tail</b>Horizontal stabilizer mounted on top of the fin; clean air, extra weight.</div>
   </div>
@@ -531,6 +570,8 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     {q:'As airspeed increases, induced drag…',o:['increases','decreases','stays the same'],a:1,fb:'Slow flight needs a high AOA and big vortices. Speed up and induced drag falls; parasite drag rises.'},
     {q:'Ground effect happens within…',o:['one wingspan of the ground','100 ft of the ground','the runway lights'],a:0,fb:'Within about one wingspan the ground squashes the downwash, cutting induced drag — so a fast approach floats.'},
     {q:'Dihedral (wings angled up) gives the aircraft…',o:['more speed','roll stability','less weight'],a:1,fb:'The dropped wing meets the air at a higher AOA, makes more lift and rolls the aircraft level again.'},
+    {q:'A wing that can change its sweep angle in flight — folding back for speed, swinging forward for landing — is a…',o:['swept wing','swing wing','flat wing'],a:1,fb:'Swing wing: the F-14 is the classic example. A swept wing is fixed; a flat wing is about the up/down angle, not sweep.'},
+    {q:'A wing that is flat across from tip to tip, with no angle up or down, is called…',o:['dihedral','anhedral','flat wing'],a:2,fb:'Flat wing sits between the two: no dihedral roll stability, no anhedral agility — neutral.'},
     {q:'The vertical stabilizer provides stability about the…',o:['lateral axis (pitch)','longitudinal axis (roll)','vertical axis (yaw)'],a:2,fb:'Fin and rudder = directional stability = yaw about the vertical axis. Horizontal stab = pitch about the lateral axis.'},
     {q:'A T-tail\'s main advantage is…',o:['it is lighter','it sits in clean air above the wing wake and engine blast','it makes more lift'],a:1,fb:'Clean air means more predictable pitch control at low speed. The cost is a heavier, stronger fin.'},
     {q:'The boundary layer near the front of the wing is…',o:['turbulent','laminar','separated'],a:1,fb:'Laminar (smooth) at the front, then it thickens and turns turbulent after the transition point.'},
