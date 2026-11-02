@@ -242,7 +242,7 @@ sub{font-size:.7em}
         <canvas id="col" width="760" height="460"></canvas>
         <div class="hud">
           <span>ALT <b id="hAlt">0 ft</b></span>
-          <span>PRESS <b id="hP">1013 hPa</b></span>
+          <span>PRESS <b id="hP">1013 mb</b></span>
           <span>TEMP <b id="hT">15 °C</b></span>
           <span>DENSITY <b id="hD">100%</b></span>
         </div>
@@ -266,7 +266,7 @@ sub{font-size:.7em}
       <div class="units">
         <div><span class="k">psi</span><b id="uPsi">14.7</b></div>
         <div><span class="k">inHg</span><b id="uInhg">29.92</b></div>
-        <div><span class="k">hPa = mb</span><b id="uHpa">1013.2</b></div>
+        <div><span class="k">mb</span><b id="uHpa">1013.2</b></div>
         <div><span class="k">°C</span><b id="uC">15.0</b></div>
         <div><span class="k">°F</span><b id="uF">59.0</b></div>
         <div><span class="k">kg/m³</span><b id="uRho">1.225</b></div>
@@ -274,7 +274,7 @@ sub{font-size:.7em}
       <div class="axisCard" id="explain1">
         <div class="axis">
           <h3 id="ex1Title">Sea level — the standard</h3>
-          <span class="k">Pressure</span><span class="v" id="ex1P">14.7 psi = 29.92 inHg = 1013.2 hPa. Same pressure, three units. Know all three.</span>
+          <span class="k">Pressure</span><span class="v" id="ex1P">14.7 psi = 29.92 inHg = 1013.2 mb. Same pressure, three units. Know all three.</span>
           <span class="k">Why it drops</span><span class="v" id="ex1W">Pressure is the <b>weight of the air above you</b>. Climb, and there is less air overhead.</span>
           <span class="k">Density</span><span class="v" id="ex1D">Less pressure → the gas spreads out (Boyle) → fewer molecules per m³.</span>
         </div>
@@ -317,7 +317,7 @@ sub{font-size:.7em}
           <p class="law-why">Pressure down → volume up. Multiply them and you get the same number every time.</p>
         </div>
         <div class="law" id="lawC">
-          <div class="eyebrow">Charles · pressure held at 1013 hPa</div>
+          <div class="eyebrow">Charles · pressure held at 1013 mb</div>
           <div class="bal"><div class="balloon" id="balC"><span id="balCv">1.00 L</span></div></div>
           <div class="ctl"><label>Temperature <small><span id="cT">20</span> °C = <span id="cK">293</span> K</small></label><input type="range" id="cTIn" min="-40" max="60" value="20" step="1"><div class="ends"><span>Freezer −40 °C</span><span>Hot sun 60 °C</span></div></div>
           <div class="math"><span>V₁ ÷ T₁ = V₂ ÷ T₂</span><span id="mC">1.00 ÷ 293 = 1.00 ÷ 293</span></div>
@@ -356,14 +356,14 @@ sub{font-size:.7em}
     <div class="pcard" id="pB3">
       <div class="who">Partner B predicts</div>
       <label>Which of these is standard sea-level pressure?</label>
-      <div class="opts" data-q="std"><button data-v="psi">14.7 psi</button><button data-v="inhg">29.92 inHg</button><button data-v="hpa">1013.2 hPa</button><button data-v="all">all three</button></div>
+      <div class="opts" data-q="std"><button data-v="psi">14.7 psi</button><button data-v="inhg">29.92 inHg</button><button data-v="hpa">1013.2 mb</button><button data-v="all">all three</button></div>
     </div>
     <div class="lockRow"><button class="primary" id="lock3" disabled>Lock both predictions</button><span class="hint">Both must pick before the day unlocks.</span></div>
   </div>
 
   <div class="grid" id="day" hidden>
     <div class="panel">
-      <div class="eyebrow">Medicine Hat · 2,350 ft · pressure ≈ 931 hPa (standard)</div>
+      <div class="eyebrow">Medicine Hat · 2,350 ft · pressure ≈ 931 mb (standard)</div>
       <div class="ctl"><label>Outside air temperature <small><span id="dT">7</span> °C</small></label><input type="range" id="dTIn" min="-35" max="38" value="7" step="1"><div class="ends"><span>−35 °C January</span><span>standard 10 °C</span><span>+38 °C July</span></div></div>
       <div class="dayOut">
         <div><span class="k">Density</span><b id="dRho">1.11 kg/m³</b><span class="mult" id="dPct">91% of sea-level standard</span></div>
@@ -393,7 +393,7 @@ sub{font-size:.7em}
       <div class="convert">
         <div class="eyebrow">Converter — check your own numbers</div>
         <div class="cv"><label>°C <input type="number" id="cvC" value="15" step="0.5"></label><span>=</span><b id="cvF">59.0 °F</b><span>=</span><b id="cvK">288.15 K</b></div>
-        <div class="cv"><label>hPa <input type="number" id="cvH" value="1013.2" step="0.1"></label><span>=</span><b id="cvPsi">14.70 psi</b><span>=</span><b id="cvIn">29.92 inHg</b></div>
+        <div class="cv"><label>mb <input type="number" id="cvH" value="1013.2" step="0.1"></label><span>=</span><b id="cvPsi">14.70 psi</b><span>=</span><b id="cvIn">29.92 inHg</b></div>
       </div>
     </div>
   </div>
@@ -405,7 +405,7 @@ sub{font-size:.7em}
   <p>Read your three sentences out loud to another pair. If they disagree with one, settle it with the slider, not an argument.</p>
 </div>
 
-<footer>Simplified model for teaching. Column values follow the <b>International Standard Atmosphere</b> (sea level 15 °C, 1013.25 hPa, 1.225 kg/m³, lapse rate 1.98 °C per 1,000 ft up to 36,000 ft). Density altitude and the performance bars are approximations — use the aircraft's performance charts for real planning. Sources: ICAO Doc 7488 <i>Manual of the ICAO Standard Atmosphere</i>; Transport Canada <i>Aeronautical Information Manual</i> (TP 14371), MET; FAA <i>Pilot's Handbook of Aeronautical Knowledge</i> (FAA-H-8083-25C), ch. 4 and 11; SAIT ASYS 245 Module 1 Atmosphere.</footer>
+<footer>Simplified model for teaching. Column values follow the <b>International Standard Atmosphere</b> (sea level 15 °C, 1013.25 mb, 1.225 kg/m³, lapse rate 1.98 °C per 1,000 ft up to 36,000 ft). Density altitude and the performance bars are approximations — use the aircraft's performance charts for real planning. Sources: ICAO Doc 7488 <i>Manual of the ICAO Standard Atmosphere</i>; Transport Canada <i>Aeronautical Information Manual</i> (TP 14371), MET; FAA <i>Pilot's Handbook of Aeronautical Knowledge</i> (FAA-H-8083-25C), ch. 4 and 11; SAIT ASYS 245 Module 1 Atmosphere.</footer>
 </div>
 
 <script>
@@ -424,7 +424,7 @@ function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v))}
 /* ---------- ISA ---------- */
 var P0=1013.25,T0=15,RHO0=1.225,R=287.05;
 function isaT(ft){return T0-0.0019812*ft}                     /* °C, troposphere */
-function isaP(ft){return P0*Math.pow(1-6.8756e-6*ft,5.2559)}   /* hPa */
+function isaP(ft){return P0*Math.pow(1-6.8756e-6*ft,5.2559)}   /* mb */
 function rho(p,tc){return p*100/(R*(tc+273.15))}
 function psi(h){return h*0.0145038}function inhg(h){return h*0.02953}function F(c){return c*9/5+32}
 
@@ -468,7 +468,7 @@ function drawCol(){
   ctx.font='11px JetBrains Mono,monospace';ctx.fillStyle='#a9a9ad';ctx.textAlign='right';
   for(var a=0;a<=TOP;a+=5000){var y=yOf(a);ctx.fillText(fmt(a)+' ft',x0-8,y+4);ctx.strokeStyle='#2b2b2f';ctx.beginPath();ctx.moveTo(x0-4,y);ctx.lineTo(x0,y);ctx.stroke();}
   /* sea level + YXH */
-  ctx.textAlign='left';ctx.fillStyle='#6fb3e0';ctx.fillRect(x0,Y0,x1-x0+8,3);ctx.fillText('SEA LEVEL · 15 °C · 1013 hPa',x1+12,Y0+4);
+  ctx.textAlign='left';ctx.fillStyle='#6fb3e0';ctx.fillRect(x0,Y0,x1-x0+8,3);ctx.fillText('SEA LEVEL · 15 °C · 1013 mb',x1+12,Y0+4);
   var yy2=yOf(2350);ctx.strokeStyle='#d8b358';ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(x0,yy2);ctx.lineTo(x1+6,yy2);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#d8b358';ctx.fillText('YXH 2,350 ft',x1+12,yy2+4);
   /* 36,000 label */
   ctx.fillStyle='#a9a9ad';ctx.fillText('lapse rate −1.98 °C / 1,000 ft',x1+12,Y1+4);
@@ -478,18 +478,18 @@ function drawCol(){
   /* readout stack right */
   var rx=360,ry=96;
   function line(lbl,val,col){ctx.fillStyle='#a9a9ad';ctx.font='11px JetBrains Mono,monospace';ctx.fillText(lbl,rx,ry);ctx.fillStyle=col;ctx.font='600 26px Barlow Condensed,Impact,sans-serif';ctx.fillText(val,rx,ry+30);ry+=72;}
-  line('PRESSURE',fmt(p,0)+' hPa  ·  '+(p/P0*100).toFixed(0)+'% of sea level','#6fb3e0');
+  line('PRESSURE',fmt(p,0)+' mb  ·  '+(p/P0*100).toFixed(0)+'% of sea level','#6fb3e0');
   line('TEMPERATURE',t.toFixed(1)+' °C  ·  '+F(t).toFixed(0)+' °F','#e07a6f');
   line('DENSITY',d.toFixed(3)+' kg/m³  ·  '+(d/RHO0*100).toFixed(0)+'%','#8ad78a');
   /* bars */
   var by=ry-10;[['p',p/P0,'#6fb3e0'],['T',(t+56.5)/(T0+56.5),'#e07a6f'],['ρ',d/RHO0,'#8ad78a']].forEach(function(b,i){ctx.fillStyle='#1c1c1f';ctx.fillRect(rx,by+i*18,360,10);ctx.fillStyle=b[2];ctx.fillRect(rx,by+i*18,360*clamp(b[1],0,1),10);ctx.fillStyle='#a9a9ad';ctx.font='11px JetBrains Mono,monospace';ctx.fillText(b[0],rx-16,by+i*18+9);});
   ctx.fillStyle='#a9a9ad';ctx.font='11px JetBrains Mono,monospace';ctx.fillText('fraction of the sea-level value (T on the kelvin scale)',rx,by+60);
   /* hud + units */
-  $('#hAlt').textContent=fmt(ft)+' ft';$('#hP').textContent=fmt(p)+' hPa';$('#hT').textContent=t.toFixed(1)+' °C';$('#hD').textContent=(d/RHO0*100).toFixed(0)+'%';
+  $('#hAlt').textContent=fmt(ft)+' ft';$('#hP').textContent=fmt(p)+' mb';$('#hT').textContent=t.toFixed(1)+' °C';$('#hD').textContent=(d/RHO0*100).toFixed(0)+'%';
   $('#uPsi').textContent=psi(p).toFixed(2);$('#uInhg').textContent=inhg(p).toFixed(2);$('#uHpa').textContent=p.toFixed(1);$('#uC').textContent=t.toFixed(1);$('#uF').textContent=F(t).toFixed(1);$('#uRho').textContent=d.toFixed(3);
   /* explain */
-  if(ft<500){$('#ex1Title').textContent='Sea level — the standard';$('#ex1P').innerHTML='14.7 psi = 29.92 inHg = 1013.2 hPa. Same pressure, three units. Know all three.';$('#ex1W').innerHTML='Pressure is the <b>weight of the air above you</b>. Climb, and there is less air overhead.';$('#ex1D').innerHTML='Less pressure → the gas spreads out (Boyle) → fewer molecules per m³.';}
-  else if(ft<3000){$('#ex1Title').textContent='Medicine Hat — already 8% down';$('#ex1P').innerHTML='YXH sits at 2,350 ft: about '+fmt(isaP(2350))+' hPa on a standard day. Your altimeter is set to a sea-level number so the needle still reads field elevation.';$('#ex1W').innerHTML='We are never at "sea level" conditions here. Every performance chart starts with that correction.';$('#ex1D').innerHTML='Density '+(rho(isaP(2350),isaT(2350))/RHO0*100).toFixed(0)+'% of standard before the day even warms up.';}
+  if(ft<500){$('#ex1Title').textContent='Sea level — the standard';$('#ex1P').innerHTML='14.7 psi = 29.92 inHg = 1013.2 mb. Same pressure, three units. Know all three.';$('#ex1W').innerHTML='Pressure is the <b>weight of the air above you</b>. Climb, and there is less air overhead.';$('#ex1D').innerHTML='Less pressure → the gas spreads out (Boyle) → fewer molecules per m³.';}
+  else if(ft<3000){$('#ex1Title').textContent='Medicine Hat — already 8% down';$('#ex1P').innerHTML='YXH sits at 2,350 ft: about '+fmt(isaP(2350))+' mb on a standard day. Your altimeter is set to a sea-level number so the needle still reads field elevation.';$('#ex1W').innerHTML='We are never at "sea level" conditions here. Every performance chart starts with that correction.';$('#ex1D').innerHTML='Density '+(rho(isaP(2350),isaT(2350))/RHO0*100).toFixed(0)+'% of standard before the day even warms up.';}
   else if(ft<12000){$('#ex1Title').textContent='Climbing — all three fall together';$('#ex1P').innerHTML='At 10,000 ft pressure is about '+(isaP(10000)/P0*100).toFixed(0)+'% of sea level and the temperature is '+isaT(10000).toFixed(0)+' °C.';$('#ex1W').innerHTML='Pressure falls fastest near the ground because the air is densest there — most of the atmosphere’s weight is in the first few thousand feet.';$('#ex1D').innerHTML='Above about 10,000 ft a pilot needs oxygen for long periods: same % oxygen, far fewer molecules.';}
   else if(ft<20000){$('#ex1Title').textContent='18,000 ft — half the atmosphere is below you';$('#ex1P').innerHTML='Pressure ≈ '+(isaP(18000)/P0*100).toFixed(0)+'% of sea level. Half the air’s weight is underneath you.';$('#ex1W').innerHTML='Temperature keeps dropping at a steady 1.98 °C per 1,000 ft — the <b>lapse rate</b>.';$('#ex1D').innerHTML='Density is only '+(rho(isaP(18000),isaT(18000))/RHO0*100).toFixed(0)+'%. A wing needs a much higher true airspeed for the same lift.';}
   else{$('#ex1Title').textContent='Jet country';$('#ex1P').innerHTML='At 30,000 ft pressure is about '+(isaP(30000)/P0*100).toFixed(0)+'% of sea level and it is '+isaT(30000).toFixed(0)+' °C outside.';$('#ex1W').innerHTML='Thin air = less drag, so jets cruise here. True airspeed is up roughly 2% per 1,000 ft for the same indicated speed.';$('#ex1D').innerHTML='Engines need to be pressurized and the cabin pumped up — nobody breathes this unaided.';}
@@ -498,7 +498,7 @@ function drawCol(){
 }
 var st1=setupPredict(1,function(st){$('#climb').hidden=false;drawCol();
   var a=st.pFrac,b=st.t10;
-  $('#revA1').innerHTML=verdict(nm('nameA','A'),'about '+({'0.75':'¾','0.5':'½','0.25':'¼','0.1':'1/10'}[a]),a==='0.5','At 18,000 ft pressure is about <b>half</b> of sea level ('+fmt(isaP(18000))+' hPa). Half the atmosphere’s weight is below you.');
+  $('#revA1').innerHTML=verdict(nm('nameA','A'),'about '+({'0.75':'¾','0.5':'½','0.25':'¼','0.1':'1/10'}[a]),a==='0.5','At 18,000 ft pressure is about <b>half</b> of sea level ('+fmt(isaP(18000))+' mb). Half the atmosphere’s weight is below you.');
   $('#revB1').innerHTML=verdict(nm('nameB','B'),b+' °C',b==='-5','Standard day: 15 °C minus 1.98 °C per 1,000 ft → about <b>−5 °C</b> at 10,000 ft.');
   $('#reveal1').hidden=false;});
 altEl.addEventListener('input',function(){state.alt=+altEl.value;save();climbing=false;$('#altClimb').textContent='Auto climb';drawCol()});
@@ -537,7 +537,7 @@ function drawDay(){var t=+$('#dTIn').value,d=rho(PYXH,t),f=d/RSTD,da=densAlt(d);
 }
 setupPredict(3,function(st){$('#day').hidden=false;drawDay();
   $('#revA3').innerHTML=verdict(nm('nameA','A'),'density '+({up:'goes up',same:'stays the same',down:'goes down',dep:'depends on the wind'}[st.hot]),st.hot==='down','Hot air expands → density <b>goes down</b>. At +32 °C YXH behaves like an airport near '+fmt(Math.round(densAlt(rho(PYXH,32))/100)*100)+' ft.');
-  $('#revB3').innerHTML=verdict(nm('nameB','B'),({psi:'14.7 psi',inhg:'29.92 inHg',hpa:'1013.2 hPa',all:'all three'}[st.std]),st.std==='all','<b>All three</b> are the same standard pressure in different units: 14.7 psi = 29.92 inHg = 1013.2 hPa (= 1013.2 mb).');
+  $('#revB3').innerHTML=verdict(nm('nameB','B'),({psi:'14.7 psi',inhg:'29.92 inHg',hpa:'1013.2 mb',all:'all three'}[st.std]),st.std==='all','<b>All three</b> are the same standard pressure in different units: 14.7 psi = 29.92 inHg = 1013.2 mb (= 1013.2 mb).');
   $('#reveal3').hidden=false;});
 $('#dTIn').addEventListener('input',drawDay);
 $('#dayCold').addEventListener('click',function(){$('#dTIn').value=-30;drawDay()});$('#dayStd').addEventListener('click',function(){$('#dTIn').value=Math.round(TSTD);drawDay()});$('#dayHot').addEventListener('click',function(){$('#dTIn').value=32;drawDay()});
