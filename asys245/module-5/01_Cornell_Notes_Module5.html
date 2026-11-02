@@ -132,7 +132,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 <div class="bar" role="toolbar" aria-label="Study tools">
   <label><input type="checkbox" id="studyToggle"> Study mode (hide notes, recall from cues)</label>
   <div class="grow"><div class="progress" aria-hidden="true"><i id="pbar"></i></div></div>
-  <span class="meta" id="ptext">0 / 7 sections checked</span>
+  <span class="meta" id="ptext">0 / 6 sections checked</span>
   <button class="btn" id="resetBtn" type="button">Reset</button>
 </div>
 
@@ -169,11 +169,10 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li>Two ways to measure a climb: how much height you gain per <b>distance</b>, and how much per <b>time</b>.</li>
+      <li>Two definitions we use for climb performance are: height gained per <b>distance</b>, and height gained per <b>time</b>.</li>
       <li><b>Best angle of climb — V<sub>x</sub></b>: the most <b>height over the ground distance</b> covered. The steepest climb. Use it to clear an obstacle (trees, a fence) right after take-off.</li>
       <li><b>Best rate of climb — V<sub>y</sub></b>: the most <b>height in a given time</b>. The quickest way to altitude. Use it for a normal climb once obstacles are behind you.</li>
       <li>V<sub>x</sub> is a <b>slower</b> airspeed than V<sub>y</sub>: the nose is higher, so the path is steeper but the climb takes longer.</li>
-      <li>Both speeds come from the <b>POH</b> for that aircraft; they change with weight and altitude.</li>
     </ul>
     <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Two climb paths from a runway: a steeper Vx path over an obstacle and a shallower but faster Vy path">
       <line x1="20" y1="120" x2="400" y2="120" stroke="var(--dia-line)" stroke-width="2"/>
@@ -194,7 +193,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li>Airspeed is measured in <b>knots</b> (nautical miles per hour). <b>Knots × 1.852 = km/h</b>. Example: 250 kt = 463 km/h.</li>
+      <li>Airspeed can be measured in the following units: <b>knots</b> (kt — nautical miles per hour), <b>miles per hour</b> (mph) and <b>kilometres per hour</b> (km/h). <b>1 kt = 1.15 mph = 1.852 km/h.</b> Example: 250 kt = 288 mph = 463 km/h.</li>
       <li>In cruise, <b>fuel burn is proportional to brake horsepower</b>. Run the engine at <b>75% power</b> and you burn about <b>20% more fuel</b> than at <b>55%</b>.</li>
       <li>Cruise speed depends on two things: the <b>power setting</b> and the <b>altitude</b>.</li>
       <li><b>Higher altitude = thinner air = less drag</b>, so the same power pushes the aircraft faster. From the deck's chart: at 75% power the aircraft does <b>140 kt at sea level</b> and <b>150 kt at 8,000 ft</b> — 10 kt faster for the <b>same fuel burn</b>.</li>
@@ -223,7 +222,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li><b>Power required</b> = the power it takes to hold level flight at each airspeed (it follows the drag curve: high at slow speed, lowest near L/D max, high again at speed).</li>
       <li><b>Power available</b> = what the engine and propeller can actually deliver at that airspeed and altitude.</li>
       <li>Available <b>more than</b> required → the extra power goes into a <b>climb</b>. Available <b>equal to</b> required → <b>level flight</b>. Available <b>less than</b> required → a <b>descent</b>.</li>
-      <li>The <b>rate of sink</b> (or rate of climb) is <b>proportional to the gap</b> between the two curves. Pull the power back a little = a gentle descent; pull it back a lot = a steep one.</li>
+      <li>The <b>rate of sink</b> (or rate of climb) is <b>proportional to the gap</b> between the two curves. Pull the power back = a gentle sink (or descent); pull it back a lot = a steep one.</li>
       <li>Throttle to <b>idle</b> and the power-available curve drops to <b>zero</b> (it sits on the x-axis). Power required stays exactly the same — the whole gap is now sink.</li>
       <li>The <b>lowest rate of sink</b> is at the airspeed where <b>power required is lowest</b> — the bottom of the power-required curve.</li>
     </ul>
@@ -240,36 +239,12 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   </div>
 </div>
 
-<div class="row" data-sec="5">
-  <div class="cue"><h3>Region of Reversed Command</h3><p class="q">What is the "back of the power curve", and why is it dangerous?</p><span class="tag">Slower needs MORE power</span></div>
-  <div class="body">
-    <div class="reveal"><button type="button">Tap to reveal notes</button></div>
-    <ul>
-      <li>Normal flying (the <b>front</b> of the power curve): slow down and you need <b>less</b> power; speed up and you need <b>more</b>. Throttle and speed go together.</li>
-      <li>Below the speed for minimum power required you enter the <b>region of reversed command</b>, also called the <b>back of the power curve</b>. Here the rule flips: <b>slow down and you need MORE power</b>.</li>
-      <li>Why: at low speed, any <b>decrease</b> in airspeed means a higher angle of attack and a jump in <b>induced drag</b> — so total drag <b>goes up</b>. Any <b>increase</b> in airspeed lowers total drag.</li>
-      <li>The danger is on a <b>slow, dragged-in approach</b>: the aircraft sinks, the pilot pulls the nose up, speed drops, drag rises, it sinks faster. The fix is counter-intuitive — <b>add power and lower the nose</b>.</li>
-      <li>The region is entered only at <b>low airspeed</b>; keep approach speeds at or above the POH numbers and you stay out of it.</li>
-    </ul>
-    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Total drag curve split into the region of reversed command on the slow side and normal command on the fast side">
-      <g stroke="var(--dia-line)" stroke-width="1.5" fill="none"><line x1="40" y1="120" x2="400" y2="120"/><line x1="40" y1="120" x2="40" y2="15"/></g>
-      <rect x="42" y="16" width="148" height="104" fill="var(--dia-hi)" opacity=".25"/>
-      <path d="M60 30 Q130 85 190 88 Q250 90 400 40" stroke="var(--dia-line)" stroke-width="3" fill="none"/>
-      <line x1="190" y1="88" x2="190" y2="120" stroke="var(--formula)" stroke-dasharray="3 3"/>
-      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="115" y="30" font-weight="700" fill="var(--formula)">reversed command</text><text x="115" y="44" fill="var(--muted)">slower → MORE drag</text><text x="115" y="56" fill="var(--muted)">(more power to hold height)</text><text x="300" y="115" font-weight="700">normal command</text><text x="300" y="128" fill="var(--muted)" font-size="10">faster → more drag</text><text x="190" y="138" fill="var(--formula)">min drag / min power</text><text x="400" y="138" text-anchor="end" fill="var(--muted)">airspeed →</text></g>
-    </svg><p class="cap">Left of the minimum: slowing down raises drag, so you need more power to hold altitude — the "back side".</p></div>
-    <details class="more"><summary>Go deeper</summary><p>Pilots call it "behind the power curve" because the aircraft is behind where the throttle can rescue it. Picture a short-field approach flown too slowly: the aircraft is mushing along at a high angle of attack with lots of power just to stay level. If it sinks, there may be no extra power left — and pulling back only makes it worse. Bush pilots and carrier pilots live in this region on purpose, but with precise speed control and the engine's response already in hand.</p></details>
-    <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="5" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
-    <label class="check"><input type="checkbox" class="done"> Got it</label>
-  </div>
-</div>
-
 <div class="row" data-sec="6">
   <div class="cue"><h3>Glide &amp; Range: Best L/D</h3><p class="q">What is glide ratio, which speed gives the longest glide, and why can't you extend range just by carrying more fuel?</p><span class="tag">Glide ratio · L/D</span></div>
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li><b>Glide ratio</b> = horizontal distance travelled ÷ height lost. A 10:1 glide ratio means 10 m forward for every 1 m down.</li>
+      <li><b>Glide ratio</b> — the ratio of horizontal distance to vertical distance. A 10:1 glide ratio means 10 m forward for every 1 m down.</li>
       <li>The <b>lift-to-drag ratio (L/D)</b> is the same number another way. In a glide, lift is almost equal to weight and stays essentially <b>constant</b> for a given weight — so L/D only changes when <b>drag</b> changes. Least drag = best L/D = longest glide.</li>
       <li><b>Best glide speed</b> (at L/D max) gives the most <b>distance</b>. <b>Minimum sink speed</b> (a bit slower) gives the most <b>time</b> in the air. Want to reach a field? Fly best glide — slightly faster than minimum sink.</li>
       <li>Maximum glide distance is at the <b>lowest ratio of sink rate to forward speed</b>.</li>
@@ -282,7 +257,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <line x1="40" y1="40" x2="390" y2="130" stroke="var(--dia-hi)" stroke-width="3"/>
       <line x1="40" y1="40" x2="40" y2="40"/>
       <g font-size="11" fill="var(--ink)"><text x="46" y="88" fill="var(--formula)" font-weight="700">height lost = 1</text><text x="215" y="145" text-anchor="middle" font-weight="700">distance covered = 10</text><text x="215" y="70" text-anchor="middle" fill="var(--muted)">glide path at best L/D</text><text x="330" y="118" text-anchor="end" fill="var(--formula)" font-weight="700">glide ratio 10 : 1</text></g>
-    </svg><p class="cap">Glide ratio = distance ÷ height. Best glide speed (L/D max) gives the longest distance; minimum sink gives the longest time.</p></div>
+    </svg><p class="cap">Glide ratio = horizontal distance to vertical distance. Best glide speed (L/D max) gives the longest distance; minimum sink gives the longest time.</p></div>
     <details class="more"><summary>Go deeper</summary><p>The <b>Gimli Glider</b> (1983): an Air Canada 767 ran out of fuel at 41,000 ft over Manitoba after a unit-conversion mistake in fuelling. The crew flew it at best glide — a 767 manages roughly 12:1 — and dead-sticked it onto a closed runway at Gimli. Nobody died. The same L/D arithmetic on this page is what got them there, and the fuelling error is a reminder that the AME's numbers on the ground decide what the aircraft can do in the air.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="6" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
@@ -294,9 +269,14 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
-      <li><b>Airspeed</b> = the speed of the aircraft <b>through the air</b> (not over the ground). Measured in knots.</li>
+      <li><b>Airspeed</b> = the speed of the aircraft <b>through the air</b> (not over the ground).</li>
       <li>The pilot needs it because every important limit is a speed — the <b>V-speeds</b>:</li>
-      <li><b>V<sub>so</sub></b> stall speed in the landing configuration (flaps and gear down) · <b>V<sub>fe</sub></b> maximum speed with flaps extended · <b>V<sub>a</sub></b> manoeuvring speed (full control deflection is safe at or below it) · <b>V<sub>ne</sub></b> never-exceed speed (the red line) · <b>V<sub>x</sub> / V<sub>y</sub></b> best angle / best rate of climb (and the matching descent speeds).</li>
+      <li>&nbsp;&nbsp;<b>V<sub>so</sub></b> — stall speed in the landing configuration (flaps and gear down).</li>
+      <li>&nbsp;&nbsp;<b>V<sub>fe</sub></b> — maximum speed with the flaps extended.</li>
+      <li>&nbsp;&nbsp;<b>V<sub>a</sub></b> — manoeuvring speed; full control deflection is safe at or below it.</li>
+      <li>&nbsp;&nbsp;<b>V<sub>ne</sub></b> — never-exceed speed (the red line).</li>
+      <li>&nbsp;&nbsp;<b>V<sub>x</sub></b> — best angle of climb.</li>
+      <li>&nbsp;&nbsp;<b>V<sub>y</sub></b> — best rate of climb.</li>
       <li>Airspeed also feeds navigation: it is what you use to work out <b>ETE</b> (estimated time en route) and <b>ETA</b> (estimated time of arrival).</li>
       <li><b>With power</b>, in straight and level flight, the pilot sets airspeed with the <b>engine power / RPM</b>.</li>
       <li><b>With no power</b> (engine failure, or a glide), the pilot controls airspeed with <b>attitude</b> — the angle of the nose relative to the horizon. Nose down = faster; nose up = slower.</li>
@@ -309,7 +289,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <rect x="370" y="38" width="6" height="26" fill="#B3402B"/>
       <line x1="210" y1="36" x2="210" y2="66" stroke="var(--formula)" stroke-width="2"/>
       <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="30" y="32">Vso</text><text x="150" y="32">Vfe</text><text x="210" y="30" fill="var(--formula)" font-weight="700">Va</text><text x="373" y="32" fill="#B3402B" font-weight="700">Vne</text><text x="90" y="80">white = flaps OK</text><text x="210" y="80">green = normal</text><text x="320" y="80">yellow = smooth air only</text><text x="210" y="100" fill="var(--muted)">typical airspeed-indicator colour code — the POH gives the numbers</text></g>
-    </svg><p class="cap">The V-speeds are the limits a pilot flies by; an AME sees them as the markings on the airspeed indicator.</p></div>
+    </svg><p class="cap">The V-speeds are the limits a pilot flies by.</p></div>
     <details class="more"><summary>Go deeper</summary><p>Why can a glider — or an aircraft with a dead engine — still control its speed? Because gravity is now the engine. Lower the nose and the aircraft trades height for speed; raise it and speed bleeds off. That is why the first rule after an engine failure is "fly the aircraft": set the glide attitude for best glide speed before anything else. For the AME, Va matters at the hangar too — it is the speed the structure is certified to take full control deflection at.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="7" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
@@ -321,7 +301,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 
 <section class="box sum" aria-label="Summary">
   <div class="eyebrow">Summary</div>
-  <p style="margin:.5rem 0 0;max-width:70ch">Flight has three phases — climb, cruise, descent — and all of them live on the drag curve: parasite drag rises with speed, induced drag falls, and the bottom of the total-drag U is L/D max, the most efficient speed. Climb at Vx for angle (clear the obstacle) or Vy for rate (reach altitude fastest). In cruise, fuel burn follows horsepower and higher altitude buys speed for free because thinner air means less drag. Descent and sink rate come from the gap between power required and power available; below the minimum-power speed you are in the region of reversed command, where slowing down needs more power. Glide ratio and L/D are the same idea — best glide speed for distance, minimum sink for time — and range is also found at best L/D, not by carrying more fuel. Airspeed is controlled by power when you have it and by attitude when you don't, and the V-speeds are the limits.</p>
+  <p style="margin:.5rem 0 0;max-width:70ch">Flight has three phases — climb, cruise, descent — and all of them live on the drag curve: parasite drag rises with speed, induced drag falls, and the bottom of the total-drag U is L/D max, the most efficient speed. Climb at Vx for angle (clear the obstacle) or Vy for rate (reach altitude fastest). In cruise, fuel burn follows horsepower and higher altitude buys speed for free because thinner air means less drag. Descent and sink rate come from the gap between power required and power available. Glide ratio — horizontal distance to vertical distance — and L/D are the same idea — best glide speed for distance, minimum sink for time — and range is also found at best L/D, not by carrying more fuel. Airspeed is controlled by power when you have it and by attitude when you don't, and the V-speeds are the limits.</p>
 </section>
 
 <section class="box" aria-label="Key terms">
@@ -336,13 +316,12 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     <div><b>Brake horsepower</b>Engine output at the shaft; cruise fuel burn follows it.</div>
     <div><b>Power required / available</b>Power to hold level flight at a speed / power the engine can give. The gap = climb or sink.</div>
     <div><b>Rate of sink</b>Height lost per minute; proportional to the power shortfall.</div>
-    <div><b>Region of reversed command</b>Low-speed range where slowing down needs more power.</div>
-    <div><b>Glide ratio</b>Distance forward ÷ height lost.</div>
+    <div><b>Glide ratio</b>The ratio of horizontal distance to vertical distance.</div>
     <div><b>Best glide speed</b>Speed at L/D max — longest glide distance.</div>
     <div><b>Minimum sink speed</b>Slightly slower — longest time in the air.</div>
     <div><b>Range</b>Distance on the fuel aboard; best at L/D max, below normal cruise.</div>
-    <div><b>Airspeed</b>Speed through the air, in knots (× 1.852 = km/h).</div>
-    <div><b>V-speeds</b>Vso stall (landing config) · Vfe max flaps · Va manoeuvring · Vne never exceed · Vx / Vy climb.</div>
+    <div><b>Airspeed</b>Speed through the air — in knots, mph or km/h (1 kt = 1.15 mph = 1.852 km/h).</div>
+    <div><b>V-speeds</b>Vso stall (landing config) · Vfe max flaps · Va manoeuvring · Vne never exceed · Vx best angle · Vy best rate.</div>
     <div><b>Attitude</b>Nose angle to the horizon — controls airspeed when there is no power.</div>
 </div>
 </section>
@@ -382,11 +361,11 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     {q:'Compared with 55% power, cruising at 75% power burns about…',o:['the same fuel','20% more fuel','twice the fuel'],a:1,fb:'Fuel burn is proportional to brake horsepower. The deck\'s example: 75% uses about 20% more fuel than 55%.'},
     {q:'At the same 75% power, the aircraft is faster at 8,000 ft than at sea level because…',o:['the engine makes more power up high','thinner air means less drag','the propeller is more efficient'],a:1,fb:'Same power, same fuel, 10 kt faster — thinner air means less drag. The engine actually makes less power up high.'},
     {q:'An aircraft descends when…',o:['power available is less than power required','power required is less than power available','the throttle is at idle only'],a:0,fb:'Any time available is less than required the aircraft sinks, and the rate of sink is proportional to the gap. Idle just makes the gap as big as it can be.'},
-    {q:'On the back side of the power curve, slowing down means you need…',o:['less power','more power','the same power'],a:1,fb:'Region of reversed command: at low speed any decrease in airspeed raises induced drag, so holding altitude takes more power, not less.'},
+    {q:'An aircraft shows 250 kt. In miles per hour that is about…',o:['135 mph','288 mph','463 mph'],a:1,fb:'1 kt = 1.15 mph, so 250 kt ≈ 288 mph. In km/h it is 250 × 1.852 = 463 km/h.'},
     {q:'For the longest glide distance after an engine failure, fly…',o:['minimum sink speed','best glide speed (L/D max)','as slowly as possible'],a:1,fb:'Best glide gives the most distance; minimum sink (a bit slower) gives the most time. To reach a field you want distance.'},
     {q:'With the engine failed, the pilot controls airspeed by…',o:['the mixture','the flaps','the aircraft\'s attitude — nose angle to the horizon'],a:2,fb:'No power = attitude controls speed. Nose down to go faster, nose up to slow down. With power, in level flight, the throttle sets speed.'},
     {q:'The red line on an airspeed indicator marks…',o:['Vso — stall speed in the landing configuration','Vne — never-exceed speed','Vfe — maximum flap speed'],a:1,fb:'Vne is the red line. The white arc runs from Vso at the bottom to Vfe at the top; Va is not marked — it is on a placard or in the POH.'},
-    {q:'An aircraft shows 250 kt. In km/h that is about…',o:['135 km/h','250 km/h','463 km/h'],a:2,fb:'Knots × 1.852 = km/h. 250 × 1.852 = 463 km/h. (One knot is also about 1.15 mph.)'},
+    {q:'Glide ratio is the ratio of…',o:['airspeed to rate of sink','horizontal distance to vertical distance','lift to weight'],a:1,fb:'Horizontal distance to vertical distance — a 10:1 glide ratio means 10 forward for every 1 down. It is the same number as L/D at best glide speed.'},
     {q:'To stay in the air the longest time (not the farthest distance) with the engine failed, fly…',o:['minimum sink speed','best glide speed','Vne'],a:0,fb:'Minimum sink is at the bottom of the power-required curve — slightly slower than best glide. Best glide (L/D max) gives distance; minimum sink gives time.'}
   ];
   var quiz=document.getElementById('quiz'), score=document.getElementById('score'); var got={};

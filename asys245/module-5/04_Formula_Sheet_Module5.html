@@ -79,14 +79,14 @@ details[open] summary::before{content:"– "}
   <div>
     <div class="eyebrow">Reference sheet · ASYS 245 · Module 5</div>
     <h1>Phases of Flight Reference</h1>
-    <p>The numbers, the two curves, which speed to fly for what, and the V-speeds from Module 5 on one sheet — plus two quick calculators for knots and glide distance. Print it for the binder.</p>
+    <p>The numbers, the two curves, which speed to fly for what, and the V-speeds from Module 5 on one sheet — plus two quick calculators for airspeed units and glide distance. Print it for the binder.</p>
   </div>
   <div><div class="meta">SAFA · SAIT ASYS 245<br>Module 5</div><br><button class="btn" type="button" onclick="window.print()">Print</button></div>
 </header>
 
 <h3 style="margin-top:1.5rem">Numbers to remember</h3>
 <div class="ref">
-  <div><div class="l">Knots → km/h</div><div class="v">× 1.852</div><div class="s">250 kt = 463 km/h</div></div>
+  <div><div class="l">Airspeed units</div><div class="v">kt · mph · km/h</div><div class="s">1 kt = 1.15 mph = 1.852 km/h</div></div>
   <div><div class="l">Knots → mph</div><div class="v">× 1.15</div><div class="s">250 kt ≈ 288 mph</div></div>
   <div><div class="l">75% vs 55% power</div><div class="v">+20% fuel</div><div class="s">fuel burn follows horsepower</div></div>
   <div><div class="l">Same 75% power, SL → 8,000 ft</div><div class="v">140 → 150 kt</div><div class="s">thinner air, less drag</div></div>
@@ -98,7 +98,7 @@ details[open] summary::before{content:"– "}
 <table class="tbl">
   <tr><th>Curve</th><th>What is plotted</th><th>Shape</th><th>The point that matters</th></tr>
   <tr><td><b>Drag curve</b></td><td>Parasite, induced and total drag vs airspeed</td><td>Parasite rises, induced falls, total is a U</td><td>Bottom of the U = <b>L/D max</b> (parasite = induced): least drag, best glide, best range</td></tr>
-  <tr><td><b>Power curve</b></td><td>Power required and power available vs airspeed</td><td>Required is a U; available is a gentle arc</td><td>Gap between them = <b>rate of climb or sink</b>. Left of minimum power = <b>region of reversed command</b></td></tr>
+  <tr><td><b>Power curve</b></td><td>Power required and power available vs airspeed</td><td>Required is a U; available is a gentle arc</td><td>Gap between them = <b>rate of climb or sink</b></td></tr>
 </table>
 
 <h3 style="margin-top:1.75rem">Climb, cruise, descent, glide — which speed for what</h3>
@@ -128,13 +128,13 @@ details[open] summary::before{content:"– "}
 <div class="grid">
 
 <div class="fc">
-  <div class="head"><div class="k">Units</div><h2>Knots to km/h</h2></div>
-  <div class="big">km/h = kt × 1.852</div>
+  <div class="head"><div class="k">Units</div><h2>Airspeed units</h2></div>
+  <div class="big">kt × 1.852 = km/h · kt × 1.15 = mph</div>
   <div class="body">
-    <div class="vars"><b>kt</b><span>knots — nautical miles per hour</span><b>1.852</b><span>kilometres in one nautical mile</span></div>
+    <div class="vars"><b>kt</b><span>knots — nautical miles per hour</span><b>mph</b><span>statute miles per hour</span><b>km/h</b><span>kilometres per hour</span></div>
     <p class="words">A nautical mile is one minute of latitude, which is why aviation and navigation use it.</p>
-    <p class="hold">Going the other way: km/h ÷ 1.852 = knots. One knot is also about 1.15 mph.</p>
-    <details><summary>Worked example</summary><p class="ex">250 kt × 1.852 = <code>463 km/h</code>. A 100 km/h ground speed is <code>100 ÷ 1.852 = 54 kt</code>.</p></details>
+    <p class="hold">Going the other way: km/h ÷ 1.852 = knots; mph ÷ 1.15 = knots.</p>
+    <details><summary>Worked example</summary><p class="ex">250 kt × 1.852 = <code>463 km/h</code>; 250 kt × 1.15 = <code>288 mph</code>. A 100 km/h ground speed is <code>100 ÷ 1.852 = 54 kt</code>.</p></details>
     <div class="calc" data-calc="kt">
       <div class="row"><label>Knots <input type="number" id="k_kt" value="250"></label></div>
       <div class="row">= <span class="out" id="k_out">463</span> km/h · <span class="out" id="k_mph">288</span> mph</div>
@@ -145,7 +145,7 @@ details[open] summary::before{content:"– "}
   <div class="head"><div class="k">Glide</div><h2>Glide distance</h2></div>
   <div class="big">distance = height × glide ratio</div>
   <div class="body">
-    <div class="vars"><b>height</b><span>height above the ground (ft)</span><b>glide ratio</b><span>distance forward per unit of height lost (= L/D at best glide)</span></div>
+    <div class="vars"><b>height</b><span>height above the ground (ft)</span><b>glide ratio</b><span>horizontal distance to vertical distance (= L/D at best glide)</span></div>
     <p class="words">Flown at best glide speed, a 10:1 aircraft covers 10 ft forward for every 1 ft down. Any other speed — faster or slower — gives less.</p>
     <p class="hold">1 nautical mile = 6,076 ft. Wind changes the ground distance; the ratio is through the air.</p>
     <details><summary>Worked example</summary><p class="ex">5,000 ft above the ground at a 9:1 glide ratio: <code>5,000 × 9 = 45,000 ft ≈ 7.4 NM</code> in still air.</p></details>
