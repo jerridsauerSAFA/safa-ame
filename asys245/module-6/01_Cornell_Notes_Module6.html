@@ -149,14 +149,16 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li>If the boundary layer <b>separates</b> (lifts off the surface), the effective shape becomes <b>very</b> different from the real one — and the wing stops working like a wing.</li>
       <li>Keeping the boundary layer <b>attached</b> is what slots, slats, slotted flaps and vortex generators are all about (Module 4).</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Velocity profile of the boundary layer: zero speed at the surface growing to free-stream speed at the edge">
-      <rect x="20" y="110" width="380" height="14" fill="var(--dia-line)"/>
-      <path d="M60 110 Q70 70 150 30" stroke="var(--dia-hi)" stroke-width="2.5" fill="none" stroke-dasharray="4 3"/>
-      <g stroke="var(--dia-line)" stroke-width="2"><line x1="60" y1="105" x2="66" y2="105"/><line x1="60" y1="92" x2="80" y2="92"/><line x1="60" y1="78" x2="100" y2="78"/><line x1="60" y1="64" x2="118" y2="64"/><line x1="60" y1="50" x2="135" y2="50"/><line x1="60" y1="36" x2="148" y2="36"/></g>
-      <g fill="var(--dia-line)"><polygon points="66,102 72,105 66,108"/><polygon points="80,89 86,92 80,95"/><polygon points="100,75 106,78 100,81"/><polygon points="118,61 124,64 118,67"/><polygon points="135,47 141,50 135,53"/><polygon points="148,33 154,36 148,39"/></g>
-      <g stroke="var(--dia-line)" stroke-width="2"><line x1="260" y1="36" x2="340" y2="36"/><line x1="260" y1="60" x2="340" y2="60"/><line x1="260" y1="84" x2="340" y2="84"/></g><g fill="var(--dia-line)"><polygon points="340,33 346,36 340,39"/><polygon points="340,57 346,60 340,63"/><polygon points="340,81 346,84 340,87"/></g>
-      <g font-size="11" fill="var(--ink)"><text x="210" y="134" text-anchor="middle" fill="var(--muted)">surface — air speed here is zero</text><text x="160" y="24" fill="var(--formula)" font-weight="700">edge of boundary layer</text><text x="300" y="104" text-anchor="middle">free stream (full speed)</text></g>
-    </svg><p class="cap">Inside the boundary layer the speed climbs from zero at the skin to full speed at the edge. The outside flow "sees" that edge as the wing.</p></div>
+    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Side view of airflow over a flat surface: free-stream air at full speed above, a boundary layer that starts thin at the leading edge and thickens downstream, and inside it a velocity profile from zero at the surface to full speed at the edge">
+      <rect x="20" y="118" width="380" height="12" fill="var(--dia-line)"/>
+      <path d="M30 118 Q120 100 220 84 T400 66" stroke="var(--formula)" stroke-width="2.5" fill="none" stroke-dasharray="5 3"/>
+      <g stroke="var(--dia-line)" stroke-width="2"><line x1="40" y1="22" x2="110" y2="22"/><line x1="40" y1="40" x2="110" y2="40"/><line x1="170" y1="22" x2="240" y2="22"/><line x1="170" y1="40" x2="240" y2="40"/><line x1="300" y1="22" x2="370" y2="22"/><line x1="300" y1="40" x2="370" y2="40"/></g>
+      <g fill="var(--dia-line)"><polygon points="110,19 116,22 110,25"/><polygon points="110,37 116,40 110,43"/><polygon points="240,19 246,22 240,25"/><polygon points="240,37 246,40 240,43"/><polygon points="370,19 376,22 370,25"/><polygon points="370,37 376,40 370,43"/></g>
+      <g stroke="var(--dia-hi)" stroke-width="2.2"><line x1="300" y1="114" x2="306" y2="114"/><line x1="300" y1="104" x2="318" y2="104"/><line x1="300" y1="94" x2="334" y2="94"/><line x1="300" y1="84" x2="352" y2="84"/><line x1="300" y1="74" x2="366" y2="74"/></g>
+      <g fill="var(--dia-hi)"><polygon points="306,111 312,114 306,117"/><polygon points="318,101 324,104 318,107"/><polygon points="334,91 340,94 334,97"/><polygon points="352,81 358,84 352,87"/><polygon points="366,71 372,74 366,77"/></g>
+      <line x1="300" y1="70" x2="300" y2="118" stroke="var(--dia-hi)" stroke-width="1" stroke-dasharray="2 2"/>
+      <g font-size="10.5" fill="var(--ink)"><text x="40" y="14" fill="var(--muted)">FREE STREAM — full speed, every layer the same</text><text x="40" y="74" fill="var(--formula)" font-weight="700">edge of the boundary layer ↘</text><text x="210" y="144" text-anchor="middle" fill="var(--muted)">SURFACE (speed zero) · boundary layer: thin at the front, thicker downstream</text><text x="340" y="60" text-anchor="middle" font-size="9.5" fill="var(--muted)">speed profile</text></g>
+    </svg><p class="cap">Above the dashed edge the air is at full free-stream speed. Below it, inside the boundary layer, the speed drops from full speed at the edge to zero at the skin. The outside flow "sees" that edge as the wing.</p></div>
     <details class="more"><summary>Go deeper</summary><p>The boundary layer is why surface condition matters so much to an AME. Frost, dents, bad rivet lines or a rough paint repair thicken the layer and make it separate sooner — the wing stalls earlier and at a higher speed than the book says. On a small wing the boundary layer is only millimetres thick, which is why a strip of frost the thickness of sandpaper is enough to change the stall.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="1" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
@@ -172,16 +174,18 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li>Past that, the <b>boundary layer separates</b> from the top of the wing. Lift <b>drops abruptly</b> and drag jumps. That is a <b>stall</b>. A stall is about <b>angle of attack</b>, not speed — the wing can stall at any speed if the angle is high enough.</li>
       <li><b>Different wing shapes stall in different patterns</b>: a rectangular wing tends to stall at the <b>root first</b>; tapered and swept wings tend to stall at the <b>tips first</b>.</li>
       <li>The <b>desirable</b> pattern is <b>root first</b>: the tips, where the <b>ailerons</b> are, keep flying, so the pilot keeps <b>roll control</b> at high angles of attack and gets a warning (buffet) before the whole wing lets go.</li>
-      <li>A tip-first stall is nasty: one tip usually goes before the other, the aircraft rolls, and the ailerons are already in stalled air. Designers fix it with <b>washout</b> (tip set at a lower angle), <b>stall strips</b> at the root, or tip slots/slats.</li>
-      <li><b>Stall recovery</b> = reduce the angle of attack: nose down, then power, then level the wings.</li>
+      <li>A tip-first stall is nasty: one tip usually goes before the other, the aircraft rolls, and the ailerons are already in stalled air.</li>
     </ul>
-    <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Plan view of two wings: a rectangular wing stalling at the root first with the ailerons still working, and a tapered wing stalling at the tips first">
-      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><rect x="20" y="40" width="180" height="40" rx="4"/><path d="M230 40 L400 52 L400 68 L230 80 Z"/></g>
-      <g fill="var(--dia-hi)" opacity=".8"><rect x="80" y="42" width="60" height="36"/><path d="M230 42 L262 44 L262 76 L230 78 Z"/><path d="M368 50 L398 53 L398 67 L368 70 Z"/></g>
-      <g fill="none" stroke="var(--formula)" stroke-width="3"><line x1="24" y1="78" x2="70" y2="78"/><line x1="150" y1="78" x2="196" y2="78"/><line x1="232" y1="78" x2="262" y2="76"/><line x1="368" y1="69" x2="398" y2="67"/></g>
-      <g font-size="11" fill="var(--ink)" text-anchor="middle"><text x="110" y="30" font-weight="700">rectangular: root stalls first ✓</text><text x="110" y="100" fill="var(--muted)">tips and ailerons keep flying</text><text x="315" y="30" font-weight="700">tapered / swept: tips first ✗</text><text x="315" y="100" fill="var(--muted)">ailerons in stalled air, wing drops</text><text x="210" y="130" fill="var(--formula)">gold = stalled area · orange line = aileron</text></g>
+    <div class="fig"><svg viewBox="0 0 420 160" width="420" height="160" role="img" aria-label="Plan view of three right half-wings on a fuselage: rectangular wing with the stalled area at the root and the aileron still in flowing air; tapered wing and swept wing with the stalled area at the tip, over the aileron">
+      <g fill="var(--dia-line)"><rect x="10" y="46" width="14" height="66" rx="4"/><rect x="150" y="46" width="14" height="66" rx="4"/><rect x="290" y="46" width="14" height="66" rx="4"/></g>
+      <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="1.5"><rect x="24" y="50" width="110" height="40"/><path d="M164 50 L274 62 L274 78 L164 90Z"/><path d="M304 50 L414 86 L414 100 L304 90Z"/></g>
+      <g fill="var(--dia-hi)" opacity=".85"><rect x="25" y="51" width="40" height="38"/><path d="M240 58 L273 62 L273 78 L240 82Z"/><path d="M380 75 L413 86 L413 100 L380 95Z"/></g>
+      <g stroke="var(--bad)" stroke-width="3"><line x1="92" y1="90" x2="132" y2="90"/><line x1="232" y1="83" x2="272" y2="78"/><line x1="372" y1="96" x2="412" y2="100"/></g>
+      <g font-size="10.5" fill="var(--ink)" text-anchor="middle"><text x="79" y="22" font-weight="700">RECTANGULAR</text><text x="79" y="40" fill="var(--muted)">stalls at the ROOT first ✓</text><text x="219" y="22" font-weight="700">TAPERED</text><text x="219" y="40" fill="var(--muted)">stalls at the TIP first ✗</text><text x="359" y="22" font-weight="700">SWEPT</text><text x="359" y="40" fill="var(--muted)">stalls at the TIP first ✗</text></g>
+      <g font-size="10" fill="var(--ink)" text-anchor="middle"><text x="79" y="108">aileron still in flowing air</text><text x="219" y="108">aileron in stalled air</text><text x="359" y="118">aileron in stalled air</text></g>
+      <text x="210" y="148" text-anchor="middle" font-size="10" fill="var(--muted)">gold = stalled area · red = aileron · root first is the pattern designers want</text>
     </svg><p class="cap">Designers want the stall to start at the root so the ailerons keep working and the pilot gets a warning.</p></div>
-    <details class="more"><summary>Go deeper</summary><p>Why does a rectangular wing stall at the root? Its tip vortex spills around the tip and actually reduces the local angle of attack out there, so the tip is the last part to reach the critical angle. A tapered wing has a weaker tip vortex and a higher local lift coefficient near the tip, so the tip goes first. A stall strip is a small triangular strip on the root leading edge that trips the flow early on purpose — an AME replaces it in exactly the spot the manual shows, because moving it changes the stall behaviour.</p></details>
+    <details class="more"><summary>Go deeper</summary><p>Why does a rectangular wing stall at the root? Its tip vortex spills around the tip and actually reduces the local angle of attack out there, so the tip is the last part to reach the critical angle. A tapered wing has a weaker tip vortex and a higher local lift coefficient near the tip, so the tip goes first.</p></details>
     <div class="mine"><span class="lbl">Summary (connections, questions and concepts)</span><textarea data-note="2" placeholder="Jot it down: what it connects to, what you would ask, what you have seen on a real aircraft."></textarea><div class="lines"></div></div>
     <label class="check"><input type="checkbox" class="done"> Got it</label>
   </div>
@@ -196,7 +200,6 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li>As air flows back across the wing it <b>loses energy</b> in the boundary layer. As it loses energy it starts to <b>separate</b> — and separation is a stall.</li>
       <li>Each VG spins off a <b>small vortex</b>. The vortex <b>mixes the fast, high-energy air</b> from outside the boundary layer <b>down into it</b>, re-energizing the slow air near the skin.</li>
       <li>Result: the boundary layer stays attached to a <b>higher angle of attack</b> → the wing is less likely to stall, the stall speed drops, and the controls keep working longer.</li>
-      <li>Common as a bolt-on STOL kit on bush aircraft; also used ahead of ailerons and on the fin. The cost is a small amount of extra drag in cruise.</li>
     </ul>
     <div class="fig"><svg viewBox="0 0 420 140" width="420" height="140" role="img" aria-label="Side view of a wing top surface with a vortex generator fin creating a small vortex that pulls high energy air into the boundary layer">
       <path d="M20 110 Q120 60 230 70 Q330 80 400 110" stroke="var(--dia-line)" stroke-width="3" fill="var(--dia-fill)"/>
@@ -213,7 +216,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
 </div>
 
 <div class="row" data-sec="4">
-  <div class="cue"><h3>Mach Number &amp; the Speed of Sound</h3><p class="q">What is Mach number, what is critical Mach number, and why does the speed of sound change with altitude?</p><span class="tag">M = V ÷ a</span></div>
+  <div class="cue"><h3>Mach Number &amp; the Speed of Sound</h3><p class="q">What is Mach number, what is critical Mach number, and why does the speed of sound change with altitude?</p><span class="tag">Speed of sound</span></div>
   <div class="body">
     <div class="reveal"><button type="button">Tap to reveal notes</button></div>
     <ul>
@@ -268,7 +271,6 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
       <li><b>Thin wings with sharp leading edges</b>: a blunt nose pushes a <b>bow wave</b> out ahead of it (lots of drag). A sharp leading edge lets the bow wave <b>attach to the leading edge</b> and become an <b>oblique shock wave</b>.</li>
       <li>When the shocks are <b>oblique</b> (slanted), <b>all</b> the air around the wing stays supersonic and smooth — far less wave drag than a detached normal shock.</li>
       <li>Example: the <b>Lockheed F-104 Starfighter</b> — a high-altitude interceptor with tiny, razor-thin, sharp-edged wings; the first US jet fighter to fly at <b>twice the speed of sound</b>. NASA used it as a chase plane.</li>
-      <li>The trade-off: thin, swept wings make poor lift at low speed, so these aircraft need high landing speeds, big flaps or blown flaps.</li>
     </ul>
     <div class="fig"><svg viewBox="0 0 420 150" width="420" height="150" role="img" aria-label="Plan view comparing a straight wing with a swept wing and the reduced chordwise component of the airflow; plus a blunt nose with a detached bow wave versus a sharp nose with an attached oblique shock">
       <g fill="var(--dia-fill)" stroke="var(--dia-line)" stroke-width="2"><rect x="20" y="40" width="40" height="80"/><path d="M90 40 L130 40 L170 120 L130 120 Z"/></g>
@@ -348,7 +350,7 @@ details.more p{margin:.5rem 0 0;font-size:.95rem;color:var(--ink)}
     {q:'A wing stalls because…',o:['the airspeed is too low','the angle of attack is too high and the boundary layer separates','the engine loses power'],a:1,fb:'Angle, not speed, causes the stall. Past the critical angle the boundary layer separates and lift drops abruptly — at any airspeed.'},
     {q:'The speed of sound depends on…',o:['air pressure','air density','air temperature'],a:2,fb:'Only temperature. Cold air passes a pressure wave more slowly, which is why the speed of sound is lower at altitude.'},
     {q:'The transonic range is roughly…',o:['Mach 0.3 to 0.8','Mach 0.8 to 1.3','Mach 1.3 to 3.0'],a:1,fb:'From critical Mach (about 0.8) to about Mach 1.3 — mixed subsonic and supersonic flow, shock waves and a sharp rise in wave drag.'},
-    {q:'A tapered or swept wing tends to stall tip-first. A typical fix is…',o:['a bigger engine','washout or stall strips','a thicker fuselage'],a:1,fb:'Washout (twist so the tips fly at a lower angle) and stall strips (make the root stall first) move the stall inboard so the ailerons keep working.'},
+    {q:'A stall is caused by…',o:['flying too slowly','exceeding the critical angle of attack','running the engine at low power'],a:1,fb:'Angle of attack, not speed. Past the critical angle the boundary layer separates and lift drops — at any speed.'},
     {q:'A thin wing with a sharp leading edge in supersonic flight produces…',o:['a detached bow wave','an attached oblique shock','no shock wave at all'],a:1,fb:'A sharp edge lets the shock attach as a slanted (oblique) shock and all the flow stays supersonic — far less drag than the bow wave off a blunt edge.'},
     {q:'Shock stall is…',o:['a stall caused by a shock wave separating the boundary layer','a stall at very low airspeed','a stall caused by ice on the wing'],a:0,fb:'At high speed and low angle of attack the shock wave on the wing can tear the boundary layer off — buffet and a nose-down pitch with no high angle of attack.'}
   ];
