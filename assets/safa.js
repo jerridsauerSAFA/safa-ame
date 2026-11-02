@@ -27,7 +27,8 @@
       ['notes','Notes','01_Cornell_Notes_Module6.html'],['cards','Cards','03_Flashcards_Module6.html'],['sheet','Sheet','04_Formula_Sheet_Module6.html'],['lab2','Stall simulator','../module-2/05_Airfoil_Stall_Lab_Module2.html']]},
     {n:7,t:'Weight & Balance',dir:'asys245/module-7/',pages:[
       ['notes','Notes','01_Cornell_Notes_Module7.html'],['cards','Cards','03_Flashcards_Module7.html'],['sheet','Sheet','04_Formula_Sheet_Module7.html']]},
-    {n:8,t:'ATA Chapters',soon:true},
+    {n:8,t:'Airfoil Construction & Performance',soon:true},
+    {n:9,t:'ATA Chapters',soon:true},
     {n:'H',t:'Hydraulics',soon:true},
     {n:12,t:'Doors',soon:true},
     {n:13,t:'Windows',soon:true},
