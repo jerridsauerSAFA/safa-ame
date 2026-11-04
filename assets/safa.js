@@ -20,7 +20,7 @@
     {n:3,t:'Stability & Control',dir:'asys245/module-3/',pages:[
       ['notes','Notes','01_Cornell_Notes_Module3.html'],['cards','Cards','03_Flashcards_Module3.html'],['sheet','Sheet','04_Formula_Sheet_Module3.html'],['map','Map','05_Stability_Control_Map_Module3.html'],['table','Table','06_Stability_Control_Table_Module3.html'],['lab','Controls lab','09_Flight_Controls_Lab_Module3.html'],['yaw','Adverse yaw lab','07_Adverse_Yaw_Lab_Module3.html'],['yawsheet','Yaw sheet','08_Adverse_Yaw_Sheet_Module3.html']]},
     {n:4,t:'Flight Controls',dir:'asys245/module-4/',pages:[
-      ['notes','Notes','01_Cornell_Notes_Module4.html'],['cards','Cards','03_Flashcards_Module4.html'],['sheet','Sheet','04_Formula_Sheet_Module4.html'],['poster','C172 poster','05_C172_Secondary_Flight_Controls_Module4.html'],['lab3','Controls lab','../module-3/09_Flight_Controls_Lab_Module3.html']]},
+      ['notes','Notes','01_Cornell_Notes_Module4.html'],['cards','Cards','03_Flashcards_Module4.html'],['sheet','Sheet','04_Formula_Sheet_Module4.html'],['poster','C172 poster','05_C172_Secondary_Flight_Controls_Module4.html'],['model3d','3D Skyhawk','06_Skyhawk_Exploded_View_Module4.html'],['lab3','Controls lab','../module-3/09_Flight_Controls_Lab_Module3.html']]},
     {n:5,t:'Phases of Flight',dir:'asys245/module-5/',pages:[
       ['notes','Notes','01_Cornell_Notes_Module5.html'],['cards','Cards','03_Flashcards_Module5.html'],['sheet','Sheet','04_Formula_Sheet_Module5.html']]},
     {n:6,t:'Performance: Stall & High-Speed Flight',dir:'asys245/module-6/',pages:[
