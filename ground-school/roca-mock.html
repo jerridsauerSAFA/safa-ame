@@ -1,0 +1,465 @@
+<!doctype html>
+<!-- SAFA-PAGE id=roca-mock kind=mock template=build_mock@1 by=backfill date=2026-10-28 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="spp-local.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAFA Ground School – ROC-A Mock Exams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#000; --panel:#121110; --panel2:#1b1915; --line:#2e2a23; --fg:#fff; --muted:#a8a39a;
+  --gold:#d8b358; --gold-ink:#000; --good:#7fc48a; --bad:#e8836f; --warn:#f0c264;
+  --display:"Poppins","Helvetica Neue",Arial,sans-serif; --body:"Source Sans 3","Segoe UI",Arial,sans-serif;
+  color-scheme:dark;
+}
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5;margin:0}
+#scroller{height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-color:#d8b358 #1b1915;scrollbar-width:thin}
+#scroller::-webkit-scrollbar{width:10px}
+#scroller::-webkit-scrollbar-track{background:#1b1915}
+#scroller::-webkit-scrollbar-thumb{background:#d8b358;border-radius:10px;border:2px solid #1b1915}
+.wrap{max-width:900px;margin:0 auto;padding:0 16px 40px}
+button{font-family:var(--display);cursor:pointer}
+h1,h2,h3{font-family:var(--display);margin:0}
+.eyebrow{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
+.muted{color:var(--muted)}
+.btn{font-weight:700;font-size:15px;border-radius:12px;padding:12px 18px;border:1px solid var(--gold);background:var(--gold);color:var(--gold-ink)}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--gold)}
+.btn.quiet{background:var(--panel);color:var(--fg);border-color:var(--line)}
+.btn.quiet:hover{border-color:var(--gold)}
+.btn:disabled{opacity:.4;cursor:default;filter:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+/* header */
+header.top{display:flex;align-items:center;gap:14px;padding:22px 0 18px;border-bottom:1px solid var(--line);margin-bottom:24px}
+header.top img{width:62px}
+header.top h1{font-size:clamp(20px,4.6vw,28px);line-height:1.15}
+/* start */
+.rules{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 18px}
+.rule{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;min-width:0}
+.rule b{display:block;font-family:var(--display);font-weight:800;font-size:26px;color:var(--gold);line-height:1.1}
+.rule span{font-size:14px;color:var(--muted)}
+.notes{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:14px;padding:16px 18px;margin-bottom:22px}
+.notes ul{margin:8px 0 0;padding-left:18px}
+.notes li{margin:3px 0;color:#e4e0d8;font-size:15px}
+.exams{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.exam{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0;border-top:3px solid var(--gold)}
+.exam h3{font-size:20px}
+.exam .hist{font-size:14px;color:var(--muted);min-height:42px}
+.exam .hist b{color:var(--fg)}
+.exam .btn{margin-top:auto}
+.resume{background:var(--panel2);border:1px solid var(--gold);border-radius:16px;padding:16px 18px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:18px}
+/* exam bar */
+.bar{position:sticky;top:0;z-index:5;background:rgba(0,0,0,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin:0 -16px 18px;padding:10px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.timer{font-family:var(--display);font-weight:800;font-size:22px;font-variant-numeric:tabular-nums;letter-spacing:.02em;padding:4px 12px;border-radius:10px;border:1px solid var(--line);background:var(--panel)}
+.timer.warn{color:var(--warn);border-color:var(--warn)}
+.timer.crit{color:var(--bad);border-color:var(--bad)}
+.barinfo{flex:1;min-width:140px;font-size:14px;color:var(--muted)}
+.barinfo b{color:var(--fg);font-family:var(--display)}
+.prog{height:5px;background:var(--panel2);border-radius:3px;overflow:hidden;margin-top:5px}
+.prog i{display:block;height:100%;background:var(--gold);width:0}
+.alert{background:#2a1f0c;border:1px solid var(--warn);color:var(--warn);border-radius:12px;padding:10px 14px;margin-bottom:14px;font-family:var(--display);font-weight:600;font-size:14px}
+/* question */
+.qcard{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px}
+.qmeta{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.qmeta .sec{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.qnum{font-family:var(--display);font-weight:700;font-size:14px;color:var(--muted)}
+.qtext{font-size:19px;line-height:1.45;margin:0 0 18px;font-weight:600}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:grid;grid-template-columns:34px minmax(0,1fr);gap:12px;align-items:center;text-align:left;background:var(--panel2);border:1px solid var(--line);color:var(--fg);border-radius:12px;padding:12px 14px;font-family:var(--body);font-size:16px}
+.opt:hover{border-color:var(--gold)}
+.opt .l{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:14px;color:var(--muted)}
+.opt[aria-checked="true"]{border-color:var(--gold);background:#231d10}
+.opt[aria-checked="true"] .l{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.qnav{display:flex;gap:10px;justify-content:space-between;margin-top:18px;flex-wrap:wrap}
+.flag[aria-pressed="true"]{background:#2a1f0c;border-color:var(--warn);color:var(--warn)}
+.keys{font-size:13px;color:var(--muted);text-align:center;margin-top:12px}
+/* navigator */
+.navp{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:16px}
+.navsec{margin-bottom:12px}
+.navsec h4{font-family:var(--display);font-size:13px;margin:0 0 6px;color:var(--muted);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(36px,1fr));gap:5px}
+.grid button{font-size:12px;font-weight:600;height:32px;border-radius:7px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);position:relative;padding:0}
+.grid button.ans{background:#2c2614;color:var(--fg);border-color:#5a4a22}
+.grid button.cur{outline:2px solid var(--gold);outline-offset:1px;color:var(--fg)}
+.grid button.flg::after{content:"";position:absolute;top:3px;right:3px;width:6px;height:6px;border-radius:50%;background:var(--warn)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:4px;border:1px solid var(--line)}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:grid;place-items:center;z-index:20;padding:16px}
+.mbox{background:var(--panel);border:1px solid var(--gold);border-radius:18px;padding:22px;max-width:440px;width:100%}
+.mbox p{color:#e4e0d8}
+.mbox .row{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px}
+/* results */
+.score{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:16px}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;position:relative}
+.ring .in{width:120px;height:120px;border-radius:50%;background:var(--panel);display:grid;place-items:center;text-align:center}
+.ring b{font-family:var(--display);font-weight:800;font-size:36px;line-height:1}
+.ring small{display:block;color:var(--muted);font-size:12px}
+.verdict{font-family:var(--display);font-weight:800;font-size:clamp(26px,5vw,36px);line-height:1.05}
+.verdict.pass{color:var(--good)} .verdict.fail{color:var(--bad)}
+.secs{display:flex;flex-direction:column;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px}
+.srow{display:grid;grid-template-columns:150px minmax(0,1fr) 92px;gap:12px;align-items:center}
+.srow .nm{font-family:var(--display);font-weight:600;font-size:15px}
+.sbar{height:12px;background:var(--panel2);border-radius:6px;position:relative;overflow:visible}
+.sbar i{display:block;height:100%;border-radius:6px}
+.sbar::after{content:"";position:absolute;left:var(--passx,60%);top:-4px;bottom:-4px;width:2px;background:var(--fg);opacity:.6}
+.srow .pc{text-align:right;font-family:var(--display);font-weight:700}
+.srow .pc small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
+.review{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px}
+.review ol{margin:12px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.review li{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:12px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.review li .c{font-family:var(--display);font-weight:800;color:var(--gold);font-size:20px}
+.review li .t{font-family:var(--display);font-weight:600;font-size:15px}
+.review li .u{font-size:13px;color:var(--muted)}
+.review li .n{font-family:var(--display);font-weight:700;font-size:13px;color:var(--bad);white-space:nowrap}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+.tabs button{font-weight:600;font-size:13px;background:var(--panel);color:#e4e0d8;border:1px solid var(--line);border-radius:999px;padding:7px 13px}
+.tabs button[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.ans{display:flex;flex-direction:column;gap:12px}
+.aitem{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:14px;padding:16px}
+.aitem.ok{border-left-color:var(--good)}
+.aitem .q{font-weight:600;margin:4px 0 10px}
+.aitem .line{font-size:15px;margin:3px 0}
+.aitem .line b{font-family:var(--display);font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-right:6px}
+.aitem .yours b{color:var(--bad)} .aitem .right b{color:var(--good)}
+.aitem .why{margin-top:8px;color:#d8d4cc;font-size:15px;background:var(--panel2);border-radius:10px;padding:8px 12px}
+.aitem .ref{margin-top:8px;font-size:13px;color:var(--gold);font-family:var(--display);font-weight:600}
+.resbtns{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 20px}
+footer{display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:24px;text-align:center}
+footer img{width:60px} footer .tag{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.32em;color:var(--gold)}
+@media (max-width:760px){
+  .rules{grid-template-columns:1fr 1fr}
+  .exams{grid-template-columns:1fr}
+  .score{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .srow{grid-template-columns:minmax(0,1fr) 80px}
+  .srow .sbar{grid-column:1 / -1;grid-row:2}
+  .review li{grid-template-columns:52px minmax(0,1fr)}
+  .review li .n{grid-column:2}
+  .qtext{font-size:17px}
+  .qcard{padding:16px}
+}
+</style>
+<link rel="stylesheet" href="spp-local.css">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div id="scroller">
+<div class="wrap">
+
+<!-- START -->
+<section id="start">
+  <header class="top"><img src="data:image/png;base64,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" alt="SAFA"><div><div class="eyebrow">Student Pilot Permit · ROC-A</div><h1>ROC-A Mock Exams</h1></div></header>
+  <div id="resumeBox" class="resume" hidden><div><b id="resumeTxt" style="font-family:var(--display)"></b><div class="muted" style="font-size:14px">Your answers and remaining time were saved.</div></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="resumeBtn">Resume</button><button class="btn quiet" id="discardBtn">Discard</button></div></div>
+  <div class="rules" id="rules"></div>
+  <div class="notes"><b style="font-family:var(--display)">Write it like the real thing</b><ul><li>Questions from all of RIC-21: <b>radio rules and equipment, operating procedures, and emergencies</b>.</li><li>Closed book: no notes. The real ROC-A may also have <b>practical and oral</b> parts, so use the <b>Oral Trainer</b> too.</li><li>No feedback until you submit. Flag questions to come back to; jump around with the question map.</li><li>You get your score, section results, feedback on every miss, and the lessons to review.</li></ul></div>
+  <div class="exams" id="examCards"></div>
+</section>
+
+<!-- EXAM -->
+<section id="exam" hidden>
+  <div class="bar">
+    <span class="timer" id="timer" role="timer" aria-live="off">0:00:00</span>
+    <div class="barinfo"><b id="answered">0</b> of <span id="qTotal">0</span> answered · <span id="flagCount">0</span> flagged<div class="prog"><i id="progBar"></i></div></div>
+    <button class="btn quiet" id="mapBtn" aria-expanded="false">Question map</button>
+    <button class="btn" id="submitBtn">Submit</button>
+  </div>
+  <div class="alert" id="timeAlert" hidden></div>
+  <div class="qcard">
+    <div class="qmeta"><span class="sec" id="qSec"></span><span class="qnum" id="qNum"></span></div>
+    <p class="qtext" id="qText"></p>
+    <div class="opts" id="opts" role="radiogroup"></div>
+    <div class="qnav">
+      <button class="btn quiet" id="prevBtn">← Previous</button>
+      <button class="btn quiet flag" id="flagBtn" aria-pressed="false">⚑ Flag for review</button>
+      <button class="btn" id="nextBtn">Next →</button>
+    </div>
+    <div class="keys">Keyboard: A–D to answer · ← → to move · F to flag</div>
+  </div>
+  <div class="navp" id="navPanel" hidden>
+    <div id="navGrid"></div>
+    <div class="legend"><span><i style="background:#2c2614;border-color:#5a4a22"></i>Answered</span><span><i></i>Not answered</span><span><i style="background:var(--warn);border-radius:50%;width:8px;height:8px;border:0"></i>Flagged</span></div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results" hidden>
+  <header class="top"><img src="data:image/png;base64,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" alt="SAFA"><div><div class="eyebrow" id="resEyebrow">Mock Written Exam</div><h1>Your results</h1></div></header>
+  <div class="score">
+    <div class="ring" id="ring"><div class="in"><div><b id="pct">0%</b><small id="raw">0 / 100</small></div></div></div>
+    <div><div class="verdict" id="verdict"></div><p id="verdictTxt" style="margin:8px 0 0;color:#d8d4cc"></p><p class="muted" id="timeUsed" style="margin:6px 0 0;font-size:14px"></p></div>
+  </div>
+  <div class="secs" id="secs"><h2 style="font-size:20px">By section <span class="muted" style="font-size:14px;font-weight:500" id="secNote"></span></h2></div>
+  <div class="review" id="reviewBox"><h2 style="font-size:20px">What to review</h2><p class="muted" style="margin:4px 0 0">The lessons where you missed the most questions. Go back to their Cornell notes and flashcards.</p><ol id="reviewList"></ol></div>
+  <div class="resbtns"><button class="btn" id="retakeBtn">Retake this exam</button><button class="btn quiet" id="homeBtn">Choose another exam</button></div>
+  <h2 style="font-size:20px">Question feedback</h2>
+  <div class="tabs" id="ansTabs"><button data-f="missed" aria-pressed="true">Missed</button><button data-f="flagged" aria-pressed="false">Flagged</button><button data-f="all" aria-pressed="false">All questions</button></div>
+  <div class="ans" id="ansList"></div>
+</section>
+
+<footer><img src="data:image/png;base64,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" alt=""><div class="tag">LEARN. FLY. BUILD. LEAD.</div><p class="muted" style="font-size:13px;margin:0">Practice exams written to the ROC-A format, with original questions. Progress is saved on this device.</p></footer>
+</div>
+</div>
+
+<div class="modal" id="modal" hidden><div class="mbox" role="dialog" aria-modal="true" aria-labelledby="mTitle"><h2 id="mTitle" style="font-size:20px">Submit your exam?</h2><p id="mBody"></p><div class="row"><button class="btn quiet" id="mCancel">Keep working</button><button class="btn" id="mOk">Submit exam</button></div></div></div>
+
+<script>
+const EXAMS = [{"name": "ROC-A Mock Exam 1", "questions": [{"s": "Regulations & equipment", "r": "R1.1", "q": "A student pilot wants to use the aircraft radio. Which certificate does she need?", "o": ["The ROC-A", "A station licence", "A PSTAR pass", "A medical certificate"], "f": "The ROC-A is the operator certificate for aeronautical radio (TC AIM COM 1.2).", "c": 0}, {"s": "Regulations & equipment", "r": "R1.1", "q": "Two messages are waiting: a weather update and a report that a runway is closed. Which is sent first?", "o": ["The weather update (meteorological)", "They are equal, so send them together", "Whichever message came in first", "The runway closure (flight safety)"], "f": "Flight safety (4) ranks above meteorological (5).", "c": 3}, {"s": "Regulations & equipment", "r": "R1.1", "q": "You overhear a private radio conversation about a passenger's business trip. You may:", "o": ["Not repeat it, or even say it happened", "Post it online if you leave out names", "Tell only your close friends", "Repeat it once 24 hours have passed"], "f": "RIC-21 §4.2 privacy of communications.", "c": 0}, {"s": "Regulations & equipment", "r": "R1.1", "q": "You call another aircraft on an air-to-air frequency. Who controls the conversation?", "o": ["The aircraft you called", "You, because you called first", "The heavier aircraft", "The nearest flight service station"], "f": "RIC-21 §4.3.", "c": 0}, {"s": "Regulations & equipment", "r": "R1.2", "q": "The radio fuse blows again right after you replace it. The best next step is to:", "o": ["Find and fix the fault first", "Fit a higher-rated fuse", "Keep replacing fuses until one holds", "Bypass the fuse with a piece of wire"], "f": "RIC-21 App. C.", "c": 0}, {"s": "Regulations & equipment", "r": "R1.2", "q": "A station licence usually specifies:", "o": ["The operator's date of birth", "The call sign and frequencies", "The aircraft's paint colours", "The pilot's flying hours and ratings"], "f": "RIC-21 App. D.", "c": 1}, {"s": "Operating procedures", "r": "R2.1", "q": "Spell C-FKLM on the radio:", "o": ["Charlie Foxtrot Keylow Lima Mike", "Charlie Foxtrot Kilo London Mike", "Charlie Fox Kilo Lima Mike", "Charlie Foxtrot Kilo Lima Mike"], "f": "ITU phonetic alphabet (RIC-21 §5.3).", "c": 3}, {"s": "Operating procedures", "r": "R2.1", "q": "How is 118.3 spoken?", "o": ["One hundred eighteen decimal three", "One eighteen point three", "One one eight point three", "One one eight decimal three"], "f": "Digit by digit, \"decimal\" for the dot (RIC-21 §5.4).", "c": 3}, {"s": "Operating procedures", "r": "R2.1", "q": "How is an altitude of 6,500 feet spoken?", "o": ["Six five zero zero", "Six point five thousand", "Sixty-five hundred", "Six thousand five hundred"], "f": "Altitudes: thousands plus hundreds (RIC-21 §5.4).", "c": 3}, {"s": "Operating procedures", "r": "R2.1", "q": "It is 1530 Alberta Time. The time in UTC is:", "o": ["2130Z", "0930Z", "2230Z", "1530Z"], "f": "Alberta Time = UTC−6: add 6 hours.", "c": 0}, {"s": "Operating procedures", "r": "R2.2", "q": "Which phrase should replace \"Repeat that\"?", "o": ["Say again", "Come again", "Repeat, over", "Again please"], "f": "RIC-21 §5.5 lists \"repeat\" as slang.", "c": 0}, {"s": "Operating procedures", "r": "R2.2", "q": "Which reply means \"I received all of your last transmission\"?", "o": ["Roger", "Wilco", "Affirm", "Over"], "f": "RIC-21 App. B.", "c": 0}, {"s": "Operating procedures", "r": "R2.2", "q": "The correct order of an initial call is:", "o": ["THIS IS, station called, frequency, your call sign", "Frequency, your call sign, station called, OUT", "Station called, THIS IS, your call sign, frequency, OVER", "Your call sign, THIS IS, station called, frequency, OVER AND OUT"], "f": "RIC-21 §5.7.1.", "c": 2}, {"s": "Operating procedures", "r": "R2.2", "q": "A Cessna 172 registered C-GXYZ uses the call sign:", "o": ["X-ray Yankee", "Cessna Charlie Golf X-ray Yankee", "Cessna one seven two Charlie", "Cessna Golf X-ray Yankee Zulu"], "f": "Type + last four letters (RIC-21 §5.6.2).", "c": 3}, {"s": "Operating procedures", "r": "R2.3", "q": "Readability 4 means:", "o": ["Excellent (perfectly readable)", "Poor (readable now and then)", "Good (readable)", "Fair (readable but with difficulty)"], "f": "RIC-21 §5.7.5.", "c": 2}, {"s": "Operating procedures", "r": "R2.3", "q": "At an uncontrolled aerodrome, your first arrival report is made:", "o": ["Over the field, before joining the circuit", "One minute before you enter the MF area", "At least 5 minutes before entering the MF area", "When you join the downwind leg of the circuit"], "f": "CARs 602.101(a).", "c": 2}, {"s": "Operating procedures", "r": "R2.3", "q": "Which instruction MUST be read back under the CARs from 19 Nov 2026?", "o": ["\"Squawk two three four five\"", "\"Wind two seven zero at eight\"", "\"Traffic, a Piper two miles east\"", "\"Report three miles final\""], "f": "Transponder codes are on the CARs 602.31 list.", "c": 0}, {"s": "Operating procedures", "r": "R2.3", "q": "Unless the CFS says otherwise, circuits are flown with turns to the:", "o": ["Upwind side", "Right", "Left", "Side with the windsock"], "f": "CARs 602.96(3)(c).", "c": 2}, {"s": "Emergency communications", "r": "R3.1", "q": "A MAYDAY is used when an aircraft is:", "o": ["Lost but safe, with plenty of fuel and good weather", "In grave or imminent danger and needs immediate help", "Running late and needing a new arrival time", "Asking for a weather update on the way"], "f": "RIC-21 §6.1.", "c": 1}, {"s": "Emergency communications", "r": "R3.1", "q": "Your MAYDAY on the tower frequency gets no answer. You should:", "o": ["Wait 10 minutes, then call the tower again", "Turn the radio off to save battery power", "Repeat it on 121.5 MHz or another frequency", "Keep calling on the tower frequency only"], "f": "RIC-21 §6.3.", "c": 2}, {"s": "Emergency communications", "r": "R3.1", "q": "In the MAYDAY message, which comes right after your intentions?", "o": ["What has happened", "MAYDAY RELAY", "Persons on board", "Your position"], "f": "RIC-21 §6.8.", "c": 3}, {"s": "Emergency communications", "r": "R3.1", "q": "You hear another station's MAYDAY. Your first action is to:", "o": ["Change to another frequency", "Call them to ask what happened", "Stop transmitting and listen", "Do a radio check on 121.5"], "f": "RIC-21 §6.5.", "c": 2}, {"s": "Emergency communications", "r": "R3.1", "q": "\"SEELONCE MAYDAY\" is used by:", "o": ["Only ATC units, never an aircraft", "The station in distress or in control", "Only the nearest airport", "Any station that wants the frequency quiet"], "f": "RIC-21 §6.17.", "c": 1}, {"s": "Emergency communications", "r": "R3.2", "q": "Which situation calls for PAN PAN?", "o": ["Thick smoke filling the cockpit, hard to breathe", "Struck by lightning, engine stopped, about to ditch", "Unsure of position, fuel and weather fine, want a radar check", "Engine fire that will not go out, losing height"], "f": "RIC-21 §7 example.", "c": 2}, {"s": "Emergency communications", "r": "R3.2", "q": "Urgency messages have priority over:", "o": ["Nothing; all calls are equal", "Only weather and routine messages", "All communications including distress", "All communications except distress"], "f": "RIC-21 §7.2.", "c": 3}]}, {"name": "ROC-A Mock Exam 2", "questions": [{"s": "Regulations & equipment", "r": "R1.1", "q": "How long is a ROC-A valid?", "o": ["For life", "Five years", "Until your first licence", "Two years"], "f": "RIC-21 §1.", "c": 0}, {"s": "Regulations & equipment", "r": "R1.1", "q": "Which has the highest priority?", "o": ["Radio direction-finding", "Flight safety", "Urgency", "Weather"], "f": "Distress 1, urgency 2, direction-finding 3.", "c": 2}, {"s": "Regulations & equipment", "r": "R1.1", "q": "Which radio message may be passed on to others?", "o": ["An air-to-air conversation between pilots", "A message addressed to ALL STATIONS", "A fuel order sent to a ground station", "A pilot's chat with a dispatcher"], "f": "RIC-21 §4.2 exceptions.", "c": 1}, {"s": "Regulations & equipment", "r": "R1.1", "q": "When may you transmit over another station?", "o": ["To send a higher-priority call", "Never, not even for a distress call", "When you are in a hurry to land", "When your radio is louder than theirs"], "f": "RIC-21 §4.4.", "c": 0}, {"s": "Regulations & equipment", "r": "R1.2", "q": "A wire broken inside its insulation is called:", "o": ["A short", "An open", "A feedback", "A ground"], "f": "RIC-21 App. C.", "c": 1}, {"s": "Regulations & equipment", "r": "R1.2", "q": "The band 108.1–117.975 MHz is used for:", "o": ["Aeronautical radio navigation", "Emergency and distress calls", "Company operational control", "General aviation communications"], "f": "RIC-21 App. E.", "c": 0}, {"s": "Operating procedures", "r": "R2.1", "q": "\"Juliett Echo Tango\" spells:", "o": ["JET", "JEB", "GET", "JEST"], "f": "J-E-T.", "c": 0}, {"s": "Operating procedures", "r": "R2.1", "q": "How is 10,000 feet spoken?", "o": ["One zero thousand", "One zero zero zero zero", "Ten zero zero zero", "Ten thousand"], "f": "Whole thousands: each digit, then \"thousand\" (RIC-21 §5.4).", "c": 0}, {"s": "Operating procedures", "r": "R2.1", "q": "A heading of 045 is spoken:", "o": ["Heading zero forty-five", "Heading four five", "Heading zero four five", "Heading forty-five"], "f": "Headings are always three digits.", "c": 2}, {"s": "Operating procedures", "r": "R2.1", "q": "Why should your speed of speech stay constant?", "o": ["It is required for the transponder to work", "The listener may have to write it down", "It saves fuel on long flights", "It keeps the radio from overheating"], "f": "RIC-21 §5.1.", "c": 1}, {"s": "Operating procedures", "r": "R2.2", "q": "What does WILCO mean?", "o": ["Received, understood and will comply", "I have received all of your message", "Yes, what you said is correct", "Please wait; I will call you back"], "f": "RIC-21 App. B.", "c": 0}, {"s": "Operating procedures", "r": "R2.2", "q": "Which word ends a conversation when no reply is expected?", "o": ["OVER AND OUT", "OUT", "ROGER", "OVER"], "f": "RIC-21 App. B; \"over and out\" is slang.", "c": 1}, {"s": "Operating procedures", "r": "R2.2", "q": "A station calls you but you can't tell who it is. You say:", "o": ["\"Who's calling [your call sign]? Repeat, over\"", "\"Station calling [your call sign], say again, over\"", "Nothing until they call you a second time", "\"[Your call sign] here, go ahead with your message, out\""], "f": "RIC-21 §5.7.2.", "c": 1}, {"s": "Operating procedures", "r": "R2.2", "q": "After first contact you may usually leave out:", "o": ["\"THIS IS\" and \"OVER\"", "The frequency in emergencies", "Your call sign forever", "Phonetics"], "f": "RIC-21 §5.7.4.", "c": 0}, {"s": "Operating procedures", "r": "R2.3", "q": "A radio check should take no longer than:", "o": ["One minute", "Thirty seconds", "Five minutes", "Ten seconds"], "f": "RIC-21 §5.7.5.", "c": 3}, {"s": "Operating procedures", "r": "R2.3", "q": "You can understand a station only now and then. Their readability is:", "o": ["1", "4", "3", "2"], "f": "Poor (readable now and then).", "c": 3}, {"s": "Operating procedures", "r": "R2.3", "q": "At an uncontrolled aerodrome, \"MF\" stands for:", "o": ["Multicom frequency", "Mandatory frequency", "Monitoring frequency", "Main frequency"], "f": "CARs 602.97.", "c": 1}, {"s": "Operating procedures", "r": "R2.3", "q": "In a readback, where does your call sign go?", "o": ["It is left out", "At the end", "At the start only", "Both start and end, twice"], "f": "TC AC 602-008 examples.", "c": 1}, {"s": "Emergency communications", "r": "R3.1", "q": "How many times is the call sign spoken in the distress call?", "o": ["Three times", "Once only", "As many times as needed", "Twice only"], "f": "RIC-21 §6.7.", "c": 0}, {"s": "Emergency communications", "r": "R3.1", "q": "Which is the correct order in a MAYDAY message?", "o": ["What happened, intentions, position, persons on board", "Persons on board, what happened, position, intentions", "Intentions, position, what happened, persons on board", "Position, persons on board, what happened, intentions"], "f": "RIC-21 §6.8.", "c": 0}, {"s": "Emergency communications", "r": "R3.1", "q": "You relay another aircraft's MAYDAY. You start with:", "o": ["PAN PAN RELAY, three times", "RELAY MAYDAY, twice", "MAYDAY, three times", "MAYDAY RELAY, three times"], "f": "RIC-21 §6.16.", "c": 3}, {"s": "Emergency communications", "r": "R3.1", "q": "An acknowledgment of a MAYDAY ends with:", "o": ["SEELONCE FEENEE", "SEELONCE DISTRESS", "RECEIVED MAYDAY", "ROGER, OUT"], "f": "RIC-21 §6.14.", "c": 2}, {"s": "Emergency communications", "r": "R3.1", "q": "What does SEELONCE FEENEE announce?", "o": ["Distress over; normal working may resume", "Silence is imposed on the frequency", "The radio has failed; switch frequency", "A new MAYDAY is in progress nearby"], "f": "RIC-21 App. B, §6.18.", "c": 0}, {"s": "Emergency communications", "r": "R3.2", "q": "After PAN PAN ×3 in an urgency message comes:", "o": ["Your position, altitude and heading", "The nature of the urgency condition", "THIS IS and your call sign ×3", "Station addressed or ALL STATIONS ×3"], "f": "RIC-21 §7.4.", "c": 3}, {"s": "Emergency communications", "r": "R3.2", "q": "An urgency message is cancelled:", "o": ["Only by ATC, once the aircraft has landed safely", "Never; it lapses on its own when you land", "To the control tower only, after 24 hours have passed", "To ALL STATIONS, as soon as action is no longer needed"], "f": "RIC-21 §7.5.", "c": 3}]}, {"name": "ROC-A Mock Exam 3", "questions": [{"s": "Regulations & equipment", "r": "R1.1", "q": "What does the \"A\" in ROC-A stand for?", "o": ["Aeronautical", "Amateur", "Air traffic", "Aviation-advanced"], "f": "ROC-A = Restricted Operator Certificate with Aeronautical Qualification (RIC-21 title; TC AIM COM 1.2).", "c": 0}, {"s": "Regulations & equipment", "r": "R1.1", "q": "Put these messages in priority order, highest first: flight safety, distress, urgency.", "o": ["Distress, urgency, flight safety", "Urgency, distress, flight safety", "Flight safety, distress, urgency", "Distress, flight safety, urgency"], "f": "RIC-21 §4.1: 1 distress, 2 urgency, 3 direction-finding, 4 flight safety.", "c": 0}, {"s": "Regulations & equipment", "r": "R1.1", "q": "Which of these radio messages may you tell other people about?", "o": ["A company message about a passenger's luggage", "A pilot's request to flight service for a fuel quote", "An urgency call another pilot made", "A pilot's call to the tower about parking"], "f": "RIC-21 §4.2: distress, urgency and safety messages, and messages to ALL STATIONS, are not private.", "c": 2}, {"s": "Regulations & equipment", "r": "R1.1", "q": "An aircraft is talking to a ground station. Who controls the communication?", "o": ["The aircraft, because it called first", "Whichever station has the stronger signal", "The ground station", "The pilot with the most flying hours"], "f": "RIC-21 §4.3: the ground station controls air-to-ground communication (when, what frequency, how long).", "c": 2}, {"s": "Regulations & equipment", "r": "R1.2", "q": "What is 121.5 MHz?", "o": ["The en-route frequency between aerodromes", "The usual ATF where there is no UNICOM", "The aeronautical emergency frequency", "The frequency for radio checks"], "f": "TC AIM COM 1.4.2: 121.5 MHz is the emergency frequency. The usual ATF is 123.2 (RAC 4.5); 126.7 is monitored en route (RAC 5.1).", "c": 2}, {"s": "Regulations & equipment", "r": "R1.2", "q": "An \"aeronautical station\" is:", "o": ["A radio station on board an aircraft", "A radio station on the ground", "A hand-held radio in an airport vehicle", "Any radio used by a ROC-A holder"], "f": "RIC-21 App. A: an aeronautical station is a land station; an aircraft station is on board an aircraft.", "c": 1}, {"s": "Operating procedures", "r": "R2.1", "q": "How is the digit 3 spoken on the radio?", "o": ["TRAY", "TER-EE", "TREE", "THREE"], "f": "RIC-21 §5.3: 3 = TREE (also FIFE for 5 and NIN-er for 9).", "c": 2}, {"s": "Operating procedures", "r": "R2.1", "q": "How is flight level 265 spoken?", "o": ["Two six five hundred feet", "Flight level two hundred sixty-five", "Flight level two sixty-five", "Flight level two six five"], "f": "RIC-21 §5.4: flight levels are spoken as separate digits.", "c": 3}, {"s": "Operating procedures", "r": "R2.1", "q": "Which pair shows the correct radio spellings?", "o": ["Alfa and Juliett", "Alpha and Juliet", "Alpha and Juliett", "Alfa and Juliet"], "f": "ITU phonetic alphabet (RIC-21 §5.3): Alfa with an F, Juliett with two Ts.", "c": 0}, {"s": "Operating procedures", "r": "R2.1", "q": "It is 2030 Alberta Time. What is the time in UTC?", "o": ["0230Z the next day", "2630Z the same day", "1430Z the same day", "0330Z the next day"], "f": "Alberta Time is UTC-6 year-round from 1 Nov 2026 (alberta.ca): add 6 hours. 2030 + 6 h = 0230Z the next day.", "c": 0}, {"s": "Operating procedures", "r": "R2.2", "q": "Which procedure word means \"yes\"?", "o": ["ROGER", "CHECK", "WILCO", "AFFIRM"], "f": "RIC-21 App. B: AFFIRM = yes. ROGER = received; WILCO = will comply.", "c": 3}, {"s": "Operating procedures", "r": "R2.2", "q": "You make a mistake in the middle of a message. You say:", "o": ["BREAK, then carry on with the next part of the message", "CORRECTION, the last correct word, then the fix", "NEGATIVE, then start the whole call again from the top", "I SAY AGAIN, then the right version of the whole message"], "f": "RIC-21 §5.7.3 and App. B: \"over Ottawa at two seven, correction, two eight\".", "c": 1}, {"s": "Operating procedures", "r": "R2.2", "q": "Which of these is NOT acceptable on the radio?", "o": ["SAY AGAIN ALL AFTER", "OVER AND OUT", "WORDS TWICE", "OUT"], "f": "RIC-21 lists \"over and out\" as slang: OVER expects a reply and OUT does not, so pick one. SAY AGAIN ALL AFTER and WORDS TWICE are standard (RIC-21 §5.5, §5.7.3, App. B).", "c": 1}, {"s": "Operating procedures", "r": "R2.2", "q": "You are Cessna Golf Sierra Alfa Foxtrot. When may you call yourself \"Sierra Alfa Foxtrot\"?", "o": ["After ATS has used the short form with you", "On your very first call to the tower", "Only when you are above 5,000 feet", "Whenever the frequency is very busy with traffic"], "f": "Use the full call sign on first contact. Shorten it only after ATS does (NAV CANADA VFR Phraseology).", "c": 0}, {"s": "Operating procedures", "r": "R2.3", "q": "On the readability scale, 3 means:", "o": ["Perfectly readable", "Readable but with difficulty", "Readable now and then, but not all the time", "Unreadable"], "f": "RIC-21 §5.7.5: 1 bad, 2 poor (now and then), 3 fair (with difficulty), 4 good, 5 excellent.", "c": 1}, {"s": "Operating procedures", "r": "R2.3", "q": "Where do you find an aerodrome's MF or ATF frequency, distance and altitude?", "o": ["In RIC-21 Appendix E", "On the aircraft's station licence", "In the Canada Flight Supplement", "In the aircraft's flight manual"], "f": "Each MF and ATF is listed in the CFS (TC AIM RAC 4.5).", "c": 2}, {"s": "Operating procedures", "r": "R2.3", "q": "You heard the runway and altimeter on ATIS. Which item must you always read back to ATC?", "o": ["The runway in use, as given on the ATIS", "The altimeter setting, even though it came from ATIS", "The surface wind, as given on the ATIS", "A hold-short instruction for a runway"], "f": "CAR 602.31(1)(c), in force 19 Nov 2026 (TC AC 602-008): hold short is always read back; runway, altimeter and squawk only if not from ATIS.", "c": 3}, {"s": "Operating procedures", "r": "R2.3", "q": "Departing an uncontrolled aerodrome in an MF area, when do you first report your intentions?", "o": ["After lining up on the runway", "Before taxiing onto the manoeuvring area", "Only if another aircraft is in the circuit", "Only once you are airborne"], "f": "CARs 602.99 and 602.100(a): report before entering the manoeuvring area, then before moving onto the runway.", "c": 1}, {"s": "Emergency communications", "r": "R3.1", "q": "A MAYDAY is sent only on the authority of:", "o": ["Any passenger on board", "The pilot-in-command", "The nearest ATC unit", "The aircraft's owner"], "f": "RIC-21 §6.7: a distress call is sent only on the authority of the person in command.", "c": 1}, {"s": "Emergency communications", "r": "R3.1", "q": "You hear a MAYDAY call. When may you acknowledge it?", "o": ["As soon as you hear the first word, MAYDAY", "Only after three minutes of silence", "Never; only ground stations acknowledge", "After the distress message has been sent"], "f": "RIC-21 §6.7: acknowledgment is not given before the distress message is sent.", "c": 3}, {"s": "Emergency communications", "r": "R3.1", "q": "An aircraft in distress can no longer transmit. A station that heard it should send:", "o": ["Nothing until the aircraft calls again", "SEELONCE FEENEE", "A PAN PAN for that aircraft", "A MAYDAY RELAY"], "f": "RIC-21 §6.11 (when) and §6.16 (format): relay when the aircraft in distress cannot transmit, more help is needed, or no one acknowledged.", "c": 3}, {"s": "Emergency communications", "r": "R3.1", "q": "After your MAYDAY message, what should you also do, if you have one and it makes sense?", "o": ["Turn on the ELT", "Switch to a company frequency to report it", "Address your next call only to the nearest tower", "Wait silently until a station calls you back"], "f": "RIC-21 §6: send the message, listen, use the emergency locator transmitter (ELT), and repeat if unanswered.", "c": 0}, {"s": "Emergency communications", "r": "R3.1", "q": "A nearby station, not in control of the distress traffic, must impose silence. It uses:", "o": ["MAYDAY RELAY", "SEELONCE FEENEE", "SEELONCE MAYDAY", "SEELONCE DISTRESS"], "f": "RIC-21 §6.17: SEELONCE MAYDAY is for the station in distress or in control; another station uses SEELONCE DISTRESS, only if essential.", "c": 3}, {"s": "Emergency communications", "r": "R3.2", "q": "You hear a PAN PAN. How long should you keep listening?", "o": ["At least three minutes", "At least thirty seconds", "About ten seconds", "Until the next hourly weather"], "f": "RIC-21 §7.2: stations that hear the urgency signal continue to listen for at least three minutes.", "c": 0}, {"s": "Emergency communications", "r": "R3.2", "q": "A passenger is ill but stable, and you want an ambulance to meet you on landing. Which call fits?", "o": ["MAYDAY", "MAYDAY RELAY", "PAN PAN", "SEELONCE FEENEE"], "f": "RIC-21 §6.1/§7: a safety concern for someone on board that does not need immediate assistance is urgency.", "c": 2}]}];
+const SECTIONS = ["Regulations & equipment", "Operating procedures", "Emergency communications"];
+const CFG = Object.assign({"rocaPass": 70, "rocaQs": 25, "rocaMinutes": 0}, window.SAFA_CONFIG || {});
+const LIMIT = (+CFG.rocaMinutes || 0) * 60;   // 0 = no time limit; the clock counts up
+const PASS = +CFG.rocaPass || 70;
+const EXAM = "ROC-A";
+document.documentElement.style.setProperty('--passx', PASS + '%');
+const KEY = 'safapp-mock-roca';
+const $ = id => document.getElementById(id);
+const sc = $('scroller');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const L = 'ABCD';
+
+let store = {history: {}, run: null};
+try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s && typeof s === 'object') store = Object.assign(store, s); } catch (e) {}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+
+let run = null, tick = null, alerted = {};
+function show(id) { ['start', 'exam', 'results'].forEach(s => $(s).hidden = s !== id); sc.scrollTo(0, 0); }
+function fmt(t) { t = Math.max(0, Math.round(t)); const h = Math.floor(t / 3600), m = Math.floor(t % 3600 / 60), s = t % 60; return h + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0'); }
+const qs = () => EXAMS[run.exam].questions;
+
+/* ---------- start screen ---------- */
+function renderStart() {
+  const box = $('examCards'); box.innerHTML = '';
+  EXAMS.forEach((ex, i) => {
+    const h = store.history[i] || [];
+    const best = h.length ? Math.max(...h.map(x => x.score)) : null;
+    const last = h[h.length - 1];
+    const d = document.createElement('div'); d.className = 'exam';
+    d.innerHTML = `<div class="eyebrow">Mock exam</div><h3>${esc(ex.name)}</h3>
+      <div class="hist">${h.length ? `Best <b>${best}%</b> · Last <b>${last.score}%</b> ${last.pass ? '(pass)' : '(not yet)'}<br>${h.length} attempt${h.length > 1 ? 's' : ''}` : 'Not attempted yet'}</div>
+      <button class="btn" data-i="${i}">${h.length ? 'Write again' : 'Start exam'}</button>`;
+    box.appendChild(d);
+  });
+  box.querySelectorAll('button').forEach(b => b.onclick = () => begin(+b.dataset.i));
+  const r = store.run;
+  $('resumeBox').hidden = !r;
+  if (r) $('resumeTxt').textContent = `${EXAMS[r.exam].name} in progress — ${r.answers.filter(a => a !== null).length}/${r.answers.length} answered${LIMIT ? ', ' + fmt(r.remaining) + ' left' : ''}`;
+}
+$('resumeBtn').onclick = () => { run = store.run; enterExam(); };
+$('discardBtn').onclick = () => { store.run = null; save(); renderStart(); };
+
+function ask(title, html, okText, onOk) {
+  $('mTitle').textContent = title; $('mBody').innerHTML = html; $('mOk').textContent = okText;
+  modalOk = onOk; $('modal').hidden = false; $('mOk').focus();
+}
+let modalOk = null;
+function begin(i, force) {
+  if (store.run && !force) { ask('Start a new exam?', `You have <b>${esc(EXAMS[store.run.exam].name)}</b> in progress. Starting a new exam will discard it.`, 'Discard and start', () => begin(i, true)); return; }
+  const NQ = EXAMS[i].questions.length;
+  run = {exam: i, answers: Array(NQ).fill(null), flags: Array(NQ).fill(false), remaining: LIMIT, elapsed: 0, cur: 0, started: Date.now()};
+  store.run = run; save(); enterExam();
+}
+
+/* ---------- exam ---------- */
+function enterExam() {
+  alerted = {}; show('exam'); renderNavGrid(); renderQ(); updateBar();
+  clearInterval(tick); let lastT = Date.now();
+  tick = setInterval(() => {
+    const now = Date.now(), dt = (now - lastT) / 1000; lastT = now; run.elapsed = (run.elapsed || 0) + dt;
+    if (LIMIT) { run.remaining -= dt; if (run.remaining <= 0) { run.remaining = 0; updateTimer(); clearInterval(tick); finish(true); return; } }
+    updateTimer(); if (Math.floor(run.elapsed) % 5 === 0) save();
+  }, 1000);
+  updateTimer();
+}
+function updateTimer() {
+  const t = $('timer'); t.textContent = fmt(LIMIT ? run.remaining : (run.elapsed || 0)); if (!LIMIT) return;
+  t.classList.toggle('warn', run.remaining <= 1800 && run.remaining > 300);
+  t.classList.toggle('crit', run.remaining <= 300);
+  const a = $('timeAlert');
+  if (run.remaining <= 300 && !alerted.five) { alerted.five = 1; a.hidden = false; a.textContent = '5 minutes left — make sure every question has an answer. The exam submits itself at 0:00:00.'; }
+  else if (run.remaining <= 1800 && !alerted.thirty) { alerted.thirty = 1; a.hidden = false; a.textContent = '30 minutes left. Use the question map to find anything you skipped or flagged.'; }
+}
+function renderQ() {
+  const q = qs()[run.cur];
+  $('qSec').textContent = q.s; $('qNum').textContent = `Question ${run.cur + 1} of ${qs().length}`;
+  $('qText').textContent = q.q;
+  const o = $('opts'); o.innerHTML = '';
+  q.o.forEach((t, k) => {
+    const b = document.createElement('button'); b.className = 'opt'; b.setAttribute('role', 'radio');
+    b.setAttribute('aria-checked', run.answers[run.cur] === k ? 'true' : 'false');
+    b.innerHTML = `<span class="l">${L[k]}</span><span>${esc(t)}</span>`;
+    b.onclick = () => choose(k); o.appendChild(b);
+  });
+  $('flagBtn').setAttribute('aria-pressed', run.flags[run.cur] ? 'true' : 'false');
+  $('prevBtn').disabled = run.cur === 0;
+  $('nextBtn').textContent = run.cur === qs().length - 1 ? 'Review & submit' : 'Next →';
+  markGrid();
+}
+function choose(k) { run.answers[run.cur] = k; save(); renderQ(); updateBar(); }
+function go(i) { run.cur = Math.max(0, Math.min(qs().length - 1, i)); save(); renderQ(); }
+$('prevBtn').onclick = () => go(run.cur - 1);
+$('nextBtn').onclick = () => run.cur === qs().length - 1 ? askSubmit() : go(run.cur + 1);
+$('flagBtn').onclick = () => { run.flags[run.cur] = !run.flags[run.cur]; save(); renderQ(); updateBar(); };
+$('mapBtn').onclick = () => { const p = $('navPanel'); p.hidden = !p.hidden; $('mapBtn').setAttribute('aria-expanded', String(!p.hidden)); if (!p.hidden) p.scrollIntoView({behavior: 'smooth', block: 'nearest'}); };
+function updateBar() {
+  const n = run.answers.filter(a => a !== null).length;
+  $('answered').textContent = n; $('flagCount').textContent = run.flags.filter(Boolean).length;
+  $('progBar').style.width = (100 * n / qs().length) + '%'; $('qTotal').textContent = qs().length;
+}
+function renderNavGrid() {
+  const g = $('navGrid'); g.innerHTML = '';
+  SECTIONS.forEach((s, si) => {
+    const d = document.createElement('div'); d.className = 'navsec';
+    const idx = qs().map((q, i) => q.s === s ? i : -1).filter(i => i >= 0); if (!idx.length) return;
+    d.innerHTML = `<h4>${s} · Q${idx[0] + 1}–${idx[idx.length - 1] + 1}</h4><div class="grid"></div>`;
+    const grid = d.querySelector('.grid');
+    for (const i of idx) {
+      const b = document.createElement('button'); b.textContent = i + 1; b.dataset.i = i;
+      b.setAttribute('aria-label', 'Question ' + (i + 1));
+      b.onclick = () => { go(i); $('qText').scrollIntoView({behavior: 'smooth', block: 'center'}); };
+      grid.appendChild(b);
+    }
+    g.appendChild(d);
+  });
+}
+function markGrid() {
+  $('navGrid').querySelectorAll('button').forEach(b => {
+    const i = +b.dataset.i;
+    b.className = (run.answers[i] !== null ? 'ans ' : '') + (run.flags[i] ? 'flg ' : '') + (i === run.cur ? 'cur' : '');
+  });
+}
+document.addEventListener('keydown', e => {
+  if (!$('modal').hidden && e.key === 'Escape') { $('modal').hidden = true; return; }
+  if ($('exam').hidden || !$('modal').hidden || e.ctrlKey || e.metaKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if ('abcd'.includes(k) && k.length === 1) choose('abcd'.indexOf(k));
+  else if ('1234'.includes(k) && k.length === 1) choose(+k - 1);
+  else if (e.key === 'ArrowRight') go(run.cur + 1);
+  else if (e.key === 'ArrowLeft') go(run.cur - 1);
+  else if (k === 'f') $('flagBtn').click();
+});
+function askSubmit() {
+  const un = run.answers.filter(a => a === null).length, fl = run.flags.filter(Boolean).length;
+  ask('Submit your exam?', (un ? `You have <b>${un} unanswered</b> question${un > 1 ? 's' : ''} — they'll be marked wrong. ` : 'Every question has an answer. ') +
+    (fl ? `<b>${fl}</b> question${fl > 1 ? 's are' : ' is'} still flagged. ` : '') + (LIMIT ? `You have <b>${fmt(run.remaining)}</b> left.` : ''), 'Submit exam', () => finish(false));
+}
+$('submitBtn').onclick = askSubmit;
+$('mCancel').onclick = () => { $('modal').hidden = true; };
+$('mOk').onclick = () => { $('modal').hidden = true; const f = modalOk; modalOk = null; if (f) f(); };
+
+/* ---------- results ---------- */
+let last = null;
+function finish(timedOut) {
+  clearInterval(tick);
+  const Q = qs(); const per = {}; SECTIONS.forEach(s => per[s] = {c: 0, n: 0});
+  let correct = 0; const miss = {};
+  Q.forEach((q, i) => {
+    per[q.s].n++;
+    if (run.answers[i] === q.c) { correct++; per[q.s].c++; }
+    else { miss[q.r] = (miss[q.r] || 0) + 1; }
+  });
+  const secPct = SECTIONS.map(s => per[s].n ? Math.round(per[s].c / per[s].n * 100) : null);
+  const right = correct, pct = Math.round(100 * right / Q.length);
+  const pass = pct >= PASS;   // ${exam}: overall pass mark only
+  last = {exam: run.exam, answers: run.answers.slice(), flags: run.flags.slice(), used: run.elapsed || 0, timedOut, correct: pct, right, per, secPct, pass, miss};
+  (store.history[run.exam] = store.history[run.exam] || []).push({score: pct, pass, date: Date.now(), secs: secPct});
+  store.run = null; store.lastResult = last; save();
+  renderResults();
+}
+function renderResults() {
+  const r = last, ex = EXAMS[r.exam], Q = ex.questions;
+  show('results');
+  $('resEyebrow').textContent = ex.name;
+  $('pct').textContent = r.correct + '%'; $('raw').textContent = r.right + ' / ' + Q.length + ' correct';
+  const col = r.pass ? 'var(--good)' : 'var(--bad)';
+  $('ring').style.background = `conic-gradient(${col} ${r.correct * 3.6}deg, var(--panel2) 0)`;
+  const weak = SECTIONS.map((s, i) => [s, r.secPct[i]]).filter(([s, p]) => p != null && p < PASS).sort((a, b) => a[1] - b[1]).slice(0, 3).map(([s]) => s);
+  $('verdict').className = 'verdict ' + (r.pass ? 'pass' : 'fail');
+  $('verdict').textContent = r.pass ? 'PASS' : 'NOT YET';
+  $('verdictTxt').innerHTML = r.pass ? `You scored at least ${PASS}%, the ${EXAM} pass mark.` : `You need ${PASS}% to pass the ${EXAM}.` + (weak.length ? ` Your weakest: <b>${weak.join(', ')}</b>.` : '');
+  $('timeUsed').textContent = (r.timedOut ? 'Time ran out — the exam was submitted automatically. ' : '') + 'Time used: ' + fmt(r.used) + (LIMIT ? ' of ' + fmt(LIMIT) : '') + '.'; $('secNote').textContent = `· line shows the ${PASS}% pass mark`;
+  const sb = $('secs'); sb.querySelectorAll('.srow').forEach(n => n.remove());
+  SECTIONS.forEach((s, i) => {
+    const p = r.secPct[i]; if (p == null) return; const ok = p >= PASS, d = document.createElement('div'); d.className = 'srow';
+    d.innerHTML = `<span class="nm">${s}</span><div class="sbar"><i style="width:${p}%;background:${ok ? 'var(--good)' : 'var(--bad)'}"></i></div><span class="pc" style="color:${ok ? 'var(--good)' : 'var(--bad)'}">${p}%<small>${r.per[s].c}/${r.per[s].n} · ${ok ? 'pass' : 'below ' + PASS + '%'}</small></span>`;
+    sb.appendChild(d);
+  });
+  const list = Object.entries(r.miss).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], undefined, {numeric: true}));
+  const rl = $('reviewList'); rl.innerHTML = '';
+  if (!list.length) rl.innerHTML = '<li style="grid-template-columns:1fr"><span class="t">Perfect score — nothing to review. Try another mock exam.</span></li>';
+  list.slice(0, 8).forEach(([code, n]) => {
+    const info = LESSONS[code] || {t: '', u: ''};
+    const of = Q.filter(q => q.r === code).length;
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="c">${code}</span><div><div class="t">${esc(info.t)}</div><div class="u">${esc(info.u)}</div></div><span class="n">${n} of ${of} missed</span>`;
+    rl.appendChild(li);
+  });
+  if (list.length > 8) { const li = document.createElement('li'); li.style.gridTemplateColumns = '1fr'; li.innerHTML = `<span class="u">…plus ${list.length - 8} more lesson${list.length - 8 > 1 ? 's' : ''} with one miss each — see the feedback below.</span>`; rl.appendChild(li); }
+  setTab('missed');
+}
+function setTab(f) {
+  document.querySelectorAll('#ansTabs button').forEach(b => b.setAttribute('aria-pressed', b.dataset.f === f ? 'true' : 'false'));
+  const r = last, Q = EXAMS[r.exam].questions, box = $('ansList'); box.innerHTML = '';
+  let shown = 0;
+  Q.forEach((q, i) => {
+    const a = r.answers[i], ok = a === q.c;
+    if (f === 'missed' && ok) return;
+    if (f === 'flagged' && !r.flags[i]) return;
+    shown++;
+    const info = LESSONS[q.r] || {t: '', u: ''};
+    const d = document.createElement('div'); d.className = 'aitem' + (ok ? ' ok' : '');
+    d.innerHTML = `<div class="qmeta"><span class="sec">${q.s}</span><span class="qnum">Question ${i + 1}${r.flags[i] ? ' · ⚑ flagged' : ''}</span></div>
+      <div class="q">${esc(q.q)}</div>
+      ${ok ? `<div class="line right"><b>Correct</b>${L[q.c]}. ${esc(q.o[q.c])}</div>`
+           : `<div class="line yours"><b>Your answer</b>${a === null ? 'No answer' : L[a] + '. ' + esc(q.o[a])}</div><div class="line right"><b>Correct</b>${L[q.c]}. ${esc(q.o[q.c])}</div>`}
+      <div class="why">${esc(q.f)}</div>
+      <div class="ref">Review: ${esc(q.r)} ${esc(info.t)} · ${esc(info.u)}</div>`;
+    box.appendChild(d);
+  });
+  if (!shown) box.innerHTML = `<p class="muted">${f === 'missed' ? 'No missed questions — well done!' : 'No flagged questions.'}</p>`;
+}
+document.querySelectorAll('#ansTabs button').forEach(b => b.onclick = () => setTab(b.dataset.f));
+$('retakeBtn').onclick = () => begin(last.exam);
+$('homeBtn').onclick = () => { renderStart(); show('start'); };
+window.addEventListener('beforeunload', () => { if (run && !$('exam').hidden) save(); });
+
+const LESSONS = {"R1.1": {"t": "Radio Rules", "u": "ROC-A Part 1 · Radio Rules & Equipment"}, "R1.2": {"t": "Certificates, Licences & Equipment", "u": "ROC-A Part 1 · Radio Rules & Equipment"}, "R2.1": {"t": "Speech, Phonetics, Numbers & UTC", "u": "ROC-A Part 2 · Speaking on the Radio"}, "R2.2": {"t": "Procedure Words, Call Signs & Calling", "u": "ROC-A Part 2 · Speaking on the Radio"}, "R2.3": {"t": "Radio Checks, Circuit Calls & Readbacks", "u": "ROC-A Part 2 · Speaking on the Radio"}, "R3.1": {"t": "Distress: MAYDAY", "u": "ROC-A Part 3 · Emergency Communications"}, "R3.2": {"t": "Urgency: PAN PAN", "u": "ROC-A Part 3 · Emergency Communications"}};
+$('rules').innerHTML = `<div class="rule"><b>${EXAMS[0].questions.length}</b><span>multiple-choice questions</span></div><div class="rule"><b>${LIMIT ? fmt(LIMIT) : 'No'}</b><span>${LIMIT ? 'on the clock' : 'time limit (clock runs)'}</span></div><div class="rule"><b>${PASS}%</b><span>to pass</span></div><div class="rule"><b>${EXAMS.length}</b><span>different exams</span></div>`;
+renderStart();
+</script>
+<script>
+/* SAFA progress tracker: reports to the Apps Script when the page is served from it; does nothing otherwise */
+(function () {
+  const PAGE = {"id": "roca-mock", "unit": 0, "kind": "mock"};
+  const run = window.google && google.script && google.script.run;
+  const sent = {};
+  let who = ''; try { who = localStorage.getItem('safa-who') || ''; } catch (e) {}
+  function T(type, data, gap) {
+    if (!run) return; const k = type + JSON.stringify(data), now = Date.now();
+    if (sent[k] && now - sent[k] < (gap == null ? 3e4 : gap)) return; sent[k] = now;
+    try { google.script.run.withFailureHandler(function () {}).track(PAGE.id, PAGE.unit, type, JSON.stringify(data), who); } catch (e) {}
+  }
+  window.SAFA_TRACK = T;
+  if (run && window.SAFA_ME && !window.SAFA_ME.email && !who) askName();
+  function askName() {
+    const b = document.createElement('div');
+    b.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:99;background:#1f1a10;border:1px solid #d9b25a;border-radius:14px;padding:12px 14px;color:#fff;font:15px Source Sans 3,Arial,sans-serif;display:flex;gap:8px;flex-wrap:wrap;align-items:center;box-shadow:0 8px 30px rgba(0,0,0,.6)';
+    b.innerHTML = '<b style="font-family:Poppins,Arial;color:#d9b25a">Save my progress:</b> <input placeholder="Your full name" style="flex:1;min-width:160px;font:15px Arial;padding:7px 10px;border-radius:8px;border:1px solid #5c4a22;background:#000;color:#fff"><button style="font:700 13px Poppins,Arial;padding:8px 14px;border-radius:8px;border:0;background:#d9b25a;color:#000;cursor:pointer">Save</button>';
+    b.querySelector('button').onclick = () => { const v = b.querySelector('input').value.trim(); if (!v) return; who = v; try { localStorage.setItem('safa-who', v); } catch (e) {} b.remove(); T('visit', {}, 0); };
+    document.body.appendChild(b);
+  }
+  if (PAGE.kind !== 'teacher') T('visit', {}, 6e5);
+  if (typeof finish === 'function') { const _f = finish; finish = function () { _f.apply(this, arguments); try { T('mock', {exam: last.exam, pct: last.correct, pass: last.pass, secs: last.secPct, timedOut: !!last.timedOut}, 0); } catch (e) {} }; }
+})();
+</script>
+</body>
+</html>

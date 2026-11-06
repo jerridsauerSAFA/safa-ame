@@ -1,0 +1,352 @@
+<!doctype html>
+<!-- SAFA-PAGE id=spp-glossary kind=other template=none@1 by=backfill date=2026-10-28 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="spp-local.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAFA Ground School – Glossary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#000; --panel:#121110; --panel2:#1b1915; --line:#2e2a23; --fg:#fff; --muted:#a8a39a;
+  --gold:#d8b358; --gold-ink:#000;
+  --display:"Poppins","Helvetica Neue",Arial,sans-serif; --body:"Source Sans 3","Segoe UI",Arial,sans-serif;
+  color-scheme:dark;
+}
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5;margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px 40px;display:flex;flex-direction:column;gap:22px}
+/* header */
+.top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;padding:30px 0 4px}
+.eyebrow{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,6vw,50px);line-height:1.05;margin:6px 0 10px;letter-spacing:-.01em}
+h1 span{color:var(--gold)}
+.lede{margin:0;color:#d8d4cc;font-size:17px;max-width:38em}
+.top img{width:120px}
+/* sticky search */
+/* bar */
+.bar{position:sticky;top:0;z-index:5;background:rgba(0,0,0,.95);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:10px 0;margin:0 -16px;padding-left:16px;padding-right:16px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.search{position:relative}
+.search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;pointer-events:none}
+.search input{width:100%;font:600 18px var(--body);color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 48px;outline:none}
+.search input::placeholder{color:#7d786f;font-weight:400}
+.search input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(216,179,88,.2)}
+.search input::-webkit-search-cancel-button{display:none}
+.clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:10px;border:0;background:var(--panel2);color:var(--muted);font-size:20px;line-height:1;cursor:pointer}
+.clear:hover{color:var(--gold)}
+.tools{display:flex;flex-direction:column;gap:8px;margin-top:-10px}
+.row,.az{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.row::-webkit-scrollbar,.az::-webkit-scrollbar{display:none}
+.chip{font-family:var(--display);font-weight:600;font-size:12.5px;background:var(--panel);color:#e4e0d8;border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;white-space:nowrap}
+.chip:hover{border-color:var(--gold)}
+.chip[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.chip .n{opacity:.6;font-weight:500;margin-left:4px}
+.status{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.toggle{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:13px;color:#e4e0d8;background:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 6px;cursor:pointer}
+.toggle i{width:30px;height:18px;border-radius:9px;background:var(--panel2);border:1px solid var(--line);position:relative;transition:background .15s}
+.toggle i::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--muted);transition:transform .15s,background .15s}
+.toggle[aria-pressed="true"]{border-color:var(--gold)}
+.toggle[aria-pressed="true"] i{background:rgba(216,179,88,.25)}
+.toggle[aria-pressed="true"] i::after{transform:translateX(12px);background:var(--gold)}
+/* letters */
+.az button{flex:0 0 auto;font-family:var(--display);font-weight:700;font-size:13px;width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--fg);cursor:pointer;padding:0}
+.az button:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
+.az button:disabled{opacity:.25;cursor:default}
+/* list */
+.group{display:flex;flex-direction:column;gap:10px;scroll-margin-top:var(--barh,200px)}
+.group h2{font-family:var(--display);font-weight:800;font-size:28px;color:var(--gold);margin:6px 0 0;padding-bottom:4px;border-bottom:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.term{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.term .name{font-family:var(--display);font-weight:800;font-size:22px;line-height:1.15;color:var(--fg);overflow-wrap:anywhere}
+.term.plain .name{font-size:19px}
+.term .full{font-family:var(--display);font-weight:600;font-size:15px;color:var(--gold);line-height:1.3}
+.term .note{margin:0;color:#d8d4cc;font-size:15px}
+.term .meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+.tag{font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:3px 7px;text-decoration:none}
+a.tag:hover{color:var(--gold);border-color:var(--gold)}
+mark{background:rgba(216,179,88,.32);color:inherit;border-radius:3px;padding:0 1px}
+.best{border-color:var(--gold)}
+/* test mode */
+.test .term .hide{filter:blur(7px);user-select:none;transition:filter .15s}
+.test .term{cursor:pointer}
+.test .term.show .hide{filter:none;user-select:auto}
+.test .term .peek{display:block;font-size:12.5px;color:var(--muted);font-family:var(--display);font-weight:600}
+.term .peek{display:none}
+.test .term.show .peek{display:none}
+.az button.on{border-color:var(--gold);color:var(--gold)}
+.group h2 .cont{font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-left:6px}
+.pager{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;padding:8px 0 0}
+.pager .nums{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:center}
+.pg{font-family:var(--display);font-weight:700;font-size:14px;min-width:38px;height:38px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--fg);cursor:pointer}
+.pg:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
+.pg:disabled{opacity:.3;cursor:default}
+.pg.cur{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.pg.wide{padding:0 14px}
+.pager .gap{color:var(--muted);padding:0 2px}
+.pnote{display:none;color:var(--muted);font-size:14px;font-family:var(--display);font-weight:600}
+@media (max-width:480px){.pager .nums{display:none}.pnote{display:inline}.pager{justify-content:space-between}}
+.empty{background:var(--panel);border:1px dashed var(--line);border-radius:14px;padding:26px;text-align:center;color:#d8d4cc}
+.empty b{color:var(--gold)}
+footer{display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:10px;text-align:center}
+footer img{width:64px}
+.tagline{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.32em;color:var(--gold)}
+footer p{margin:0;color:var(--muted);font-size:13px}
+button:focus-visible,a:focus-visible,.term:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media (max-width:760px){.row,.az{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}.grid{grid-template-columns:1fr}.top{grid-template-columns:1fr}.top img{display:none}}
+@media (max-width:480px){.az button{width:27px;height:27px;font-size:12px}.search input{font-size:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+html,body{height:100%;overflow:hidden}
+#scroller{height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-color:#d8b358 #1b1915;scrollbar-width:thin}
+#scroller::-webkit-scrollbar{width:10px}
+#scroller::-webkit-scrollbar-track{background:#1b1915}
+#scroller::-webkit-scrollbar-thumb{background:#d8b358;border-radius:10px;border:2px solid #1b1915}
+</style>
+<link rel="stylesheet" href="spp-local.css">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<script>
+const LINKS = {};
+</script>
+<script>/* SAFA: use the page addresses from the Links tab of the progress Sheet */
+try { const SL = window.SITE_LINKS || {}, M = {"6": "roca1-title", "7": "roca2-title", "8": "roca3-title", "1": "pstar1-title", "2": "pstar2-title", "3": "pstar3-title", "4": "pstar4-title", "5": "pstar5-title"}; Object.keys(M).forEach(k => { if (SL[M[k]]) LINKS[k] = SL[M[k]]; }); } catch (e) {}
+</script>
+<div id="scroller">
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Student Pilot Permit</div>
+      <h1>SPP <span>Glossary</span></h1>
+      <p class="lede" id="lede">Every key term and abbreviation from ROC-A and PSTAR. Search by the letters (ATIS) or the words (“wake”), and use test mode to quiz yourself.</p>
+    </div>
+    <img src="data:image/png;base64,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" alt="SAFA logo">
+  </header>
+
+  <div class="bar" id="bar">
+    <label class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="q" type="search" placeholder="Search e.g. MAYDAY, ATIS, wake turbulence…" autocomplete="off" spellcheck="false" aria-label="Search the glossary">
+      <button class="clear" id="clear" type="button" aria-label="Clear search" hidden>×</button>
+    </label>
+  </div>
+  <div class="tools">
+    <div class="row" id="cats" role="group" aria-label="Filter by topic"></div>
+    <div class="status">
+      <span id="count" aria-live="polite"></span>
+      <button class="toggle" id="test" type="button" aria-pressed="false"><i></i>Test mode: hide meanings</button>
+    </div>
+    <nav class="az" id="az" aria-label="Jump to letter"></nav>
+  </div>
+
+  <main id="list"></main>
+
+  <footer>
+    <img src="data:image/png;base64,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" alt="">
+    <div class="tagline">LEARN. FLY. BUILD. LEAD.</div>
+    <p>Tip: press <b>/</b> to jump to the search box, <b>Esc</b> to clear it.</p>
+  </footer>
+</div>
+</div>
+<script>
+const G = [["ROC-A", "Restricted Operator Certificate with Aeronautical Qualification", "Lets you operate the radio in an aircraft or at an aeronautical ground station. You earn it by passing an exam with an ISED-accredited examiner; valid for life.", "Licences & Rules", 6], ["ISED", "Innovation, Science and Economic Development Canada", "The federal department in charge of radio. It issues station licences, accredits ROC-A examiners and replaces a lost ROC-A.", "Licences & Rules", 6], ["RIC-21", "Radiocommunication Information Circular 21", "ISED's free study guide for the ROC-A exam.", "Licences & Rules", 6], ["Station licence", "", "A licence for the radio station itself, not the person. It sets the call sign and frequencies. Some aeronautical stations are exempt.", "Licences & Rules", 6], ["Privacy of communications", "", "Don't share the contents, or even the existence, of a radio message unless the person it was sent to allows it. Distress, urgency, safety and ALL STATIONS messages are the exceptions.", "Licences & Rules", 6], ["Message priority", "", "The order radio messages go in: distress, urgency, direction-finding, flight safety, weather, flight regularity, UN Charter, government (priority asked), service, then all other.", "Radio", 6], ["Aircraft station", "", "A mobile radio station on board an aircraft.", "Radio", 6], ["Aeronautical station", "", "A land (ground) radio station in the aeronautical mobile service.", "Radio", 6], ["121.5 MHz", "Aeronautical emergency frequency", "The emergency frequency. Use it if you can't get help on the frequency in use, and monitor it when you can over sparsely settled areas.", "Emergencies", 6], ["Short", "", "An electrical fault: bare wires touching each other or the metal case.", "Radio", 6], ["Open", "", "An electrical fault: a wire broken inside its insulation.", "Radio", 6], ["FSS", "Flight service station", "An air traffic services unit that gives selected flight services.", "Airspace & ATC", 6], ["Controlled aerodrome", "", "An aerodrome where an air traffic control unit is operating.", "Aerodromes", 6], ["Aerodrome", "", "Any land, water (even frozen) or structure used by aircraft to arrive, depart, move or be serviced.", "Aerodromes", 6], ["General aviation", "", "Civil flying other than commercial air transport (scheduled or charter flights for hire).", "Licences & Rules", 6], ["Phonetic alphabet", "", "A word for each letter (Alfa, Bravo, Charlie…) so letters that sound alike are not confused. Note the spellings Alfa and Juliett.", "Radio", 7], ["UTC", "Coordinated Universal Time", "The time used in aviation, also called Zulu (Z). Alberta Time is UTC−6 all year from 1 Nov 2026: add 6 hours.", "Radio", 7], ["AFFIRM", "", "Yes.", "Radio", 7], ["NEGATIVE", "", "No, or that is not correct, or I do not agree.", "Radio", 7], ["ROGER", "", "I have received all of your last transmission.", "Radio", 7], ["WILCO", "Will comply", "Instructions received, understood and will be complied with.", "Radio", 7], ["SAY AGAIN", "", "Please repeat your last transmission. Never say \"repeat\" on the radio.", "Radio", 7], ["READ BACK", "", "Repeat this message back to me exactly as received.", "Radio", 7], ["STANDBY", "", "Wait. I must pause; I will call you.", "Radio", 7], ["CORRECTION", "", "I made an error; the correct version is…", "Radio", 7], ["DISREGARD", "", "Consider this transmission as not sent.", "Radio", 7], ["OVER", "", "My transmission is ended and I expect a reply.", "Radio", 7], ["OUT", "", "Conversation ended, no reply expected.", "Radio", 7], ["WORDS TWICE", "", "Communication is difficult: say each word twice.", "Radio", 7], ["Call sign", "", "Your radio name. A private Canadian aircraft uses its maker or type plus the last four letters of its registration, e.g. \"Cessna Golf Sierra Alfa Foxtrot\".", "Radio", 7], ["Readability scale", "", "1 Bad (unreadable), 2 Poor (now and then), 3 Fair (with difficulty), 4 Good (readable), 5 Excellent (perfectly readable).", "Radio", 7], ["Radio check", "", "A short radio test, 10 seconds at most: your call sign, \"radio check\", the frequency, \"how do you read?\"", "Radio", 7], ["MF", "Mandatory frequency", "The frequency you must use within a set distance and altitude of selected uncontrolled aerodromes. You need a working radio (a few exceptions exist), must listen on it and make the required reports.", "Aerodromes", 7], ["ATF", "Aerodrome traffic frequency", "The frequency for traffic at an uncontrolled aerodrome that has no MF. Normally the UNICOM frequency, or 123.2 MHz where there is no UNICOM.", "Aerodromes", 7], ["CFS", "Canada Flight Supplement", "The publication that lists aerodromes and their details, including MF/ATF frequencies and areas, and circuit direction.", "Aerodromes", 7], ["Circuit", "", "The pattern flown around an aerodrome: upwind, crosswind, downwind, base, final. Left turns unless the CFS says right. Aeroplanes normally fly it at 1,000 ft above aerodrome elevation, unless the CFS says otherwise.", "Aerodromes", 7], ["Readback", "", "Saying the key parts of an ATS message back, call sign at the end. From 19 Nov 2026 you must read back hold-short instructions, the runway, the altimeter setting and the transponder code (the last three not if they came from ATIS).", "Airspace & ATC", 7], ["ATS", "Air traffic services", "The umbrella name for air traffic control (ATC) and flight service (flight service stations and flight information centres).", "Airspace & ATC", 7], ["MAYDAY", "", "The distress signal, said 3 times: grave and/or imminent danger, needing immediate assistance. It has priority over all other transmissions.", "Emergencies", 8], ["PAN PAN", "", "The urgency signal, said 3 times: a safety concern for an aircraft, vehicle or someone on board or in sight, with no immediate assistance needed.", "Emergencies", 8], ["MAYDAY RELAY", "", "Said 3 times when you pass on another station's MAYDAY: they can't transmit, more help is needed, or nobody has acknowledged it.", "Emergencies", 8], ["RECEIVED MAYDAY", "", "How an acknowledgment of a MAYDAY ends.", "Emergencies", 8], ["SEELONCE MAYDAY", "", "Orders radio silence during distress traffic. Used by the station in distress or the station in control.", "Emergencies", 8], ["SEELONCE DISTRESS", "", "Orders radio silence during distress traffic. Used by another nearby station, only if essential.", "Emergencies", 8], ["SEELONCE FEENEE", "", "The distress is over; normal radio working may resume.", "Emergencies", 8], ["Right of way", "", "Converging at about the same altitude, the aircraft that has the other on its right gives way. Power-driven heavier-than-air aircraft (aeroplanes, helicopters) give way to airships, gliders and balloons; balloons are top of the order.", "Flying Safely", 1], ["Head-on", "", "Two aircraft meeting head-on (or nearly) with a risk of collision: both pilots alter heading to the right.", "Flying Safely", 1], ["Overtaking", "", "The aircraft being overtaken has the right of way. The overtaking aircraft alters heading to the right and stays clear until it is entirely past.", "Flying Safely", 1], ["Wake turbulence", "", "Turbulence from wingtip vortices, a by-product of lift. Worst behind aircraft that are heavy, clean and slow. Avoid the area below and behind.", "Flying Safely", 1], ["Wingtip vortices", "", "Two counter-rotating spirals of air behind the wingtips. From a large aircraft they sink 400–500 ft/min and level off less than 1,000 ft below.", "Flying Safely", 1], ["Rotation point", "", "Where a departing aircraft lifts its nosewheel and starts making wake. Behind a departing heavy aircraft, lift off before its rotation point.", "Flying Safely", 1], ["ELT", "Emergency locator transmitter", "A beacon that transmits on 121.5, 243 or 406 MHz so searchers can find a downed aircraft; satellites detect 406 only. Listen on 121.5 after every flight to check yours is not transmitting.", "Emergencies", 1], ["Jet blast", "", "The fast exhaust behind a jet engine. Danger areas run from 200 ft behind an executive jet at idle to 1,600 ft behind a jumbo jet at take-off power.", "Flying Safely", 1], ["LAHSO", "Land and hold short operations", "Using intersecting runways at the same time: one aircraft accepts a clearance to land and stop before the hold line. The pilot-in-command may refuse it, and must if it isn't safe.", "Aerodromes", 1], ["Airport", "", "An aerodrome with an airport certificate in force.", "Aerodromes", 2], ["Manoeuvring area", "", "The runways and taxiways used for take-off, landing and moving to and from them. Not the apron.", "Aerodromes", 2], ["Apron", "", "Where aircraft are loaded, refuelled, serviced and parked (the ramp).", "Aerodromes", 2], ["Movement area", "", "The manoeuvring area plus the aprons.", "Aerodromes", 2], ["Windsock", "", "Shows wind direction and strength. A standard dry windsock standing straight out means a wind of 15 kt or more.", "Aerodromes", 2], ["Runway number", "", "The runway's magnetic direction to the nearest 10°, last zero dropped: a runway pointing 087° is 09, and its other end is 27. In the far north, runways use true direction.", "Aerodromes", 2], ["Holding position", "", "Where you stop before entering a runway. With no marking or sign, hold at least 200 ft from the runway edge.", "Aerodromes", 2], ["Light signals", "", "Tower signals for when the radio is not working. In flight: steady green = cleared to land, steady red = give way and keep circling, red flashes = aerodrome unsafe, do not land. On the ground: steady red = stop.", "Aerodromes", 2], ["Certificate of registration", "", "Aircraft document that must be on board.", "Licences & Rules", 2], ["Flight authority", "", "The document that allows the aircraft to fly, such as a certificate of airworthiness. It must be on board.", "Licences & Rules", 2], ["Journey log", "", "The aircraft's log, carried on board unless you won't land and shut down anywhere other than where you started.", "Licences & Rules", 2], ["Infant", "", "A person under 2 years old. When seat belts are ordered on and there is no child restraint, the passenger responsible for the infant holds it securely in their arms.", "Flying Safely", 2], ["PSTAR", "Pre-Solo Test of Air Regulations", "Transport Canada's 50-question air regulations exam. You need 90% to pass, and a pass to get a student pilot permit.", "Licences & Rules", 3], ["Student pilot permit", "", "Lets you fly as pilot-in-command for your own training: in Canada, day VFR, supervised by an instructor, no passengers.", "Licences & Rules", 3], ["CAME", "Civil Aviation Medical Examiner", "A doctor who does aviation medical exams. Ask one if you're not sure you are fit to fly. Don't fly on any medicine unless a CAME has cleared it.", "Pilot Health", 3], ["Medical certificate", "", "For a student pilot permit (aeroplane): Category 1, 3 or 4, valid 60 months at any age, counted from the first day of the month after the exam.", "Pilot Health", 3], ["Alcohol (12-hour rule)", "", "No crew duty within 12 hours of an alcoholic drink, or while under the influence (CAR 602.03). TC advises at least 24 hours. Nothing speeds up sobering up.", "Pilot Health", 3], ["Hypoxia", "", "Too little oxygen. It can feel pleasant, and night vision is one of the first things to suffer. Use oxygen above 10,000 ft ASL.", "Pilot Health", 3], ["Hyperventilation", "", "Breathing too fast, often from anxiety. Fix: oxygen if you have it, then slow your breathing to 10–12 breaths a minute.", "Pilot Health", 3], ["Carbon monoxide", "", "A colourless, odourless exhaust gas. If you suspect it: heater off, vents open, descend if safe, use oxygen, and land as soon as possible.", "Pilot Health", 3], ["Fuel reserve (VFR)", "", "An aeroplane needs enough fuel to reach the destination plus 30 minutes by day or 45 minutes at night, at normal cruising speed.", "Flight Planning", 3], ["TSB", "Transportation Safety Board of Canada", "Investigates aviation occurrences to stop them happening again, not to blame anyone.", "Emergencies", 3], ["Aviation occurrence", "", "Any accident or incident linked to operating an aircraft, or a hazard that could lead to one.", "Emergencies", 3], ["Aviation accident", "", "Someone is killed or seriously injured (on board, hit by the aircraft or a part, or by prop wash or jet blast), the aircraft has damage needing major repair, or it is missing or can't be reached.", "Emergencies", 3], ["Controlled airspace", "", "Airspace where ATC service is provided and some or all aircraft may be subject to ATC: Classes A to E.", "Airspace & ATC", 4], ["Class A", "", "IFR only, from the base of high-level controlled airspace up to FL 600.", "Airspace & ATC", 4], ["Class B", "", "Controlled airspace above 12,500 ft ASL (or the MEA, if higher) up to 18,000 ft ASL, plus some zones and terminal areas. VFR needs an ATC clearance, a radio and a Mode C transponder.", "Airspace & ATC", 4], ["Class C", "", "VFR needs a clearance to enter, a two-way radio and a Mode C transponder. It becomes Class E when the ATC unit closes.", "Airspace & ATC", 4], ["Class D", "", "VFR needs two-way radio contact with ATC before entering.", "Airspace & ATC", 4], ["Class E", "", "Controlled airspace where VFR needs nothing from ATC (outside MF areas). ATC separates IFR aircraft only.", "Airspace & ATC", 4], ["Class F", "", "Special use airspace. CYR (restricted): keep out unless the user agency gives permission. CYA (advisory): avoid it unless you are taking part.", "Airspace & ATC", 4], ["Class G", "", "Uncontrolled airspace: no ATC control, but flight information and alerting service.", "Airspace & ATC", 4], ["High-level airspace", "", "Airspace at 18,000 ft ASL and above. Low-level airspace is below 18,000 ft ASL.", "Airspace & ATC", 4], ["Control zone", "", "Controlled airspace around an aerodrome, usually from the surface to 3,000 ft above the aerodrome unless charted otherwise. Its class sets the rules.", "Airspace & ATC", 4], ["Transition area", "", "Controlled airspace with a base of 700 ft AGL.", "Airspace & ATC", 4], ["Low-level airway", "", "Controlled airspace from 2,200 ft AGL up to, but not including, 18,000 ft ASL.", "Airspace & ATC", 4], ["ADIZ", "Air defence identification zone", "Flying into it needs a defence flight plan or itinerary, filed with ATC, an FSS or a CARS.", "Airspace & ATC", 4], ["Transponder airspace", "", "Class A, B and C airspace, plus Class D or E airspace marked as transponder airspace. You need a transponder with Mode C.", "Airspace & ATC", 4], ["VFR", "Visual flight rules", "Flying by looking outside. In controlled airspace you need 3 miles visibility and must stay 500 ft vertically and 1 mile horizontally from cloud.", "Airspace & ATC", 4], ["IFR", "Instrument flight rules", "Flying by reference to instruments. Class A airspace is IFR only.", "Airspace & ATC", 4], ["Special VFR", "", "VFR in a control zone below the normal minima, only when the pilot asks: aeroplane 1 mile visibility, clear of cloud, ground in sight. At night, an aeroplane gets it only to land at its destination.", "Airspace & ATC", 4], ["VFR cruising altitudes", "", "In level cruise above 3,000 ft AGL: track 000°–179°, odd thousands + 500 (3,500, 5,500…); track 180°–359°, even thousands + 500 (4,500, 6,500…).", "Flight Planning", 4], ["SDA", "Southern Domestic Airspace", "Cruising altitudes use magnetic track in the SDA and true track in the Northern Domestic Airspace (NDA).", "Airspace & ATC", 4], ["Day", "", "From the start of morning civil twilight to the end of evening civil twilight.", "Licences & Rules", 4], ["AGL", "Above ground level", "Height above the ground below you.", "Airspace & ATC", 4], ["ASL", "Above sea level", "Altitude measured from mean sea level.", "Airspace & ATC", 4], ["AAE", "Above aerodrome elevation", "Height above the aerodrome. Aeroplane circuits are normally flown at 1,000 ft AAE.", "Aerodromes", 4], ["ATC", "Air traffic control", "The air traffic service that issues clearances and instructions in controlled airspace.", "Airspace & ATC", 4], ["ATC clearance", "", "An authorization to proceed in controlled airspace under set conditions. It contains a form of the word \"clear\". Once you accept it, you must comply.", "Airspace & ATC", 4], ["ATC instruction", "", "A directive from ATC, such as \"turn left heading 270\". Comply and acknowledge unless it would endanger the aircraft.", "Airspace & ATC", 4], ["UNABLE", "", "What you tell ATC, right away, when you cannot comply with a clearance or instruction.", "Radio", 4], ["Minimum altitudes", "", "Over a built-up area, an aeroplane must be high enough to land safely if the engine fails, and at least 1,000 ft above the highest obstacle within 2,000 ft. Elsewhere, at least 500 ft from any person, vessel, vehicle or structure.", "Flying Safely", 4], ["Flight plan", "", "Filed with ATC, an FSS or a CARS. A VFR flight needs a plan or itinerary unless it stays within 25 NM of departure. Arrival report due 1 hour after your last ETA, unless you gave a SAR time.", "Flight Planning", 4], ["Flight itinerary", "", "Like a flight plan, but it can also be left with a responsible person. Arrival report due 24 hours after your last ETA, unless you gave a SAR time.", "Flight Planning", 4], ["Responsible person", "", "Someone who has agreed to tell ATC, an FSS, a CARS or a rescue coordination centre if you are overdue.", "Flight Planning", 4], ["SAR time", "Search and rescue time", "A time you set for search and rescue alerting to start if you haven't reported your arrival. Your arrival report is due by then.", "Flight Planning", 4], ["Arrival report", "", "Closes your flight plan or itinerary. You close it yourself, even at an airport with a tower.", "Flight Planning", 4], ["ETA", "Estimated time of arrival", "When you expect to arrive. Alerting deadlines count from your last reported ETA.", "Flight Planning", 4], ["CARS", "Community aerodrome radio station", "A ground radio station at some aerodromes. You can file flight plans and itineraries with it.", "Radio", 4], ["ATIS", "Automatic terminal information service", "A recorded broadcast of routine airport information, such as weather, altimeter setting and runways. Listen first, then say its code letter on your first call (\"with Bravo\").", "Airspace & ATC", 5], ["126.7 MHz", "", "VFR en route in uncontrolled airspace (when not on an MF or ATF): monitor it and, when you can, broadcast your position, altitude and intentions (encouraged, not mandatory). In an emergency with no ATS in range, call other pilots on it.", "Radio", 5], ["FIC", "Flight information centre", "Gives weather, NOTAMs and relayed ATC clearances in flight and takes position reports, but no traffic information. Call it \"(Place) Radio\".", "Airspace & ATC", 5], ["UNICOM", "Universal communications", "A private air-ground radio station at some uncontrolled aerodromes. Where there is one, the ATF is normally its frequency.", "Radio", 5], ["NOTAM", "", "A notice about a new or changed aeronautical facility, service, procedure or hazard that pilots need to know about in time.", "Flight Planning", 5], ["Have numbers", "", "You already have the runway, wind and altimeter setting from the last advisory.", "Radio", 5], ["Clock position (traffic)", "", "Traffic calls use a clock where 12 o'clock is your track over the ground, not where your nose points.", "Radio", 5], ["NORDO", "No radio", "An aircraft with no working radio. At an airport with a tower, join from the upwind side and watch for light signals.", "Radio", 5], ["Radio failure (VFR)", "", "In a control zone, land at its aerodrome; in other Class B, C or D airspace, leave by the shortest route. Squawk 7600 and tell ATC as soon as you can.", "Emergencies", 5], ["Transponder", "", "A radio that answers radar with a 4-digit code (and your altitude in Mode C). Unless ATS gives you a code, VFR uses 1200 at or below 12,500 ft ASL and 1400 above. Standby while taxiing, unless the CFS says otherwise.", "Radio", 5], ["Squawk 7500", "", "Transponder code for unlawful interference.", "Emergencies", 5], ["Squawk 7600", "", "Transponder code for radio (communication) failure.", "Emergencies", 5], ["Squawk 7700", "", "Transponder code for an emergency, when you can't reach ATC right away.", "Emergencies", 5], ["Mode C", "", "The transponder mode that sends your altitude. Keep it on in Canada unless ATS says otherwise.", "Radio", 5], ["IDENT", "", "The transponder's identification button (\"squawk ident\"). Press it only when ATS asks.", "Radio", 5]];
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const norm = s => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
+const CATS = ["Radio", "Emergencies", "Licences & Rules", "Airspace & ATC", "Aerodromes", "Flying Safely", "Pilot Health", "Flight Planning"];
+const UNITNAMES = {"6": "ROC-A Part 1 · Radio Rules & Equipment", "7": "ROC-A Part 2 · Speaking on the Radio", "8": "ROC-A Part 3 · Emergency Communications", "1": "PSTAR Part 1 · Rules of the Air", "2": "PSTAR Part 2 · Aerodromes, Signals & Equipment", "3": "PSTAR Part 3 · Pilot, Medical & Occurrences", "4": "PSTAR Part 4 · Airspace, ATC & Flight Planning", "5": "PSTAR Part 5 · Communications"};
+const TAGS = {"6": "ROC-A 1", "7": "ROC-A 2", "8": "ROC-A 3", "1": "PSTAR 1", "2": "PSTAR 2", "3": "PSTAR 3", "4": "PSTAR 4", "5": "PSTAR 5"};
+
+const items = G.map((g, i) => ({
+  i, name: g[0], full: g[1], note: g[2], cat: g[3], unit: g[4],
+  plain: !g[1],
+  letter: /^[0-9]/.test(g[0]) ? '#' : g[0].replace(/^Squawk\s+/, 'S')[0].toUpperCase(),
+  nName: norm(g[0]), lName: g[0].toLowerCase(), lFull: g[1].toLowerCase(), lNote: g[2].toLowerCase()
+})).sort((a, b) => a.name.localeCompare(b.name, 'en', {sensitivity: 'base', numeric: true}));
+
+let cat = 'all', test = false;
+const shown = new Set();
+const scroller = document.getElementById('scroller') || document.scrollingElement;
+
+// category chips
+$('cats').innerHTML = [['all', 'All', items.length], ...CATS.map(c => [c, c, items.filter(x => x.cat === c).length])]
+  .map(([v, l, n]) => `<button type="button" class="chip" data-c="${esc(v)}" aria-pressed="${v === 'all'}">${esc(l)}<span class="n">${n}</span></button>`).join('');
+$('cats').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  cat = b.dataset.c; page = 0;
+  $('cats').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  render();
+});
+
+const STOP = new Set(['of','the','and','a','an','to','in','for','on','or','is','at','by']);
+const wordsOf = s => s.split(/[^a-z0-9]+/).filter(Boolean);
+function score(x, q, nq, words) {
+  // lower = better; null = no match
+  if (nq && x.nName === nq) return 0;
+  if (nq && x.nName.startsWith(nq)) return 1;
+  if (!words.length) return null;
+  const starts = (txt, w) => wordsOf(txt).some(f => f.startsWith(w));
+  if (words.every(w => starts(x.lFull, w) || starts(x.lName, w))) return x.lFull.startsWith(words[0]) || x.lName.startsWith(words[0]) ? 2 : 3;
+  if (nq.length >= 3 && x.nName.includes(nq)) return 4;
+  if (q.length >= 3 && x.lFull.includes(q)) return 5;
+  if (words.every(w => starts(x.lNote, w) || starts(x.lFull, w) || starts(x.lName, w))) return 6;
+  return null;
+}
+function hl(text, words) {
+  let s = esc(text);
+  if (!words.length) return s;
+  const re = new RegExp('\\b(' + words.map(w => esc(w).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).sort((a, b) => b.length - a.length).join('|') + ')', 'gi');
+  return s.replace(re, '<mark>$1</mark>');
+}
+function card(x, words, best) {
+  const url = (LINKS[x.unit] || '').trim();
+  const ok = /^https?:\/\//.test(url);
+  const unit = ok ? `<a class="tag" href="${esc(url)}" target="_blank" rel="noopener" title="${esc(UNITNAMES[x.unit])}">${TAGS[x.unit]}</a>`
+                  : `<span class="tag" title="${esc(UNITNAMES[x.unit])}">${TAGS[x.unit]}</span>`;
+  return `<article class="term${x.plain ? ' plain' : ''}${best ? ' best' : ''}${shown.has(x.i) ? ' show' : ''}" data-i="${x.i}" tabindex="${test ? 0 : -1}">
+    <div class="name">${hl(x.name, words)}</div>
+    ${x.full ? `<div class="full hide">${hl(x.full, words)}</div>` : ''}
+    <p class="note hide">${hl(x.note, words)}</p>
+    <span class="peek">Tap to reveal</span>
+    <div class="meta"><span class="tag">${esc(x.cat)}</span>${unit}</div>
+  </article>`;
+}
+const PER = 25;
+let page = 0, jumpTo = null;
+function render() {
+  const raw = $('q').value.trim();
+  const q = raw.toLowerCase(), nq = norm(raw);
+  const words = wordsOf(q).filter(w => !STOP.has(w) && (w.length > 1 || /\d/.test(w)));
+  const searching = !!nq;
+  $('clear').hidden = !raw;
+  const pool = items.filter(x => cat === 'all' || x.cat === cat);
+  let list, ranks = null;
+  if (searching) {
+    const hits = pool.map(x => [x, score(x, q, nq, words)]).filter(h => h[1] !== null)
+      .sort((a, b) => a[1] - b[1] || a[0].name.localeCompare(b[0].name, 'en', {sensitivity: 'base'}));
+    list = hits.map(h => h[0]); ranks = hits.map(h => h[1]);
+  } else list = pool;
+  const n = list.length, pages = Math.max(1, Math.ceil(n / PER));
+  page = Math.min(Math.max(0, page), pages - 1);
+  const from = page * PER, slice = list.slice(from, from + PER);
+  let html = '';
+  if (searching) {
+    if (n) html = `<section class="group"><div class="grid">${slice.map((x, k) => card(x, words, from + k === 0 && ranks[0] <= 1)).join('')}</div></section>`;
+  } else {
+    const by = [];
+    slice.forEach(x => { const last = by[by.length - 1]; if (last && last[0] === x.letter) last[1].push(x); else by.push([x.letter, [x]]); });
+    by.forEach(([L, xs], k) => {
+      const cont = k === 0 && from > 0 && list[from - 1].letter === L;
+      html += `<section class="group" id="L-${L === '#' ? 'num' : L}"><h2>${L}${cont ? ' <span class="cont">continued</span>' : ''}</h2><div class="grid">${xs.map(x => card(x, [], false)).join('')}</div></section>`;
+    });
+  }
+  if (!n) html = `<div class="empty">No match for <b>“${esc(raw)}”</b>${cat !== 'all' ? ' in ' + esc(cat) + ' — <button type="button" class="chip" id="allcats">search all topics</button>' : '. Try fewer letters, or search the words it stands for.'}</div>`;
+  if (pages > 1) html += pager(pages);
+  $('list').innerHTML = html;
+  const range = n > PER ? ` · showing ${from + 1}–${from + slice.length}` : '';
+  $('count').textContent = (searching ? `${n} match${n === 1 ? '' : 'es'}` : `${n} entries${cat !== 'all' ? ' in ' + cat : ''}`) + range;
+  // letters: enabled if the letter exists anywhere in the filtered list; current page's letters highlighted
+  const have = new Set(list.map(x => x.letter)), here = new Set(slice.map(x => x.letter));
+  const AZ = ['#', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+  $('az').hidden = searching;
+  $('az').innerHTML = AZ.map(L => `<button type="button" data-l="${L}" ${have.has(L) ? '' : 'disabled'} class="${here.has(L) ? 'on' : ''}" aria-label="Jump to ${L === '#' ? 'numbers' : L}">${L}</button>`).join('');
+  const ac = $('allcats');
+  if (ac) ac.addEventListener('click', () => $('cats').querySelector('[data-c="all"]').click());
+  setBarH();
+}
+function pager(pages) {
+  const btn = (p, label, aria, cls = '') => `<button type="button" class="pg ${cls}" data-p="${p}" ${p < 0 || p >= pages ? 'disabled' : ''} ${aria ? `aria-label="${aria}"` : ''}>${label}</button>`;
+  const nums = [];
+  for (let i = 0; i < pages; i++) {
+    if (i === 0 || i === pages - 1 || Math.abs(i - page) <= 1) nums.push(i);
+    else if (nums[nums.length - 1] !== '…') nums.push('…');
+  }
+  return `<nav class="pager" aria-label="Glossary pages">${btn(page - 1, '← Prev', 'Previous page', 'wide')}
+    <span class="nums">${nums.map(i => i === '…' ? '<span class="gap">…</span>' : `<button type="button" class="pg${i === page ? ' cur' : ''}" data-p="${i}" ${i === page ? 'aria-current="page"' : ''}>${i + 1}</button>`).join('')}</span>
+    <span class="pnote">Page ${page + 1} of ${pages}</span>
+    ${btn(page + 1, 'Next →', 'Next page', 'wide')}</nav>`;
+}
+function toTop() {
+  const top = $('list').getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop - $('bar').offsetHeight - 12;
+  scroller.scrollTo({top: Math.max(0, top)});
+}
+$('list').addEventListener('click', e => {
+  const b = e.target.closest('.pager button[data-p]'); if (!b || b.disabled) return;
+  page = +b.dataset.p; render(); toTop();
+});
+function setBarH() { document.documentElement.style.setProperty('--barh', ($('bar').offsetHeight + 8) + 'px'); }
+$('az').addEventListener('click', e => {
+  const b = e.target.closest('button[data-l]'); if (!b || b.disabled) return;
+  const pool = items.filter(x => cat === 'all' || x.cat === cat);
+  const idx = pool.findIndex(x => x.letter === b.dataset.l); if (idx < 0) return;
+  page = Math.floor(idx / PER); render();
+  const el = [...document.querySelectorAll('.group')].find(g => g.id === 'L-' + (b.dataset.l === '#' ? 'num' : b.dataset.l));
+  if (!el) return;
+  const top = el.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop - $('bar').offsetHeight - 6;
+  scroller.scrollTo({top: Math.max(0, top)});
+});
+let t;
+$('q').addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => { page = 0; render(); jumpToBar(); }, 80); });
+function jumpToBar() {
+  const top = $('bar').getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop;
+  if (scroller.scrollTop > top) scroller.scrollTo({top});
+}
+$('clear').addEventListener('click', () => { $('q').value = ''; page = 0; render(); $('q').focus(); });
+$('test').addEventListener('click', () => {
+  test = !test; shown.clear();
+  $('test').setAttribute('aria-pressed', test);
+  document.body.classList.toggle('test', test);
+  render();
+});
+$('list').addEventListener('click', e => {
+  if (!test || e.target.closest('a')) return;
+  const c = e.target.closest('.term'); if (!c) return;
+  const i = +c.dataset.i;
+  shown.has(i) ? shown.delete(i) : shown.add(i);
+  c.classList.toggle('show');
+});
+$('list').addEventListener('keydown', e => {
+  if (test && (e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('term')) { e.preventDefault(); e.target.click(); }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === '/' && document.activeElement !== $('q')) { e.preventDefault(); $('q').focus(); }
+  else if (e.key === 'Escape' && document.activeElement === $('q')) { $('q').value = ''; page = 0; render(); }
+});
+addEventListener('resize', setBarH);
+$('lede').textContent = `${items.length} key terms and abbreviations from ROC-A and PSTAR. Search by the letters (ATIS) or the words (“wake”), and switch on test mode to quiz yourself.`;
+render();
+</script>
+<script>
+/* SAFA progress tracker: reports to the Apps Script when the page is served from it; does nothing otherwise */
+(function () {
+  const PAGE = {"id": "spp-glossary", "unit": 0, "kind": "glossary"};
+  const run = window.google && google.script && google.script.run;
+  const sent = {};
+  let who = ''; try { who = localStorage.getItem('safa-who') || ''; } catch (e) {}
+  function T(type, data, gap) {
+    if (!run) return; const k = type + JSON.stringify(data), now = Date.now();
+    if (sent[k] && now - sent[k] < (gap == null ? 3e4 : gap)) return; sent[k] = now;
+    try { google.script.run.withFailureHandler(function () {}).track(PAGE.id, PAGE.unit, type, JSON.stringify(data), who); } catch (e) {}
+  }
+  window.SAFA_TRACK = T;
+  if (run && window.SAFA_ME && !window.SAFA_ME.email && !who) askName();
+  function askName() {
+    const b = document.createElement('div');
+    b.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:99;background:#1f1a10;border:1px solid #d9b25a;border-radius:14px;padding:12px 14px;color:#fff;font:15px Source Sans 3,Arial,sans-serif;display:flex;gap:8px;flex-wrap:wrap;align-items:center;box-shadow:0 8px 30px rgba(0,0,0,.6)';
+    b.innerHTML = '<b style="font-family:Poppins,Arial;color:#d9b25a">Save my progress:</b> <input placeholder="Your full name" style="flex:1;min-width:160px;font:15px Arial;padding:7px 10px;border-radius:8px;border:1px solid #5c4a22;background:#000;color:#fff"><button style="font:700 13px Poppins,Arial;padding:8px 14px;border-radius:8px;border:0;background:#d9b25a;color:#000;cursor:pointer">Save</button>';
+    b.querySelector('button').onclick = () => { const v = b.querySelector('input').value.trim(); if (!v) return; who = v; try { localStorage.setItem('safa-who', v); } catch (e) {} b.remove(); T('visit', {}, 0); };
+    document.body.appendChild(b);
+  }
+  if (PAGE.kind !== 'teacher') T('visit', {}, 6e5);
+})();
+</script>
+</body>
+</html>

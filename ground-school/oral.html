@@ -1,0 +1,728 @@
+<!doctype html>
+<!-- SAFA-PAGE id=oral kind=other template=none@1 by=backfill date=2026-10-28 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="spp-local.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAFA Ground School – ROC-A Oral Trainer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  --bg:#000; --panel:#121110; --panel2:#1b1915; --line:#2e2a23; --fg:#fff; --muted:#a8a39a; --soft:#d8d4cc;
+  --gold:#d8b358; --gold-ink:#000; --good:#7fc48a; --bad:#e8836f; --warn:#f0c264;
+  --display:"Poppins","Helvetica Neue",Arial,sans-serif; --body:"Source Sans 3","Segoe UI",Arial,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5;margin:0}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px 40px;display:flex;flex-direction:column;gap:20px}
+.top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;padding:30px 0 0}
+.eyebrow{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,6vw,50px);line-height:1.05;margin:6px 0 10px;letter-spacing:-.01em}
+h1 span{color:var(--gold)}
+.lede{margin:0;color:var(--soft);font-size:17px;max-width:40em}
+.top img{width:120px}
+.runway{display:flex;gap:14px;justify-content:center}
+.runway i{display:block;width:44px;height:4px;background:var(--gold);opacity:.55;border-radius:2px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;min-width:0}
+.card.gold{border-color:var(--gold)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.kicker{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+h2{font-family:var(--display);font-weight:800;font-size:24px;line-height:1.15;margin:4px 0 6px}
+h3{font-family:var(--display);font-weight:700;font-size:16px;margin:0 0 8px}
+p{margin:8px 0;color:var(--soft)}
+b{color:var(--fg)}
+.hint{font-size:13.5px;color:var(--muted);margin:8px 0 0}
+.btn{font-family:var(--display);font-weight:700;font-size:14px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--fg);padding:10px 16px;cursor:pointer}
+.btn:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
+.btn:disabled{opacity:.35;cursor:default}
+.btn.gold{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.btn.gold:hover:not(:disabled){filter:brightness(1.08);color:var(--gold-ink)}
+.btn.good{border-color:var(--good);color:var(--good)} .btn.good:hover{background:var(--good);color:#06210c}
+.btn.bad{border-color:var(--bad);color:var(--bad)} .btn.bad:hover{background:var(--bad);color:#2a1205}
+.btn.good.gold{background:var(--good);border-color:var(--good);color:#06210c}
+.qt b{white-space:nowrap}
+body.busy .lede,body.busy .runway{display:none}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--display);font-weight:600;font-size:13px;background:var(--panel2);color:#e4e0d8;border:1px solid var(--line);border-radius:999px;padding:8px 13px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chip small{font-family:var(--body);font-weight:600;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.chip[aria-pressed="true"] small{color:#3a2d0c}
+.chip:hover{border-color:var(--gold)}
+.status{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}
+.status div{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:14px;min-width:0}
+.status span{display:block;font-family:var(--display);font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.status .ok{color:var(--good)} .status .no{color:var(--bad)} .status .maybe{color:var(--warn)}
+.steps{margin:6px 0 0;padding:0;list-style:none;display:grid;gap:6px;counter-reset:s}
+.steps li{position:relative;padding:8px 12px 8px 42px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;color:var(--soft);font-size:15px;counter-increment:s}
+.steps li::before{content:counter(s);position:absolute;left:10px;top:8px;width:22px;height:22px;border-radius:50%;background:var(--gold);color:#000;font:700 12px var(--display);display:grid;place-items:center}
+.priv{font-size:13.5px;color:var(--muted);border-left:3px solid var(--gold);padding:4px 10px;margin-top:12px}
+/* item */
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px;color:var(--muted)}
+.qhead strong{color:var(--fg)}
+.pbar{height:6px;background:var(--panel2);border-radius:3px;overflow:hidden;margin:8px 0 2px}
+.pbar i{display:block;height:100%;background:var(--gold);transition:width .2s}
+.examiner{display:flex;gap:14px;align-items:flex-start}
+.examiner .av{width:46px;height:46px;flex:none;border-radius:50%;background:var(--panel2);border:1.5px solid var(--gold);display:grid;place-items:center}
+.examiner .av svg{width:24px;height:24px;stroke:var(--gold);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.examiner.talking .av{box-shadow:0 0 0 6px rgba(216,179,88,.18)}
+.qt{font-family:var(--display);font-weight:700;font-size:clamp(18px,4.4vw,23px);line-height:1.3;text-wrap:balance}
+.qt.hidden{filter:blur(8px);user-select:none}
+.ctx{margin-top:8px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:15px;color:var(--soft)}
+.ctx b{color:var(--gold)}
+.rec{display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px 0}
+.mic{width:86px;height:86px;border-radius:50%;border:0;background:var(--gold);color:#000;cursor:pointer;display:grid;place-items:center;box-shadow:0 0 0 0 rgba(232,131,111,.6)}
+.mic svg{width:34px;height:34px;stroke:#000;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mic.on{background:var(--bad);animation:pulse 1.4s infinite}
+.mic:disabled{opacity:.4;cursor:default}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(232,131,111,.55)}70%{box-shadow:0 0 0 18px rgba(232,131,111,0)}100%{box-shadow:0 0 0 0 rgba(232,131,111,0)}}
+.timer{font-family:var(--mono);font-weight:600;color:var(--gold);font-size:18px}
+.live{width:100%;min-height:64px;background:#0b0a09;border:1px dashed var(--line);border-radius:12px;padding:10px 12px;font-size:16px;color:var(--soft)}
+.live i{color:var(--muted)}
+textarea{width:100%;min-height:80px;resize:vertical;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:inherit}
+.link{background:none;border:0;color:var(--muted);font:inherit;font-size:13.5px;text-decoration:underline;cursor:pointer;padding:2px 0}
+.link:hover{color:var(--gold)}
+/* feedback */
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.checks li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:8px;align-items:start;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:15px}
+.checks li .i{font-weight:800;text-align:center}
+.checks li.ok{border-color:rgba(127,196,138,.45)} .checks li.ok .i{color:var(--good)}
+.checks li.no{border-color:rgba(232,131,111,.45)} .checks li.no .i{color:var(--bad)}
+.checks li.ord{border-color:rgba(240,194,100,.45)} .checks li.ord .i{color:var(--warn)}
+.checks li small{display:block;color:var(--muted);font-size:13px}
+.tips{margin:8px 0 0;padding:0;list-style:none;display:grid;gap:6px}
+.tips li{background:#1f1a10;border:1px solid #5c4a22;border-radius:10px;padding:8px 12px;font-size:14.5px;color:var(--soft)}
+.verdict{font-family:var(--display);font-weight:700;font-size:15px;margin:10px 0 4px}
+.model{background:#17140e;border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-family:var(--mono);font-size:15px;color:var(--gold);line-height:1.55}
+audio{width:100%;margin-top:6px;height:40px}
+.selfmark{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+/* results */
+.big{font-family:var(--display);font-size:48px;font-weight:800;line-height:1}
+.pass{display:inline-block;font-family:var(--display);font-weight:700;font-size:13px;border-radius:99px;padding:4px 12px;margin-top:6px}
+.pass.ok{background:rgba(127,196,138,.15);color:var(--good);border:1px solid var(--good)}
+.pass.no{background:rgba(232,131,111,.12);color:var(--bad);border:1px solid var(--bad)}
+.srow{display:grid;grid-template-columns:minmax(0,1fr) 120px 44px;gap:10px;align-items:center;font-size:14px;margin-top:6px}
+.srow i{height:8px;background:var(--panel2);border-radius:4px;overflow:hidden;display:block}
+.srow em{display:block;height:100%}
+.rv{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:8px;font-size:14.5px}
+.rv .m{font-family:var(--mono);color:var(--gold);font-size:14px;margin-top:4px}
+footer{display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:10px;text-align:center}
+footer img{width:64px}
+.tagline{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.32em;color:var(--gold)}
+footer p{margin:0;color:var(--muted);font-size:13px}
+button:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.modes{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin-top:6px}
+.mode{display:flex;flex-direction:column;gap:4px;text-align:left;background:var(--panel2);border:1.5px solid var(--line);border-radius:14px;padding:14px;color:var(--fg);cursor:pointer;font:inherit}
+.mode b{font-family:var(--display);font-size:16px}
+.mode span{color:var(--muted);font-size:14px;line-height:1.35}
+.mode .ic{font-size:24px;line-height:1}
+.mode[aria-checked="true"]{border-color:var(--gold);background:#1f1a10;box-shadow:0 0 0 1px var(--gold) inset}
+.mode:hover{border-color:var(--gold)}
+.opts{display:flex;flex-wrap:wrap;gap:14px 22px;align-items:center;margin-top:14px;font-size:15px}
+.opts .grp{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.opts .lbl{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.seg{font-family:var(--display);font-weight:600;font-size:13px;background:var(--panel2);color:#e4e0d8;border:1px solid var(--line);border-radius:999px;padding:7px 12px;cursor:pointer}
+.seg[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.opts label{display:flex;gap:8px;align-items:center;cursor:pointer}
+.opts input[type=checkbox]{width:20px;height:20px;accent-color:#d8b358}
+.saybox{display:flex;flex-direction:column;align-items:center;gap:12px;padding:10px 0;text-align:center}
+.saybox .big2{font-family:var(--display);font-weight:800;font-size:22px}
+.saybox .btn{font-size:17px;padding:14px 22px;border-radius:14px}
+.saidbtn{min-width:min(100%,320px)}
+.checks li.tog{cursor:pointer;user-select:none}
+.checks li.tog:hover{border-color:var(--gold)}
+.checks li.tog .i{width:22px;height:22px;border-radius:6px;border:2px solid var(--muted);display:grid;place-items:center;font-size:14px;line-height:1}
+.checks li.tog.ok .i{background:var(--good);border-color:var(--good);color:#06210c}
+.modelwrap[data-hide="1"] .model,.modelwrap[data-hide="1"] #hearModel{display:none}
+.switch{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:13.5px;color:var(--muted)}
+.switch .seg{font-size:12px;padding:5px 10px}
+body.bigtext{font-size:19px}
+body.bigtext .qt{font-size:clamp(21px,5vw,28px)}
+body.bigtext .checks li,body.bigtext .ctx,body.bigtext .model{font-size:18px}
+body.bigtext p{font-size:18px}
+.notice{background:#1f1a10;border:1px solid #5c4a22;border-radius:12px;padding:10px 14px;font-size:15px;color:var(--soft)}
+@media (max-width:820px){.top{grid-template-columns:1fr}.top img{display:none}.grid2{grid-template-columns:1fr}}
+@media (max-width:480px){.status{grid-template-columns:1fr}.srow{grid-template-columns:minmax(0,1fr) 70px 40px}.big{font-size:40px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+html,body{height:100%;overflow:hidden}
+#scroller{height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-color:#d8b358 #1b1915;scrollbar-width:thin}
+#scroller::-webkit-scrollbar{width:10px}
+#scroller::-webkit-scrollbar-track{background:#1b1915}
+#scroller::-webkit-scrollbar-thumb{background:#d8b358;border-radius:10px;border:2px solid #1b1915}
+</style>
+<link rel="stylesheet" href="spp-local.css">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div id="scroller">
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">Student Pilot Permit · ROC-A</div>
+      <h1>Oral Trainer: <span>say it on the radio</span></h1>
+      <p class="lede">The examiner asks. You answer out loud, like on the radio. Then you check off the parts the examiner listens for, hear the model answer, and mark yourself. Works on any device, with or without a microphone.</p>
+    </div>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAAC4CAYAAAAFd5KwAAAedElEQVR42u2deZTcV3XnP/e93+9XVb2qJe/YeJW8ycaZOCyB4JgT4k12Ao4k29g4zAwkmIGTYUkIA+gQCHNOBnJmgAGyDKtXKRjGatuQAZyQYBjwBGzLRot3W95tqdVbVf1+7935o6pb3dosWSV1ddX9+Ej6uU6r9Hv33fd9974VjK5n/fDl12wcvvwas4ThzATdjQiIxiuVeKWCmEVMEIwuJsblHhgisvCf7jjHm0VMEIwuZtPtRyQxkimkPHJcYhYxQTC6mInntyQCCUoy5INFCF2O9QhdTo+oj4IHKA1k1kFYhGB0M+nRiRPBi+DLgxYhWIRgdDU16o2UAaiN1s0fLEIwupnSeJE0O4ak5AoTBBMEo5spEpdOCULz2bCUwejalKEWS4lII2WoacksYoJgdDGpd2kMmkw9m0UsZTC6mdyXRHAiOPAWIViEYHS3B2gmSKNjUM3MICYIRhfjnaSqjT1NImIpg6UMRjejMaQIIM1nwyIEo4sFwUnqmrueo8MEwQTB6OqUQcmm4kSN2BiCpQxGN1OgJdecZgBbh2ARgtHVBKQ0dU5SCGKCYIJgdHvKMHVumneWMpggGN2dMzqyqQjBmSCYP5gJup5sN8+GCYLRdQQtCY3/QrBBRRMEo6vRGWmCpQyGCUKXE+P2qGDms2GCYHQlM6Yao007miAY3S0Hsj0qmPlsdCc27dj1guAy0OazjSGYIBhdTYxa0ul40ZkgWMpgdDOzVydaymCCYHR70jC95VmwA1IsZTC6O2VQBlS3P5tFurx7MBN0H+tWL19Y7k9XaNDlUfV1oJWmO0wmTu5U9B9SdTcdu+z6LWYtEwSjg9k0fNkKcfLJ1LslMSr1IjAVIYhAlnicE/IQN2qMH1287KY1ZjUTBKPDUEU23HrZpxLhz0VE8iLu8efTxKGqGiOfXrzsxo+JoGbFzscGFbslMrj1sk9VUveRGHlJMQDIi0iMSClz/2XTrZd9yixoEYLRIay/ZeVVaeK+UYQ4nR7stYMIJN6RF/Htp1xy0zfNmiYIxjzmoeErji00/Mw5OawILy/qT7wQVZ8NOa859S03PWJWtZTBmKfkGj5cLiUvWwwAiqCUs+QwcXzYLGoRgjFPuW/4imO9hrudyGCM+zcm6Jygykgq7lUnLLv+UbOuRQjGPCOhuKSSJfstBgAxKuXMD+bES8yyJgjGfES5IGrrZgujKsR4oRnWUgbjpdreqlXu4d/YdEwIsS+rsOWhzaUXz33H16tz9T6PDl8xVNVinXPuqBBaIwreCzHGJ8uSLJ3LVYx3fPXq8gmvqC0cm2So4t3Y8T9f/Lh84hPRvLAVUaXREja9ZsOrnPLPLpX+ai2OHrVo8qn1t6x8NHFsDMhGr/EBje7RWik8dfpPTtt6oB247ovjKeTwVqQLM9MGkMPrvjgeOKCCoKtWufted/+CUs0fKS4eG8Sd5FRPDspiYfLYak2OLKeuP2oc3fSaDecAvzAvNEFoG+pj4b5yxb9XnV6K6hmKnNTfmy5JvHuzqlKrB6q1kKe5e27T2Rs2bxi+7BFRNipsAn0oS3h85Ln0ubPefu14SxpvwZIs9b5WD61rpAqlzPt6XiwB/q0V3/nLb1zZO3hofmi94BiQEwQWq7BkY1x/fJq7o6LooeUsSfsyj4hQhMjoeB5F9TFV/SeEb9XHwn3mgZYytC1Pfe/K3mqevzJXOR3h10DPEpWTI3pMuZRkaeIQAY1QhEi1HlDVUeAZlMcFHhDPeg1uk/fFI6Ws/OQr/vWELfsSVWxcu/ILWebfU62FlpatXPLU6uGLJ19803v2pbff/IaHhmr16lEhJMeJj4s1cIrCSQjHAIeLSH858yTeIa4hPnkRqdaKukMeV9ENIL/E8Ys06n3lNH3syPNaI56GCcJBZ93q5X29A8nRReAUEc6MQV8V0VNQjk68DGSZb164CmhjAK8IkXoecyc8r7AZ5WHvZaMiG12MDxfiN+cT+bNLV6wZm/lvPXjrFWdEjXcoLGplygCN6UeBF5y4c0+86Pp7dyxj2pMeRlEcjXfHi7BEoy5GOF7gFVE5JEtdmnjXKGuzuFGVej1QBN2G8IRD1jsvd6tyT+JZP76teGLHMhomCB3HxtvOLyVx4RFR4omKnCaqZ0T0NJQTVDksy3zi3ewqUkCjUi8iGnVMHM+q8rhDHgjCfcRYE5EPJt4dvzd7Fl4OaeIoQnxYVT+DcyWvnB7Rk0Q4RiOHiZO+LHFIQzxmEaJSr4dChGcRHnLI/Spyr6D3O3UPFu7Fp5dc+N2aeYcJgtHkse8uX1iN/liNnCJRz1BhqQiLVTnaO9eXJm66Z0UbtTjV4SpQFJEiHNjNiYkXksRN/5uqTL/LVKSTF5EQ45gITyhsksg6dXKvONaXXXj0leevedFq2wTBeBk8fMfV5fp4fpRTXRwJS0XkDOBUVY5DOTRJnByoiGCvIoYiKsJzIjwC/EpV7nXIuiiyKetNnzz+3LmbgjVMELqCVatWuat+88FDYqifIEHOV+FjGnF6EJ1HHNEhfxFd/J7z2UPfvPPE5z9hawJMEIy5ZcPaFZ/N0uT9rZxm3BtKmScvwmeXLLvpg1YLJghGO4jB8MpTHfIzhb5Wzyq8FM1Zh7GIvvrkZTf9ympjfmN7GTpC1eWaLPMHXQygsXoxy3yfINdYTViEYMwxD3zrysNCVr/HiTs8xLk59tA7IWp8xtezM0+69NpnrVYsQjDmiJDV35SlyZyJATTWFmRpcriW83OtRkwQjDlEVd4kbRDniTTexWrEBMGYKzFYtcoBZ8Q49yekx6io6hnNdzJMEIyDzSNnPTIgcHT7CALHPHLWI3YdnAmCMRcUlYlDVFgY22AZUIyAsLCoTBxiNWOCYMxFIyz8IpSKtsGlSoqCUomFX2Q1Y4JgzE3lDSWJE22DS9ZUIUmcOBiymjFBMOamEfZ5aZ+lJF4EVfqsZkwQjLlJGkpttbRMmu9kmCAYc1F5Lmk3PXA4O6dzHpNA4+irSl9yLsoZeQi9Ch7nEI2FQEDJvXf1qOQi1CHWUKmFSB2l6p1WkaQuQr0IRV2Eej2XegnqItSTNOa1mBRppchHY6noCc8XvxzrL1asWBOsCvYjZXDSdle0K2LXxu8nq1cv92f1jSYT/pCk39WSfDJJS65IitylqmSakaGaJZ5MNclUyUKIJdASQtk7MsSVQEuqZE5IQ4gZQqrgVVxCjAiE1PtxhHt7vP/hkeddO55svO3yiyXyKRE50yeNU3BmZIU7Vbc2+yZVSLTxiSpEjYQIIFEjMU0IUQkIeVRXCDHPqz4vaZ5HBmpnlqW2fu3KmkNqitaiak2QSWASp1WnUlWhiko1xlAT8ZMOJtVpFaQGWqOQWuP/Yy3xvupizIuguQj1uk9zV8R8Mgv5UK0nr4oPtUo9DmY+jD83Ee+HMN8FSYmF7lRHc/k+oBqLTmiQp4HvPbTHjdSDL01mrqzBbylNpJW6T2Pi0izkqSpZ4iWNzqVFCGVwJYlSJtESSAm0JFHKESqqoeKcLyFaFqWMaDlGKQMVRStOpCRIKaIllFIsBkqlIi/l4lMhpnV1qXoSlJRIAuKKgBOiEwdpKog0f02nb1NH2AlpsqOf+OmwLgRlvCju3njb5R9LNOi3SyXvJ6sF5PuZPjaO8nIIDiQRaX429QMCQuPEYWD7n7jZPzf9h8x4+aYY6ZTjKeogKsToCVFjUInqJAgUPoagoqGncHnNV3MHRaVOntfzIim74kw0X3/LyjpoHaTmhZoiNRGqUbUWVatOmBSYVHFVh1ajUg2qVREmnchkgtTA1fChVgSpS0E9F+olJ/UiFoUvuSLVpKhrvajGtEiLsaK3XiqOOWGo4KEtkeVrosh+zBkGN9pWSZ8C3m/br69QhDXLHScMuccf2pKMZ7UkT/qSssuTTLIklyIJtZgkLklqUbNUyTQhS7xmBF+CWCqClqJqRR0VL1J2QjkiZdFYVqhEpeJEyoiURCkLWgpKo4dFMtAMJM3HqkkFElye1iDpKVyqElMf1UdxXoUkVzxRnYh3zoFLdm6YslPnOmOiuOnP6NSnwtSskU59po1vUJnx89O/KxoaYfz+UCknr6rWwrflgeHLPqroNUnij3QiRNWpVWdTc8vbn5sv2U7MFJGpT2ZXxMxnmfX5dkGS2UIkOwrS7IrUKZuooqpNUVKAIEJQCNKIjgogqBJAC1RyROuI1AXqU5GOKnWEqoNJRKpOqMaotYhWJTKpIpNOmMRJzTUEqR5UHKqvdk7ee6DPT9zr/NMLMernEPm5F42qZIiUY9RSVCrSbKQOKTuRUoQyquUIFZSyCNlUz6o0wmJUMkTTZgfjAY+SqOAFvDZCJO+c4ITtjVF2qN9dRbrTjWtmg9zu4zrjt+3P7PB3dZYgtlu+NNMG2zvoxnPDZo02XxThKUG+KADrhpcfkeLP9SKvi8TFMejh4qQPpaJKD0JZlEycJN5J41AM2W7oaeGY6rlniMjU4ZvtKiitNPqOgjRLUmbYa3aEJDMqbXcRUrPnmGFnaIjQXJ2juDvSxOGc7CCuMl2G3faQ076hs3rImf41q/ntokF2sm9NdVoyo0HLlADu4F/TaXxUQlQ0aqHSGO8TYQJhUqOOOS/PONymoPqTnHDH0mVrnpbd5VCvLw+VXnBjpaQ2WU6TpDf6tA8N/aK6wCdusAi6ANUFiixwjgFVGYgaB71IX2zMRfeC9opIWaGMUnJO/K4EZWbPy6xxCSXGhshMOZiNWBnzqkHP8FkRwbnGqdTT/j/jxGx206Bj1IBQE6iqahVkXIQxERlTjWPgtnnHSIxsU40jiGxNvGwNRRxRka2IH3UhH8uLYrwoVaqLYl/tx9UttV2NoR2QWStdvdw/Dpn2pOWJIlZ8phWNvh+KAXD9sYgLfOIHRXUwEgc0ssA76VOkX9H+GOl3jl6Qfo1xoTjX672gUfFepg3KniKU5vPMzzu1FzEOQg89syduPu+uh2ZGhxaCIk4IQdEYx8W5F0FHY2TcOUYFGRV0NDTu2NjqcNtUZCRoGMnEbS2Io5BsExdGQ10mexI3KRN59RioywEYFG/LE5NUkU23vzfz6dPlUPVf6akkbx2dqH8Mx4+9+IWEMBDRBc75AWBAVQdUGRShX0R6NWqfqvaJc2XQCkpZlbLzkgiNAz2mKGW+Uem7Snl0RuSyQ7huzJ8emhmpmUw17l2E3Kow85Ba7xojvjFoIUIVoQoyqTFWRWRMnIyp6rgqoyKMiMg2YFuMYZtDtuL9tqDhRRd5fW9P9smJyeJmXw7/PuRHVBdf8Pn6fg0oH0h7tTMb1l62QYTHF19045v31oCrVy/3r4UspD2l2F8r5eOhJ019fxHjAlX54yzxl9fzABBF9TptDOQNqjKIMCDQF5VeRHtFpaxQUqWUJCLe7TpCmZnu5EVElenrynbMjY2X00vLtHBHVUQa4xU75tY79dBRKYKqQE2EWlStgYx7YUxhTKOOOidbozIiqmUVeRvgstRTL8INIvrlxLmteR5G014/4UZLNZ9P1H4K9b2dtlZFNg6v/L4gr1hy8Y2ntLOt235VmYMPRdy6fVHTZkVNNn/NYv3alef45hiGKqpSfPqUS25eP6sC73pX+vQLE9lILVQSih5Js0qMoR8YqOdhQISBiAx5cYOqOqhRh7xnIEQGQfuBpYn3vUWIkyg1oCJQShKH39WALMwaiKWDIpQ99dDsMEA2Y0h2WmRDVEIRUbSmqpMgpcS7ShHCeD0P60BGvWMkKNsE2SIiI0HjiEO3OPXbxLMt9bKtCDKWaDGRk0wMlvzkEYt66nL2386aaF9/y1tPgfQKkUZ0APzq5GWrf9QCQdMNw/6d3unp7V5fbS8Iiy++8ZbWOqjOKrM4X97pZxqOkgP7fLvwXX/zrrT/qJH7Fc1SlYuLWnhB+rJByAeKvFigiRsUZbAIcUicLHDiBiM6oFEHBdcnor1R6UXpFUcZKMdIGch2HaFM9YYzRpUPUigiIkwNEjthF+/U7KELVdC6c1QVqhq0ijDuhHFVGVfimDgZcci2qHFEo25NvNuiwkgo4ohLZauQbhsfq48MlNyiiK4Vkfrok4O/dfYf/W3esvI4X9a4e1/ZH05edv1DwEMmCO3WY6mLM0I51+qc6deXHKmbxrbdF3O+vvj3b7yn+fHmvR8/UblvzYrUZ7WS86WyOFfWuuuF0C9Ifz0PA+JkgSBDCkMx6CIvLFT0CMQdh+qRaeJKiZftjbOl+WXjO4ugFEWshchTIYRHBHk6KC86Ly8IbFF0S7NhbxPRUfCjLo3jGmM1hlo11Eq105evzkX2eanz5g1rL/sTQa4eXXJky5VPdcYl3ErX3UDVNcew37V6+eBQr78yKh8Ajg9Rp6Y/vy/oX5900U23t86pVjmRg3+d2cbb3jYgEo5xKicUIR4rIkeK6oLQiDiSlzuIpYogFF4YV5GtqvpU4t2jUfQhVf/4kguv23awy9pqGz9w68oLQN4fld+JUadShoed8Nkt4+Has1esGTFB6BA2DK94Y4L7QpK6M/IdbkYupZ7QmFm4dlLlfWcuu36LDeN1D/cMXzHUI/o5hCu9CLV8xiyDF7LEUYR4bxHdfzp52fU/MkGY52z6zopzXeq/7bwM7u7eQxHoKSdM1sL3JtLk0rPOu3bcmkrn88vvXdnbkxffqpT8eRPVYrezQKXME4OORJW3LF52/R2dbJOOPg/hnuErhoKTv3Fu92LQDIkZnyyolPx5lVrxZ9ZUuoPeevGnlZI/b3yy2OOUcK0eECeDUeOX7xm+YsgEYZ5S1viWSilZPDMM3BPVWgD0moeHlx9hzaWzeXh4+RFR9T2NOn9p6nmgnPklqca3mCDMQx5bvbwCevW+XHEWGheXLqrjzrcm09lUo1yQZX7RvvqHE317w7dsDKHtUUXWf3f5Elf407xweoSPqGplX6bl08QRVf9FxF2rMT6mzq9bcuF1T1gTmv9svO1tR0sMS8W5V8YYrvLOvWFfdos2lzpPOvh0UO6LSbj/lPPXbGzHJcgWIQCwSqROHcLP6vXql1T1ae/2rYiJdwC3V8fy60MIG3xRt3MnOwRf1F0IYUN1LL9eRG5r1vXe/33nUNWn6/XqlyD8rOFrqzqqU+2ohUnNeemHp6KFjcMrn3ROjmcf9oTFxprhB5auWDMGjFkz6hxOvGTNY1PPm4ZXPhD3cUWnc0KIPHnqW77zYidFBV0xhiCN80Rub6zY28sewAu1etgSNd5pzaeziRrvrNXDFr8P/pF4wcFtnSoGHS0IADHKV6v1YnOa7F0xy5nHif79yRev2WxNprM5+eI1mwX+rpzt3SG1aeJo+FLy1U62S0cLwqm/f+OTRH23wmSWuj1FE/RWUiaq4Qf49FPWXLoDSZK/nKyGH/RWUvZ0AVaWOhQmifru4y647ikThHnMkktWrw1Rl2vkwZ5yQpZ6vG/s0ku8o1LyOCdarRdfy/pKfzAX6/KNOfKNC6/bVhW3vJ4XX3NOtFLyJL6xRd17IUs9PeUEjTwYoi5fcsnqtR0vkt1S+RtvW36o4K5G5WINeiKOVGEkce7nQfVrSy668f9YE+leNt562Zu98Ich6m8Ag0Ry8fIgomuV+PUlF655riuipm6s/EeHrxjKU5durW0dO/uS4QlrDsYUd92yrGdBaUFfmsf8WNvoZhiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGcXDYr92OqjoAHA4cBgwC5TYv649F5OkD+Y+o6sKmTQ4FBoCs1f8EMAFsAZ4BnhWRyXYwsKpWmr5wODAE9DC/dtQ64AkR+WkLbdLXtMfhzTZyII5wrwIjwLPAMyKy7aAIgqqWgLOB3wFeDyxpOn7PPKnwi0VkuMWNoB94bdMmrwVOAhYBpQPd/oBR4ClgHfAj4Icisu4gCoAApwNvAt4ILAWOBPqZv1vr14rIJfthkwT4taY/vAE4tSmSvQfh3SeA54CNwL8CPwDuEpFaSwVBVY8B3gZcBpw5jyv7IhG5rUWNYQnwh8AfAIvbpHxV4KfA14CbRWT0AAlBP3Bps/yvafPIcF+5WUQufRk2ORRYCVwF/Drg26AsCtwN3AhcJyJP7JcgqOoi4H3AHzVDnvnOfguCqh4FfKjZGBa0cVnvAz4LfFNEihYJQQK8HfgAcFqHptH7JAiq2gO8E/gT4Lg2LtczwJeBz4nIi3vKmXZX0IuaYcfHO0QMWtEgLgPubFb+gjZ/3dOBrwC3qurpLSj7UuB24H91sBjsq01eA3wf+O9tLgY02/Aq4F9U9cK9FgRVdar6ceA7wClW7aCqmap+BrgBOHaevf7vAj9U1bfuR/kvBX7YzIuNhk3eAfwj8Lp59uqnAd9R1Y82x4B2Lwiq6oHPA5+gw2512o+KLzd7xQ/M42IcBtygqv/xZZT/XcD1NAaPjYZNPgj8PY1ZpPlICnwS+Hyzze82QvivwDVW5dMVL8D/AK7sgOJkwBdVdcU+lH8l8AVaP3U6n33incBf0RlXGLyn2eZ3FgRVfTuNwTJjO+8F3tVB5UmBL6vqmXvh+GcCX2r+HaNhk9c3xws66bTyDzXb/nZBUNXjgM9Ylc+q/NObYVWnMdQMFbM9lL3UjAyGzBOmbdLXtElPBxbvv6nqsTMjhD+zHHEnPj6Pc8SX4o3AnlKHlcBvmQvM4j8AZ3Vo2Q4D/hTAqepJNBYcGdt7gzOA3+vwYr5PVdNdlD1rpkrGdpv0Au/u8GJerqonOhor7RZYtc/iUg780uO55t/tpsc7i8bSW2M7vwmc3OFlHAIudcD5Vt+zegMBfrsLiuqBc3bx+Tm0x7LbduJNXVLOCxy26mxHBoATu6SsZ+7lZ93O0i4p5+mOxs68bsHtpSD0d4k9jtjFZ92+TD3dRcR4WJeUfWFCaxdYbKMxWjlC+83VCvBve/FzCa1dpfkAjRmL/c5mgDOAjxwo59/DZ/vDJ4H7mR9z9wI8tovUqpULs6rNNvLcftpEaZyv8Fe0bjbMt3p5chW4YX8OaOhAnhORG1rxRaq6ucWCcDC4rZUHjnQAObCmFQf1NA8o+osWCkLLl18KnbU3vt1sPB9nPkrmAjtRbuH3SLs6q2EY1nsZhmGCYBiGCYJhGCYIhmGYIBiGYYJgGIYJgmEYJgiGYRgmCIZhmCAYhnGQBEGBSTPrTjZpFWEelj+YC+xE0WbfM02rdzv2Ah9T1XEO3HbXCNRobLV+FngUeFREnmvTyi+p6itaJCzz8ayCI5r3YR7s7c/SFKNnRaSdREmAo1W1FR3FIa3u1JOm0XwLBeFg3+0QgedU9VfAP9O4f/CuNnKCM2lcvNoKQZiPdyR8tdmTzcV5CC/SuGrtmTayRy+NK+AC+38egqPFh/kkwPPM71NyXPP9D6dxFuJHgZ+p6leA1W1wNoOncZBFt9I3x+laOx7U09/OjenuDnNA3+wV/g74iapepao2eNqd2PjFyxCE4Q4u32nAN4CbVfV4q27DeGlBuBl4usPL+Xs0rkR/o1W5YexBEERkM43rzjud44D/raq/a9VuGLuPEKBxo+0DXVDeBcANqnq2Vb1h7EYQROR5GnfF17qgzAuBr6vqIqt+w9h1hICI/CMHfw3BXHEarbkrwTA6UxCaovB54IN0x3TNO1V1qbmAYexGEJqi8FngShrLgjuZCvBOcwHD2IMgNEXhRhqr/tZ2ePkvUtU+cwPD2IMgNEXhVzTm7y8FftKh5T8OONncwDBeQhCaoqAicjNwDnAhcEOHpRIeWGJuYBgN9mr7s4jkNHYR3q6qRwCvBl4PnAUcS+NK+SEOzoErrd6scqi5QcdSYX7cOj2/BGEHcXgauKX5C1Ut09jNdxSN7bl6AN9XgfcDlx+sKKkFbAa+0qKyn0BjwHc+8XUaZ1bMRcOcAEbbzB514MvAVvZ/+3Mv8MfNP+dGEHYhEFUa18AflD3nqvrkPGsQj4nIx1tU9jfMQ0H4koj8X+t7p6kCnxaRZ1rgD/3AVa0UhPm4LdjPs/dtpY3L87C+yqYBO6W8lXZNieycAMMwTBAMwzBBMAzDBMEwDBMEwzBMEAzDMEEwDMMEwTAMEwTDMEwQDMMwQTAMwwRhlxRWbYZxYJje7aiq59A4ISm28fsqcG6Lv9P2yxvGjoIAvBb4z11og0lzA8PYOWXIu9QGj5kbGMbOgtCNjAH3mxsYhgkCwP+zCMEwTBCm+JqIRHMDwzBBWAf8g7mAYZggBODDIjJmLmAYJgh/LSK3WvUbhgnCauCjVvWGYYJwA/AOEalb1RtG9wpCAfwlcLWITFi1G8auSbqgjL8A/lxEvmfVbRjdKwjrgf8JfFVExq2qDaP7BOEZ4MfATcDtIjJqVWwYnS8IkcbNvi8ADwJ3A3cCPxWRJ6xaDePl8f8BF09IFDoMCVkAAAAASUVORK5CYII=" alt="SAFA logo">
+  </header>
+  <div class="runway" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <!-- HOME -->
+  <section id="home" style="display:flex;flex-direction:column;gap:16px">
+    <div class="card gold">
+      <div class="kicker">Step 1</div><h2>Choose how you'll answer</h2>
+      <div class="modes" id="modes" role="radiogroup" aria-label="How you will answer">
+        <button class="mode" type="button" role="radio" data-m="say"><span class="ic">🗣️</span><b>Say it out loud</b><span>Answer aloud, then tick the parts you said. Works on every device. Nothing is recorded.</span></button>
+        <button class="mode" type="button" role="radio" data-m="partner"><span class="ic">👥</span><b>With a partner</b><span>One reads and ticks, the other answers out loud. Swap after each question.</span></button>
+        <button class="mode" type="button" role="radio" data-m="type"><span class="ic">⌨️</span><b>Type it</b><span>Type what you'd say on the radio. The trainer checks your words.</span></button>
+        <button class="mode" type="button" role="radio" data-m="speak" id="modeSpeak" hidden><span class="ic">🎤</span><b>Speak to the trainer</b><span>The trainer listens and checks your words for you (Chrome, microphone allowed).</span></button>
+      </div>
+      <p class="notice" id="micNote" hidden></p>
+      <div class="opts">
+        <div class="grp"><span class="lbl">Examiner voice</span><button class="seg" type="button" data-rate="0.75">Slow</button><button class="seg" type="button" data-rate="0.92">Normal</button><button class="seg" type="button" data-rate="1.1">Fast</button><button class="seg" type="button" id="testVoice">🔊 Test</button></div>
+        <label><input type="checkbox" id="autoRead"> Read each question aloud</label>
+        <label><input type="checkbox" id="bigText"> Bigger text</label>
+      </div>
+      <div id="micBlock" hidden style="margin-top:14px">
+        <div class="status">
+          <div><span>Microphone</span><b id="stMic" class="maybe">Not tested yet</b></div>
+          <div><span>Speech-to-text</span><b id="stSr">Checking…</b></div>
+        </div>
+        <p class="hint" style="margin-top:0">Tap test, then say: <b>“Radio check, one, two, tree.”</b></p>
+        <div class="row"><button class="btn gold" id="micTest" type="button">Test my microphone</button><span class="hint" id="micMsg" style="margin:0"></span></div>
+        <div class="live" id="micLive" hidden></div>
+        <audio id="micPlay" controls hidden></audio>
+        <div id="micHelp" class="hint" hidden></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="kicker">How it works</div><h2>Four steps per question</h2>
+      <ol class="steps">
+        <li>Hear the question. Tap 🔊 to hear it again.</li>
+        <li>Answer <b>out loud</b>, the way you would on the radio.</li>
+        <li>Check what you said: ✓ said it · ✗ missed it.</li>
+        <li>Hear the model answer, then mark yourself Right or Wrong, the way the examiner will.</li>
+      </ol>
+      <p class="priv"><b>Privacy:</b> nothing is recorded unless you choose <b>Speak to the trainer</b>, and even then the recording stays on this device. Your score saves on this device only.</p>
+    </div>
+
+    <div class="card">
+      <div class="kicker">Step 2</div><h2>Practise by topic</h2>
+      <p style="margin-top:0">Short sets. The text of each question is shown, and you can replay it as often as you like.</p>
+      <div class="chips" id="topics"></div>
+      <div class="row" style="margin-top:14px"><button class="btn gold" id="goTopic" type="button">Start this topic →</button><span class="hint" id="topicNote" style="margin:0"></span></div>
+    </div>
+
+    <div class="card">
+      <div class="kicker">Step 3</div><h2>Full oral mock</h2>
+      <p style="margin-top:0" id="mockIntro"></p>
+      <label class="row" style="cursor:pointer;margin-top:4px"><input type="checkbox" id="listenOnly"> <span>Exam style: hear the question first, text hidden until I tap “Show”.</span></label>
+      <div class="row" style="margin-top:14px"><button class="btn gold" id="goMock" type="button">Start the oral mock →</button><span class="hint" id="mockBest" style="margin:0"></span></div>
+    </div>
+    <div class="row" style="justify-content:space-between"><span class="hint" style="margin:0">Scores are saved on this device and sent to your ROC-A progress page.</span><button class="link" id="resetBtn" type="button">Clear my scores</button></div>
+  </section>
+
+  <!-- ITEM -->
+  <section id="item" hidden style="display:flex;flex-direction:column;gap:14px">
+    <div>
+      <div class="qhead"><span id="qTopic"></span><span>Question <strong id="qPos">1</strong> of <strong id="qTot">8</strong></span></div>
+      <div class="pbar"><i id="qBar"></i></div>
+    </div>
+    <div class="card gold">
+      <div class="examiner" id="examiner">
+        <div class="av" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg></div>
+        <div style="min-width:0;flex:1">
+          <div class="kicker">Examiner</div>
+          <div class="qt" id="qText"></div>
+          <div class="ctx" id="qCtx" hidden></div>
+          <div class="row" style="margin-top:10px"><button class="btn" id="hear" type="button">🔊 Hear it again</button><button class="btn" id="showQ" type="button" hidden>Show the question</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="answerCard">
+      <div class="kicker">Your answer</div>
+      <div class="rec" id="recBox">
+        <button class="mic" id="mic" type="button" aria-label="Start recording"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg></button>
+        <span class="timer" id="timer">Tap to speak</span>
+        <div class="live" id="live"><i>Your words will appear here as you speak.</i></div>
+      </div>
+      <div class="saybox" id="sayBox" hidden>
+        <div class="big2" id="sayHead">Say your answer out loud now.</div>
+        <div class="hint" id="sayTip" style="margin:0">Use your radio voice: TREE, FIFE, NIN-er, DECIMAL.</div>
+        <button class="btn gold saidbtn" id="saidBtn" type="button">✓ I've said it — show the checklist</button>
+      </div>
+      <div id="typeBox" hidden>
+        <label for="typed" class="hint">Type exactly what you said (or would say):</label>
+        <textarea id="typed" placeholder="e.g. Golf Sierra Alfa Foxtrot, radio check, how do you read?"></textarea>
+      </div>
+      <div class="row" style="justify-content:space-between;margin-top:6px">
+        <div class="switch" id="switch"><span>Answer by:</span><button class="seg" type="button" data-m="say">Say it</button><button class="seg" type="button" data-m="partner">Partner</button><button class="seg" type="button" data-m="type">Type</button><button class="seg" type="button" data-m="speak">Speak</button></div>
+        <button class="btn gold" id="checkBtn" type="button" disabled>Check my answer</button>
+      </div>
+    </div>
+
+    <div class="card" id="fbCard" hidden>
+      <div class="kicker">Feedback</div>
+      <div class="verdict" id="verdict"></div>
+      <ul class="checks" id="checks"></ul>
+      <ul class="tips" id="tips"></ul>
+      <div style="margin-top:12px" id="playWrap"><h3>Your recording</h3><audio id="mine" controls></audio></div>
+      <div class="modelwrap" id="modelWrap">
+      <h3 style="margin-top:12px">Model answer</h3>
+      <button class="btn" id="showModel" type="button">Show the model answer</button>
+      <div class="model" id="model"></div>
+      <div class="row" style="margin-top:8px"><button class="btn" id="hearModel" type="button">🔊 Hear the model</button><button class="btn" id="tryAgain" type="button">↺ Try again</button></div>
+      </div>
+      <h3 style="margin-top:16px" id="markHead">Mark yourself, like the examiner would</h3>
+      <div class="selfmark"><button class="btn good" id="markRight" type="button">✓ Right</button><button class="btn bad" id="markWrong" type="button">✗ Wrong</button></div>
+    </div>
+    <div class="row" style="justify-content:space-between"><span class="hint" style="margin:0">Score so far: <b id="soFar">0</b></span><button class="link" id="quit" type="button">End this set</button></div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result" hidden style="display:flex;flex-direction:column;gap:16px">
+    <div class="card gold">
+      <div class="kicker" id="rKind">Results</div>
+      <div class="row" style="align-items:flex-end;gap:16px"><span class="big" id="rPct">0%</span><span class="hint" id="rRaw" style="margin:0 0 6px"></span></div>
+      <span class="pass" id="rPass" hidden></span>
+      <p id="rMsg"></p>
+      <div id="rSecs"></div>
+      <div class="row" style="margin-top:12px"><button class="btn gold" id="rRetry" type="button">Practise the ones I missed</button><button class="btn" id="rAgain" type="button">Do this set again</button><button class="btn" id="rHome" type="button">Oral Trainer home</button></div>
+    </div>
+    <div class="card" id="rReviewWrap"><h3>Review what you missed</h3><div id="rReview"></div></div>
+  </section>
+
+  <footer>
+    <img src="data:image/png;base64,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" alt="">
+    <div class="tagline">LEARN. FLY. BUILD. LEAD.</div>
+    <p>Simplified for learning. Use RIC-21, the TC AIM and your instructor for real procedures.</p>
+  </footer>
+</div>
+</div>
+<script>
+/* ===================== Content ===================== */
+const TOPICS = [{"id": "r1-rules", "label": "Radio rules", "n": 8, "note": "Priority, privacy, control and the ROC-A itself."}, {"id": "r1-equip", "label": "Licences & equipment", "n": 6, "note": "Certificates, licences, frequencies and fuses."}, {"id": "r2-phon", "label": "Phonetics & call signs", "n": 6, "note": "Spell it out, letter by letter."}, {"id": "r2-num", "label": "Numbers & time", "n": 8, "note": "TREE, FIFE, NIN-er, DECIMAL, Zulu."}, {"id": "r2-call", "label": "Procedure words & calling", "n": 8, "note": "Say what each word means, then make the call."}, {"id": "r2-check", "label": "Radio checks", "n": 4, "note": "Ask for one, then answer one."}, {"id": "r2-circuit", "label": "Circuit calls", "n": 6, "note": "Eagle Butte is a made-up aerodrome with an ATF, runway 27."}, {"id": "r2-readback", "label": "Readbacks", "n": 6, "note": "Read back what you must (and what's recommended), call sign at the end."}, {"id": "r3-mayday", "label": "MAYDAY calls", "n": 6, "note": "Say the whole call and message, in order. Speak slowly."}, {"id": "r3-panpan", "label": "PAN PAN calls", "n": 5, "note": "Urgency: safety concern, no immediate help needed."}, {"id": "r3-hear", "label": "Hearing an emergency", "n": 5, "note": "Acknowledge, relay, impose silence, cancel."}];
+const ITEMS = [{"id": "a1", "topic": "r1-rules", "q": "Name the **top three** priorities of radio communications, highest first.", "checks": [{"t": "Distress", "re": ["distress|mayday"]}, {"t": "Urgency", "re": ["urgency|pan pan"]}, {"t": "Direction-finding", "re": ["direction finding|direction|df"]}], "model": "Distress, urgency, then radio direction-finding."}, {"id": "a2", "topic": "r1-rules", "q": "Which goes first: a **weather** message or a **flight safety** message? Explain.", "checks": [{"t": "Flight safety first", "re": ["flight safety|safety"]}, {"t": "Then weather", "re": ["weather|meteorological"]}], "model": "Flight safety first. It is priority four; weather is priority five."}, {"id": "a3", "topic": "r1-rules", "q": "What does **ROC-A** stand for, and how long is it valid?", "checks": [{"t": "Restricted Operator Certificate", "re": ["restricted operator"]}, {"t": "Aeronautical qualification", "re": ["aeronautical"]}, {"t": "Valid for life", "re": ["life|lifetime|forever|never expires"]}], "order": false, "model": "Restricted Operator Certificate with Aeronautical Qualification. It is valid for life."}, {"id": "a4", "topic": "r1-rules", "q": "Which radio messages are you **allowed to share** with other people?", "checks": [{"t": "Distress", "re": ["distress|mayday"]}, {"t": "Urgency", "re": ["urgency|pan pan"]}, {"t": "Safety", "re": ["safety"]}, {"t": "ALL STATIONS messages", "re": ["all stations"]}], "order": false, "model": "Distress, urgency and safety messages, and messages addressed to all stations."}, {"id": "a5", "topic": "r1-rules", "q": "Two aircraft are talking **air to air**. Who controls the conversation?", "checks": [{"t": "The aircraft being called", "re": ["being called|called aircraft|aircraft called|one being called|receiving"]}], "model": "The aircraft being called controls the conversation."}, {"id": "a6", "topic": "r1-rules", "q": "When are you allowed to **interfere** with another station's transmission?", "checks": [{"t": "Only for a higher-priority call", "re": ["higher priority|priority|distress|emergency|mayday"]}], "model": "Only to send a higher-priority call, such as distress or urgency."}, {"id": "a7", "topic": "r1-rules", "q": "Why is sending a **false distress** call so serious?", "checks": [{"t": "It is an offence (law)", "re": ["offence|offense|illegal|against the law|fine|jail|crime"]}, {"t": "Wastes rescue resources", "re": ["rescue\\w*|search\\w*|resources|people looking|help"]}], "order": false, "model": "It is an offence under the Radiocommunication Act, with fines and possible jail, and it sends rescuers after an aircraft that is not in trouble."}, {"id": "a8", "topic": "r1-rules", "q": "What may radio talk between aeronautical stations be **limited to**?", "checks": [{"t": "Safety", "re": ["safety"]}, {"t": "Regularity of flight", "re": ["regularity|regular|running of flights|schedule"]}], "order": false, "model": "Safety and the regularity of flight. Unnecessary talk and bad language are not allowed."}, {"id": "e1", "topic": "r1-equip", "q": "What is the difference between your **ROC-A** and a **station licence**?", "checks": [{"t": "ROC-A = the operator (you)", "re": ["operator|person|me|you|pilot"]}, {"t": "Licence = the radio station", "re": ["station"]}], "order": false, "model": "The ROC-A is for the operator, me. The station licence is for the radio station."}, {"id": "e2", "topic": "r1-equip", "q": "What is the **aeronautical emergency frequency**?", "checks": [{"t": "One two one decimal five", "re": ["121\\.5"]}], "decimal": true, "digits": "1215", "model": "One two one decimal five.", "modelSay": "wun too wun decimal fife"}, {"id": "e3", "topic": "r1-equip", "q": "A **fuse blows** in the radio. What do you do?", "checks": [{"t": "Fix the fault first", "re": ["fault|problem|cause|fix|find"]}, {"t": "Same rating (never higher)", "re": ["same|never (a )?(higher|bigger)|not (a )?(higher|bigger)"]}], "order": false, "model": "Find and fix the fault first, then fit a fuse of the same rating, never a higher one, with dry hands."}, {"id": "e4", "topic": "r1-equip", "q": "What is a **short**, and what is an **open**?", "checks": [{"t": "Short = bare wires touching", "re": ["touch\\w*"]}, {"t": "Open = wire broken inside insulation", "re": ["broken|break"]}], "order": false, "model": "A short is bare wires touching each other or the metal case. An open is a wire broken inside its insulation."}, {"id": "e5", "topic": "r1-equip", "q": "What is the difference between an **aircraft station** and an **aeronautical station**?", "checks": [{"t": "Aircraft station = on board", "re": ["on board|onboard|in the aircraft|aircraft"]}, {"t": "Aeronautical station = on the ground", "re": ["ground|land"]}], "order": false, "model": "An aircraft station is on board an aircraft. An aeronautical station is a land station on the ground."}, {"id": "e6", "topic": "r1-equip", "q": "What does **108.1 to 117.975 MHz** get used for?", "checks": [{"t": "Radio navigation", "re": ["navigation|nav"]}], "model": "Aeronautical radio navigation."}, {"id": "p1", "topic": "r2-phon", "q": "Spell the registration **C-GSAF** using the phonetic alphabet.", "checks": [{"t": "Registration", "spell": "CGSAF"}], "model": "Charlie Golf Sierra Alfa Foxtrot"}, {"id": "p2", "topic": "r2-phon", "q": "Spell the registration **C-FJQX** using the phonetic alphabet.", "checks": [{"t": "Registration", "spell": "CFJQX"}], "model": "Charlie Foxtrot Juliett Quebec X-ray"}, {"id": "p3", "topic": "r2-phon", "q": "Spell the word **HANGAR** using the phonetic alphabet.", "checks": [{"t": "Word", "spell": "HANGAR"}], "model": "Hotel Alfa November Golf Alfa Romeo"}, {"id": "p4", "topic": "r2-phon", "q": "You fly a **Cessna 182**, registration **C-GFAC**. Say your call sign.", "checks": [{"t": "Type: Cessna one eight two", "re": ["cessna 182", "cessna"]}, {"t": "Last four letters", "spell": "GFAC"}], "model": "Cessna one eight two Golf Foxtrot Alfa Charlie", "digits": "182"}, {"id": "p5", "topic": "r2-phon", "q": "Your Cessna is **C-GSAF**. ATS has started calling you by your short call sign. What is it?", "checks": [{"t": "Last three letters", "spell": "SAF"}], "model": "Sierra Alfa Foxtrot", "tips": ["Short form = the **last three letters**. Use it only after ATS does."]}, {"id": "p6", "topic": "r2-phon", "q": "Spell the registration **C-FUWY** using the phonetic alphabet.", "checks": [{"t": "Registration", "spell": "CFUWY"}], "model": "Charlie Foxtrot Uniform Whiskey Yankee"}, {"id": "p7", "topic": "r2-phon", "q": "Spell your **first name** using the phonetic alphabet.", "checks": [{"t": "Used phonetic words (the trainer can't know your name, so check the model and mark yourself)", "re": ["alfa|bravo|charlie|delta|echo|foxtrot|golf|hotel|india|juliett|kilo|lima|mike|november|oscar|papa|quebec|romeo|sierra|tango|uniform|victor|whiskey|xray|yankee|zulu"]}], "model": "Example — JORDAN: Juliett Oscar Romeo Delta Alfa November"}, {"id": "n1", "topic": "r2-num", "q": "Say this frequency: **126.7**", "checks": [{"t": "One two six decimal seven", "re": ["126\\.7"], "hint": "Digit by digit, with DECIMAL for the dot."}], "decimal": true, "digits": "1267", "model": "One two six decimal seven"}, {"id": "n2", "topic": "r2-num", "q": "Say this altitude: **4,500 feet**", "checks": [{"t": "Four thousand five hundred", "re": ["4 thousand 5 hundred", "4500"], "hint": "Altitudes are thousands + hundreds."}], "digits": "45", "model": "Four thousand five hundred", "modelSay": "fower thousand fife hundred"}, {"id": "n3", "topic": "r2-num", "q": "Say this altitude: **11,000 feet**", "checks": [{"t": "One one thousand", "re": ["11 thousand", "11000"], "hint": "Whole thousands: each digit, then \"thousand\"."}], "model": "One one thousand"}, {"id": "n4", "topic": "r2-num", "q": "Say this heading: **090°**", "checks": [{"t": "Heading", "re": ["heading"]}, {"t": "Zero niner zero", "re": ["090"], "hint": "Headings are always three digits."}], "digits": "9", "model": "Heading zero niner zero"}, {"id": "n5", "topic": "r2-num", "q": "Say this transponder code: **4621**", "checks": [{"t": "Four six two one", "re": ["4621"], "hint": "Digit by digit."}], "model": "Four six two one", "modelSay": "fower six too wun"}, {"id": "n6", "topic": "r2-num", "q": "Say this time in UTC, the radio way: **0920Z**", "checks": [{"t": "Zero niner two zero", "re": ["0920"]}, {"t": "Zulu", "re": ["zulu", "z", "utc"]}], "digits": "9", "model": "Zero niner two zero Zulu"}, {"id": "n7", "topic": "r2-num", "q": "It is **2:45 p.m. Alberta Time**. Give the time in UTC.", "ctx": "Alberta Time = UTC−6. Add 6 hours.", "checks": [{"t": "Two zero four five", "re": ["2045"], "hint": "14:45 + 6 h = 20:45."}, {"t": "Zulu", "re": ["zulu", "z", "utc"]}], "digits": "45", "model": "Two zero four five Zulu", "modelSay": "too zero fower fife zulu"}, {"id": "n8", "topic": "r2-num", "q": "It is **8:30 p.m. Alberta Time**. Give the time in UTC.", "ctx": "Alberta Time = UTC−6. Watch for midnight.", "checks": [{"t": "Zero two three zero", "re": ["0230", "230"], "hint": "20:30 + 6 h = 02:30, the next day."}, {"t": "Zulu", "re": ["zulu", "z", "utc"]}], "digits": "3", "model": "Zero two three zero Zulu", "modelSay": "zero too tree zero zulu"}, {"id": "n9", "topic": "r2-num", "q": "Say this wind: **270° at 10 knots**", "checks": [{"t": "Wind", "re": ["wind"]}, {"t": "Two seven zero degrees", "re": ["270"]}, {"t": "One zero knots", "re": ["10 knots", "10"]}], "model": "Wind two seven zero degrees one zero knots"}, {"id": "c1", "topic": "r2-call", "q": "What does **WILCO** mean?", "checks": [{"t": "Received / understood", "re": ["received|understood|understand"]}, {"t": "Will comply", "re": ["will (be )?compl(y|ied)|comply|complied"]}], "order": false, "model": "Your instructions have been received, understood and will be complied with."}, {"id": "c2", "topic": "r2-call", "q": "What does **ROGER** mean?", "checks": [{"t": "Received", "re": ["received|got"]}, {"t": "All of your last transmission", "re": ["all|last transmission|whole|everything"]}], "order": false, "model": "I have received all of your last transmission."}, {"id": "c3", "topic": "r2-call", "q": "What is the difference between **OVER** and **OUT**?", "checks": [{"t": "OVER: expect a reply", "re": ["(expect|want|waiting for).{0,20}(reply|response|answer)|reply|response"]}, {"t": "OUT: conversation ended / no reply", "re": ["ended|over with|finished|no (reply|response|answer)|done"]}], "order": false, "model": "OVER means my transmission is ended and I expect a reply. OUT means the conversation is ended and no reply is expected."}, {"id": "c4", "topic": "r2-call", "q": "What do you say instead of \"repeat\" when you want the last transmission again?", "checks": [{"t": "SAY AGAIN", "re": ["say again"]}], "model": "Say again.", "tips": ["Never \"repeat\": it is on RIC-21's slang list."]}, {"id": "c5", "topic": "r2-call", "q": "What does **AFFIRM** mean, and what does **NEGATIVE** mean?", "checks": [{"t": "AFFIRM = yes", "re": ["yes"]}, {"t": "NEGATIVE = no / not correct", "re": ["no|not correct|disagree"]}], "model": "AFFIRM means yes. NEGATIVE means no, or that is not correct."}, {"id": "c6", "topic": "r2-call", "q": "Make an **initial call** to **Toronto Tower**. You are **Cessna Golf Sierra Alfa Foxtrot** on **118.7**.", "checks": [{"t": "Station called: Toronto Tower", "re": ["toronto tower"]}, {"t": "THIS IS", "re": ["this is"]}, {"t": "Your call sign", "re": ["(cessna )?golf sierra alfa foxtrot"]}, {"t": "Frequency: one one eight decimal seven", "re": ["118\\.7"]}, {"t": "OVER", "re": ["over"]}], "decimal": true, "model": "Toronto Tower, this is Cessna Golf Sierra Alfa Foxtrot, on frequency one one eight decimal seven, over."}, {"id": "c7", "topic": "r2-call", "q": "Watson Lake Radio calls you, **Cessna Golf Sierra Alfa Foxtrot**. You are ready for their message. Reply.", "checks": [{"t": "Station: Watson Lake Radio", "re": ["watson lake radio"]}, {"t": "THIS IS", "re": ["this is"]}, {"t": "Your call sign", "re": ["(cessna )?golf sierra alfa foxtrot"]}, {"t": "GO AHEAD", "re": ["go ahead"]}], "model": "Watson Lake Radio, this is Cessna Golf Sierra Alfa Foxtrot, go ahead."}, {"id": "c8", "topic": "r2-call", "q": "Someone calls you but you can't tell who. You are **Cessna Golf Sierra Alfa Foxtrot**. Reply.", "checks": [{"t": "STATION CALLING", "re": ["station calling"]}, {"t": "Your call sign", "re": ["(cessna )?golf sierra alfa foxtrot"]}, {"t": "SAY AGAIN", "re": ["say again"]}, {"t": "OVER", "re": ["over"]}], "model": "Station calling Cessna Golf Sierra Alfa Foxtrot, say again, over."}, {"id": "c9", "topic": "r2-call", "q": "You said \"over Ottawa at two seven\" but meant **two eight**. Correct it.", "checks": [{"t": "CORRECTION", "re": ["correction"]}, {"t": "Two eight", "re": ["28"]}], "model": "Correction, two eight.", "tips": ["RIC-21: say CORRECTION, the last correct word or phrase, then the right version: \"…at two seven, correction, two eight.\""]}, {"id": "c10", "topic": "r2-call", "q": "Name **four** slang words or phrases RIC-21 says **not** to use on the radio.", "checks": [{"t": "Slang #1", "re": ["ok|okay|repeat|ten 4|10 4|over and out|breaker|come in"]}, {"t": "Slang #2", "re": ["ok|okay|repeat|ten 4|10 4|over and out|breaker|come in"]}, {"t": "Slang #3", "re": ["ok|okay|repeat|ten 4|10 4|over and out|breaker|come in"]}, {"t": "Slang #4", "re": ["ok|okay|repeat|ten 4|10 4|over and out|breaker|come in"]}], "model": "OK, repeat, ten-four, over and out, breaker breaker, come in please."}, {"id": "r1", "topic": "r2-check", "q": "Ask **Watson Lake Radio** for a radio check on **126.7**. You are **Cessna Golf Sierra Alfa Foxtrot**.", "checks": [{"t": "Station: Watson Lake Radio", "re": ["watson lake radio"]}, {"t": "Your call sign", "re": ["(cessna )?golf sierra alfa foxtrot"]}, {"t": "Radio check", "re": ["radio check|signal check"]}, {"t": "Frequency: one two six decimal seven", "re": ["126\\.7"]}, {"t": "How do you read?", "re": ["how do you read"]}], "decimal": true, "model": "Watson Lake Radio, this is Cessna Golf Sierra Alfa Foxtrot, radio check one two six decimal seven, how do you read, over."}, {"id": "r2", "topic": "r2-check", "q": "Cessna **Foxtrot Alfa Bravo Charlie** asks you, **Watson Lake Radio**, for a radio check. You hear them perfectly. Reply.", "checks": [{"t": "Their call sign", "re": ["(cessna )?foxtrot alfa bravo charlie"]}, {"t": "THIS IS Watson Lake Radio", "re": ["watson lake radio"]}, {"t": "Reading you strength five", "re": ["(reading|read) you (strength )?5|strength 5"]}], "digits": "5", "model": "Cessna Foxtrot Alfa Bravo Charlie, this is Watson Lake Radio, reading you strength five, over."}, {"id": "r3", "topic": "r2-check", "q": "What does readability **3** mean?", "checks": [{"t": "Fair", "re": ["fair"]}, {"t": "Readable but with difficulty", "re": ["difficult\\w*"]}], "order": false, "model": "Fair: readable but with difficulty."}, {"id": "r4", "topic": "r2-check", "q": "Name readability **1** and readability **5**.", "checks": [{"t": "1 = Bad (unreadable)", "re": ["bad|unreadable"]}, {"t": "5 = Excellent (perfectly readable)", "re": ["excellent|perfectly"]}], "order": false, "model": "One is bad, unreadable. Five is excellent, perfectly readable."}, {"id": "r5", "topic": "r2-check", "q": "How long should a radio check last, and what must you include?", "checks": [{"t": "No more than 10 seconds", "re": ["10 seconds|10"]}, {"t": "Your call sign", "re": ["call sign|identification|identify"]}], "order": false, "model": "No more than 10 seconds, and include my call sign."}, {"id": "k1", "topic": "r2-circuit", "q": "You are **15 miles north** of Eagle Butte at **4,500 ft**, inbound to land, estimating **1520**. Make your first call.", "ctx": "Your call sign: **Cessna Golf Sierra Alfa Foxtrot**. Eagle Butte has an ATF.", "checks": [{"t": "Eagle Butte Traffic", "re": ["eagle butte traffic"]}, {"t": "Your call sign", "re": ["(cessna )?golf sierra alfa foxtrot"]}, {"t": "Position: 15 miles north", "re": ["(15|fifteen) (miles|nautical miles|mile) north"]}, {"t": "Altitude: four thousand five hundred", "re": ["4 thousand 5 hundred|4500"]}, {"t": "Intentions: inbound for landing", "re": ["landing|land"]}, {"t": "Estimate: one five two zero", "re": ["1520"]}], "digits": "45", "model": "Eagle Butte Traffic, Cessna Golf Sierra Alfa Foxtrot, fifteen miles north, four thousand five hundred, inbound for landing, estimating one five two zero."}, {"id": "k2", "topic": "r2-circuit", "q": "You are crossing **mid-field** to join the **left downwind** for **runway 27**. Make the call.", "ctx": "Short call sign: **Sierra Alfa Foxtrot**.", "checks": [{"t": "Eagle Butte Traffic", "re": ["eagle butte traffic"]}, {"t": "Call sign", "re": ["sierra alfa foxtrot"]}, {"t": "Crossing mid-field", "re": ["mid ?field|midfield"]}, {"t": "Join left downwind", "re": ["left downwind"]}, {"t": "Runway two seven", "re": ["runway 27"]}], "model": "Eagle Butte Traffic, Sierra Alfa Foxtrot, crossing mid-field to join left downwind runway two seven."}, {"id": "k3", "topic": "r2-circuit", "q": "You are on the **left downwind** for **runway 27**. Make the call.", "ctx": "Short call sign: **Sierra Alfa Foxtrot**.", "checks": [{"t": "Eagle Butte Traffic", "re": ["eagle butte traffic"]}, {"t": "Call sign", "re": ["sierra alfa foxtrot"]}, {"t": "Left downwind", "re": ["left downwind|downwind"]}, {"t": "Runway two seven", "re": ["runway 27|27"]}], "model": "Eagle Butte Traffic, Sierra Alfa Foxtrot, left downwind runway two seven."}, {"id": "k4", "topic": "r2-circuit", "q": "You are on **final** for **runway 27**, planning a **full-stop** landing. Make the call.", "ctx": "Short call sign: **Sierra Alfa Foxtrot**.", "checks": [{"t": "Eagle Butte Traffic", "re": ["eagle butte traffic"]}, {"t": "Call sign", "re": ["sierra alfa foxtrot"]}, {"t": "Final runway two seven", "re": ["final (runway )?27"]}, {"t": "Full stop", "re": ["full stop|full-stop|landing"]}], "model": "Eagle Butte Traffic, Sierra Alfa Foxtrot, final runway two seven, full stop."}, {"id": "k5", "topic": "r2-circuit", "q": "You have landed and are **off runway 27**. Make the call.", "ctx": "Short call sign: **Sierra Alfa Foxtrot**.", "checks": [{"t": "Eagle Butte Traffic", "re": ["eagle butte traffic"]}, {"t": "Call sign", "re": ["sierra alfa foxtrot"]}, {"t": "Clear of runway two seven", "re": ["clear (of )?(runway )?27|clear of the (runway|active)"]}], "model": "Eagle Butte Traffic, Sierra Alfa Foxtrot, clear of runway two seven."}, {"id": "k6", "topic": "r2-circuit", "q": "List the **arrival calls** at an uncontrolled aerodrome, **in order**.", "checks": [{"t": "Before entering the area (5 minutes)", "re": ["before entering|entering|5 minutes|inbound|area"]}, {"t": "Joining the circuit", "re": ["join\\w*"]}, {"t": "Downwind", "re": ["downwind"]}, {"t": "Final", "re": ["final"]}, {"t": "Clear of the runway", "re": ["clear\\w*"]}], "model": "Five minutes before entering the area, joining the circuit, downwind, final, and clear of the runway."}, {"id": "k7", "topic": "r2-circuit", "q": "You are about to **taxi** from the ramp for **runway 27**, staying **in the circuit**. Make the call.", "ctx": "Full call sign: **Cessna Golf Sierra Alfa Foxtrot**.", "checks": [{"t": "Eagle Butte Traffic", "re": ["eagle butte traffic"]}, {"t": "Your call sign", "re": ["(cessna )?golf sierra alfa foxtrot"]}, {"t": "Taxiing", "re": ["taxi\\w*"]}, {"t": "Runway two seven", "re": ["27"]}, {"t": "Intentions: circuits", "re": ["circuits?"]}], "model": "Eagle Butte Traffic, Cessna Golf Sierra Alfa Foxtrot, taxiing for runway two seven, for circuits."}, {"id": "b1", "topic": "r2-readback", "q": "ATC: \"Golf Sierra Alfa Foxtrot, **hold short runway two six**.\" Read it back.", "say": "Golf Sierra Alfa Foxtrot, hold short runway two six.", "checks": [{"t": "Hold short", "re": ["hold(ing)? short"]}, {"t": "Runway two six", "re": ["runway 26|26"]}, {"t": "Call sign at the end", "re": ["golf sierra alfa foxtrot|sierra alfa foxtrot"]}], "model": "Hold short runway two six, Golf Sierra Alfa Foxtrot."}, {"id": "b2", "topic": "r2-readback", "q": "ATC: \"Golf Sierra Alfa Foxtrot, **squawk four six two one**.\" Read it back.", "say": "Golf Sierra Alfa Foxtrot, squawk four six two one.", "checks": [{"t": "Squawk four six two one", "re": ["4621"]}, {"t": "Call sign at the end", "re": ["golf sierra alfa foxtrot|sierra alfa foxtrot"]}], "model": "Squawk four six two one, Golf Sierra Alfa Foxtrot.", "modelSay": "squawk fower six too wun, golf sierra alfa foxtrot"}, {"id": "b3", "topic": "r2-readback", "q": "ATC: \"Golf Sierra Alfa Foxtrot, **runway two seven, altimeter two niner niner one**.\" Read it back.", "say": "Golf Sierra Alfa Foxtrot, runway two seven, altimeter two niner niner one.", "checks": [{"t": "Runway two seven", "re": ["runway 27|27"]}, {"t": "Altimeter two niner niner one", "re": ["2991"]}, {"t": "Call sign at the end", "re": ["golf sierra alfa foxtrot|sierra alfa foxtrot"]}], "digits": "99", "model": "Runway two seven, altimeter two niner niner one, Golf Sierra Alfa Foxtrot."}, {"id": "b4", "topic": "r2-readback", "q": "ATC: \"Golf Sierra Alfa Foxtrot, **report three miles final**.\" Reply.", "say": "Golf Sierra Alfa Foxtrot, report three miles final.", "checks": [{"t": "WILCO", "re": ["wilco"]}, {"t": "Call sign", "re": ["golf sierra alfa foxtrot|sierra alfa foxtrot"]}], "model": "Wilco, Golf Sierra Alfa Foxtrot.", "tips": ["An instruction you will follow → WILCO. Not on the must-read-back list."]}, {"id": "b5", "topic": "r2-readback", "q": "From **19 Nov 2026**, what **four** things must you read back to ATS?", "checks": [{"t": "Hold short instructions", "re": ["hold short"]}, {"t": "Runway (in use / assigned)", "re": ["runway"]}, {"t": "Altimeter setting", "re": ["altimeter"]}, {"t": "Transponder code", "re": ["transponder|squawk|code"]}], "order": false, "model": "Hold-short instructions, the runway in use or assigned runway, the altimeter setting, and the transponder code."}, {"id": "b6", "topic": "r2-readback", "q": "ATC: \"Golf Sierra Alfa Foxtrot, **cleared to land runway two seven**.\" Read it back.", "say": "Golf Sierra Alfa Foxtrot, cleared to land runway two seven.", "checks": [{"t": "Cleared to land", "re": ["cleared to land"]}, {"t": "Runway two seven", "re": ["runway 27|27"]}, {"t": "Call sign at the end", "re": ["golf sierra alfa foxtrot|sierra alfa foxtrot"]}], "model": "Cleared to land runway two seven, Golf Sierra Alfa Foxtrot."}, {"id": "b7", "topic": "r2-readback", "q": "ATC: \"Golf Sierra Alfa Foxtrot, **turn left heading two seven zero**.\" Read it back.", "say": "Golf Sierra Alfa Foxtrot, turn left heading two seven zero.", "checks": [{"t": "Left heading", "re": ["left heading|left|heading"]}, {"t": "Two seven zero", "re": ["270"]}, {"t": "Call sign at the end", "re": ["golf sierra alfa foxtrot|sierra alfa foxtrot"]}], "model": "Left heading two seven zero, Golf Sierra Alfa Foxtrot.", "tips": ["Headings aren't on the CARs must list. NAV CANADA lists them as items that may be read back: good practice."]}, {"id": "m1", "topic": "r3-mayday", "q": "Make a **MAYDAY call and message**.", "ctx": "You are **Cessna Golf Sierra Alfa Foxtrot**. **Engine failure**. You will make a **forced landing in a field**. Position **10 miles south of Medicine Hat**, **3,500 feet**. **2 on board**.", "checks": [{"t": "MAYDAY ×3", "re": ["mayday mayday mayday"]}, {"t": "THIS IS", "re": ["this is"]}, {"t": "Call sign", "re": ["(cessna )?golf sierra alfa foxtrot"]}, {"t": "What happened: engine failure", "re": ["engine (failure|failed|out|quit)|engine"]}, {"t": "Intentions: forced landing", "re": ["forced landing|landing|land"]}, {"t": "Position: 10 miles south of Medicine Hat", "re": ["south of medicine hat|medicine hat"]}, {"t": "Altitude: 3,500 feet", "re": ["3 thousand 5 hundred|3500"]}, {"t": "Persons on board: 2", "re": ["(2|two) (persons? |people )?on board|(2|two) souls|on board"]}, {"t": "Call sign to finish", "re": ["golf sierra alfa foxtrot"]}], "digits": "35", "model": "Mayday, mayday, mayday, this is Cessna Golf Sierra Alfa Foxtrot, Cessna Golf Sierra Alfa Foxtrot, Cessna Golf Sierra Alfa Foxtrot. Mayday, Cessna Golf Sierra Alfa Foxtrot, engine failure, forced landing in a field, ten miles south of Medicine Hat, three thousand five hundred feet, two persons on board, Cessna Golf Sierra Alfa Foxtrot.", "tips": ["Order: what happened → intentions → position → persons on board → call sign."]}, {"id": "m2", "topic": "r3-mayday", "q": "Make a **MAYDAY call and message**.", "ctx": "You are **Cessna Golf Bravo Romeo Kilo**. **Smoke in the cockpit**. You will **land on the highway**. Position **5 miles west of Dunmore**, **4,000 feet**. **1 on board**.", "checks": [{"t": "MAYDAY ×3", "re": ["mayday mayday mayday"]}, {"t": "THIS IS", "re": ["this is"]}, {"t": "Call sign", "re": ["(cessna )?golf bravo romeo kilo"]}, {"t": "What happened: smoke in the cockpit", "re": ["smoke"]}, {"t": "Intentions: land on the highway", "re": ["highway|land\\w*"]}, {"t": "Position: 5 miles west of Dunmore", "re": ["west of dunmore|dunmore"]}, {"t": "Altitude: 4,000 feet", "re": ["4 thousand|4000"]}, {"t": "Persons on board: 1", "re": ["on board|soul"]}, {"t": "Call sign to finish", "re": ["golf bravo romeo kilo"]}], "model": "Mayday, mayday, mayday, this is Cessna Golf Bravo Romeo Kilo, Cessna Golf Bravo Romeo Kilo, Cessna Golf Bravo Romeo Kilo. Mayday, Cessna Golf Bravo Romeo Kilo, smoke in the cockpit, landing on the highway, five miles west of Dunmore, four thousand feet, one person on board, Cessna Golf Bravo Romeo Kilo.", "modelSay": "Mayday, mayday, mayday, this is Cessna Golf Bravo Romeo Kilo, Cessna Golf Bravo Romeo Kilo, Cessna Golf Bravo Romeo Kilo. Mayday, Cessna Golf Bravo Romeo Kilo, smoke in the cockpit, landing on the highway, fife miles west of Dunmore, fower thousand feet, wun person on board, Cessna Golf Bravo Romeo Kilo."}, {"id": "m3", "topic": "r3-mayday", "q": "Say the **distress call** only (not the message), as **Piper Foxtrot X-ray Charlie Charlie**.", "checks": [{"t": "MAYDAY ×3", "re": ["mayday mayday mayday"]}, {"t": "THIS IS", "re": ["this is"]}, {"t": "Call sign", "re": ["(piper )?foxtrot xray charlie charlie"]}], "model": "Mayday, mayday, mayday, this is Piper Foxtrot X-ray Charlie Charlie, Piper Foxtrot X-ray Charlie Charlie, Piper Foxtrot X-ray Charlie Charlie."}, {"id": "m4", "topic": "r3-mayday", "q": "List the items of a **MAYDAY message**, in order.", "checks": [{"t": "MAYDAY", "re": ["mayday"]}, {"t": "Call sign", "re": ["call sign"]}, {"t": "What happened (nature)", "re": ["nature|what (has )?happened|happened|problem|emergency"]}, {"t": "Intentions", "re": ["intention\\w*"]}, {"t": "Position", "re": ["position"]}, {"t": "Persons on board", "re": ["persons? on board|people on board|on board|souls"]}, {"t": "Other information", "re": ["other|anything else|useful"]}, {"t": "Call sign to finish", "re": ["call sign"]}], "model": "Mayday, call sign, what has happened, intentions, position, persons on board, any other useful information, call sign."}, {"id": "m5", "topic": "r3-mayday", "q": "Which **frequency** do you use first for a MAYDAY, and what if no one answers?", "checks": [{"t": "The frequency in use", "re": ["in use|current|already|same frequency|using"]}, {"t": "121.5 (or any other)", "re": ["121\\.5|any other|any frequency"]}], "decimal": true, "digits": "1215", "model": "The air-ground frequency I am already using. If no one answers, repeat on one two one decimal five or any other frequency."}, {"id": "m6", "topic": "r3-mayday", "q": "You have sent your MAYDAY call and message. **What do you do next?**", "checks": [{"t": "Listen for an acknowledgment", "re": ["listen|wait for (a )?(reply|answer|acknowledg\\w*)"]}, {"t": "Turn on the ELT (if you have one)", "re": ["elt|locator|emergency locator"]}, {"t": "Repeat if no answer", "re": ["repeat|again"]}], "order": false, "model": "Listen for an acknowledgment, keep passing information, turn on the ELT if I have one, and repeat the message if no one answers."}, {"id": "u1", "topic": "r3-panpan", "q": "Make a **PAN PAN** message to **all stations**.", "ctx": "You are **Cessna Golf Sierra Alfa Foxtrot**. You are **lost** and want a **radar position check**. You think you are **near Brooks**, at **4,500 feet**, heading **090**. Fuel and weather are fine.", "checks": [{"t": "PAN PAN ×3", "re": ["pan pan pan pan pan pan"]}, {"t": "ALL STATIONS ×3", "re": ["all stations"]}, {"t": "THIS IS", "re": ["this is"]}, {"t": "Your aircraft", "re": ["(cessna )?golf sierra alfa foxtrot"]}, {"t": "What's wrong: lost", "re": ["lost|unsure|uncertain"]}, {"t": "Intentions / request: radar check", "re": ["radar|position check|request"]}, {"t": "Position: near Brooks", "re": ["brooks"]}, {"t": "Altitude: 4,500 feet", "re": ["4 thousand 5 hundred|4500"]}, {"t": "Heading 090", "re": ["090|heading"]}], "digits": "459", "model": "Pan pan, pan pan, pan pan, all stations, all stations, all stations, this is Cessna Golf Sierra Alfa Foxtrot, lost, request radar position check, position near Brooks, four thousand five hundred feet, heading zero niner zero, Cessna Golf Sierra Alfa Foxtrot, over.", "modelSay": "Pan pan, pan pan, pan pan, all stations, all stations, all stations, this is Cessna Golf Sierra Alfa Foxtrot, lost, request radar position check, position near Brooks, fower thousand fife hundred feet, heading zero niner zero, Cessna Golf Sierra Alfa Foxtrot, over."}, {"id": "u2", "topic": "r3-panpan", "q": "Define **urgency**, and say how it differs from **distress**.", "checks": [{"t": "Safety concern", "re": ["safety"]}, {"t": "No immediate assistance needed", "re": ["(not|no|doesnt|does not|dont) (need|require)\\w* immediate|no immediate|not immediate"]}, {"t": "Distress = grave/imminent danger, immediate help", "re": ["grave|imminent"]}], "order": false, "model": "Urgency is a concern about the safety of an aircraft, vehicle or person on board or in sight that does not need immediate assistance. Distress is grave or imminent danger needing immediate assistance."}, {"id": "u3", "topic": "r3-panpan", "q": "What has priority over an **urgency** message?", "checks": [{"t": "Only distress", "re": ["distress|mayday"]}], "model": "Only distress."}, {"id": "u4", "topic": "r3-panpan", "q": "Your urgency problem is solved. **What do you do**, and who do you address?", "checks": [{"t": "Cancel the urgency message", "re": ["cancel\\w*"]}, {"t": "To ALL STATIONS", "re": ["all stations"]}], "order": false, "model": "Cancel the urgency message as soon as help is no longer needed, addressed to all stations."}, {"id": "u5", "topic": "r3-panpan", "q": "MAYDAY or PAN PAN? A passenger feels ill but is stable, and you want an ambulance to meet you when you land in 20 minutes.", "checks": [{"t": "PAN PAN", "re": ["pan pan|urgency"]}], "model": "PAN PAN: it concerns someone's safety, but no immediate assistance is needed in flight."}, {"id": "h1", "topic": "r3-hear", "q": "You are **Cessna Golf Sierra Alfa Foxtrot**. You hear a MAYDAY from **Piper Foxtrot X-ray Quebec Quebec** and nobody closer has answered. **Acknowledge it.**", "checks": [{"t": "MAYDAY", "re": ["mayday"]}, {"t": "Their call sign (×3)", "re": ["(piper )?foxtrot xray quebec quebec"]}, {"t": "THIS IS", "re": ["this is"]}, {"t": "Your call sign (×3)", "re": ["(cessna )?golf sierra alfa foxtrot"]}, {"t": "RECEIVED MAYDAY", "re": ["received mayday"]}], "model": "Mayday, Piper Foxtrot X-ray Quebec Quebec, Piper Foxtrot X-ray Quebec Quebec, Piper Foxtrot X-ray Quebec Quebec, this is Cessna Golf Sierra Alfa Foxtrot, Cessna Golf Sierra Alfa Foxtrot, Cessna Golf Sierra Alfa Foxtrot, received mayday."}, {"id": "h2", "topic": "r3-hear", "q": "Name **three** situations when you should **relay** someone else's MAYDAY.", "checks": [{"t": "They can't transmit", "re": ["cant|can not|cannot|unable|not able"]}, {"t": "More help is needed", "re": ["more help|further help|more assistance|need\\w* (more )?help"]}, {"t": "Nobody acknowledged it", "re": ["acknowledg\\w*|no (one|answer|reply)|nobody|unanswered"]}], "order": false, "model": "When the aircraft in distress cannot transmit, when more help is needed, and when nobody has acknowledged the MAYDAY."}, {"id": "h3", "topic": "r3-hear", "q": "How do you **start** a relayed distress message? You are **Cessna Golf Sierra Alfa Foxtrot**.", "checks": [{"t": "MAYDAY RELAY ×3", "re": ["mayday relay"]}, {"t": "THIS IS", "re": ["this is"]}, {"t": "Your call sign", "re": ["(cessna )?golf sierra alfa foxtrot"]}, {"t": "MAYDAY (then their details)", "re": ["mayday"]}], "model": "Mayday relay, mayday relay, mayday relay, this is Cessna Golf Sierra Alfa Foxtrot, Cessna Golf Sierra Alfa Foxtrot, Cessna Golf Sierra Alfa Foxtrot, mayday, then the other aircraft's details."}, {"id": "h4", "topic": "r3-hear", "q": "What do **SEELONCE MAYDAY**, **SEELONCE DISTRESS** and **SEELONCE FEENEE** mean, and who uses the first two?", "checks": [{"t": "SEELONCE MAYDAY: station in distress or in control", "re": ["in distress|in control|controlling"]}, {"t": "SEELONCE DISTRESS: another nearby station", "re": ["other|another|nearby|near"]}, {"t": "SEELONCE FEENEE: distress is over", "re": ["over|ended|finished|resume|normal"]}], "order": false, "model": "Seelonce mayday imposes silence and is used by the station in distress or in control. Seelonce distress is used by another nearby station if essential. Seelonce feenee means the distress is over and normal working may resume."}, {"id": "h5", "topic": "r3-hear", "q": "You hear a MAYDAY on your frequency. **What is the first thing you do?**", "checks": [{"t": "Stop transmitting", "re": ["stop|stay off|quiet|silent|dont (talk|transmit)|do not (talk|transmit)"]}, {"t": "Listen", "re": ["listen"]}], "order": false, "model": "Stop transmitting and listen."}];
+const CFG = Object.assign({rocaPass: 70, rocaQs: 25}, window.SAFA_CONFIG || {});
+
+/* ===================== Helpers ===================== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const KEY = 'safapp-oral';
+let store = {best: {}, mock: {best: -1, pass: false, tries: 0}, listenOnly: true, mode: '', rate: 0.92, autoRead: true, big: false};
+try { const raw = localStorage.getItem(KEY); if (raw) store = Object.assign(store, JSON.parse(raw)); } catch (e) {}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
+function show(id) { ['home', 'item', 'result'].forEach(s => $(s).hidden = s !== id); document.body.classList.toggle('busy', id !== 'home'); document.getElementById('scroller').scrollTo(0, 0); }
+
+/* ===================== Voice (examiner) ===================== */
+const TTS = window.speechSynthesis || null;
+let voice = null;
+function pickVoice() {
+  if (!TTS) return;
+  const vs = TTS.getVoices();
+  voice = vs.find(v => /en-CA/i.test(v.lang)) || vs.find(v => /en-GB/i.test(v.lang) && /Google/i.test(v.name)) || vs.find(v => /en-US/i.test(v.lang) && /Google/i.test(v.name)) || vs.find(v => /^en/i.test(v.lang)) || null;
+}
+if (TTS) { pickVoice(); TTS.onvoiceschanged = pickVoice; }
+function speak(text, onEnd) {
+  if (!TTS) { if (onEnd) onEnd(); return; }
+  TTS.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  if (voice) u.voice = voice;
+  u.lang = voice ? voice.lang : 'en-CA'; u.rate = +store.rate || .92; u.pitch = 1;
+  $('examiner').classList.add('talking');
+  u.onend = u.onerror = () => { $('examiner').classList.remove('talking'); if (onEnd) onEnd(); };
+  TTS.speak(u);
+}
+function hush() { if (TTS) TTS.cancel(); $('examiner').classList.remove('talking'); }
+
+/* ===================== Listening (speech-to-text + recording) ===================== */
+const SRC = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+const canRecord = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+/* Is the microphone allowed in this frame at all? Pages inside Google Sites / Apps Script are not. */
+const FPOL = document.permissionsPolicy || document.featurePolicy || null;
+const FRAME_MIC = !FPOL || typeof FPOL.allowsFeature !== 'function' || FPOL.allowsFeature('microphone');
+const MIC_OK = !!(SRC && canRecord && FRAME_MIC && window.isSecureContext !== false);
+const MIC_URL = String((window.SAFA_CONFIG || {}).oralMicUrl || '').trim();
+const MIC = {on: false, rec: null, mr: null, stream: null, chunks: [], final: '', interim: '', t0: 0, tick: null, url: '', err: '', onStop: null, liveEl: null};
+const MAX_SECS = 45;
+function micStart(liveEl, onStop) {
+  if (MIC.on) return;
+  Object.assign(MIC, {on: true, final: '', interim: '', err: '', chunks: [], onStop, liveEl, t0: Date.now()});
+  if (MIC.url) { try { URL.revokeObjectURL(MIC.url); } catch (e) {} MIC.url = ''; }
+  if (SRC) {
+    try {
+      const r = new SRC(); MIC.rec = r;
+      r.lang = 'en-CA'; r.continuous = true; r.interimResults = true; r.maxAlternatives = 1;
+      r.onresult = e => { let im = ''; for (let i = e.resultIndex; i < e.results.length; i++) { const x = e.results[i]; if (x.isFinal) MIC.final += x[0].transcript + ' '; else im += x[0].transcript; } MIC.interim = im; drawLive(); };
+      r.onerror = e => { const x = e.error || 'error'; if (x !== 'no-speech' && x !== 'aborted') MIC.err = x; };
+      r.onend = () => { if (MIC.on && !MIC.err) { try { r.start(); } catch (e) {} } };
+      r.start();
+    } catch (e) { MIC.err = 'start-failed'; }
+  }
+  if (canRecord) {
+    navigator.mediaDevices.getUserMedia({audio: {echoCancellation: true, noiseSuppression: true}}).then(stream => {
+      if (!MIC.on) { stream.getTracks().forEach(t => t.stop()); return; }
+      MIC.stream = stream;
+      const mr = new MediaRecorder(stream); MIC.mr = mr;
+      mr.ondataavailable = e => { if (e.data && e.data.size) MIC.chunks.push(e.data); };
+      mr.onstop = () => { if (MIC.chunks.length) MIC.url = URL.createObjectURL(new Blob(MIC.chunks, {type: mr.mimeType || 'audio/webm'})); stream.getTracks().forEach(t => t.stop()); finishStop(); };
+      mr.start();
+      setMicState('ok');
+    }).catch(err => { MIC.err = MIC.err || (err && err.name === 'NotAllowedError' ? 'not-allowed' : 'no-mic'); setMicState('no'); });
+  }
+  drawLive();
+  MIC.tick = setInterval(() => { const s = (Date.now() - MIC.t0) / 1000; const t = $('timer'); if (t && MIC.liveEl === $('live')) t.textContent = `Recording… ${Math.floor(s)} s · tap to stop`; if (s >= MAX_SECS) micStop(); }, 250);
+}
+let stopWaiting = 0;
+function micStop() {
+  if (!MIC.on) return;
+  MIC.on = false; clearInterval(MIC.tick);
+  if (MIC.rec) { try { MIC.rec.stop(); } catch (e) {} }
+  stopWaiting = 1;
+  if (MIC.mr && MIC.mr.state !== 'inactive') { try { MIC.mr.stop(); } catch (e) { finishStop(); } }
+  else { if (MIC.stream) MIC.stream.getTracks().forEach(t => t.stop()); finishStop(); }
+}
+function finishStop() {
+  if (!stopWaiting) return; stopWaiting = 0;
+  // let the last speech result arrive
+  setTimeout(() => { MIC.final = (MIC.final + ' ' + MIC.interim).trim(); MIC.interim = ''; drawLive(); if (MIC.onStop) MIC.onStop(); }, 700);
+}
+function drawLive() {
+  const el = MIC.liveEl; if (!el) return;
+  const txt = (MIC.final + ' ' + MIC.interim).trim();
+  el.innerHTML = txt ? esc(txt) : (MIC.on ? '<i>Listening…</i>' : '<i>Nothing was heard.</i>');
+}
+function setMicState(s) {
+  const b = $('stMic');
+  if (s === 'ok') { b.textContent = 'Working'; b.className = 'ok'; }
+  else if (s === 'no') { b.textContent = 'Blocked or not found'; b.className = 'no'; $('micHelp').hidden = false; $('micHelp').innerHTML = micHelp(); }
+}
+function micHelp() {
+  return 'Allow the microphone: click the 🎤 or 🔒 icon in the address bar → Microphone → Allow, then reload. Still blocked? No problem: choose <b>Say it out loud</b>, <b>With a partner</b> or <b>Type it</b>. They work everywhere.';
+}
+function srStatus() {
+  const b = $('stSr');
+  if (!SRC) { b.textContent = 'Not available — type instead'; b.className = 'no'; }
+  else { b.textContent = 'Available (Chrome)'; b.className = 'ok'; }
+}
+
+/* ===================== Checker ===================== */
+const DIGIT = {zero: '0', oh: '0', one: '1', wun: '1', two: '2', too: '2', three: '3', tree: '3', four: '4', fower: '4', five: '5', fife: '5', six: '6', seven: '7', eight: '8', ait: '8', nine: '9', niner: '9', nina: '9'};
+const SOFT = {to: '2', for: '4', won: '1', ate: '8'};
+const FIX = [[/\bmay\s+day\b/g, 'mayday'], [/\bpan\s+am\b/g, 'pan pan'], [/\bsee\s*l[ao]n(ce|s|ts|ds)?\b/g, 'seelonce'], [/\b(fee\s*nee|feeney|feeny|fini|finny)\b/g, 'feenee'], [/\bfox\s+trot\b/g, 'foxtrot'], [/\bx\s*-?\s*ray\b/g, 'xray'], [/\balpha\b/g, 'alfa'], [/\bjuliet\b/g, 'juliett'], [/\bwhisky\b/g, 'whiskey'], [/\bcharley\b/g, 'charlie'], [/\bgulf\b/g, 'golf'], [/\bkeelo\b/g, 'kilo'], [/\bwilco\b/g, 'wilco'], [/\broger that\b/g, 'roger'], [/\bo'?clock\b/g, ''], [/\bzed\b/g, 'zulu']];
+function canon(text) {
+  let t = ' ' + String(text || '').toLowerCase().replace(/[’']/g, '').replace(/(\d),(\d{3})/g, '$1$2').replace(/(\d)[:](\d)/g, '$1 $2').replace(/-/g, ' ').replace(/[,;!?]/g, ' | ').replace(/[^a-z0-9.\s|]/g, ' ') + ' ';
+  FIX.forEach(([a, b]) => t = t.replace(a, b));
+  let w = t.split(/\s+/).filter(Boolean).map(x => x.replace(/\.$/, ''));
+  w = w.map(x => DIGIT[x] != null ? DIGIT[x] : x);
+  const isNum = x => /^\d+(\.\d+)?$/.test(x);
+  w = w.map((x, i) => (SOFT[x] && isNum(w[i - 1] || '') && isNum(w[i + 1] || '')) ? SOFT[x] : x);
+  w = w.map((x, i) => ((x === 'decimal' || x === 'point') && isNum(w[i - 1] || '') && isNum(w[i + 1] || '')) ? '.' : x);
+  const out = [];
+  w.forEach(x => { const p = out[out.length - 1]; if ((isNum(x) || x === '.') && p != null && (/^[\d.]+$/.test(p))) out[out.length - 1] = p + x; else out.push(x); });
+  return ' ' + out.filter(x => x !== '|').join(' ') + ' ';
+}
+const PHON = {A: 'alfa', B: 'bravo', C: 'charlie', D: 'delta', E: 'echo', F: 'foxtrot', G: 'golf', H: 'hotel', I: 'india', J: 'juliett', K: 'kilo', L: 'lima', M: 'mike', N: 'november', O: 'oscar', P: 'papa', Q: 'quebec', R: 'romeo', S: 'sierra', T: 'tango', U: 'uniform', V: 'victor', W: 'whiskey', X: 'xray', Y: 'yankee', Z: 'zulu'};
+/* Expand an item's check list. Spell checks become one check per letter. */
+function checksFor(it) {
+  const out = [];
+  (it.checks || []).forEach(c => {
+    if (c.spell) c.spell.replace(/[^A-Z]/gi, '').toUpperCase().split('').forEach((L, i) => out.push({t: `${L} → ${PHON[L][0].toUpperCase() + PHON[L].slice(1)}`, re: [PHON[L]], grp: c.t || 'Call sign'}));
+    else out.push(c);
+  });
+  return out;
+}
+function positions(text, p) { const r = new RegExp('(?:^|\\s)(?:' + p + ')(?=\\s|$)', 'g'); const out = []; let m; while ((m = r.exec(text))) { out.push(m.index); r.lastIndex = m.index + 1; } return out; }
+function grade(it, said) {
+  const text = canon(said), list = checksFor(it), res = [];
+  let pos = 0;
+  list.forEach(c => {
+    const all = [].concat(...c.re.map(p => positions(text, p))).sort((a, b) => a - b);
+    if (!all.length) { res.push({c, st: 'no'}); return; }
+    if (it.order === false) { res.push({c, st: 'ok'}); return; }
+    const nxt = all.find(x => x >= pos);
+    if (nxt != null) { res.push({c, st: 'ok'}); pos = nxt + 1; } else res.push({c, st: 'ord'});
+  });
+  const raw = ' ' + String(said || '').toLowerCase() + ' ';
+  const tips = [];
+  const need = (it.digits || '');
+  if (/9/.test(need) && /\bnine\b/.test(raw)) tips.push('Reminder: on the radio, 9 is **NIN-er**.');
+  if (/5/.test(need) && /\bfive\b/.test(raw)) tips.push('Reminder: on the radio, 5 is **FIFE**.');
+  if (/3/.test(need) && /\bthree\b/.test(raw)) tips.push('Reminder: on the radio, 3 is **TREE**.');
+  if (it.decimal && /\bpoint\b/.test(raw)) tips.push('Say **DECIMAL**, not “point”, in a frequency.');
+  (it.tips || []).forEach(t => tips.push(t));
+  const ok = res.filter(r => r.st === 'ok').length;
+  return {res, tips, ok, n: res.length, all: ok === res.length};
+}
+
+/* ===================== Runs ===================== */
+let RUN = null;
+window.LAST_RUN = null;
+function topicItems(id) { return ITEMS.filter(it => it.topic === id); }
+function startTopic(id) {
+  const tp = TOPICS.find(t => t.id === id);
+  const items = shuffle(topicItems(id)).slice(0, tp.n || 8);
+  begin({set: id, label: tp.label, items, mock: false, listen: false});
+}
+function startMock() {
+  // spread across topics, then shuffle
+  const per = {}; ITEMS.forEach(it => (per[it.topic] = per[it.topic] || []).push(it));
+  const groups = Object.values(per).map(shuffle), out = [];
+  for (let i = 0; out.length < CFG.rocaQs && groups.some(g => g.length); i++) { const g = groups[i % groups.length]; if (g.length) out.push(g.shift()); }
+  begin({set: 'mock', label: 'Full oral mock', items: shuffle(out), mock: true, listen: !!store.listenOnly});
+}
+function begin(cfg) {
+  RUN = Object.assign(cfg, {i: 0, marks: [], t0: Date.now()});
+  show('item'); ask();
+}
+function ask() {
+  const it = RUN.items[RUN.i];
+  hush(); micStop();
+  $('qTopic').textContent = (RUN.mock ? 'Full oral mock · ' + topicLabel(it.topic) : RUN.label) + (MODE === 'partner' ? ' · Partner: ask this one' : '');
+  $('qPos').textContent = RUN.i + 1; $('qTot').textContent = RUN.items.length;
+  $('qBar').style.width = (100 * RUN.i / RUN.items.length) + '%';
+  $('qText').innerHTML = md(it.q);
+  $('qText').classList.toggle('hidden', !!RUN.listen);
+  $('showQ').hidden = !RUN.listen;
+  $('qCtx').hidden = !it.ctx; $('qCtx').innerHTML = it.ctx ? md(it.ctx) : '';
+  if (RUN.listen) $('qCtx').hidden = true;
+  $('fbCard').hidden = true; $('answerCard').hidden = false;
+  $('live').innerHTML = '<i>Your words will appear here as you speak.</i>';
+  $('typed').value = '';
+  setMode(MODE);
+  $('timer').textContent = 'Tap to speak';
+  $('mic').classList.remove('on'); $('mic').disabled = false;
+  $('checkBtn').disabled = true;
+  $('soFar').textContent = RUN.marks.filter(Boolean).length + ' / ' + RUN.i;
+  if (store.autoRead) setTimeout(() => speak(it.say || plain(it.q)), 250);
+  if (MODE === 'say' || MODE === 'partner') setTimeout(() => { try { $('saidBtn').focus({preventScroll: true}); } catch (e) {} }, 50);
+}
+function plain(s) { return String(s).replace(/\*\*/g, ''); }
+function topicLabel(id) { const t = TOPICS.find(x => x.id === id); return t ? t.label : id; }
+let typing = false;
+let MODE = (store.mode && (store.mode !== 'speak' || MIC_OK)) ? store.mode : (MIC_OK ? 'speak' : 'say');
+function setMode(m) {
+  if (m === 'speak' && !MIC_OK) m = 'say';
+  MODE = m; store.mode = m; save();
+  typing = m === 'type';
+  const say = m === 'say' || m === 'partner';
+  $('typeBox').hidden = m !== 'type'; $('recBox').hidden = m !== 'speak'; $('sayBox').hidden = !say;
+  $('checkBtn').hidden = say;
+  $('sayHead').textContent = m === 'partner' ? 'Answer out loud. Partner: listen closely.' : 'Say your answer out loud now.';
+  $('sayTip').textContent = m === 'partner' ? 'Partner: when they finish, tap the button and tick what you heard.' : 'Use your radio voice: TREE, FIFE, NIN-er, DECIMAL.';
+  $('saidBtn').textContent = m === 'partner' ? '✓ They\u2019ve answered: show the checklist' : '✓ I\u2019ve said it: show the checklist';
+  $('checkBtn').disabled = m === 'type' ? !$('typed').value.trim() : !(MIC.final || '').trim();
+  document.querySelectorAll('#switch .seg').forEach(b => { b.hidden = b.dataset.m === 'speak' && !MIC_OK; b.setAttribute('aria-pressed', b.dataset.m === m ? 'true' : 'false'); });
+  document.querySelectorAll('#modes .mode').forEach(b => b.setAttribute('aria-checked', b.dataset.m === m ? 'true' : 'false'));
+  $('micBlock').hidden = m !== 'speak';
+}
+function setTyping(on) { setMode(on ? 'type' : (MIC_OK ? 'speak' : 'say')); }
+function answerText() { return MODE === 'type' ? $('typed').value : MODE === 'speak' ? MIC.final : ''; }
+function tickVerdict() {
+  const lis = [...$('checks').querySelectorAll('li.tog')], n = lis.length, k = lis.filter(l => l.classList.contains('ok')).length;
+  $('verdict').innerHTML = k === n ? `<span style="color:var(--good)">All ${n} parts ticked.</span> Compare with the model, then mark ${MODE === 'partner' ? 'their answer' : 'yourself'}.`
+    : `<span style="color:var(--warn)">${k} of ${n} parts ticked.</span> Tap each part ${MODE === 'partner' ? 'they' : 'you'} said. Then check the model answer.`;
+  $('markRight').classList.toggle('gold', k === n);
+}
+function checkSaid() {
+  const it = RUN.items[RUN.i], list = checksFor(it);
+  $('answerCard').hidden = true; $('fbCard').hidden = false;
+  $('checks').innerHTML = list.map((c, i) => `<li class="tog no" role="checkbox" aria-checked="false" tabindex="0" data-i="${i}"><span class="i" aria-hidden="true"></span><span>${md(c.t)}${c.hint ? `<small>${md(c.hint)}</small>` : ''}</span></li>`).join('');
+  const tips = (it.tips || []).slice(); const need = it.digits || '';
+  if (/9/.test(need)) tips.push('Did you say **NIN-er** for 9?'); if (/5/.test(need)) tips.push('Did you say **FIFE** for 5?'); if (/3/.test(need)) tips.push('Did you say **TREE** for 3?'); if (it.decimal) tips.push('Did you say **DECIMAL**, not “point”?');
+  $('tips').innerHTML = tips.map(t => `<li>${md(t)}</li>`).join('');
+  $('model').innerHTML = md(it.model);
+  $('modelWrap').dataset.hide = '1'; $('showModel').hidden = false;
+  $('playWrap').hidden = true;
+  $('markHead').textContent = MODE === 'partner' ? 'Partner: mark the answer, like the examiner would' : 'Mark yourself, like the examiner would';
+  tickVerdict();
+  hush();
+  document.getElementById('scroller').scrollTo({top: $('fbCard').offsetTop - 20});
+  const first = $('checks').querySelector('li.tog'); if (first) try { first.focus({preventScroll: true}); } catch (e) {}
+}
+function toggleTick(li) { const on = !li.classList.contains('ok'); li.classList.toggle('ok', on); li.classList.toggle('no', !on); li.setAttribute('aria-checked', on ? 'true' : 'false'); li.querySelector('.i').textContent = on ? '✓' : ''; tickVerdict(); }
+$('checks').addEventListener('click', e => { const li = e.target.closest('li.tog'); if (li) toggleTick(li); });
+$('checks').addEventListener('keydown', e => { const li = e.target.closest('li.tog'); if (li && (e.key === ' ' || e.key === 'Enter')) { e.preventDefault(); e.stopPropagation(); toggleTick(li); } });
+$('saidBtn').onclick = () => { hush(); checkSaid(); };
+$('showModel').onclick = () => { $('modelWrap').dataset.hide = '0'; $('showModel').hidden = true; };
+function check() {
+  if (MODE === 'say' || MODE === 'partner') { checkSaid(); return; }
+  $('modelWrap').dataset.hide = '0'; $('showModel').hidden = true;
+  $('markHead').textContent = 'Mark yourself, like the examiner would';
+  const it = RUN.items[RUN.i], said = answerText();
+  const g = grade(it, said);
+  $('answerCard').hidden = true; $('fbCard').hidden = false;
+  $('verdict').innerHTML = g.all ? `<span style="color:var(--good)">The trainer heard all ${g.n} parts.</span> Check the model, then mark yourself.`
+    : `<span style="color:var(--warn)">The trainer heard ${g.ok} of ${g.n} parts.</span> Speech-to-text can mishear, so compare with the model before you mark yourself.`;
+  const said_ = said.trim() ? `<li class="ok" style="border-color:var(--line)"><span class="i">“</span><span><small>What the trainer heard</small>${esc(said.trim())}</span></li>` : '';
+  $('checks').innerHTML = said_ + g.res.map(r => `<li class="${r.st}"><span class="i">${r.st === 'ok' ? '✓' : r.st === 'ord' ? '⚠' : '✗'}</span><span>${md(r.c.t)}${r.st === 'ord' ? '<small>Heard it, but not in the right order.</small>' : r.st === 'no' && r.c.hint ? `<small>${md(r.c.hint)}</small>` : ''}</span></li>`).join('');
+  $('tips').innerHTML = g.tips.map(t => `<li>${md(t)}</li>`).join('');
+  $('model').innerHTML = md(it.model);
+  $('playWrap').hidden = typing || !MIC.url;
+  if (MIC.url) $('mine').src = MIC.url;
+  $('markRight').classList.toggle('gold', g.all);
+  RUN.last = g;
+  hush();
+  document.getElementById('scroller').scrollTo({top: $('fbCard').offsetTop - 20});
+}
+function mark(right) {
+  RUN.marks[RUN.i] = right;
+  RUN.i++;
+  if (RUN.i < RUN.items.length) ask(); else finishRun();
+}
+function finishRun() {
+  hush(); micStop();
+  const n = RUN.items.length, right = RUN.marks.filter(Boolean).length, pct = n ? Math.round(100 * right / n) : 0;
+  const miss = RUN.items.filter((it, i) => !RUN.marks[i]);
+  let pass = null, secs = null;
+  if (RUN.mock) {
+    pass = pct >= CFG.rocaPass;
+    secs = TOPICS.map(tp => { const idx = RUN.items.map((it, i) => it.topic === tp.id ? i : -1).filter(i => i >= 0); return idx.length ? Math.round(100 * idx.filter(i => RUN.marks[i]).length / idx.length) : null; });
+    const M = store.mock; M.tries = (M.tries || 0) + 1; if (pct > M.best) M.best = pct; M.pass = M.pass || pass;
+  } else if (RUN.set !== 'retry') { if (store.best[RUN.set] == null || pct > store.best[RUN.set]) store.best[RUN.set] = pct; }
+  save();
+  window.LAST_RUN = RUN.set === 'retry' ? null : {mock: RUN.mock, set: RUN.set, n: 1, count: n, right, pct, pass, secs};
+  $('rKind').textContent = RUN.mock ? 'Oral mock results' : RUN.label + ' · results';
+  $('rPct').textContent = pct + '%'; $('rRaw').textContent = `${right} of ${n} marked right`;
+  $('rPass').hidden = !RUN.mock;
+  if (RUN.mock) { $('rPass').className = 'pass ' + (pass ? 'ok' : 'no'); $('rPass').textContent = pass ? `At or above the ${CFG.rocaPass}% pass mark` : `Below the ${CFG.rocaPass}% pass mark`; }
+  $('rMsg').textContent = pct === 100 ? 'Clean sweep. Try the full mock in exam style next.' : pct >= CFG.rocaPass ? 'Solid. Practise the misses below, out loud, until they feel automatic.' : 'Go back to the notes and flashcards for these, then practise the misses out loud.';
+  $('rSecs').innerHTML = RUN.mock ? '<h3 style="margin-top:12px">By topic</h3>' + TOPICS.map((tp, i) => secs[i] == null ? '' : `<div class="srow"><span>${esc(tp.label)}</span><i><em style="width:${secs[i]}%;background:${secs[i] >= CFG.rocaPass ? 'var(--good)' : 'var(--bad)'}"></em></i><b>${secs[i]}%</b></div>`).join('') : '';
+  $('rRetry').hidden = !miss.length; $('rReviewWrap').hidden = !miss.length;
+  $('rReview').innerHTML = miss.map(it => `<div class="rv"><span class="hint" style="margin:0">${esc(topicLabel(it.topic))}</span><div><b>${md(it.q)}</b></div><div class="m">${md(it.model)}</div></div>`).join('');
+  RUN.miss = miss;
+  show('result');
+}
+
+/* ===================== Home ===================== */
+let pickedTopic = null;
+function renderHome() {
+  hush(); micStop();
+  srStatus();
+  $('modeSpeak').hidden = !MIC_OK;
+  setMode(MODE);
+  $('micNote').hidden = MIC_OK;
+  $('micNote').innerHTML = MIC_URL ? 'Want the trainer to <b>listen and check your words</b>? <a href="' + esc(MIC_URL) + '" target="_blank" rel="noopener" style="color:var(--gold)">Open the microphone version</a> in its own tab.' : 'Inside the Google Site the microphone is switched off by Google, so answer <b>out loud</b> and tick what you said. It is the same skill the examiner marks.';
+  document.querySelectorAll('[data-rate]').forEach(b => b.setAttribute('aria-pressed', Math.abs(+b.dataset.rate - (+store.rate || .92)) < .01 ? 'true' : 'false'));
+  $('autoRead').checked = !!store.autoRead; $('bigText').checked = !!store.big; document.body.classList.toggle('bigtext', !!store.big);
+  if (!pickedTopic || !TOPICS.some(t => t.id === pickedTopic)) pickedTopic = TOPICS[0].id;
+  $('topics').innerHTML = TOPICS.map(t => { const b = store.best[t.id]; return `<button class="chip" type="button" data-id="${t.id}" aria-pressed="${t.id === pickedTopic}">${esc(t.label)}<small>${b != null ? 'Best ' + b + '%' : topicItems(t.id).length + ' Qs'}</small></button>`; }).join('');
+  const tp = TOPICS.find(t => t.id === pickedTopic);
+  $('topicNote').textContent = tp ? tp.note || '' : '';
+  const pilot = TOPICS.length < 6;
+  $('mockIntro').innerHTML = `${Math.min(CFG.rocaQs, ITEMS.length)} questions from every topic, mixed. You need <b>${CFG.rocaPass}%</b> to pass. Questions are read aloud; answer each one out loud. With a partner? Swap roles after each question, or run the whole mock for each other.`;
+  const M = store.mock;
+  $('mockBest').textContent = M.tries ? `Best ${M.best}% · ${M.pass ? 'passed' : 'not passed yet'} · ${M.tries} attempt${M.tries > 1 ? 's' : ''}` : '';
+  $('listenOnly').checked = !!store.listenOnly;
+  show('home');
+}
+$('modes').onclick = e => { const b = e.target.closest('.mode'); if (b) setMode(b.dataset.m); };
+$('switch').onclick = e => { const b = e.target.closest('.seg'); if (!b) return; micStop(); setMode(b.dataset.m); };
+document.querySelectorAll('[data-rate]').forEach(b => b.onclick = () => { store.rate = +b.dataset.rate; save(); renderHome(); speak('Radio check, one two tree.'); });
+$('testVoice').onclick = () => speak('Cessna Golf Sierra Alfa Foxtrot, say your intentions.');
+$('autoRead').onchange = e => { store.autoRead = e.target.checked; save(); };
+$('bigText').onchange = e => { store.big = e.target.checked; save(); document.body.classList.toggle('bigtext', store.big); };
+$('topics').onclick = e => { const b = e.target.closest('.chip'); if (!b) return; pickedTopic = b.dataset.id; renderHome(); };
+$('goTopic').onclick = () => startTopic(pickedTopic);
+$('goMock').onclick = startMock;
+$('listenOnly').onchange = e => { store.listenOnly = e.target.checked; save(); };
+let armed = false;
+$('resetBtn').onclick = e => { if (!armed) { armed = true; e.target.textContent = 'Tap again to clear'; setTimeout(() => { armed = false; e.target.textContent = 'Clear my scores'; }, 3000); return; } armed = false; e.target.textContent = 'Clear my scores'; store.best = {}; store.mock = {best: -1, pass: false, tries: 0}; save(); renderHome(); };
+
+/* mic test */
+$('micTest').onclick = () => {
+  if (MIC.on) { micStop(); return; }
+  hush();
+  $('micLive').hidden = false; $('micPlay').hidden = true;
+  $('micMsg').textContent = 'Listening for 4 seconds…'; $('micTest').textContent = 'Stop';
+  micStart($('micLive'), () => {
+    $('micTest').textContent = 'Test again';
+    const heard = (MIC.final || '').trim();
+    if (MIC.url) { $('micPlay').src = MIC.url; $('micPlay').hidden = false; }
+    if (MIC.err === 'not-allowed' || MIC.err === 'service-not-allowed') { setMicState('no'); $('micMsg').textContent = 'The microphone is blocked.'; }
+    else if (MIC.err === 'network') { $('micMsg').textContent = 'Recording works, but the speech service could not be reached. Use “Type my answer instead”.'; }
+    else $('micMsg').textContent = heard ? 'It works. Play it back to check how you sound.' : (MIC.url ? 'Recorded, but no words were recognised. Speak a little louder and closer.' : 'Nothing was recorded.');
+    if (heard || MIC.url) setMicState('ok');
+  });
+  setTimeout(() => { if (MIC.on && MIC.liveEl === $('micLive')) micStop(); }, 4000);
+};
+document.addEventListener('click', e => { if (e.target && e.target.id === 'newTab') { e.preventDefault(); const L = window.SITE_LINKS || {}, u = L['oral-direct'] || L.oral || ''; if (u) window.open(u, '_blank', 'noopener'); else alertBox(); } });
+function alertBox() { $('micHelp').innerHTML += '<br><b>Ask your teacher for the Oral Trainer link</b> (the page’s own web address).'; }
+
+/* item controls */
+$('hear').onclick = () => { const it = RUN.items[RUN.i]; speak(it.say || plain(it.q)); };
+$('showQ').onclick = () => { $('qText').classList.remove('hidden'); const it = RUN.items[RUN.i]; if (it.ctx) $('qCtx').hidden = false; $('showQ').hidden = true; };
+$('mic').onclick = () => {
+  if (MIC.on) { micStop(); return; }
+  hush();
+  $('mic').classList.add('on'); $('mic').setAttribute('aria-label', 'Stop recording');
+  $('live').innerHTML = '<i>Listening…</i>';
+  micStart($('live'), () => {
+    $('mic').classList.remove('on'); $('mic').setAttribute('aria-label', 'Start recording');
+    const heard = (MIC.final || '').trim();
+    if (!heard && (MIC.err === 'not-allowed' || MIC.err === 'network' || MIC.err === 'service-not-allowed' || MIC.err === 'no-mic')) {
+      setMode('say'); $('sayHead').textContent = MIC.err === 'network' ? 'Speech service not reachable. Say it out loud instead.' : 'Microphone blocked. Say it out loud instead.'; return;
+    }
+    $('timer').textContent = heard ? 'Done. Tap the mic to redo, or check your answer.' : 'Nothing heard. Tap the mic and try again.';
+    $('checkBtn').disabled = !heard;
+  });
+};
+$('typed').oninput = () => { if (typing) $('checkBtn').disabled = !$('typed').value.trim(); };
+$('checkBtn').onclick = check;
+$('hearModel').onclick = () => { const it = RUN.items[RUN.i]; speak(it.modelSay || plain(it.model)); };
+$('tryAgain').onclick = () => { $('fbCard').hidden = true; $('answerCard').hidden = false; $('live').innerHTML = '<i>Your words will appear here as you speak.</i>'; MIC.final = ''; $('typed').value = ''; setMode(MODE); $('timer').textContent = 'Tap to speak'; const it = RUN.items[RUN.i]; if (store.autoRead) speak(it.say || plain(it.q)); };
+$('markRight').onclick = () => mark(true);
+$('markWrong').onclick = () => mark(false);
+$('quit').onclick = () => { if (RUN && RUN.i > 0) finishRun(); else renderHome(); };
+$('rHome').onclick = renderHome;
+$('rAgain').onclick = () => RUN.mock ? startMock() : RUN.set === 'retry' ? begin({set: 'retry', label: 'Missed questions', items: shuffle(RUN.items), mock: false, listen: false}) : startTopic(RUN.set);
+$('rRetry').onclick = () => begin({set: 'retry', label: 'Missed questions', items: shuffle(RUN.miss), mock: false, listen: false});
+document.addEventListener('keydown', e => {
+  if ($('item').hidden || e.target.tagName === 'TEXTAREA') return;
+  if (e.target.closest && e.target.closest('li.tog')) return;
+  if (e.key === ' ' && !$('answerCard').hidden && MODE === 'speak') { e.preventDefault(); $('mic').click(); }
+  else if ((e.key === ' ' || e.key === 'Enter') && !$('answerCard').hidden && (MODE === 'say' || MODE === 'partner') && e.target.tagName !== 'BUTTON') { e.preventDefault(); checkSaid(); }
+  else if (e.key === 'Enter' && !$('answerCard').hidden && !$('checkBtn').disabled) { e.preventDefault(); check(); }
+  else if (!$('fbCard').hidden && (e.key === 'r' || e.key === 'R')) mark(true);
+  else if (!$('fbCard').hidden && (e.key === 'w' || e.key === 'W')) mark(false);
+});
+renderHome();
+</script>
+<script>
+/* SAFA progress tracker: reports to the Apps Script when the page is served from it; does nothing otherwise */
+(function () {
+  const PAGE = {"id": "oral", "unit": 0, "kind": "oral"};
+  const run = window.google && google.script && google.script.run;
+  const sent = {};
+  let who = ''; try { who = localStorage.getItem('safa-who') || ''; } catch (e) {}
+  function T(type, data, gap) {
+    if (!run) return; const k = type + JSON.stringify(data), now = Date.now();
+    if (sent[k] && now - sent[k] < (gap == null ? 3e4 : gap)) return; sent[k] = now;
+    try { google.script.run.withFailureHandler(function () {}).track(PAGE.id, PAGE.unit, type, JSON.stringify(data), who); } catch (e) {}
+  }
+  window.SAFA_TRACK = T;
+  if (run && window.SAFA_ME && !window.SAFA_ME.email && !who) askName();
+  function askName() {
+    const b = document.createElement('div');
+    b.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:99;background:#1f1a10;border:1px solid #d9b25a;border-radius:14px;padding:12px 14px;color:#fff;font:15px Source Sans 3,Arial,sans-serif;display:flex;gap:8px;flex-wrap:wrap;align-items:center;box-shadow:0 8px 30px rgba(0,0,0,.6)';
+    b.innerHTML = '<b style="font-family:Poppins,Arial;color:#d9b25a">Save my progress:</b> <input placeholder="Your full name" style="flex:1;min-width:160px;font:15px Arial;padding:7px 10px;border-radius:8px;border:1px solid #5c4a22;background:#000;color:#fff"><button style="font:700 13px Poppins,Arial;padding:8px 14px;border-radius:8px;border:0;background:#d9b25a;color:#000;cursor:pointer">Save</button>';
+    b.querySelector('button').onclick = () => { const v = b.querySelector('input').value.trim(); if (!v) return; who = v; try { localStorage.setItem('safa-who', v); } catch (e) {} b.remove(); T('visit', {}, 0); };
+    document.body.appendChild(b);
+  }
+  if (PAGE.kind !== 'teacher') T('visit', {}, 6e5);
+  if (typeof finishRun === 'function') { const _f = finishRun; finishRun = function () { _f.apply(this, arguments); try { const r = window.LAST_RUN; if (r) { if (r.mock) T('mock', {exam: 'ROC-A', n: r.n, mode: 'oral', pct: r.pct, pass: r.pass, secs: r.secs}, 0); else T('oral', {set: r.set, n: r.count, right: r.right, pct: r.pct}, 0); } } catch (e) {} }; }
+})();
+</script>
+</body>
+</html>

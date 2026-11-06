@@ -1,0 +1,484 @@
+<!doctype html>
+<!-- SAFA-PAGE id=roca3-lab kind=lab template=lab_base@1 by=backfill date=2026-10-28 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="spp-local.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAFA Ground School – Mayday Builder Skills Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<style>
+:root{
+  --bg:#000; --panel:#121110; --panel2:#1b1915; --line:#2e2a23; --fg:#fff; --muted:#a8a39a; --soft:#d8d4cc;
+  --gold:#d8b358; --gold-ink:#000; --ok:#7fd18b; --bad:#f08c7a; --blue:#7fc3ff;
+  --display:"Poppins","Helvetica Neue",Arial,sans-serif; --body:"Source Sans 3","Segoe UI",Arial,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5;margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px 40px;display:flex;flex-direction:column;gap:20px}
+.top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;padding:30px 0 0}
+.eyebrow{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,6vw,50px);line-height:1.05;margin:6px 0 10px;letter-spacing:-.01em}
+h1 span{color:var(--gold)}
+.lede{margin:0;color:var(--soft);font-size:17px;max-width:40em}
+.top img{width:120px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{font-family:var(--display);font-weight:600;font-size:13px;background:var(--panel);color:#e4e0d8;border:1px solid var(--line);border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap;display:inline-flex;gap:6px;align-items:center}
+.tab:hover{border-color:var(--gold)}
+.tab[aria-selected="true"]{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.tab .n{opacity:.6}
+.tab .tick{color:var(--ok);font-weight:800}
+.tab[aria-selected="true"] .tick{color:#1d5b26}
+.tab.special{border-color:var(--gold);color:var(--gold)}
+.tab.special[aria-selected="true"]{color:var(--gold-ink)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;min-width:0}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:18px;align-items:start}
+.stack{display:flex;flex-direction:column;gap:18px}
+.kicker{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+h2{font-family:var(--display);font-weight:800;font-size:26px;line-height:1.15;margin:0 0 6px}
+h3{font-family:var(--display);font-weight:700;font-size:17px;margin:0 0 8px}
+p{margin:8px 0;color:var(--soft)}
+b{color:var(--fg)}
+.keys{display:grid;gap:8px;margin:12px 0 4px;padding:0;list-style:none}
+.keys li{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:9px 12px;color:var(--soft);font-size:15px}
+.keys li b.g,.g{color:var(--gold)}
+.mono{font-family:var(--mono);font-weight:600;color:var(--gold);font-size:.95em}
+.task{background:#1f1a10;border:1px solid #5c4a22;border-radius:12px;padding:10px 14px;margin:12px 0 4px;font-size:15px;color:var(--soft)}
+.task .k{display:block;font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.task.done{background:rgba(127,209,139,.1);border-color:rgba(127,209,139,.45)}
+.task.done .k{color:var(--ok)}
+.hint{font-size:13.5px;color:var(--muted);margin:8px 0 0}
+/* questions */
+.qs{display:flex;flex-direction:column;gap:12px}
+.q{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px}
+.q.right{border-color:rgba(127,209,139,.5)}
+.q .qt{font-weight:700;font-size:16px;margin-bottom:8px}
+.opts{display:grid;gap:6px}
+.opt{text-align:left;font:600 15px var(--body);color:#ece8df;background:#0f0e0c;border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer;display:flex;gap:10px;align-items:flex-start}
+.opt:hover:not(:disabled){border-color:var(--gold)}
+.opt .l{font-family:var(--display);font-weight:800;color:var(--muted);min-width:14px}
+.opt.good{background:rgba(127,209,139,.14);border-color:var(--ok);color:#dff3e2}
+.opt.wrong{background:rgba(240,140,122,.12);border-color:var(--bad);color:#f6d3cc}
+.opt:disabled{cursor:default}
+.fb{margin-top:8px;font-size:14.5px;border-radius:10px;padding:8px 12px}
+.fb.ok{background:rgba(127,209,139,.12);border:1px solid rgba(127,209,139,.4);color:#cdeed2}
+.fb.bad{background:rgba(240,140,122,.1);border:1px solid rgba(240,140,122,.4);color:#f6d3cc}
+.done-box{background:rgba(127,209,139,.1);border:1px solid rgba(127,209,139,.4);border-radius:12px;padding:12px 14px;color:#cdeed2;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.btn{font-family:var(--display);font-weight:700;font-size:13.5px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--fg);padding:9px 14px;cursor:pointer}
+.btn:hover:not(:disabled){border-color:var(--gold);color:var(--gold)}
+.btn:disabled{opacity:.35;cursor:default}
+.btn.gold{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.btn.gold:hover:not(:disabled){filter:brightness(1.08);color:var(--gold-ink)}
+.btn.on,.btn.on:hover:not(:disabled){background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{font-family:var(--display);font-weight:600;font-size:12.5px;background:var(--panel2);color:#e4e0d8;border:1px solid var(--line);border-radius:999px;padding:6px 11px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+/* controls */
+.ctl{display:grid;grid-template-columns:minmax(90px,auto) minmax(0,1fr) minmax(64px,auto);gap:10px;align-items:center;margin:8px 0}
+.ctl label{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ctl output{font-family:var(--mono);font-weight:700;color:var(--gold);text-align:right;font-size:15px}
+input[type=range]{width:100%;accent-color:var(--gold);height:28px}
+.tog{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:13px;color:#e4e0d8;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:6px 12px 6px 6px;cursor:pointer}
+.tog i{width:30px;height:18px;border-radius:9px;background:#0b0a09;border:1px solid var(--line);position:relative;flex:none}
+.tog i::after{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--muted);transition:transform .15s}
+.tog[aria-pressed="true"]{border-color:var(--gold)}
+.tog[aria-pressed="true"] i::after{transform:translateX(12px);background:var(--gold)}
+.tog.red[aria-pressed="true"]{border-color:var(--bad)}
+.tog.red[aria-pressed="true"] i::after{background:var(--bad)}
+.readout{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:14.5px;color:var(--soft);display:flex;gap:6px 16px;flex-wrap:wrap;align-items:center;min-height:42px}
+.readout b{color:var(--gold);font-family:var(--display)}
+svg.sim{width:100%;height:auto;display:block;user-select:none;-webkit-user-select:none}
+.svgtxt{font-family:Poppins,Arial,sans-serif}
+/* drill */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:10px 0}
+.stats div{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:8px 10px;min-width:0}
+.stats b{display:block;font-family:var(--display);font-size:22px;color:var(--gold);line-height:1.1}
+.stats span{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-family:var(--display);font-weight:600}
+.dhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.clock{font-family:var(--mono);font-weight:700;font-size:22px;color:var(--gold)}
+.prog{height:6px;background:var(--panel2);border-radius:3px;overflow:hidden;margin-bottom:12px}
+.prog i{display:block;height:100%;background:var(--gold);transition:width .2s}
+.miss{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:8px;font-size:14.5px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+.seg button{font-family:var(--display);font-weight:600;font-size:12.5px;background:var(--panel2);color:#e4e0d8;border:0;padding:7px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink)}
+.pre{margin-bottom:10px}
+footer{display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:10px;text-align:center}
+footer img{width:64px}
+.tagline{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.32em;color:var(--gold)}
+footer p{margin:0;color:var(--muted);font-size:13px}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media (max-width:820px){
+  .cols{grid-template-columns:1fr}
+  .top{grid-template-columns:1fr}.top img{display:none}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px}
+  .tabs::-webkit-scrollbar{display:none}
+}
+@media (max-width:480px){.stats b{font-size:18px}.ctl{grid-template-columns:1fr auto}.ctl input{grid-column:1/-1;grid-row:2}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+.meters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+.meters div{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:8px 10px;text-align:center;min-width:0}
+.meters span{display:block;font-family:var(--display);font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.meters b{font-family:var(--display);font-size:22px;color:var(--gold)}
+.meters .warn b{color:var(--bad)}
+.tg{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+
+
+html,body{height:100%;overflow:hidden}
+#scroller{height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-color:#d8b358 #1b1915;scrollbar-width:thin}
+#scroller::-webkit-scrollbar{width:10px}
+#scroller::-webkit-scrollbar-track{background:#1b1915}
+#scroller::-webkit-scrollbar-thumb{background:#d8b358;border-radius:10px;border:2px solid #1b1915}
+
+.scn{background:#0b0a09;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0;color:var(--soft);font-size:15.5px}
+.scn b{color:var(--gold)}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:8px 0}
+.facts div{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:14px;min-width:0}
+.facts span{display:block;font-family:var(--display);font-weight:700;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.built{display:flex;flex-direction:column;gap:4px;min-height:44px;background:#0b0a09;border:1px dashed var(--line);border-radius:10px;padding:8px;margin:6px 0}
+.built span{font-family:var(--mono);font-size:13.5px;color:var(--gold)}
+.built span.bad{color:var(--bad)}
+.chips2{display:flex;flex-wrap:wrap;gap:6px}
+.chips2 .chip:disabled{opacity:.3;cursor:default}
+.clock2{font-family:var(--mono);font-weight:700;color:var(--gold)}
+@media (max-width:480px){.facts{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="spp-local.css">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div id="scroller">
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">SAFA Skills Lab · ROC-A · Part 3 · Emergency Communications</div>
+      <h1>Mayday <span>Builder</span></h1>
+      <p class="lede">Decide whether it's distress or urgency, build MAYDAY and PAN PAN messages in the right order against the clock, hear a model call, and match the emergency words to who uses them.</p>
+    </div>
+    <img src="data:image/png;base64,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" alt="SAFA logo">
+  </header>
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Lessons"></nav>
+  <main id="main"></main>
+  <footer>
+    <img src="data:image/png;base64,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" alt="">
+    <div class="tagline">LEARN. FLY. BUILD. LEAD.</div>
+    <p>Simplified for learning. Use the official guide and your instructor for real procedures.</p>
+  </footer>
+</div>
+<script>
+/* ===================== SAFA Skills Lab framework ===================== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'}[c]));
+const rnd = (a, b, s = 1) => a + Math.floor(Math.random() * ((b - a) / s + 1)) * s;
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const fmt = (v, d = 0) => (+v.toFixed(d)).toLocaleString('en-US');
+const p3 = n => String(Math.round(((n % 360) + 360) % 360) || 360).padStart(3, '0');
+const rad = d => d * Math.PI / 180, deg = r => r * 180 / Math.PI;
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent, text) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; if (parent) parent.appendChild(e); return e; }
+const pol = (cx, cy, r, a) => [cx + r * Math.sin(rad(a)), cy - r * Math.cos(rad(a))];
+const scroller = document.getElementById('scroller') || document.scrollingElement;
+function toTop() { const t = $('tabs'); const top = t.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop - 10; if (scroller.scrollTop > top) scroller.scrollTo({top}); }
+const LAB = {key: '', tabs: [], active: null, cleanup: null};
+let saved = {};
+function save() { try { localStorage.setItem(LAB.key, JSON.stringify(saved)); } catch (e) {} }
+function startLab(cfg) {
+  LAB.key = cfg.key; LAB.tabs = cfg.tabs;
+  try { saved = JSON.parse(localStorage.getItem(LAB.key) || '{}') || {}; } catch (e) { saved = {}; }
+  saved.done = saved.done || {}; saved.drill = saved.drill || {runs: 0, best: 0, bestTime: null};
+  const first = LAB.tabs[0].id;
+  openTab(LAB.tabs.some(t => t.id === saved.last) ? saved.last : first, false);
+  $('tabs').addEventListener('click', e => { const b = e.target.closest('.tab'); if (b) openTab(b.dataset.id, true); });
+}
+function renderTabs() {
+  let n = 0;
+  $('tabs').innerHTML = LAB.tabs.map(t => `<button class="tab${t.special ? ' special' : ''}" role="tab" data-id="${t.id}" aria-selected="${LAB.active === t.id}">${t.special ? '' : `<span class="n">${++n}</span>`}${t.label}${saved.done[t.id] ? '<span class="tick">✓</span>' : ''}</button>`).join('');
+}
+function openTab(id, scroll) {
+  if (LAB.cleanup) { try { LAB.cleanup(); } catch (e) {} LAB.cleanup = null; }
+  LAB.active = id; saved.last = id; save(); renderTabs();
+  const t = LAB.tabs.find(x => x.id === id);
+  $('main').innerHTML = ''; t.render($('main'), t);
+  if (scroll) toTop();
+}
+function markDone(id) { if (!saved.done[id]) { saved.done[id] = true; save(); renderTabs(); } }
+function nextTab(id) { const i = LAB.tabs.findIndex(t => t.id === id); return LAB.tabs[i + 1]; }
+const lessonNo = id => LAB.tabs.filter(t => !t.special).findIndex(t => t.id === id) + 1;
+
+/* Lesson page: left = text, right = interactive, below = quick check */
+function lessonPage(main, t, o) {
+  main.innerHTML = `<div class="stack"><div class="cols">
+      <section class="card"><div class="kicker">Lesson ${lessonNo(t.id)}</div><h2>${o.title}</h2>${o.intro || ''}<div id="tasks"></div></section>
+      <section class="card">${o.sim || ''}</section></div>
+    ${o.checks && o.checks.length ? `<section class="card"><h3>Quick check</h3><div class="qs" id="qc"></div><div id="ldone" style="margin-top:12px"></div></section>` : ''}</div>`;
+  if (o.mount) o.mount();
+  if (o.checks && o.checks.length) quickCheck($('qc'), o.checks, () => {
+    markDone(t.id); const nx = nextTab(t.id);
+    $('ldone').innerHTML = `<div class="done-box"><span>✓ Lesson complete.</span>${nx ? `<button class="btn gold" id="nx" type="button">Next: ${nx.label.replace(/^[^A-Za-z0-9]+/, '')} →</button>` : ''}</div>`;
+    if (nx) $('nx').onclick = () => openTab(nx.id, true);
+  });
+}
+/* Tasks: list of {t, ok()} ticked live while the student uses the simulator */
+function taskList(list) {
+  const st = list.map(() => false);
+  const draw = () => {
+    const cur = st.indexOf(false);
+    $('tasks').innerHTML = `<div class="task${cur < 0 ? ' done' : ''}"><span class="k">${cur < 0 ? '✓ Try-it tasks done' : `Try it · task ${cur + 1} of ${list.length}`}</span>${cur < 0 ? 'Nice. Now do the quick check below.' : list[cur].t}</div>`;
+  };
+  draw();
+  return (...args) => { let cur = st.indexOf(false); while (cur >= 0 && list[cur].ok(...args)) { st[cur] = true; cur = st.indexOf(false); } draw(); };
+}
+function quickCheck(box, qs, onAll) {
+  qs = qs.map(q => ({...q, opts: shuffle([q.a, ...q.o]), right: false, wrong: null}));
+  const draw = () => {
+    box.innerHTML = qs.map((q, k) => `<div class="q${q.right ? ' right' : ''}"><div class="qt">${k + 1}. ${q.q}</div><div class="opts">${q.opts.map((o, j) => `<button type="button" class="opt${q.right && o === q.a ? ' good' : ''}${q.wrong === o ? ' wrong' : ''}" data-k="${k}" data-j="${j}" ${q.right ? 'disabled' : ''}><span class="l">${'ABCD'[j]}</span><span>${o}</span></button>`).join('')}</div>${q.right ? `<div class="fb ok">✓ ${q.why}</div>` : q.wrong ? `<div class="fb bad">✗ Not quite. Try again.</div>` : ''}</div>`).join('');
+    if (qs.every(q => q.right)) onAll();
+  };
+  box.addEventListener('click', e => {
+    const b = e.target.closest('.opt'); if (!b || b.disabled) return;
+    const q = qs[+b.dataset.k], o = q.opts[+b.dataset.j];
+    if (o === q.a) { q.right = true; q.wrong = null; } else q.wrong = o;
+    draw();
+  });
+  draw();
+}
+function uniq(a, cands, n = 3) { const s = new Set([a]); const out = []; for (const c of cands) { if (c != null && c !== '' && !s.has(c)) { s.add(c); out.push(c); } if (out.length === n) break; } return out; }
+
+/* Practice drill: 10 random questions, optional timer, misses review */
+let drill = null, clockT = null;
+const fmtT = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+function stopClock() { clearInterval(clockT); clockT = null; }
+function statsHTML() { const D = saved.drill; return `<div class="stats"><div><b>${D.runs}</b><span>Rounds done</span></div><div><b>${D.best}/10</b><span>Best score</span></div><div><b>${D.bestTime != null ? fmtT(D.bestTime) : '–'}</b><span>Best 10/10 time</span></div><div><b>${D.last || '–'}</b><span>Last score</span></div></div>`; }
+function drillPage(main, t, cfg) {
+  LAB.cleanup = stopClock;
+  const home = () => {
+    main.innerHTML = `<section class="card"><div class="kicker">Practice</div><h2>${cfg.title}</h2><p>${cfg.intro}</p>${statsHTML()}
+      <div class="row"><span class="hint" style="margin:0">Mode:</span><div class="seg" id="mode"><button type="button" data-m="timed" aria-pressed="${saved.mode !== 'free'}">⏱ Timed</button><button type="button" data-m="free" aria-pressed="${saved.mode === 'free'}">No timer</button></div></div>
+      <div class="row" style="margin-top:14px"><button class="btn gold" id="go" type="button">Start →</button></div></section>`;
+    $('mode').onclick = e => { const b = e.target.closest('button'); if (!b) return; saved.mode = b.dataset.m; save(); home(); };
+    $('go').onclick = start;
+  };
+  const start = () => {
+    drill = {qs: Array.from({length: 10}, () => { const g = cfg.gen(); g.opts = shuffle([g.a, ...uniq(g.a, g.o)]); return g; }), k: 0, right: 0, pen: 0, t0: performance.now(), log: [], timed: saved.mode !== 'free'};
+    drawQ();
+    if (drill.timed) clockT = setInterval(() => { const c = $('clock'); if (c) c.textContent = fmtT((performance.now() - drill.t0) / 1000 + drill.pen); }, 250);
+  };
+  const drawQ = () => {
+    const q = drill.qs[drill.k];
+    main.innerHTML = `<section class="card"><div class="dhead"><span class="kicker">Question ${drill.k + 1} of 10 · ${drill.right} right</span>${drill.timed ? `<span class="clock" id="clock">${fmtT((performance.now() - drill.t0) / 1000 + drill.pen)}</span>` : ''}</div>
+      <div class="prog"><i style="width:${drill.k * 10}%"></i></div>${q.pre ? `<div class="pre">${q.pre}</div>` : ''}
+      <div class="q"><div class="qt">${q.q}</div><div class="opts" id="dopts">${q.opts.map((o, j) => `<button type="button" class="opt" data-j="${j}"><span class="l">${'ABCD'[j]}</span><span>${o}</span></button>`).join('')}</div><div id="dfb"></div></div>
+      <p class="hint">Keys: press 1–4 to answer, Enter for next.</p></section>`;
+    if (q.after) q.after();
+    $('dopts').onclick = e => { const b = e.target.closest('.opt'); if (b && !b.disabled) answer(+b.dataset.j); };
+  };
+  const answer = j => {
+    const q = drill.qs[drill.k]; if (q.done) return; q.done = true;
+    const ok = q.opts[j] === q.a; if (ok) drill.right++; else { drill.pen += 10; drill.log.push({...q, yours: q.opts[j]}); }
+    $('dopts').querySelectorAll('.opt').forEach((b, i) => { b.disabled = true; if (q.opts[i] === q.a) b.classList.add('good'); else if (i === j) b.classList.add('wrong'); });
+    $('dfb').innerHTML = `<div class="fb ${ok ? 'ok' : 'bad'}">${ok ? '✓ Correct. ' : '✗ +10 s. '}${q.why || ''}</div><div class="row" style="margin-top:8px"><button class="btn gold" id="dn" type="button">${drill.k === 9 ? 'See results →' : 'Next →'}</button></div>`;
+    $('dn').onclick = next;
+    if (ok) q.auto = setTimeout(next, 900);
+  };
+  const next = () => { const q = drill.qs[drill.k]; clearTimeout(q.auto); if (q.moved) return; q.moved = true; if (drill.k < 9) { drill.k++; drawQ(); } else finish(); };
+  const finish = () => {
+    stopClock(); const secs = (performance.now() - drill.t0) / 1000 + drill.pen, D = saved.drill;
+    D.runs++; D.last = `${drill.right}/10`; D.best = Math.max(D.best, drill.right);
+    const pb = drill.timed && drill.right === 10 && (D.bestTime == null || secs < D.bestTime); if (pb) D.bestTime = Math.round(secs);
+    if (drill.right >= 8) saved.done[t.id] = true; save(); renderTabs();
+    main.innerHTML = `<section class="card"><div class="kicker">Round complete</div><h2>${drill.right}/10${drill.timed ? ` in ${fmtT(secs)}` : ''}${pb ? ' · new best! 🏆' : ''}</h2>
+      <p>${drill.right === 10 ? 'Perfect. Now try to beat your time.' : drill.right >= 8 ? 'Strong. Review the misses below, then go again.' : 'Review the misses below. The lesson tabs cover each idea.'}</p>${statsHTML()}
+      ${drill.log.length ? `<h3 style="margin-top:14px">Your misses</h3>${drill.log.map(x => `<div class="miss">${x.recap || ''}<div style="margin-top:4px"><b>${x.q}</b></div><div style="color:#f6d3cc">Your answer: ${x.yours}</div><div style="color:#cdeed2">Correct: ${x.a}</div><div class="hint" style="margin-top:4px">${x.why || ''}</div></div>`).join('')}` : ''}
+      <div class="row" style="margin-top:14px"><button class="btn gold" id="again" type="button">Go again →</button><button class="btn" id="home" type="button">Practice menu</button></div></section>`;
+    $('again').onclick = start; $('home').onclick = home;
+  };
+  const keys = e => {
+    if (!drill || !$('dopts') || LAB.active !== t.id) return;
+    const k = {'1': 0, '2': 1, '3': 2, '4': 3}[e.key];
+    if (k != null && !drill.qs[drill.k].done && k < drill.qs[drill.k].opts.length) { e.preventDefault(); answer(k); }
+    else if (e.key === 'Enter' && $('dn')) { e.preventDefault(); $('dn').click(); }
+  };
+  document.addEventListener('keydown', keys);
+  const prevClean = LAB.cleanup; LAB.cleanup = () => { prevClean && prevClean(); document.removeEventListener('keydown', keys); };
+  home();
+}
+</script>
+</div>
+<script>
+/* ============ ROC-A Part 3 · Mayday Builder — data (RIC-21 §6–7) ============ */
+const SCEN = [{"s": "Your engine is on fire.", "a": "MAYDAY", "why": "Grave, imminent danger: you need help now."}, {"s": "You were struck by lightning and must ditch in a lake.", "a": "MAYDAY", "why": "RIC-21's own distress example."}, {"s": "You are unsure of your position. You have 3 hours of fuel and the weather is clear. You want a radar position check.", "a": "PAN PAN", "why": "RIC-21's own urgency example: lost, request radar check."}, {"s": "Thick smoke is filling the cockpit.", "a": "MAYDAY", "why": "Grave, imminent danger."}, {"s": "Your engine has stopped and you are gliding toward a field.", "a": "MAYDAY", "why": "Imminent danger; you need help now."}, {"s": "A passenger feels ill but is stable. You are landing in 20 minutes and want an ambulance to meet you.", "a": "PAN PAN", "why": "Safety of someone on board, but no immediate assistance in flight."}, {"s": "A car is stuck in a snowy ditch below you. The driver is standing beside it, waving, and doesn't look hurt.", "a": "PAN PAN", "why": "Urgency can concern a vehicle or person within sight that doesn't need immediate assistance."}];
+const MAYF = [{"cs": "Cessna Golf Sierra Alfa Foxtrot", "what": "Engine failure", "intent": "Forced landing in a field", "pos": "10 miles south of Medicine Hat", "alt": "3,500 feet", "pob": "2 on board"}, {"cs": "Cessna Golf Bravo Romeo Kilo", "what": "Smoke in the cockpit", "intent": "Landing on the highway", "pos": "5 miles west of Dunmore", "alt": "4,000 feet", "pob": "1 on board"}, {"cs": "Piper Foxtrot Mike Echo Lima", "what": "Struck by lightning, engine rough", "intent": "Forced landing near the river", "pos": "15 miles north of Brooks", "alt": "5,500 feet", "pob": "3 on board, one injured"}];
+const WORDS = [["MAYDAY", "I am in distress (said 3 times in the call)"], ["PAN PAN", "Urgency (said 3 times)"], ["RECEIVED MAYDAY", "Ends an acknowledgment of a MAYDAY"], ["MAYDAY RELAY", "Passing on someone else's MAYDAY (said 3 times)"], ["SEELONCE MAYDAY", "Silence! Used by the station in distress or in control"], ["SEELONCE DISTRESS", "Silence! Used by another nearby station, only if essential"], ["SEELONCE FEENEE", "The distress is over: normal working may resume"]];
+const DRILL = [{"q": "The spoken distress signal is…", "a": "MAYDAY", "o": ["PAN PAN", "SECURITY", "HELP"]}, {"q": "The urgency signal is…", "a": "PAN PAN", "o": ["MAYDAY", "URGENT", "ALL STATIONS"]}, {"q": "First frequency for a MAYDAY…", "a": "The frequency in use", "o": ["126.7 MHz", "108.0 MHz", "A company frequency"]}, {"q": "No answer on the frequency in use? Try…", "a": "121.5 MHz or any other", "o": ["Nothing else", "108.0 MHz only", "Your phone only"]}, {"q": "In the MAYDAY message, right after what happened comes…", "a": "Intentions", "o": ["Position", "Persons on board", "Call sign"]}, {"q": "An acknowledgment of a MAYDAY ends with…", "a": "RECEIVED MAYDAY", "o": ["ROGER", "SEELONCE FEENEE", "OVER AND OUT"]}, {"q": "SEELONCE FEENEE means…", "a": "The distress is over", "o": ["Keep silent", "Distress in progress", "Say again"]}, {"q": "Urgency has priority over…", "a": "Everything except distress", "o": ["Everything", "Only weather", "Nothing"]}, {"q": "An urgency message is cancelled to…", "a": "ALL STATIONS", "o": ["The station in distress", "No one", "Transport Canada"]}, {"q": "Who authorises a distress call?", "a": "The pilot-in-command", "o": ["Any passenger", "ATC", "The owner"]}, {"q": "Relaying a MAYDAY starts with…", "a": "MAYDAY RELAY ×3", "o": ["MAYDAY ×1", "PAN PAN ×3", "RELAY ×2"]}, {"q": "After your MAYDAY call and message, you…", "a": "Listen for an acknowledgment", "o": ["Turn off the radio", "Switch to 108.0", "Wait 30 minutes"]}];
+const ttsOK = !!window.speechSynthesis;
+function say(text) { if (!ttsOK) return; speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); const v = speechSynthesis.getVoices().find(v => /en-CA|en-GB|en-US/.test(v.lang)); if (v) u.voice = v; u.rate = .9; speechSynthesis.speak(u); }
+
+/* generic scenario trainer */
+function scenario(boxId, list, opts, state, after) {
+  const draw = () => {
+    const s = list[state.i % list.length], choices = opts(s);
+    $(boxId).innerHTML = `<div class="scn">${esc(s.s)}</div><div class="opts">${choices.map((o, j) => `<button type="button" class="opt" data-j="${j}"><span class="l">${'ABCD'[j]}</span><span>${esc(o)}</span></button>`).join('')}</div><div id="${boxId}fb"></div>`;
+    $(boxId).querySelectorAll('.opt').forEach(b => b.onclick = () => {
+      const good = choices[+b.dataset.j] === s.a;
+      $(boxId).querySelectorAll('.opt').forEach((x, j) => { x.disabled = true; if (choices[j] === s.a) x.classList.add('good'); else if (x === b) x.classList.add('wrong'); });
+      state.seen++; if (good) state.right++;
+      $(boxId + 'fb').innerHTML = `<div class="fb ${good ? 'ok' : 'bad'}">${good ? '✓' : '✗'} ${esc(s.why)}</div><div class="row" style="margin-top:8px"><button class="btn gold" type="button" id="${boxId}n">Next →</button><span class="hint" style="margin:0">${state.right} of ${state.seen} right</span></div>`;
+      $(boxId + 'n').onclick = () => { state.i++; draw(); };
+      if (after) after();
+    });
+  };
+  list = shuffle(list); state.i = 0; draw();
+}
+
+/* generic message builder: tap the parts in order, against the clock */
+function builder(boxId, parts, state, onDone) {
+  const ids = shuffle(parts.map((_, k) => k));
+  let got = [], t0 = null, tick = null;
+  const secs = () => t0 ? (performance.now() - t0) / 1000 : 0;
+  const draw = (msg) => {
+    $(boxId).innerHTML = `<div class="row" style="justify-content:space-between"><span class="kicker">Tap the parts in order</span><span class="clock2" id="${boxId}c">${secs().toFixed(1)} s</span></div>
+      <div class="built">${got.map((k, j) => `<span class="${parts[k] === parts[j] ? '' : 'bad'}">${j + 1}. ${esc(parts[k])}</span>`).join('') || '<span class="hint" style="font-family:var(--body)">Your message appears here.</span>'}</div>
+      <div class="chips2">${ids.map(k => `<button type="button" class="chip" data-k="${k}" ${got.includes(k) ? 'disabled' : ''}>${esc(parts[k])}</button>`).join('')}</div>
+      <div class="row" style="margin-top:6px"><button class="btn" id="${boxId}u" type="button">Undo</button><button class="btn" id="${boxId}r" type="button">Start over</button></div>${msg || ''}`;
+    $(boxId).querySelectorAll('.chip').forEach(b => b.onclick = () => {
+      if (!t0) { t0 = performance.now(); tick = setInterval(() => { const c = $(boxId + 'c'); if (c) c.textContent = secs().toFixed(1) + ' s'; else clearInterval(tick); }, 100); }
+      got.push(+b.dataset.k);
+      if (got.length === parts.length) {
+        clearInterval(tick); const s = secs(), good = got.every((k, j) => parts[k] === parts[j]);
+        draw(`<div class="fb ${good ? 'ok' : 'bad'}">${good ? `✓ Correct order in ${s.toFixed(1)} seconds.` : '✗ Not quite: red lines are in the wrong place. Start over and try again.'}</div>`);
+        if (good) onDone(s);
+      } else draw();
+    });
+    $(boxId + 'u').onclick = () => { got.pop(); draw(); };
+    $(boxId + 'r').onclick = () => { clearInterval(tick); got = []; t0 = null; draw(); };
+  };
+  draw();
+  const prev = LAB.cleanup; LAB.cleanup = () => { clearInterval(tick); prev && prev(); };
+}
+
+/* ============ L1 distress or urgency ============ */
+const DU = {i: 0, seen: 0, right: 0};
+const L1 = (main, t) => lessonPage(main, t, {
+  title: 'Distress or urgency?',
+  intro: "<ul class=\"keys\"><li><b class=\"g\">Distress (MAYDAY)<\/b>: grave and/or imminent danger, <b>immediate<\/b> help needed.<\/li><li><b class=\"g\">Urgency (PAN PAN)<\/b>: a safety concern for an aircraft, vehicle or person on board or in sight, <b>no immediate<\/b> help needed.<\/li><\/ul>",
+  sim: `<h3>MAYDAY or PAN PAN?</h3><div id="du"></div><p class="hint">Practice situations built on the RIC-21 definitions.</p>`,
+  mount() { Object.assign(DU, {i: 0, seen: 0, right: 0}); const tk = taskList([
+      {t: 'Decide on <b>5 situations</b>.', ok: () => DU.seen >= 5},
+      {t: 'Get <b>6 right</b>.', ok: () => DU.right >= 6}]);
+    scenario('du', SCEN, () => ['MAYDAY', 'PAN PAN'], DU, tk); },
+  checks: [{"q": "Engine fire in flight is…", "a": "Distress (MAYDAY)", "o": ["Urgency (PAN PAN)", "Routine", "Flight regularity"], "why": "Grave, imminent danger."}, {"q": "Lost, with lots of fuel and good weather, is…", "a": "Urgency (PAN PAN)", "o": ["Distress (MAYDAY)", "Not worth a call", "Flight regularity"], "why": "RIC-21 urgency example."}, {"q": "Which has priority over urgency?", "a": "Only distress", "o": ["Weather", "Flight safety", "Nothing"], "why": "RIC-21 §7.2."}]});
+
+/* ============ L2 MAYDAY builder ============ */
+const MB = {done: 0, best: null, heard: false, f: null};
+function mayParts(f) { return ['MAYDAY MAYDAY MAYDAY', 'THIS IS', f.cs + ' ×3', 'MAYDAY', f.cs, f.what, f.intent, f.pos + ', ' + f.alt, f.pob, f.cs]; }
+function maySay(f) { return `Mayday, mayday, mayday, this is ${f.cs}, ${f.cs}, ${f.cs}. Mayday, ${f.cs}, ${f.what}, ${f.intent}, ${f.pos}, ${f.alt}, ${f.pob}, ${f.cs}.`; }
+function mbNew() {
+  MB.f = pick(MAYF); const f = MB.f;
+  $('mbf').innerHTML = `<div><span>You are</span>${esc(f.cs)}</div><div><span>What happened</span>${esc(f.what)}</div><div><span>Intentions</span>${esc(f.intent)}</div><div><span>Position</span>${esc(f.pos)}, ${esc(f.alt)}</div><div><span>On board</span>${esc(f.pob)}</div>`;
+  builder('mbb', mayParts(f), MB, s => { MB.done++; MB.best = MB.best == null ? s : Math.min(MB.best, s); if (MB.cb) MB.cb(); });
+}
+const L2 = (main, t) => lessonPage(main, t, {
+  title: 'Build the MAYDAY',
+  intro: "<ul class=\"keys\"><li>Call: <b class=\"g\">MAYDAY ×3 · THIS IS · call sign ×3<\/b>.<\/li><li>Message: MAYDAY · call sign · <b>what happened<\/b> · <b>intentions<\/b> · <b>position<\/b> · <b>persons on board<\/b> · other info · call sign.<\/li><li>Frequency in use first, then <b>121.5<\/b> or any.<\/li><\/ul>",
+  sim: `<h3>Your emergency</h3><div class="facts" id="mbf"></div><div id="mbb"></div>
+   <div class="row" style="margin-top:10px"><button class="btn" id="mbhear" type="button">🔊 Hear the model call</button><button class="btn" id="mbnew" type="button">New emergency →</button></div>`,
+  mount() { Object.assign(MB, {done: 0, best: null, heard: false}); const tk = taskList([
+      {t: 'Build a MAYDAY call and message in the <b>right order</b>.', ok: () => MB.done >= 1},
+      {t: 'Tap <b>🔊 Hear the model call</b>, then say it out loud yourself.', ok: () => MB.heard},
+      {t: 'Build one in <b>under 30 seconds</b>.', ok: () => MB.best != null && MB.best < 30}]);
+    MB.cb = tk;
+    $('mbhear').onclick = () => { say(maySay(MB.f)); MB.heard = true; tk(); };
+    $('mbnew').onclick = mbNew; mbNew(); },
+  checks: [{"q": "How many times do you say MAYDAY in the call?", "a": "Three", "o": ["One", "Two", "Four"], "why": "RIC-21 §6.7."}, {"q": "In the message, intentions come…", "a": "After what happened, before position", "o": ["First", "Last", "After persons on board"], "why": "RIC-21 §6.8."}, {"q": "The MAYDAY message ends with…", "a": "Your call sign", "o": ["OVER AND OUT", "Persons on board", "Your intentions"], "why": "RIC-21 §6.8."}]});
+
+/* ============ L3 PAN PAN builder ============ */
+const PB = {done: 0, heard: false};
+const PAN = {cs: 'Cessna Golf Sierra Alfa Foxtrot', what: 'Rough-running engine', intent: 'Diverting to Brooks', pos: '15 miles north of Brooks, 4,500 feet, heading 180', other: '2 on board'};
+const panParts = () => ['PAN PAN ×3', 'ALL STATIONS ×3', 'THIS IS', PAN.cs, PAN.what, PAN.intent, PAN.pos, PAN.other, PAN.cs, 'OVER'];
+const L3 = (main, t) => lessonPage(main, t, {
+  title: 'Build the PAN PAN',
+  intro: "<ul class=\"keys\"><li><b class=\"g\">PAN PAN ×3 · ALL STATIONS ×3 (or a station) · THIS IS · aircraft<\/b>.<\/li><li>Then <b>what's wrong · intentions · position, altitude, heading · other info<\/b>.<\/li><li>Cancel to ALL STATIONS when help is no longer needed.<\/li><\/ul>",
+  sim: `<h3>Your urgency</h3><div class="facts"><div><span>You are</span>${esc(PAN.cs)}</div><div><span>What's wrong</span>${esc(PAN.what)}</div><div><span>Intentions</span>${esc(PAN.intent)}</div><div><span>Position</span>${esc(PAN.pos)}</div><div><span>Other</span>${esc(PAN.other)}</div></div><div id="pbb"></div>
+   <div class="row" style="margin-top:10px"><button class="btn" id="pbhear" type="button">🔊 Hear the model call</button></div>`,
+  mount() { Object.assign(PB, {done: 0, heard: false}); const tk = taskList([
+      {t: 'Build the PAN PAN message in the <b>right order</b>.', ok: () => PB.done >= 1},
+      {t: 'Hear the model, then say it out loud yourself.', ok: () => PB.heard}]);
+    builder('pbb', panParts(), PB, () => { PB.done++; tk(); });
+    $('pbhear').onclick = () => { say(`Pan pan, pan pan, pan pan, all stations, all stations, all stations, this is ${PAN.cs}, rough running engine, diverting to Brooks, fifteen miles north of Brooks, four thousand five hundred feet, heading one eight zero, two on board, ${PAN.cs}, over.`); PB.heard = true; tk(); }; },
+  checks: [{"q": "After PAN PAN ×3 comes…", "a": "The station or ALL STATIONS ×3", "o": ["Your call sign ×3", "Position", "OVER"], "why": "RIC-21 §7.4."}, {"q": "An urgency message is cancelled…", "a": "As soon as help is no longer needed", "o": ["After landing only", "Never", "After 24 hours"], "why": "RIC-21 §7.5."}, {"q": "The PAN PAN message includes…", "a": "Position, altitude and heading", "o": ["Fuel price", "Seat numbers", "Licence number"], "why": "RIC-21 §7.4."}]});
+
+/* ============ L4 emergency words ============ */
+const EW = {i: 0, seen: 0, right: 0};
+const L4 = (main, t) => lessonPage(main, t, {
+  title: 'Emergency words',
+  intro: "<ul class=\"keys\"><li><b class=\"g\">RECEIVED MAYDAY<\/b> ends an acknowledgment. <b class=\"g\">MAYDAY RELAY<\/b> ×3 passes on someone else's MAYDAY.<\/li><li><b class=\"g\">SEELONCE MAYDAY<\/b>: station in distress or in control. <b class=\"g\">SEELONCE DISTRESS<\/b>: another nearby station, if essential.<\/li><li><b class=\"g\">SEELONCE FEENEE<\/b>: it's over.<\/li><\/ul>",
+  sim: `<h3>Which expression?</h3><div id="ew"></div>`,
+  mount() { Object.assign(EW, {i: 0, seen: 0, right: 0}); const tk = taskList([
+      {t: 'Match <b>all 7</b> expressions.', ok: () => EW.seen >= 7},
+      {t: 'Get <b>6 right</b>.', ok: () => EW.right >= 6}]);
+    const list = WORDS.map(([w, m]) => ({s: m, a: w, why: `${w}: ${m}.`}));
+    scenario('ew', list, s => shuffle([s.a, ...shuffle(WORDS.map(x => x[0]).filter(x => x !== s.a)).slice(0, 3)]), EW, tk); },
+  checks: [{"q": "Who uses SEELONCE MAYDAY?", "a": "The station in distress or in control", "o": ["Any station", "Only airlines", "Nobody"], "why": "RIC-21 §6.17."}, {"q": "A nearby station imposing silence uses…", "a": "SEELONCE DISTRESS", "o": ["SEELONCE MAYDAY", "SEELONCE FEENEE", "QUIET PLEASE"], "why": "Only if essential."}, {"q": "You pass on another aircraft's MAYDAY with…", "a": "MAYDAY RELAY ×3", "o": ["PAN PAN", "MAYDAY ×1", "RECEIVED MAYDAY"], "why": "RIC-21 §6.16."}]});
+
+/* ============ practice ============ */
+function gen() {
+  const r = Math.random();
+  if (r < .3) { const s = pick(SCEN); return {q: 'MAYDAY or PAN PAN?', pre: `<div class="scn">${esc(s.s)}</div>`, a: s.a, o: [s.a === 'MAYDAY' ? 'PAN PAN' : 'MAYDAY', 'SEELONCE FEENEE', 'A radio check'], why: s.why}; }
+  if (r < .55) { const p = mayParts(pick(MAYF)).slice(3), k = rnd(1, 4);
+    const lab = ['MAYDAY', 'call sign', 'what happened', 'intentions', 'position', 'persons on board', 'call sign'];
+    return {q: `In the MAYDAY message, what comes right after <b>${lab[k - 1]}</b>?`, a: lab[k], o: shuffle(['what happened', 'intentions', 'position', 'persons on board', 'call sign', 'OVER AND OUT'].filter(x => x !== lab[k])).slice(0, 3), why: 'MAYDAY · call sign · what happened · intentions · position · persons on board · (other info) · call sign.'}; }
+  if (r < .7) { const [w, m] = pick(WORDS); return {q: `<b>${w}</b> means…`, a: m, o: shuffle(WORDS.filter(x => x[0] !== w).map(x => x[1])).slice(0, 3), why: `RIC-21: ${w}.`}; }
+  const f = pick(DRILL); return {...f, why: f.why || f.a + '.'};
+}
+
+startLab({key: 'safapp-lab-roca3', tabs: [
+  {id: 'which', label: 'Distress or urgency', render: L1},
+  {id: 'mayday', label: 'Build the MAYDAY', render: L2},
+  {id: 'panpan', label: 'Build the PAN PAN', render: L3},
+  {id: 'words', label: 'Emergency words', render: L4},
+  {id: 'drill', label: '⚡ Practice', special: 1, render: (m, t) => drillPage(m, t, {title: 'Emergency calls practice', intro: 'Ten quick ones: distress or urgency, MAYDAY order, PAN PAN, and the emergency words. Each miss adds 10 seconds.', gen})}
+]});
+
+</script>
+<script>
+/* SAFA progress tracker: reports to the Apps Script when the page is served from it; does nothing otherwise */
+(function () {
+  const PAGE = {"id": "roca3-lab", "unit": 8, "kind": "lab"};
+  const run = window.google && google.script && google.script.run;
+  const sent = {};
+  let who = ''; try { who = localStorage.getItem('safa-who') || ''; } catch (e) {}
+  function T(type, data, gap) {
+    if (!run) return; const k = type + JSON.stringify(data), now = Date.now();
+    if (sent[k] && now - sent[k] < (gap == null ? 3e4 : gap)) return; sent[k] = now;
+    try { google.script.run.withFailureHandler(function () {}).track(PAGE.id, PAGE.unit, type, JSON.stringify(data), who); } catch (e) {}
+  }
+  window.SAFA_TRACK = T;
+  if (run && window.SAFA_ME && !window.SAFA_ME.email && !who) askName();
+  function askName() {
+    const b = document.createElement('div');
+    b.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:99;background:#1f1a10;border:1px solid #d9b25a;border-radius:14px;padding:12px 14px;color:#fff;font:15px Source Sans 3,Arial,sans-serif;display:flex;gap:8px;flex-wrap:wrap;align-items:center;box-shadow:0 8px 30px rgba(0,0,0,.6)';
+    b.innerHTML = '<b style="font-family:Poppins,Arial;color:#d9b25a">Save my progress:</b> <input placeholder="Your full name" style="flex:1;min-width:160px;font:15px Arial;padding:7px 10px;border-radius:8px;border:1px solid #5c4a22;background:#000;color:#fff"><button style="font:700 13px Poppins,Arial;padding:8px 14px;border-radius:8px;border:0;background:#d9b25a;color:#000;cursor:pointer">Save</button>';
+    b.querySelector('button').onclick = () => { const v = b.querySelector('input').value.trim(); if (!v) return; who = v; try { localStorage.setItem('safa-who', v); } catch (e) {} b.remove(); T('visit', {}, 0); };
+    document.body.appendChild(b);
+  }
+  if (PAGE.kind !== 'teacher') T('visit', {}, 6e5);
+  let prev = '';
+  const poll = () => { try { if (typeof saved === 'undefined' || !saved) return; const done = Object.keys(saved.done || {}).filter(k => saved.done[k]);
+    const best = Math.max((saved.drill && saved.drill.best) || 0, (saved.prac && saved.prac.best) || 0);
+    const sig = done.sort().join(',') + '|' + best; if (sig !== prev) { if (prev !== '' || done.length || best) T('lab', {done, best}, 0); prev = sig; } } catch (e) {} };
+  setInterval(poll, 2500); setTimeout(poll, 800);
+})();
+</script>
+</body>
+</html>

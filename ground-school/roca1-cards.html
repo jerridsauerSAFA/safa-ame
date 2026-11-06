@@ -1,0 +1,495 @@
+<!doctype html>
+<!-- SAFA-PAGE id=roca1-cards kind=cards template=flashcards@1 by=backfill date=2026-10-28 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="spp-local.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAFA Ground School – ROC-A · Part 1 Flashcards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+/* Layout: one centred study column. Home (plan today's session) → Study (recall → confidence → reveal → self-grade) → Debrief (calibration + reflection). Single dark SAFA look. */
+:root{
+  --bg:#000000; --panel:#121110; --panel2:#1a1712; --line:#2e2a23; --fg:#ffffff; --muted:#a8a39a;
+  --gold:#d8b358; --gold-ink:#000000; --good:#7fc48a; --part:#e3c35f; --miss:#e8805a;
+  --display:"Poppins","Montserrat","Helvetica Neue",Arial,sans-serif;
+  --body:"Source Sans 3","Segoe UI",Arial,sans-serif;
+  color-scheme:dark;
+}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;margin:0;line-height:1.45}
+.wrap{max-width:660px;margin:0 auto;padding-inline:16px;padding-block:18px 36px;display:flex;flex-direction:column;gap:18px}
+header{display:flex;align-items:center;gap:14px}
+header img{width:88px;height:auto;flex:none}
+.hd{min-width:0}
+.eyebrow{font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(20px,5vw,26px);line-height:1.15;margin:2px 0 0;text-wrap:balance}
+h2{font-family:var(--display);font-weight:700;font-size:18px;margin:0}
+h3{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.panel.gold{border-color:var(--gold)}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+/* home */
+.today{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:var(--panel2);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat b{font-family:var(--display);font-size:26px;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--muted)}
+.decks{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--display);font-weight:600;font-size:13px;background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.chip:hover{border-color:var(--gold)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.seg{display:flex;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.seg button{background:transparent;color:var(--fg);border:0;padding:9px 14px;font-family:var(--display);font-weight:600;font-size:13px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--gold);color:var(--gold-ink)}
+.boxes{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;align-items:start}
+.bx{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.bx .col{width:100%;max-width:46px;background:var(--line);border-radius:6px 6px 2px 2px;position:relative;height:72px;overflow:hidden}
+.bx .col i{position:absolute;left:0;right:0;bottom:0;background:var(--gold);border-radius:6px 6px 0 0}
+.bx .col.new i{background:#6b675f}
+.bx b{font-family:var(--display);font-size:13px;font-variant-numeric:tabular-nums}
+.bx span{font-size:11px;color:var(--muted);text-align:center;line-height:1.2;min-height:3.6em}
+.methods{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.m{background:var(--panel2);border-radius:12px;padding:12px;min-width:0}
+.m strong{font-family:var(--display);font-size:13px;color:var(--gold);display:block;margin-bottom:2px}
+.m p{margin:0;font-size:14px;color:var(--muted)}
+.btn{font-family:var(--display);font-weight:600;font-size:15px;border-radius:12px;padding:13px 16px;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--fg)}
+.btn:hover{border-color:var(--gold)}
+.btn.primary{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.35;cursor:default}
+.link{background:none;border:0;color:var(--muted);font:inherit;font-size:13px;text-decoration:underline;cursor:pointer;padding:4px 0}
+.link:hover{color:var(--gold)}
+button:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+/* study */
+.progress{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.progress strong{color:var(--fg);font-variant-numeric:tabular-nums}
+.pbar{height:6px;background:var(--line);border-radius:99px;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--gold);transition:width .3s}
+.card{border:1.5px solid var(--gold);border-radius:18px;background:var(--panel);padding:16px 20px 18px;display:flex;flex-direction:column;gap:10px}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.lbl{font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:.1em;color:var(--gold);text-transform:uppercase}
+.num{font-family:var(--display);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.topic{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.q{font-family:var(--display);font-weight:700;font-size:clamp(19px,4.8vw,25px);line-height:1.25;text-align:center;text-wrap:balance;padding:14px 0 6px}
+.again{align-self:center;font-family:var(--display);font-size:11px;font-weight:600;color:var(--miss);border:1px solid var(--miss);border-radius:99px;padding:2px 10px}
+.step{display:flex;flex-direction:column;gap:8px}
+.steplbl{font-family:var(--display);font-weight:600;font-size:13px;display:flex;gap:8px;align-items:center}
+.steplbl em{font-style:normal;width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;background:var(--gold);color:var(--gold-ink);font-size:12px;flex:none}
+textarea{width:100%;box-sizing:border-box;min-height:64px;resize:vertical;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font:inherit;font-size:16px}
+.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.choice{font-family:var(--display);font-weight:600;font-size:14px;border-radius:12px;padding:12px 8px;cursor:pointer;border:1px solid var(--line);background:var(--panel2);color:var(--fg);display:flex;flex-direction:column;align-items:center;gap:2px}
+.choice small{font-family:var(--body);font-weight:400;font-size:12px;color:var(--muted)}
+.choice:hover{border-color:var(--gold)}
+.choice[aria-pressed="true"]{border-color:var(--gold);background:#2a2316}
+.grade .miss{border-color:var(--miss);color:var(--miss)} .grade .part{border-color:var(--part);color:var(--part)} .grade .good{border-color:var(--good);color:var(--good)}
+.grade .miss:hover{background:var(--miss);color:#2a1205} .grade .part:hover{background:var(--part);color:#2a2005} .grade .good:hover{background:var(--good);color:#06210c}
+.answer{background:#17140e;border-radius:12px;padding:14px 16px;font-size:clamp(16px,4.2vw,20px);line-height:1.45;text-align:center;text-wrap:balance}
+.answer b{color:var(--gold)}
+.mine{font-size:14px;color:var(--muted);border-left:2px solid var(--line);padding-left:10px}
+.mine b{color:var(--fg);font-weight:600}
+.conf-note{font-size:13px;color:var(--muted);text-align:center}
+.tag{font-family:var(--display);font-weight:600;font-size:10px;letter-spacing:.18em;color:var(--gold)}
+/* debrief */
+.cal{width:100%;border-collapse:collapse;font-size:14px}
+.cal th,.cal td{padding:8px 6px;text-align:center;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.cal th{font-family:var(--display);font-weight:600;font-size:12px;color:var(--muted)}
+.cal td:first-child,.cal th:first-child{text-align:left}
+.cal .hot{color:var(--miss);font-weight:700}
+.list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.list li{background:var(--panel2);border-radius:10px;padding:10px 12px;font-size:14px}
+.list li span{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.big{font-family:var(--display);font-size:40px;font-weight:700;line-height:1}
+.brand{display:flex;flex-direction:column;align-items:center;gap:6px;padding-top:4px}
+.brand img{width:56px}
+.saved{font-size:13px;color:var(--good)}
+@media (max-width:480px){
+  .methods{grid-template-columns:1fr}
+  .today .stat b{font-size:22px}
+  .choice{font-size:13px;padding:11px 4px}
+}
+
+html,body{height:100%;overflow:hidden}
+#scroller{height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scrollbar-color:#d8b358 #1b1915;scrollbar-width:thin}
+#scroller::-webkit-scrollbar{width:10px}
+#scroller::-webkit-scrollbar-track{background:#1b1915}
+#scroller::-webkit-scrollbar-thumb{background:#d8b358;border-radius:10px;border:2px solid #1b1915}
+header img{width:62px!important}
+</style>
+<link rel="stylesheet" href="spp-local.css">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+<div id="scroller">
+
+<div class="wrap">
+  <header>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAAC4CAYAAAAFd5KwAAAedElEQVR42u2deZTcV3XnP/e93+9XVb2qJe/YeJW8ycaZOCyB4JgT4k12Ao4k29g4zAwkmIGTYUkIA+gQCHNOBnJmgAGyDKtXKRjGatuQAZyQYBjwBGzLRot3W95tqdVbVf1+7935o6pb3dosWSV1ddX9+Ej6uU6r9Hv33fd9974VjK5n/fDl12wcvvwas4ThzATdjQiIxiuVeKWCmEVMEIwuJsblHhgisvCf7jjHm0VMEIwuZtPtRyQxkimkPHJcYhYxQTC6mInntyQCCUoy5INFCF2O9QhdTo+oj4IHKA1k1kFYhGB0M+nRiRPBi+DLgxYhWIRgdDU16o2UAaiN1s0fLEIwupnSeJE0O4ak5AoTBBMEo5spEpdOCULz2bCUwejalKEWS4lII2WoacksYoJgdDGpd2kMmkw9m0UsZTC6mdyXRHAiOPAWIViEYHS3B2gmSKNjUM3MICYIRhfjnaSqjT1NImIpg6UMRjejMaQIIM1nwyIEo4sFwUnqmrueo8MEwQTB6OqUQcmm4kSN2BiCpQxGN1OgJdecZgBbh2ARgtHVBKQ0dU5SCGKCYIJgdHvKMHVumneWMpggGN2dMzqyqQjBmSCYP5gJup5sN8+GCYLRdQQtCY3/QrBBRRMEo6vRGWmCpQyGCUKXE+P2qGDms2GCYHQlM6Yao007miAY3S0Hsj0qmPlsdCc27dj1guAy0OazjSGYIBhdTYxa0ul40ZkgWMpgdDOzVydaymCCYHR70jC95VmwA1IsZTC6O2VQBlS3P5tFurx7MBN0H+tWL19Y7k9XaNDlUfV1oJWmO0wmTu5U9B9SdTcdu+z6LWYtEwSjg9k0fNkKcfLJ1LslMSr1IjAVIYhAlnicE/IQN2qMH1287KY1ZjUTBKPDUEU23HrZpxLhz0VE8iLu8efTxKGqGiOfXrzsxo+JoGbFzscGFbslMrj1sk9VUveRGHlJMQDIi0iMSClz/2XTrZd9yixoEYLRIay/ZeVVaeK+UYQ4nR7stYMIJN6RF/Htp1xy0zfNmiYIxjzmoeErji00/Mw5OawILy/qT7wQVZ8NOa859S03PWJWtZTBmKfkGj5cLiUvWwwAiqCUs+QwcXzYLGoRgjFPuW/4imO9hrudyGCM+zcm6Jygykgq7lUnLLv+UbOuRQjGPCOhuKSSJfstBgAxKuXMD+bES8yyJgjGfES5IGrrZgujKsR4oRnWUgbjpdreqlXu4d/YdEwIsS+rsOWhzaUXz33H16tz9T6PDl8xVNVinXPuqBBaIwreCzHGJ8uSLJ3LVYx3fPXq8gmvqC0cm2So4t3Y8T9f/Lh84hPRvLAVUaXREja9ZsOrnPLPLpX+ai2OHrVo8qn1t6x8NHFsDMhGr/EBje7RWik8dfpPTtt6oB247ovjKeTwVqQLM9MGkMPrvjgeOKCCoKtWufted/+CUs0fKS4eG8Sd5FRPDspiYfLYak2OLKeuP2oc3fSaDecAvzAvNEFoG+pj4b5yxb9XnV6K6hmKnNTfmy5JvHuzqlKrB6q1kKe5e27T2Rs2bxi+7BFRNipsAn0oS3h85Ln0ubPefu14SxpvwZIs9b5WD61rpAqlzPt6XiwB/q0V3/nLb1zZO3hofmi94BiQEwQWq7BkY1x/fJq7o6LooeUsSfsyj4hQhMjoeB5F9TFV/SeEb9XHwn3mgZYytC1Pfe/K3mqevzJXOR3h10DPEpWTI3pMuZRkaeIQAY1QhEi1HlDVUeAZlMcFHhDPeg1uk/fFI6Ws/OQr/vWELfsSVWxcu/ILWebfU62FlpatXPLU6uGLJ19803v2pbff/IaHhmr16lEhJMeJj4s1cIrCSQjHAIeLSH858yTeIa4hPnkRqdaKukMeV9ENIL/E8Ys06n3lNH3syPNaI56GCcJBZ93q5X29A8nRReAUEc6MQV8V0VNQjk68DGSZb164CmhjAK8IkXoecyc8r7AZ5WHvZaMiG12MDxfiN+cT+bNLV6wZm/lvPXjrFWdEjXcoLGplygCN6UeBF5y4c0+86Pp7dyxj2pMeRlEcjXfHi7BEoy5GOF7gFVE5JEtdmnjXKGuzuFGVej1QBN2G8IRD1jsvd6tyT+JZP76teGLHMhomCB3HxtvOLyVx4RFR4omKnCaqZ0T0NJQTVDksy3zi3ewqUkCjUi8iGnVMHM+q8rhDHgjCfcRYE5EPJt4dvzd7Fl4OaeIoQnxYVT+DcyWvnB7Rk0Q4RiOHiZO+LHFIQzxmEaJSr4dChGcRHnLI/Spyr6D3O3UPFu7Fp5dc+N2aeYcJgtHkse8uX1iN/liNnCJRz1BhqQiLVTnaO9eXJm66Z0UbtTjV4SpQFJEiHNjNiYkXksRN/5uqTL/LVKSTF5EQ45gITyhsksg6dXKvONaXXXj0leevedFq2wTBeBk8fMfV5fp4fpRTXRwJS0XkDOBUVY5DOTRJnByoiGCvIoYiKsJzIjwC/EpV7nXIuiiyKetNnzz+3LmbgjVMELqCVatWuat+88FDYqifIEHOV+FjGnF6EJ1HHNEhfxFd/J7z2UPfvPPE5z9hawJMEIy5ZcPaFZ/N0uT9rZxm3BtKmScvwmeXLLvpg1YLJghGO4jB8MpTHfIzhb5Wzyq8FM1Zh7GIvvrkZTf9ympjfmN7GTpC1eWaLPMHXQygsXoxy3yfINdYTViEYMwxD3zrysNCVr/HiTs8xLk59tA7IWp8xtezM0+69NpnrVYsQjDmiJDV35SlyZyJATTWFmRpcriW83OtRkwQjDlEVd4kbRDniTTexWrEBMGYKzFYtcoBZ8Q49yekx6io6hnNdzJMEIyDzSNnPTIgcHT7CALHPHLWI3YdnAmCMRcUlYlDVFgY22AZUIyAsLCoTBxiNWOCYMxFIyz8IpSKtsGlSoqCUomFX2Q1Y4JgzE3lDSWJE22DS9ZUIUmcOBiymjFBMOamEfZ5aZ+lJF4EVfqsZkwQjLlJGkpttbRMmu9kmCAYc1F5Lmk3PXA4O6dzHpNA4+irSl9yLsoZeQi9Ch7nEI2FQEDJvXf1qOQi1CHWUKmFSB2l6p1WkaQuQr0IRV2Eej2XegnqItSTNOa1mBRppchHY6noCc8XvxzrL1asWBOsCvYjZXDSdle0K2LXxu8nq1cv92f1jSYT/pCk39WSfDJJS65IitylqmSakaGaJZ5MNclUyUKIJdASQtk7MsSVQEuqZE5IQ4gZQqrgVVxCjAiE1PtxhHt7vP/hkeddO55svO3yiyXyKRE50yeNU3BmZIU7Vbc2+yZVSLTxiSpEjYQIIFEjMU0IUQkIeVRXCDHPqz4vaZ5HBmpnlqW2fu3KmkNqitaiak2QSWASp1WnUlWhiko1xlAT8ZMOJtVpFaQGWqOQWuP/Yy3xvupizIuguQj1uk9zV8R8Mgv5UK0nr4oPtUo9DmY+jD83Ee+HMN8FSYmF7lRHc/k+oBqLTmiQp4HvPbTHjdSDL01mrqzBbylNpJW6T2Pi0izkqSpZ4iWNzqVFCGVwJYlSJtESSAm0JFHKESqqoeKcLyFaFqWMaDlGKQMVRStOpCRIKaIllFIsBkqlIi/l4lMhpnV1qXoSlJRIAuKKgBOiEwdpKog0f02nb1NH2AlpsqOf+OmwLgRlvCju3njb5R9LNOi3SyXvJ6sF5PuZPjaO8nIIDiQRaX429QMCQuPEYWD7n7jZPzf9h8x4+aYY6ZTjKeogKsToCVFjUInqJAgUPoagoqGncHnNV3MHRaVOntfzIim74kw0X3/LyjpoHaTmhZoiNRGqUbUWVatOmBSYVHFVh1ajUg2qVREmnchkgtTA1fChVgSpS0E9F+olJ/UiFoUvuSLVpKhrvajGtEiLsaK3XiqOOWGo4KEtkeVrosh+zBkGN9pWSZ8C3m/br69QhDXLHScMuccf2pKMZ7UkT/qSssuTTLIklyIJtZgkLklqUbNUyTQhS7xmBF+CWCqClqJqRR0VL1J2QjkiZdFYVqhEpeJEyoiURCkLWgpKo4dFMtAMJM3HqkkFElye1iDpKVyqElMf1UdxXoUkVzxRnYh3zoFLdm6YslPnOmOiuOnP6NSnwtSskU59po1vUJnx89O/KxoaYfz+UCknr6rWwrflgeHLPqroNUnij3QiRNWpVWdTc8vbn5sv2U7MFJGpT2ZXxMxnmfX5dkGS2UIkOwrS7IrUKZuooqpNUVKAIEJQCNKIjgogqBJAC1RyROuI1AXqU5GOKnWEqoNJRKpOqMaotYhWJTKpIpNOmMRJzTUEqR5UHKqvdk7ee6DPT9zr/NMLMernEPm5F42qZIiUY9RSVCrSbKQOKTuRUoQyquUIFZSyCNlUz6o0wmJUMkTTZgfjAY+SqOAFvDZCJO+c4ITtjVF2qN9dRbrTjWtmg9zu4zrjt+3P7PB3dZYgtlu+NNMG2zvoxnPDZo02XxThKUG+KADrhpcfkeLP9SKvi8TFMejh4qQPpaJKD0JZlEycJN5J41AM2W7oaeGY6rlniMjU4ZvtKiitNPqOgjRLUmbYa3aEJDMqbXcRUrPnmGFnaIjQXJ2juDvSxOGc7CCuMl2G3faQ076hs3rImf41q/ntokF2sm9NdVoyo0HLlADu4F/TaXxUQlQ0aqHSGO8TYQJhUqOOOS/PONymoPqTnHDH0mVrnpbd5VCvLw+VXnBjpaQ2WU6TpDf6tA8N/aK6wCdusAi6ANUFiixwjgFVGYgaB71IX2zMRfeC9opIWaGMUnJO/K4EZWbPy6xxCSXGhshMOZiNWBnzqkHP8FkRwbnGqdTT/j/jxGx206Bj1IBQE6iqahVkXIQxERlTjWPgtnnHSIxsU40jiGxNvGwNRRxRka2IH3UhH8uLYrwoVaqLYl/tx9UttV2NoR2QWStdvdw/Dpn2pOWJIlZ8phWNvh+KAXD9sYgLfOIHRXUwEgc0ssA76VOkX9H+GOl3jl6Qfo1xoTjX672gUfFepg3KniKU5vPMzzu1FzEOQg89syduPu+uh2ZGhxaCIk4IQdEYx8W5F0FHY2TcOUYFGRV0NDTu2NjqcNtUZCRoGMnEbS2Io5BsExdGQ10mexI3KRN59RioywEYFG/LE5NUkU23vzfz6dPlUPVf6akkbx2dqH8Mx4+9+IWEMBDRBc75AWBAVQdUGRShX0R6NWqfqvaJc2XQCkpZlbLzkgiNAz2mKGW+Uem7Snl0RuSyQ7huzJ8emhmpmUw17l2E3Kow85Ba7xojvjFoIUIVoQoyqTFWRWRMnIyp6rgqoyKMiMg2YFuMYZtDtuL9tqDhRRd5fW9P9smJyeJmXw7/PuRHVBdf8Pn6fg0oH0h7tTMb1l62QYTHF19045v31oCrVy/3r4UspD2l2F8r5eOhJ019fxHjAlX54yzxl9fzABBF9TptDOQNqjKIMCDQF5VeRHtFpaxQUqWUJCLe7TpCmZnu5EVElenrynbMjY2X00vLtHBHVUQa4xU75tY79dBRKYKqQE2EWlStgYx7YUxhTKOOOidbozIiqmUVeRvgstRTL8INIvrlxLmteR5G014/4UZLNZ9P1H4K9b2dtlZFNg6v/L4gr1hy8Y2ntLOt235VmYMPRdy6fVHTZkVNNn/NYv3alef45hiGKqpSfPqUS25eP6sC73pX+vQLE9lILVQSih5Js0qMoR8YqOdhQISBiAx5cYOqOqhRh7xnIEQGQfuBpYn3vUWIkyg1oCJQShKH39WALMwaiKWDIpQ99dDsMEA2Y0h2WmRDVEIRUbSmqpMgpcS7ShHCeD0P60BGvWMkKNsE2SIiI0HjiEO3OPXbxLMt9bKtCDKWaDGRk0wMlvzkEYt66nL2386aaF9/y1tPgfQKkUZ0APzq5GWrf9QCQdMNw/6d3unp7V5fbS8Iiy++8ZbWOqjOKrM4X97pZxqOkgP7fLvwXX/zrrT/qJH7Fc1SlYuLWnhB+rJByAeKvFigiRsUZbAIcUicLHDiBiM6oFEHBdcnor1R6UXpFUcZKMdIGch2HaFM9YYzRpUPUigiIkwNEjthF+/U7KELVdC6c1QVqhq0ijDuhHFVGVfimDgZcci2qHFEo25NvNuiwkgo4ohLZauQbhsfq48MlNyiiK4Vkfrok4O/dfYf/W3esvI4X9a4e1/ZH05edv1DwEMmCO3WY6mLM0I51+qc6deXHKmbxrbdF3O+vvj3b7yn+fHmvR8/UblvzYrUZ7WS86WyOFfWuuuF0C9Ifz0PA+JkgSBDCkMx6CIvLFT0CMQdh+qRaeJKiZftjbOl+WXjO4ugFEWshchTIYRHBHk6KC86Ly8IbFF0S7NhbxPRUfCjLo3jGmM1hlo11Eq105evzkX2eanz5g1rL/sTQa4eXXJky5VPdcYl3ErX3UDVNcew37V6+eBQr78yKh8Ajg9Rp6Y/vy/oX5900U23t86pVjmRg3+d2cbb3jYgEo5xKicUIR4rIkeK6oLQiDiSlzuIpYogFF4YV5GtqvpU4t2jUfQhVf/4kguv23awy9pqGz9w68oLQN4fld+JUadShoed8Nkt4+Has1esGTFB6BA2DK94Y4L7QpK6M/IdbkYupZ7QmFm4dlLlfWcuu36LDeN1D/cMXzHUI/o5hCu9CLV8xiyDF7LEUYR4bxHdfzp52fU/MkGY52z6zopzXeq/7bwM7u7eQxHoKSdM1sL3JtLk0rPOu3bcmkrn88vvXdnbkxffqpT8eRPVYrezQKXME4OORJW3LF52/R2dbJOOPg/hnuErhoKTv3Fu92LQDIkZnyyolPx5lVrxZ9ZUuoPeevGnlZI/b3yy2OOUcK0eECeDUeOX7xm+YsgEYZ5S1viWSilZPDMM3BPVWgD0moeHlx9hzaWzeXh4+RFR9T2NOn9p6nmgnPklqca3mCDMQx5bvbwCevW+XHEWGheXLqrjzrcm09lUo1yQZX7RvvqHE317w7dsDKHtUUXWf3f5Elf407xweoSPqGplX6bl08QRVf9FxF2rMT6mzq9bcuF1T1gTmv9svO1tR0sMS8W5V8YYrvLOvWFfdos2lzpPOvh0UO6LSbj/lPPXbGzHJcgWIQCwSqROHcLP6vXql1T1ae/2rYiJdwC3V8fy60MIG3xRt3MnOwRf1F0IYUN1LL9eRG5r1vXe/33nUNWn6/XqlyD8rOFrqzqqU+2ohUnNeemHp6KFjcMrn3ROjmcf9oTFxprhB5auWDMGjFkz6hxOvGTNY1PPm4ZXPhD3cUWnc0KIPHnqW77zYidFBV0xhiCN80Rub6zY28sewAu1etgSNd5pzaeziRrvrNXDFr8P/pF4wcFtnSoGHS0IADHKV6v1YnOa7F0xy5nHif79yRev2WxNprM5+eI1mwX+rpzt3SG1aeJo+FLy1U62S0cLwqm/f+OTRH23wmSWuj1FE/RWUiaq4Qf49FPWXLoDSZK/nKyGH/RWUvZ0AVaWOhQmifru4y647ikThHnMkktWrw1Rl2vkwZ5yQpZ6vG/s0ku8o1LyOCdarRdfy/pKfzAX6/KNOfKNC6/bVhW3vJ4XX3NOtFLyJL6xRd17IUs9PeUEjTwYoi5fcsnqtR0vkt1S+RtvW36o4K5G5WINeiKOVGEkce7nQfVrSy668f9YE+leNt562Zu98Ich6m8Ag0Ry8fIgomuV+PUlF655riuipm6s/EeHrxjKU5durW0dO/uS4QlrDsYUd92yrGdBaUFfmsf8WNvoZhiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGYRiGcXDYr92OqjoAHA4cBgwC5TYv649F5OkD+Y+o6sKmTQ4FBoCs1f8EMAFsAZ4BnhWRyXYwsKpWmr5wODAE9DC/dtQ64AkR+WkLbdLXtMfhzTZyII5wrwIjwLPAMyKy7aAIgqqWgLOB3wFeDyxpOn7PPKnwi0VkuMWNoB94bdMmrwVOAhYBpQPd/oBR4ClgHfAj4Icisu4gCoAApwNvAt4ILAWOBPqZv1vr14rIJfthkwT4taY/vAE4tSmSvQfh3SeA54CNwL8CPwDuEpFaSwVBVY8B3gZcBpw5jyv7IhG5rUWNYQnwh8AfAIvbpHxV4KfA14CbRWT0AAlBP3Bps/yvafPIcF+5WUQufRk2ORRYCVwF/Drg26AsCtwN3AhcJyJP7JcgqOoi4H3AHzVDnvnOfguCqh4FfKjZGBa0cVnvAz4LfFNEihYJQQK8HfgAcFqHptH7JAiq2gO8E/gT4Lg2LtczwJeBz4nIi3vKmXZX0IuaYcfHO0QMWtEgLgPubFb+gjZ/3dOBrwC3qurpLSj7UuB24H91sBjsq01eA3wf+O9tLgY02/Aq4F9U9cK9FgRVdar6ceA7wClW7aCqmap+BrgBOHaevf7vAj9U1bfuR/kvBX7YzIuNhk3eAfwj8Lp59uqnAd9R1Y82x4B2Lwiq6oHPA5+gw2512o+KLzd7xQ/M42IcBtygqv/xZZT/XcD1NAaPjYZNPgj8PY1ZpPlICnwS+Hyzze82QvivwDVW5dMVL8D/AK7sgOJkwBdVdcU+lH8l8AVaP3U6n33incBf0RlXGLyn2eZ3FgRVfTuNwTJjO+8F3tVB5UmBL6vqmXvh+GcCX2r+HaNhk9c3xws66bTyDzXb/nZBUNXjgM9Ylc+q/NObYVWnMdQMFbM9lL3UjAyGzBOmbdLXtElPBxbvv6nqsTMjhD+zHHEnPj6Pc8SX4o3AnlKHlcBvmQvM4j8AZ3Vo2Q4D/hTAqepJNBYcGdt7gzOA3+vwYr5PVdNdlD1rpkrGdpv0Au/u8GJerqonOhor7RZYtc/iUg780uO55t/tpsc7i8bSW2M7vwmc3OFlHAIudcD5Vt+zegMBfrsLiuqBc3bx+Tm0x7LbduJNXVLOCxy26mxHBoATu6SsZ+7lZ93O0i4p5+mOxs68bsHtpSD0d4k9jtjFZ92+TD3dRcR4WJeUfWFCaxdYbKMxWjlC+83VCvBve/FzCa1dpfkAjRmL/c5mgDOAjxwo59/DZ/vDJ4H7mR9z9wI8tovUqpULs6rNNvLcftpEaZyv8Fe0bjbMt3p5chW4YX8OaOhAnhORG1rxRaq6ucWCcDC4rZUHjnQAObCmFQf1NA8o+osWCkLLl18KnbU3vt1sPB9nPkrmAjtRbuH3SLs6q2EY1nsZhmGCYBiGCYJhGCYIhmGYIBiGYYJgGIYJgmEYJgiGYRgmCIZhmCAYhnGQBEGBSTPrTjZpFWEelj+YC+xE0WbfM02rdzv2Ah9T1XEO3HbXCNRobLV+FngUeFREnmvTyi+p6itaJCzz8ayCI5r3YR7s7c/SFKNnRaSdREmAo1W1FR3FIa3u1JOm0XwLBeFg3+0QgedU9VfAP9O4f/CuNnKCM2lcvNoKQZiPdyR8tdmTzcV5CC/SuGrtmTayRy+NK+AC+38egqPFh/kkwPPM71NyXPP9D6dxFuJHgZ+p6leA1W1wNoOncZBFt9I3x+laOx7U09/OjenuDnNA3+wV/g74iapepao2eNqd2PjFyxCE4Q4u32nAN4CbVfV4q27DeGlBuBl4usPL+Xs0rkR/o1W5YexBEERkM43rzjud44D/raq/a9VuGLuPEKBxo+0DXVDeBcANqnq2Vb1h7EYQROR5GnfF17qgzAuBr6vqIqt+w9h1hICI/CMHfw3BXHEarbkrwTA6UxCaovB54IN0x3TNO1V1qbmAYexGEJqi8FngShrLgjuZCvBOcwHD2IMgNEXhRhqr/tZ2ePkvUtU+cwPD2IMgNEXhVzTm7y8FftKh5T8OONncwDBeQhCaoqAicjNwDnAhcEOHpRIeWGJuYBgN9mr7s4jkNHYR3q6qRwCvBl4PnAUcS+NK+SEOzoErrd6scqi5QcdSYX7cOj2/BGEHcXgauKX5C1Ut09jNdxSN7bl6AN9XgfcDlx+sKKkFbAa+0qKyn0BjwHc+8XUaZ1bMRcOcAEbbzB514MvAVvZ/+3Mv8MfNP+dGEHYhEFUa18AflD3nqvrkPGsQj4nIx1tU9jfMQ0H4koj8X+t7p6kCnxaRZ1rgD/3AVa0UhPm4LdjPs/dtpY3L87C+yqYBO6W8lXZNieycAMMwTBAMwzBBMAzDBMEwDBMEwzBMEAzDMEEwDMMEwTAMEwTDMEwQDMMwQTAMwwRhlxRWbYZxYJje7aiq59A4ISm28fsqcG6Lv9P2yxvGjoIAvBb4z11og0lzA8PYOWXIu9QGj5kbGMbOgtCNjAH3mxsYhgkCwP+zCMEwTBCm+JqIRHMDwzBBWAf8g7mAYZggBODDIjJmLmAYJgh/LSK3WvUbhgnCauCjVvWGYYJwA/AOEalb1RtG9wpCAfwlcLWITFi1G8auSbqgjL8A/lxEvmfVbRjdKwjrgf8JfFVExq2qDaP7BOEZ4MfATcDtIjJqVWwYnS8IkcbNvi8ADwJ3A3cCPxWRJ6xaDePl8f8BF09IFDoMCVkAAAAASUVORK5CYII=" alt="SAFA logo">
+    <div class="hd">
+      <div class="eyebrow">Student Pilot Permit · ROC-A · Part 1</div>
+      <h1>Radio Rules & Equipment Flashcards</h1>
+    </div>
+  </header>
+
+  <!-- HOME -->
+  <section id="home" class="wrap" style="padding:0;gap:18px">
+    <div class="panel gold">
+      <h3>Today's review</h3>
+      <div class="today">
+        <div class="stat"><b id="sDue">0</b><span>due for review</span></div>
+        <div class="stat"><b id="sNew">0</b><span>new cards</span></div>
+        <div class="stat"><b id="sMaster">0</b><span>in the long-term box</span></div>
+      </div>
+      <div class="step">
+        <div class="small muted">Decks to mix together</div>
+        <div class="decks" id="deckChips"></div>
+      </div>
+      <div class="row">
+        <span class="small muted">Session length</span>
+        <div class="seg" id="sizeSeg"></div>
+      </div>
+      <button class="btn primary" id="start">Start mixed review</button>
+      <p class="small muted" id="startNote" style="margin:0"></p>
+    </div>
+
+    <div class="panel">
+      <h3>Your card boxes</h3>
+      <p class="small muted" style="margin:0">Every card starts in “New”. Get it right and it moves one box to the right, so you see it less often. Miss it and it goes back to Box 1.</p>
+      <div class="boxes" id="boxes"></div>
+    </div>
+
+    <div class="panel">
+      <h3>How this deck helps you remember</h3>
+      <div class="methods">
+        <div class="m"><strong>Retrieval</strong><p>Answer from memory first — type it or say it out loud — before you flip.</p></div>
+        <div class="m"><strong>Metacognition</strong><p>Rate how sure you are before you check, then see where your confidence was off.</p></div>
+        <div class="m"><strong>Spaced practice</strong><p>Cards come back after 1, 2, 4, 7 and then 14 days, right before you'd forget them.</p></div>
+        <div class="m"><strong>Interleaving</strong><p>Topics from different lessons are mixed so you learn to tell similar ideas apart.</p></div>
+      </div>
+    </div>
+    <div class="row" style="justify-content:space-between">
+      <button class="link" id="resetAll">Reset all my progress</button>
+      <span class="small muted">Progress is saved on this device only.</span>
+    </div>
+  </section>
+
+  <!-- STUDY -->
+  <section id="study" hidden style="display:flex;flex-direction:column;gap:14px">
+    <div class="progress"><span>Card <strong id="pPos">1</strong> of <strong id="pTot">10</strong></span><button class="link" id="quit">End session</button></div>
+    <div class="pbar"><i id="pBar" style="width:0%"></i></div>
+    <div class="card">
+      <div class="top"><span class="lbl" id="cDeck"></span><span class="num" id="cBox"></span></div>
+      <div class="topic" id="cTopic"></div>
+      <div class="again" id="cAgain" hidden>Back again — you missed this one earlier</div>
+      <div class="q" id="cQ"></div>
+
+      <div class="step" id="step1">
+        <div class="steplbl"><em>1</em>Recall it first</div>
+        <textarea id="recall" placeholder="Type your answer, or say it out loud…" aria-label="Your answer"></textarea>
+      </div>
+      <div class="step" id="step2">
+        <div class="steplbl"><em>2</em>How sure are you?</div>
+        <div class="choices" id="confChoices">
+          <button class="choice" data-c="3">Sure<small>I know it</small></button>
+          <button class="choice" data-c="2">Think so<small>Pretty close</small></button>
+          <button class="choice" data-c="1">Guessing<small>No idea</small></button>
+        </div>
+        <p class="conf-note" id="confNote">Pick one to see the answer.</p>
+      </div>
+
+      <div class="step" id="step3" hidden>
+        <div class="answer" id="cA"></div>
+        <div class="mine" id="mine" hidden></div>
+        <div class="steplbl"><em>3</em>Be honest — how did you do?</div>
+        <div class="choices grade">
+          <button class="choice miss" data-g="0">Missed it</button>
+          <button class="choice part" data-g="1">Partly</button>
+          <button class="choice good" data-g="2">Got it</button>
+        </div>
+      </div>
+      <div class="tag" style="text-align:center">LEARN. FLY. BUILD. LEAD.</div>
+    </div>
+    <p class="small muted" style="text-align:center;margin:0">Keyboard: 1 / 2 / 3 to pick, Enter to continue</p>
+  </section>
+
+  <!-- DEBRIEF -->
+  <section id="debrief" hidden style="display:flex;flex-direction:column;gap:14px">
+    <div class="panel gold">
+      <h3>Session debrief</h3>
+      <div class="row" style="gap:18px;align-items:flex-end">
+        <div><div class="big" id="dScore">0%</div><div class="small muted">got it first try</div></div>
+        <div><div class="big" id="dCal" style="font-size:28px">—</div><div class="small muted">confidence accuracy</div></div>
+      </div>
+      <p id="dMsg" style="margin:0"></p>
+    </div>
+    <div class="panel">
+      <h3>Confidence check</h3>
+      <p class="small muted" style="margin:0">How your confidence matched your results. Cards you were <b>sure</b> about but missed are your blind spots.</p>
+      <div style="overflow-x:auto"><table class="cal" id="calTable"></table></div>
+    </div>
+    <div class="panel" id="blindPanel">
+      <h3>Blind spots</h3>
+      <ul class="list" id="blindList"></ul>
+    </div>
+    <div class="panel" id="weakPanel">
+      <h3>Topics to work on</h3>
+      <ul class="list" id="weakList"></ul>
+    </div>
+    <div class="panel">
+      <h3>Reflect</h3>
+      <label for="reflect" class="small">What was hardest today, and what will you do differently next time?</label>
+      <textarea id="reflect" placeholder="e.g. I mix up flight safety and weather in the priority list. I will say the top five out loud before bed."></textarea>
+      <div class="row" style="justify-content:space-between"><span class="saved" id="savedMsg" hidden>Saved on this device</span><span></span></div>
+      <p class="small muted" style="margin:0" id="nextDue"></p>
+    </div>
+    <button class="btn primary" id="home2">Back to home</button>
+  </section>
+
+  <div class="brand"><img src="data:image/png;base64,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" alt=""><span class="tag">LEARN. FLY. BUILD. LEAD.</span></div>
+</div>
+
+</div>
+<script>
+const DECKS = [{"code": "R1.1", "title": "Radio Rules", "cards": [{"topic": "ROC-A", "q": "ROC-A stands for…", "a": "**Restricted Operator Certificate with Aeronautical Qualification**."}, {"topic": "ROC-A", "q": "What the ROC-A lets you do", "a": "Operate the radio in an **aircraft** or at an **aeronautical ground station**."}, {"topic": "ROC-A", "q": "How long a ROC-A lasts", "a": "**For life**: no renewal."}, {"topic": "ROC-A", "q": "Who gives the ROC-A exam?", "a": "An **examiner accredited** by ISED."}, {"topic": "ROC-A", "q": "Three possible parts of the exam", "a": "**Written, practical, oral.**"}, {"topic": "ROC-A", "q": "Age limit for the ROC-A", "a": "**None.** No age or nationality limits."}, {"topic": "ROC-A", "q": "What to bring to the exam", "a": "**Identification** (the examiner decides what is acceptable)."}, {"topic": "Priority", "q": "Priority 1", "a": "**Distress** (MAYDAY)."}, {"topic": "Priority", "q": "Priority 2", "a": "**Urgency** (PAN PAN)."}, {"topic": "Priority", "q": "Priority 3", "a": "**Radio direction-finding.**"}, {"topic": "Priority", "q": "Priorities 4 and 5", "a": "**Flight safety**, then **weather** (meteorological)."}, {"topic": "Priority", "q": "Priority 6", "a": "**Flight regularity.**"}, {"topic": "Priority", "q": "Lowest priority", "a": "**All other** aeronautical communications."}, {"topic": "Priority", "q": "Which comes first: weather or flight safety?", "a": "**Flight safety** (4) before weather (5)."}, {"topic": "Privacy", "q": "The privacy rule", "a": "Don't share the **contents**, or even the **existence**, of radio messages."}, {"topic": "Privacy", "q": "Messages you MAY share", "a": "**Distress, urgency, safety**, and messages to **ALL STATIONS**."}, {"topic": "Privacy", "q": "Breaking privacy can lead to…", "a": "**Fines and jail time.**"}, {"topic": "Control", "q": "Who controls air-to-ground talk?", "a": "The **ground station**."}, {"topic": "Control", "q": "Who controls air-to-air talk?", "a": "The aircraft **being called**."}, {"topic": "Control", "q": "Who controls the aircraft station?", "a": "The **pilot-in-command** (person in charge)."}, {"topic": "Rules", "q": "What radio talk should be limited to", "a": "**Safety** and the **regular running of flights**."}, {"topic": "Rules", "q": "Two kinds of language that are prohibited", "a": "**Profane** and **obscene**."}, {"topic": "Rules", "q": "When may you interfere with another station?", "a": "Only to send a **higher-priority** call."}, {"topic": "Rules", "q": "A false distress call is…", "a": "An **offence** under the *Radiocommunication Act* (fines, possible jail)."}]}, {"code": "R1.2", "title": "Certificates, Licences & Equipment", "cards": [{"topic": "Licences", "q": "Operator certificate vs station licence", "a": "Certificate = **the person**. Licence = **the radio station**."}, {"topic": "Licences", "q": "Who issues radio station licences?", "a": "The **Minister of Industry** (ISED)."}, {"topic": "Licences", "q": "Does every aeronautical station need a licence?", "a": "**No.** Some are **exempt**."}, {"topic": "Licences", "q": "Two things a station licence sets", "a": "The **call sign** and the **frequencies**."}, {"topic": "Licences", "q": "Who can ask to see the station licence?", "a": "An **ISED inspector**."}, {"topic": "Licences", "q": "Who replaces a lost ROC-A?", "a": "**ISED** (its Radio Operator Certificate Service Centre or district office)."}, {"topic": "Frequencies", "q": "The aeronautical emergency frequency", "a": "**121.5 MHz.**"}, {"topic": "Frequencies", "q": "Band used for radio navigation", "a": "**108.1–117.975 MHz.**"}, {"topic": "Frequencies", "q": "Band for general aviation communications", "a": "**121.9825–123.5875 MHz.**"}, {"topic": "Frequencies", "q": "Band for operational (company) control", "a": "**128.8125–132.0125 MHz.**"}, {"topic": "Frequencies", "q": "In an emergency, besides 121.5, you can call other pilots on…", "a": "**126.7 MHz.**"}, {"topic": "Equipment", "q": "How connections should be kept", "a": "**Tight and clean.**"}, {"topic": "Equipment", "q": "A \"short\" is…", "a": "**Bare wires touching** each other or the metal case."}, {"topic": "Equipment", "q": "An \"open\" is…", "a": "A wire **broken inside** its insulation."}, {"topic": "Equipment", "q": "How to protect connections exposed to weather", "a": "A coating of **silicone**."}, {"topic": "Equipment", "q": "Can you use a higher-rated fuse?", "a": "**Never**: no protection and a **fire** risk."}, {"topic": "Equipment", "q": "Before replacing a blown fuse…", "a": "**Fix the fault** that blew it."}, {"topic": "Equipment", "q": "Safety when changing a fuse", "a": "Make sure your **hands are dry**."}, {"topic": "Definitions", "q": "Aircraft station", "a": "A **mobile** radio station **on board** an aircraft."}, {"topic": "Definitions", "q": "Aeronautical station", "a": "A **land (ground)** station in the aeronautical mobile service."}, {"topic": "Definitions", "q": "Controlled aerodrome", "a": "An aerodrome where an **ATC unit** is operating."}, {"topic": "Definitions", "q": "Flight service station (FSS)", "a": "An **ATS unit** that gives **selected flight services**."}, {"topic": "Definitions", "q": "Aerodrome", "a": "Any land, **water (even frozen)** or structure used by aircraft to arrive, depart, move or be serviced."}, {"topic": "Definitions", "q": "Operational control communications are about…", "a": "The **regularity** of flight (keeping flights on schedule)."}]}];
+const ALL = [];
+DECKS.forEach(d => d.cards.forEach((c, i) => ALL.push({...c, deck: d.code, title: d.title, n: i + 1, id: d.code + '-' + (i + 1)})));
+const BYID = Object.fromEntries(ALL.map(c => [c.id, c]));
+const INTERVALS = [0, 1, 2, 4, 7, 14]; // days for boxes 1..5 (index = box)
+const KEY = 'safapp-srs-roca1';
+const $ = id => document.getElementById(id);
+
+let S = {cards: {}, decks: DECKS.map(d => d.code), size: 15, reflections: []};
+try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(S, JSON.parse(raw)); } catch (e) {}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+
+function today() { const d = new Date(); d.setHours(0,0,0,0); return d.getTime(); }
+const DAY = 86400000;
+function st(id) { return S.cards[id] || null; }
+function isDue(id) { const s = st(id); return s && s.due <= today(); }
+function md(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\*\*(.+?)\*\*/g, '<b>$1</b>'); }
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+/* Interleave: avoid the same deck (and topic) twice in a row where possible */
+function interleave(ids) {
+  const pool = shuffle(ids.slice()), out = [];
+  while (pool.length) {
+    const prev = out.length ? BYID[out[out.length - 1]] : null;
+    let k = pool.findIndex(id => !prev || (BYID[id].deck !== prev.deck && BYID[id].topic !== prev.topic));
+    if (k < 0) k = pool.findIndex(id => !prev || BYID[id].topic !== prev.topic);
+    if (k < 0) k = 0;
+    out.push(pool.splice(k, 1)[0]);
+  }
+  return out;
+}
+
+function inDecks() { return ALL.filter(c => S.decks.includes(c.deck)); }
+
+function renderHome() {
+  $('home').hidden = false; $('study').hidden = true; $('debrief').hidden = true;
+  const cards = inDecks();
+  const due = cards.filter(c => isDue(c.id)).length;
+  const fresh = cards.filter(c => !st(c.id)).length;
+  const master = cards.filter(c => st(c.id) && st(c.id).box >= 5).length;
+  $('sDue').textContent = due; $('sNew').textContent = fresh; $('sMaster').textContent = master;
+  // deck chips
+  const dc = $('deckChips'); dc.innerHTML = '';
+  DECKS.forEach(d => {
+    const b = document.createElement('button'); b.className = 'chip';
+    b.setAttribute('aria-pressed', S.decks.includes(d.code));
+    b.textContent = d.code + ' ' + d.title;
+    b.onclick = () => { if (S.decks.includes(d.code)) { if (S.decks.length > 1) S.decks = S.decks.filter(x => x !== d.code); } else S.decks.push(d.code); save(); renderHome(); };
+    dc.appendChild(b);
+  });
+  const seg = $('sizeSeg'); seg.innerHTML = '';
+  [10, 15, 25].forEach(n => { const b = document.createElement('button'); b.textContent = n + ' cards'; b.setAttribute('aria-pressed', S.size === n); b.onclick = () => { S.size = n; save(); renderHome(); }; seg.appendChild(b); });
+  // boxes
+  const bx = $('boxes'); bx.innerHTML = '';
+  const counts = [fresh, 0, 0, 0, 0, 0];
+  cards.forEach(c => { const s = st(c.id); if (s) counts[s.box]++; });
+  const max = Math.max(1, ...counts);
+  const names = ['New', 'Box 1', 'Box 2', 'Box 3', 'Box 4', 'Box 5'];
+  const subs = ['not seen', 'daily', 'every 2 days', 'every 4 days', 'weekly', 'every 2 weeks'];
+  counts.forEach((n, i) => {
+    const el = document.createElement('div'); el.className = 'bx';
+    el.innerHTML = `<b>${n}</b><div class="col ${i === 0 ? 'new' : ''}"><i style="height:${(100 * n / max).toFixed(0)}%"></i></div><span>${names[i]}<br>${subs[i]}</span>`;
+    bx.appendChild(el);
+  });
+  const plan = buildQueue(true);
+  $('start').disabled = plan.length === 0;
+  $('startNote').textContent = due === 0 && fresh === 0
+    ? 'Nothing is due today. Start an extra round to practise your weakest cards.'
+    : `This session mixes ${plan.length} cards: overdue reviews first, then new cards.`;
+  $('start').textContent = due === 0 && fresh === 0 ? 'Practise weakest cards' : 'Start mixed review';
+}
+
+function buildQueue(peek) {
+  const cards = inDecks();
+  const due = cards.filter(c => isDue(c.id)).sort((a, b) => st(a.id).due - st(b.id).due || st(a.id).box - st(b.id).box);
+  const fresh = shuffle(cards.filter(c => !st(c.id)));
+  let pick = due.slice(0, S.size).map(c => c.id);
+  if (pick.length < S.size) pick = pick.concat(fresh.slice(0, S.size - pick.length).map(c => c.id));
+  if (!pick.length) { // nothing due: weakest first
+    pick = cards.slice().sort((a, b) => (st(a.id).box - st(b.id).box) || (st(a.id).due - st(b.id).due)).slice(0, S.size).map(c => c.id);
+  }
+  return interleave(pick);
+}
+
+/* Session */
+let Q = [], pos = 0, total = 0, cur = null, conf = null, log = [], requeued = new Set();
+function start() {
+  Q = buildQueue(); total = Q.length; pos = 0; log = []; requeued = new Set();
+  $('home').hidden = true; $('debrief').hidden = true; $('study').hidden = false;
+  show();
+}
+function show() {
+  if (!Q.length) return debrief();
+  cur = Q[0]; conf = null;
+  const c = BYID[cur], s = st(cur);
+  $('cDeck').textContent = c.deck + '  ' + c.title;
+  $('cBox').textContent = s ? 'Box ' + s.box : 'New card';
+  $('cTopic').textContent = c.topic;
+  $('cQ').textContent = c.q;
+  $('cAgain').hidden = !requeued.has(cur) || !log.some(l => l.id === cur);
+  $('recall').value = '';
+  $('step1').hidden = false; $('step2').hidden = false; $('step3').hidden = true;
+  document.querySelectorAll('#confChoices .choice').forEach(b => b.setAttribute('aria-pressed', 'false'));
+  const done = log.filter(l => l.first).length;
+  $('pPos').textContent = Math.min(done + 1, total); $('pTot').textContent = total;
+  $('pBar').style.width = (100 * done / total) + '%';
+  setTimeout(() => { try { $('recall').focus({preventScroll: true}); } catch (e) {} }, 50);
+}
+function pickConf(v) {
+  if ($('step3').hidden === false) return;
+  conf = v;
+  document.querySelectorAll('#confChoices .choice').forEach(b => b.setAttribute('aria-pressed', b.dataset.c == v));
+  const c = BYID[cur];
+  $('cA').innerHTML = md(c.a);
+  const mine = $('recall').value.trim();
+  $('mine').hidden = !mine; $('mine').innerHTML = 'Your answer: <b>' + esc(mine) + '</b>';
+  $('step1').hidden = true; $('step3').hidden = false;
+  $('confNote').textContent = 'You said: ' + ['', 'Guessing', 'Think so', 'Sure'][v];
+}
+function grade(g) {
+  const id = cur, first = !log.some(l => l.id === id);
+  log.push({id, conf, g, first});
+  let s = st(id) || {box: 1, due: today(), seen: 0, hist: []};
+  if (first) {
+    s.seen = (s.seen || 0) + 1;
+    s.hist = (s.hist || []).concat([{t: today(), c: conf, g}]).slice(-10);
+    if (g === 2) s.box = Math.min(5, (S.cards[id] ? s.box + 1 : 2));
+    else if (g === 1) s.box = Math.max(1, S.cards[id] ? s.box : 1);
+    else s.box = 1;
+    s.due = today() + INTERVALS[s.box] * DAY;
+    S.cards[id] = s; save();
+  }
+  Q.shift();
+  // short-interval spacing inside the session: missed / partly cards return a few cards later
+  if (g < 2 && !requeued.has(id)) { requeued.add(id); Q.splice(Math.min(3, Q.length), 0, id); }
+  show();
+}
+function debrief() {
+  $('study').hidden = true; $('debrief').hidden = false; $('home').hidden = true;
+  const firsts = log.filter(l => l.first);
+  if (!firsts.length) return renderHome();
+  const got = firsts.filter(l => l.g === 2).length;
+  $('dScore').textContent = Math.round(100 * got / firsts.length) + '%';
+  // calibration: sure→got, guessing→missed count as matched
+  const matched = firsts.filter(l => (l.conf === 3 && l.g === 2) || (l.conf === 2 && l.g >= 1) || (l.conf === 1 && l.g <= 1)).length;
+  $('dCal').textContent = Math.round(100 * matched / firsts.length) + '%';
+  const blind = firsts.filter(l => l.conf === 3 && l.g === 0);
+  const under = firsts.filter(l => l.conf === 1 && l.g === 2);
+  let msg = '';
+  if (blind.length) msg = `You were sure about ${blind.length} card${blind.length > 1 ? 's' : ''} you missed. Those are the most important ones to fix: feeling sure isn't the same as knowing.`;
+  else if (under.length >= 2) msg = `You knew more than you thought: ${under.length} cards you were guessing on were right. Trust your knowledge a little more.`;
+  else msg = 'Your confidence matched your results well. That is a strong study skill.';
+  $('dMsg').textContent = msg;
+  const rows = [[3, 'Sure'], [2, 'Think so'], [1, 'Guessing']];
+  let h = '<tr><th>I said…</th><th>Got it</th><th>Partly</th><th>Missed</th></tr>';
+  rows.forEach(([c, name]) => {
+    const r = firsts.filter(l => l.conf === c);
+    const n = g => r.filter(l => l.g === g).length;
+    h += `<tr><td>${name}</td><td>${n(2)}</td><td>${n(1)}</td><td class="${c === 3 && n(0) ? 'hot' : ''}">${n(0)}</td></tr>`;
+  });
+  $('calTable').innerHTML = h;
+  $('blindPanel').hidden = !blind.length;
+  $('blindList').innerHTML = blind.map(l => { const c = BYID[l.id]; return `<li><span>${c.deck} · ${esc(c.topic)}</span>${esc(c.q)}<br><span style="text-transform:none;letter-spacing:0;margin-top:4px">Answer: ${md(c.a).replace(/<\/?b>/g, '')}</span></li>`; }).join('');
+  const topics = {};
+  firsts.forEach(l => { const c = BYID[l.id], k = c.deck + ' · ' + c.topic; topics[k] = topics[k] || {miss: 0, n: 0}; topics[k].n++; if (l.g < 2) topics[k].miss++; });
+  const weak = Object.entries(topics).filter(([, v]) => v.miss).sort((a, b) => b[1].miss - a[1].miss).slice(0, 4);
+  $('weakPanel').hidden = !weak.length;
+  $('weakList').innerHTML = weak.map(([k, v]) => `<li><span>${esc(k)}</span>${v.miss} of ${v.n} not yet solid</li>`).join('');
+  const dues = inDecks().map(c => st(c.id)).filter(Boolean).map(s => s.due).filter(d => d > today());
+  if (dues.length) { const d = new Date(Math.min(...dues)); $('nextDue').textContent = 'Next review: ' + d.toLocaleDateString(undefined, {weekday: 'long', month: 'short', day: 'numeric'}) + '. Coming back then is what makes it stick.'; }
+  $('reflect').value = ''; $('savedMsg').hidden = true;
+}
+
+$('start').onclick = start;
+$('quit').onclick = () => { if (log.some(l => l.first)) debrief(); else renderHome(); };
+$('home2').onclick = renderHome;
+document.querySelectorAll('#confChoices .choice').forEach(b => b.onclick = () => pickConf(+b.dataset.c));
+document.querySelectorAll('.grade .choice').forEach(b => b.onclick = () => grade(+b.dataset.g));
+let t = null;
+$('reflect').addEventListener('input', e => {
+  clearTimeout(t); t = setTimeout(() => {
+    const txt = e.target.value.trim(); if (!txt) return;
+    S.reflections = (S.reflections || []).filter(r => r.t !== today()).concat([{t: today(), txt}]).slice(-30); save();
+    $('savedMsg').hidden = false;
+  }, 600);
+});
+let armed = false;
+$('resetAll').onclick = e => {
+  if (!armed) { armed = true; e.target.textContent = 'Tap again to erase all progress'; setTimeout(() => { armed = false; e.target.textContent = 'Reset all my progress'; }, 3500); return; }
+  armed = false; S.cards = {}; S.reflections = []; save(); e.target.textContent = 'Reset all my progress'; renderHome();
+};
+document.addEventListener('keydown', e => {
+  if ($('study').hidden) return;
+  const typing = e.target.tagName === 'TEXTAREA';
+  if (typing && e.key !== 'Enter') return;
+  if (typing && e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); e.target.blur(); return; }
+  if ($('step3').hidden) { if (['1','2','3'].includes(e.key)) pickConf(4 - +e.key); }
+  else { if (e.key === '1') grade(0); else if (e.key === '2') grade(1); else if (e.key === '3') grade(2); }
+});
+renderHome();
+</script>
+
+<script>
+(function(){var sc=document.getElementById('scroller');['home','study','debrief'].forEach(function(id){var el=document.getElementById(id);if(!el)return;
+new MutationObserver(function(){if(!el.hidden)sc.scrollTo(0,0);}).observe(el,{attributes:true,attributeFilter:['hidden']});});})();
+</script>
+<script>
+/* SAFA progress tracker: reports to the Apps Script when the page is served from it; does nothing otherwise */
+(function () {
+  const PAGE = {"id": "roca1-cards", "unit": 6, "kind": "cards"};
+  const run = window.google && google.script && google.script.run;
+  const sent = {};
+  let who = ''; try { who = localStorage.getItem('safa-who') || ''; } catch (e) {}
+  function T(type, data, gap) {
+    if (!run) return; const k = type + JSON.stringify(data), now = Date.now();
+    if (sent[k] && now - sent[k] < (gap == null ? 3e4 : gap)) return; sent[k] = now;
+    try { google.script.run.withFailureHandler(function () {}).track(PAGE.id, PAGE.unit, type, JSON.stringify(data), who); } catch (e) {}
+  }
+  window.SAFA_TRACK = T;
+  if (run && window.SAFA_ME && !window.SAFA_ME.email && !who) askName();
+  function askName() {
+    const b = document.createElement('div');
+    b.style.cssText = 'position:fixed;left:12px;right:12px;bottom:12px;z-index:99;background:#1f1a10;border:1px solid #d9b25a;border-radius:14px;padding:12px 14px;color:#fff;font:15px Source Sans 3,Arial,sans-serif;display:flex;gap:8px;flex-wrap:wrap;align-items:center;box-shadow:0 8px 30px rgba(0,0,0,.6)';
+    b.innerHTML = '<b style="font-family:Poppins,Arial;color:#d9b25a">Save my progress:</b> <input placeholder="Your full name" style="flex:1;min-width:160px;font:15px Arial;padding:7px 10px;border-radius:8px;border:1px solid #5c4a22;background:#000;color:#fff"><button style="font:700 13px Poppins,Arial;padding:8px 14px;border-radius:8px;border:0;background:#d9b25a;color:#000;cursor:pointer">Save</button>';
+    b.querySelector('button').onclick = () => { const v = b.querySelector('input').value.trim(); if (!v) return; who = v; try { localStorage.setItem('safa-who', v); } catch (e) {} b.remove(); T('visit', {}, 0); };
+    document.body.appendChild(b);
+  }
+  if (PAGE.kind !== 'teacher') T('visit', {}, 6e5);
+  const snap = () => DECKS.map(d => { const cs = ALL.filter(c => c.deck === d.code); return [d.code, cs.length, cs.filter(c => S.cards[c.id]).length, cs.filter(c => S.cards[c.id] && S.cards[c.id].box >= 4).length]; });
+  if (typeof debrief === 'function') { const _d = debrief; debrief = function () { _d.apply(this, arguments); try { T('cards', {d: snap(), n: (typeof log !== 'undefined' && log.length) || 0}, 0); } catch (e) {} }; }
+  try { if (Object.keys(S.cards || {}).length) T('cards', {d: snap(), n: 0}, 36e5); } catch (e) {}
+})();
+</script>
+</body>
+</html>
