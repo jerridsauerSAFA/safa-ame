@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAFA Ground School – Student Pilot Permit</title>
+<meta name="description" content="SAFA Grade 10 study site for PSTAR and ROC-A: notes, flashcards, practice quizzes, skills labs and mock exams.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#000;--panel:#121110;--panel2:#1b1915;--line:#2e2a23;--fg:#fff;--muted:#a8a39a;--soft:#d8d4cc;--gold:#d8b358;
+  --display:"Poppins","Helvetica Neue",Arial,sans-serif;--body:"Source Sans 3","Segoe UI",Arial,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.5}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px 48px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;padding:28px 0 22px}
+.hero img{width:150px}
+.eyebrow{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(30px,7vw,48px);line-height:1.05;margin:8px 0 12px;letter-spacing:-.01em}
+h1 span{color:var(--gold)}
+.lede{margin:0;color:var(--soft);font-size:18px;max-width:34em}
+h2{font-family:var(--display);font-weight:700;font-size:20px;margin:34px 0 12px}
+h2 small{display:block;font-family:var(--body);font-weight:400;font-size:15px;color:var(--muted);margin-top:2px}
+.req{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.req div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.req b{display:block;font-family:var(--display);font-weight:800;font-size:22px;color:var(--gold);line-height:1.1}
+.req span{display:block;color:var(--soft);font-size:15px;margin-top:4px;line-height:1.35}
+.src{margin:10px 0 0;color:var(--muted);font-size:13px}.src a{color:var(--muted)}
+.exams{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.exam{display:flex;flex-direction:column;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;color:var(--fg);text-decoration:none;transition:border-color .15s,transform .15s}
+.exam:hover,.exam:focus-visible{border-color:var(--gold);transform:translateY(-2px);outline:none}
+.exam .tag{font-family:var(--display);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.exam h3{font-family:var(--display);font-weight:800;font-size:28px;margin:0;line-height:1.1}
+.exam p{margin:0;color:var(--soft);font-size:16px}
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.stats b{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);font-weight:600;font-size:14px;color:var(--fg)}
+.stats b.pass{border-color:var(--gold);color:var(--gold)}
+.go{margin-top:auto;padding-top:6px;font-family:var(--display);font-weight:700;font-size:15px;color:var(--gold)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;counter-reset:s}
+.steps li{counter-increment:s;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--gold);color:#000;font-family:var(--display);font-weight:800;font-size:15px;margin-bottom:8px}
+.steps b{display:block;font-family:var(--display);font-weight:700;font-size:15px}
+.steps span{display:block;color:var(--muted);font-size:14px;line-height:1.35;margin-top:2px}
+.then{margin:12px 0 0;padding:12px 14px;border-left:3px solid var(--gold);background:var(--panel2);border-radius:0 12px 12px 0;color:var(--soft);font-size:16px}
+.then b{color:var(--fg)}
+.more{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.more a,.more div{display:flex;flex-direction:column;gap:2px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;color:var(--fg);text-decoration:none;min-height:64px}
+.more a:hover,.more a:focus-visible{border-color:var(--gold);outline:none}
+.more b{font-family:var(--display);font-weight:700;font-size:16px}
+.more span{color:var(--muted);font-size:14px}
+.more div{opacity:.55}
+.tips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tip{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:15px;color:var(--soft)}
+.tip b{display:block;color:var(--fg);font-family:var(--display);font-weight:700;font-size:15px;margin-bottom:4px}
+footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:13px}
+footer .tagline{font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.3em;color:var(--gold);margin-bottom:4px}
+@media (max-width:820px){.steps{grid-template-columns:1fr 1fr}.steps li:last-child{grid-column:1/-1}.req{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){
+  .hero{grid-template-columns:1fr;padding-top:20px}.hero img{display:none}
+  .exams,.more,.tips{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .steps li{display:grid;grid-template-columns:30px minmax(0,1fr);column-gap:12px;align-items:start;padding:12px 14px}
+  .steps li::before{margin:0;grid-row:span 2}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">SAFA Ground School · Grade 10</div>
+      <h1>Student Pilot <span>Permit</span></h1>
+      <p class="lede">Your first two exams: PSTAR (air regulations) and ROC-A (the radio). Everything here works on your phone, with no sign-in.</p>
+    </div>
+    <img src="safa-logo.png" alt="SAFA">
+  </section>
+
+  <h2>To get your permit<small>What Transport Canada asks for before you can fly solo.</small></h2>
+  <div class="req">
+    <div><b>14+</b><span>years old</span></div>
+    <div><b>Medical</b><span>A valid Category 1, 3 or 4 medical certificate</span></div>
+    <div><b>PSTAR</b><span>Pass with at least 90%, then correct it to 100% with your instructor</span></div>
+    <div><b>ROC-A</b><span>Your radio certificate, so you can talk on the aircraft radio</span></div>
+  </div>
+  <p class="src">Source: <a href="https://tc.canada.ca/en/aviation/licensing-pilots-personnel/flight-crew-licences-permits-ratings/general-information-pilot-licences-permits" target="_blank" rel="noopener">Transport Canada, General information on pilot licences and permits</a></p>
+
+  <h2>Pick your exam</h2>
+  <div class="exams">
+    <a class="exam" href="pstar.html">
+      <span class="tag">Transport Canada</span>
+      <h3>PSTAR</h3>
+      <p>The rules of the air, airspace, signals, flight plans and radio procedures you need before you fly solo.</p>
+      <div class="stats"><b class="pass">90% to pass</b><b>5 parts</b><b>3 mock exams</b></div>
+      <span class="go">Open PSTAR →</span>
+    </a>
+    <a class="exam" href="roca.html">
+      <span class="tag">Radio certificate</span>
+      <h3>ROC-A</h3>
+      <p>How to talk on the aircraft radio: the rules, how to say it, and what to say when things go wrong. Written and oral.</p>
+      <div class="stats"><b class="pass">70% to pass</b><b>3 parts</b><b>Mock exams</b><b>Oral trainer</b></div>
+      <span class="go">Open ROC-A →</span>
+    </a>
+  </div>
+
+  <h2>How to study each part<small>Same five steps for every part of both exams.</small></h2>
+  <ol class="steps">
+    <li><b>Overview</b><span>See what the part covers.</span></li>
+    <li><b>Cornell Notes</b><span>Read, then cover the notes and answer the cue questions.</span></li>
+    <li><b>Flashcards</b><span>Keep going until every card is mastered.</span></li>
+    <li><b>Practice Quizzes</b><span>Aim to beat the pass mark on both quizzes.</span></li>
+    <li><b>Skills Lab</b><span>Practise it hands-on.</span></li>
+  </ol>
+  <p class="then"><b>Then the mock exams.</b> Save them until you've finished every part. They tell you if you're ready.</p>
+
+  <h2>Also here</h2>
+  <div class="more">
+    <a href="spp-glossary.html"><b>Glossary</b><span>Every term from both exams, searchable.</span></a>
+    <div><b>C172 Exam</b><span>Coming soon</span></div>
+    <div><b>Policy &amp; Procedures</b><span>Coming soon</span></div>
+  </div>
+
+  <h2>Good to know</h2>
+  <div class="tips">
+    <div class="tip"><b>Your progress stays on this device</b>Use the same phone or computer, in the same browser, each time. Clearing your browsing data erases it.</div>
+    <div class="tip"><b>Put it on your home screen</b>iPhone: Share → Add to Home Screen. Android or Chromebook: the ⋮ menu → Add to Home screen (or Install).</div>
+  </div>
+
+  <footer>
+    <div class="tagline">LEARN. FLY. BUILD. LEAD.</div>
+    Study site for SAFA students. Confirm exam details with your instructor.
+  </footer>
+</div>
+</body>
+</html>
