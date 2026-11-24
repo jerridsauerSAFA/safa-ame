@@ -29,18 +29,16 @@ header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
 .stats b{color:var(--ink);font-weight:500}
 .progress{height:6px;background:var(--cue);border-radius:3px;overflow:hidden;margin-bottom:1rem}
 .progress i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
-.scene{perspective:1200px}
-.card{position:relative;min-height:300px;cursor:pointer;transition:transform .45s;transform-style:preserve-3d;border:0;background:transparent;width:100%;padding:0;text-align:left;font:inherit;color:inherit}
-.card.flipped{transform:rotateY(180deg)}
-.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:1.5rem;display:flex;flex-direction:column;justify-content:center;gap:.6rem}
-.face.back{transform:rotateY(180deg);border-left:6px solid var(--accent)}
-.face .k{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);position:absolute;top:1rem;left:1.5rem}
-.face .hint{position:absolute;bottom:.9rem;right:1.2rem;font-size:.8rem;color:var(--muted)}
-.front .q{font-family:"Barlow Condensed",Arial,sans-serif;font-size:clamp(1.5rem,4.5vw,2.1rem);font-weight:700;line-height:1.15;text-wrap:balance}
-.back .a{font-size:1.15rem;line-height:1.45}
-.back .a b{font-weight:600}
+.card{display:flex;flex-direction:column;gap:.8rem;min-height:240px;width:100%;cursor:pointer;text-align:left;font:inherit;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:1.2rem 1.4rem}
+.card .k{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.card .q{font-family:"Barlow Condensed",Arial,sans-serif;font-size:clamp(1.5rem,4.5vw,2.1rem);font-weight:700;line-height:1.15;text-wrap:balance;flex:1;display:flex;align-items:center}
+.card .ans{background:var(--cue);border-left:6px solid var(--accent);border-radius:6px;padding:.9rem 1rem;display:flex;flex-direction:column;gap:.5rem}
+.card .albl{font-family:"JetBrains Mono",monospace;font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.card .a{font-size:1.2rem;line-height:1.45;color:var(--ink)}
+.card .a b{font-weight:700}
 .f{font-family:"JetBrains Mono",monospace;color:var(--formula);background:var(--formula-bg);padding:.05em .35em;border-radius:3px;white-space:nowrap}
-.back .why{color:var(--muted);font-size:.95rem;border-top:1px dotted var(--line);padding-top:.5rem}
+.card .why{color:var(--muted);font-size:.95rem;border-top:1px dotted var(--line);padding-top:.5rem}
+.card .hint{font-size:.85rem;color:var(--muted);text-align:right}
 .actions{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:1rem}
 .actions .btn{flex:1 1 9rem;padding:.7rem 1rem;font-size:1rem}
 .kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;color:var(--muted);text-align:center;margin-top:.6rem}
@@ -74,7 +72,7 @@ header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
  #printset .f{color:#000;background:#f1ece0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
  #printset .pfoot{font-size:7.5pt;color:#666;margin-top:8pt}
 }
-@media (prefers-reduced-motion:reduce){.card{transition:none}.progress i{transition:none}}
+@media (prefers-reduced-motion:reduce){.progress i{transition:none}}
 </style>
 <link rel="manifest" href="../../manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="32x32" href="../../assets/icons/favicon-32.png">
@@ -91,7 +89,7 @@ header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
 <header class="top">
   <div class="eyebrow">Flashcards · ASYS 245 · Aerodynamics Final · Modules 1–6</div>
   <h1>Final Exam Cards</h1>
-  <p>Read the front, say the answer out loud, flip to check. Mark <b>Got it</b> or <b>Again</b> — cards you miss come back until you get them twice. Progress saves on this device. Filter by type or by module to hit your weak spots.</p>
+  <p>Read the front, say the answer out loud, tap the card to see the answer. Mark <b>Got it</b> or <b>Again</b> — cards you miss come back until you get them twice. Progress saves on this device. Filter by type or by module to hit your weak spots.</p>
 </header>
 <div class="bar" role="toolbar" aria-label="Card set">
   <button class="chip" data-set="all" aria-pressed="true" type="button">All</button>
@@ -115,17 +113,19 @@ header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
 <div class="stats"><span>Card <b id="pos">0</b> / <b id="tot">0</b></span><span>Mastered <b id="mast">0</b></span><span>To review <b id="rev">0</b></span></div>
 <div class="progress" aria-hidden="true"><i id="pbar"></i></div>
 
-<div class="scene" id="scene">
-  <button class="card" id="card" type="button" aria-live="polite">
-    <div class="face front"><span class="k" id="kfront"></span><div class="q" id="q"></div><span class="hint">tap to flip</span></div>
-    <div class="face back"><span class="k">Answer</span><div class="a" id="a"></div><div class="why" id="why"></div></div>
+<div id="scene">
+  <button class="card" id="card" type="button" aria-expanded="false" aria-controls="ans">
+    <div class="k" id="kfront"></div>
+    <div class="q" id="q"></div>
+    <div class="ans" id="ans" hidden><div class="albl">Answer</div><div class="a" id="a" aria-live="polite"></div><div class="why" id="why"></div></div>
+    <div class="hint" id="hint">Tap to show the answer</div>
   </button>
 </div>
 <div class="actions" id="actions">
   <button class="btn bad" id="again" type="button">Again</button>
   <button class="btn ok" id="got" type="button">Got it</button>
 </div>
-<div class="kbd">Space = flip · 1 = Again · 2 = Got it</div>
+<div class="kbd">Space = show answer · 1 = Again · 2 = Got it</div>
 <div class="done" id="done" hidden><h2>Set complete</h2><p id="doneMsg"></p><button class="btn" id="doneRestart" type="button">Go again</button></div>
 
 <section id="printset"></section>
@@ -192,13 +192,13 @@ var CARDS=[
   function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} }
   var queue=[],cur=null,flipped=false,seen=0,total=0;
   var card=document.getElementById('card'),q=document.getElementById('q'),a=document.getElementById('a'),why=document.getElementById('why'),kf=document.getElementById('kfront');
-  var done=document.getElementById('done'),actions=document.getElementById('actions'),scene=document.getElementById('scene');
+  var ans=document.getElementById('ans'),hint=document.getElementById('hint'),done=document.getElementById('done'),actions=document.getElementById('actions'),scene=document.getElementById('scene');
   var labels={term:'Term',law:'Rule',number:'Number',apply:'Apply it'};
   function pool(){ return CARDS.map(function(c,i){c.id=i;return c}).filter(function(c){return (st.set==='all'||c.t===st.set)&&(st.mod==='all'||String(c.m)===st.mod)}); }
   function build(fresh){ var p=pool(); total=p.length; if(fresh){ p.forEach(function(c){ delete st.mast[c.id]; }); save(); } queue=p.filter(function(c){ return (st.mast[c.id]||0)<2; }).sort(function(){return Math.random()-.5}); seen=0; next(); }
   function stats(){ var p=pool(); var m=p.filter(function(c){return (st.mast[c.id]||0)>=2}).length; document.getElementById('tot').textContent=total; document.getElementById('mast').textContent=m; document.getElementById('rev').textContent=queue.length+(cur?1:0); document.getElementById('pos').textContent=Math.min(seen,total); document.getElementById('pbar').style.width=(total?100*m/total:0)+'%'; }
-  function next(){ flipped=false; card.classList.remove('flipped'); if(!queue.length){ cur=null; scene.hidden=true; actions.hidden=true; done.hidden=false; document.getElementById('doneMsg').textContent='All '+total+' cards mastered twice. Try another set, or restart to run it cold.'; stats(); return; } scene.hidden=false; actions.hidden=true; done.hidden=true; cur=queue.shift(); seen++; kf.textContent=labels[cur.t]+' · Mod '+cur.m; q.innerHTML=cur.q; a.innerHTML=cur.a; why.innerHTML=cur.w; stats(); }
-  function flip(){ if(!cur) return; flipped=!flipped; card.classList.toggle('flipped',flipped); actions.hidden=!flipped; }
+  function next(){ flipped=false; ans.hidden=true; card.setAttribute('aria-expanded','false'); hint.textContent='Tap to show the answer'; if(!queue.length){ cur=null; scene.hidden=true; actions.hidden=true; done.hidden=false; document.getElementById('doneMsg').textContent='All '+total+' cards mastered twice. Try another set, or restart to run it cold.'; stats(); return; } scene.hidden=false; actions.hidden=true; done.hidden=true; cur=queue.shift(); seen++; kf.textContent=labels[cur.t]+' · Mod '+cur.m; q.innerHTML=cur.q; a.innerHTML=cur.a; why.innerHTML=cur.w; stats(); }
+  function flip(){ if(!cur) return; flipped=!flipped; ans.hidden=!flipped; card.setAttribute('aria-expanded',flipped?'true':'false'); hint.textContent=flipped?'Tap to hide the answer':'Tap to show the answer'; actions.hidden=!flipped; if(flipped){ var r=actions.getBoundingClientRect(); if(r.bottom>window.innerHeight) actions.scrollIntoView({block:'end',behavior:'smooth'}); } }
   function grade(ok){ if(!cur||!flipped) return; if(ok){ st.mast[cur.id]=(st.mast[cur.id]||0)+1; if(st.mast[cur.id]<2) queue.push(cur); } else { st.mast[cur.id]=0; queue.splice(Math.min(3,queue.length),0,cur); } save(); next(); }
   card.addEventListener('click',flip);
   document.getElementById('got').addEventListener('click',function(){grade(true)});
