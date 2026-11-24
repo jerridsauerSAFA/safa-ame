@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>ASYS 245 Aerodynamics Final · Flashcards</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+
+
+
+*{box-sizing:border-box}
+body{margin:0}
+h1,h2{font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+.wrap{max-width:720px;margin:0 auto}
+.eyebrow{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.12em;font-size:.85rem;color:var(--accent)}
+header.top{padding-block:2rem 1rem;border-bottom:2px solid var(--ink)}
+header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
+.meta{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.8rem;color:var(--muted)}
+.bar{display:flex;flex-wrap:wrap;gap:.5rem .8rem;align-items:center;padding-block:.8rem}
+.chip{font:600 .85rem var(--font);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.3rem .7rem;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn{font:600 .9rem var(--font);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:.5rem .9rem;border-radius:4px;cursor:pointer}
+.btn.ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ink)} .btn.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--ink)}
+.btn:focus-visible,.chip:focus-visible,.card:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.stats{display:flex;gap:1rem 1.5rem;flex-wrap:wrap;font-family:"JetBrains Mono",monospace;font-size:.8rem;color:var(--muted);padding-block:.3rem .8rem}
+.stats b{color:var(--ink);font-weight:500}
+.progress{height:6px;background:var(--cue);border-radius:3px;overflow:hidden;margin-bottom:1rem}
+.progress i{display:block;height:100%;width:0;background:var(--ok);transition:width .3s}
+.scene{perspective:1200px}
+.card{position:relative;min-height:300px;cursor:pointer;transition:transform .45s;transform-style:preserve-3d;border:0;background:transparent;width:100%;padding:0;text-align:left;font:inherit;color:inherit}
+.card.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--surface);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:1.5rem;display:flex;flex-direction:column;justify-content:center;gap:.6rem}
+.face.back{transform:rotateY(180deg);border-left:6px solid var(--accent)}
+.face .k{font-family:"JetBrains Mono",monospace;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);position:absolute;top:1rem;left:1.5rem}
+.face .hint{position:absolute;bottom:.9rem;right:1.2rem;font-size:.8rem;color:var(--muted)}
+.front .q{font-family:"Barlow Condensed",Arial,sans-serif;font-size:clamp(1.5rem,4.5vw,2.1rem);font-weight:700;line-height:1.15;text-wrap:balance}
+.back .a{font-size:1.15rem;line-height:1.45}
+.back .a b{font-weight:600}
+.f{font-family:"JetBrains Mono",monospace;color:var(--formula);background:var(--formula-bg);padding:.05em .35em;border-radius:3px;white-space:nowrap}
+.back .why{color:var(--muted);font-size:.95rem;border-top:1px dotted var(--line);padding-top:.5rem}
+.actions{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:1rem}
+.actions .btn{flex:1 1 9rem;padding:.7rem 1rem;font-size:1rem}
+.kbd{font-family:"JetBrains Mono",monospace;font-size:.7rem;color:var(--muted);text-align:center;margin-top:.6rem}
+.done{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:2rem;text-align:center;box-shadow:var(--shadow)}
+.done h2{font-size:1.8rem}
+.done p{color:var(--muted)}
+.foot{font-size:.85rem;color:var(--muted);margin-top:2rem}
+@media (prefers-reduced-motion:reduce){.card{transition:none}.progress i{transition:none}}
+</style>
+<link rel="manifest" href="../../manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="../../assets/icons/favicon-32.png">
+<link rel="apple-touch-icon" href="../../assets/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ASYS 245"><meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" href="../../assets/safa-nav.css">
+<link rel="stylesheet" href="../../assets/safa-touch.css">
+<link rel="stylesheet" href="../../assets/safa.css">
+<meta name="theme-color" content="#0b0b0c">
+</head>
+<body class="study-page" data-page="exam">
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">Flashcards · ASYS 245 · Aerodynamics Final · Modules 1–6</div>
+  <h1>Final Exam Cards</h1>
+  <p>Read the front, say the answer out loud, flip to check. Mark <b>Got it</b> or <b>Again</b> — cards you miss come back until you get them twice. Progress saves on this device. Filter by type or by module to hit your weak spots.</p>
+</header>
+<div class="bar" role="toolbar" aria-label="Card set">
+  <button class="chip" data-set="all" aria-pressed="true" type="button">All</button>
+  <button class="chip" data-set="term" aria-pressed="false" type="button">Terms</button>
+  <button class="chip" data-set="law" aria-pressed="false" type="button">Rules</button>
+  <button class="chip" data-set="number" aria-pressed="false" type="button">Numbers</button>
+  <button class="chip" data-set="apply" aria-pressed="false" type="button">Apply it</button>
+  <span style="flex:1"></span>
+  <button class="btn" id="restart" type="button">Restart set</button>
+</div>
+<div class="bar" role="toolbar" aria-label="Module" style="padding-top:0">
+  <button class="chip" data-mod="all" aria-pressed="true" type="button">All modules</button>
+  <button class="chip" data-mod="1" aria-pressed="false" type="button">Mod 1</button>
+  <button class="chip" data-mod="2" aria-pressed="false" type="button">Mod 2</button>
+  <button class="chip" data-mod="3" aria-pressed="false" type="button">Mod 3</button>
+  <button class="chip" data-mod="4" aria-pressed="false" type="button">Mod 4</button>
+  <button class="chip" data-mod="5" aria-pressed="false" type="button">Mod 5</button>
+  <button class="chip" data-mod="6" aria-pressed="false" type="button">Mod 6</button>
+</div>
+<div class="stats"><span>Card <b id="pos">0</b> / <b id="tot">0</b></span><span>Mastered <b id="mast">0</b></span><span>To review <b id="rev">0</b></span></div>
+<div class="progress" aria-hidden="true"><i id="pbar"></i></div>
+
+<div class="scene" id="scene">
+  <button class="card" id="card" type="button" aria-live="polite">
+    <div class="face front"><span class="k" id="kfront"></span><div class="q" id="q"></div><span class="hint">tap to flip</span></div>
+    <div class="face back"><span class="k">Answer</span><div class="a" id="a"></div><div class="why" id="why"></div></div>
+  </button>
+</div>
+<div class="actions" id="actions">
+  <button class="btn bad" id="again" type="button">Again</button>
+  <button class="btn ok" id="got" type="button">Got it</button>
+</div>
+<div class="kbd">Space = flip · 1 = Again · 2 = Got it</div>
+<div class="done" id="done" hidden><h2>Set complete</h2><p id="doneMsg"></p><button class="btn" id="doneRestart" type="button">Go again</button></div>
+
+<p class="foot">Built from the topics on the ASYS 245 Aerodynamics final, checked against the Module 1–6 class notes on this site. Standard values (ISA, air composition) are typical; confirm against the manual.</p>
+</div>
+
+<script>
+var CARDS=[
+ {"m": 1, "t": "number", "q": "Dry air by volume: the two big gases", "a": "About <b>78% nitrogen</b> and <b>21% oxygen</b>, with ~1% other (mostly argon).", "w": "The mix stays about the same as you climb. What drops is pressure, so each breath holds fewer O₂ molecules."},
+ {"m": 1, "t": "number", "q": "ISA standard day at sea level", "a": "<b>15 °C</b> and <b>29.92 inHg</b> (1013.25 hPa).", "w": "Every chart and performance number is measured against this baseline."},
+ {"m": 1, "t": "law", "q": "Density formula", "a": "<span class=\"f\">D = m ÷ V</span>: <b>mass divided by volume</b>.", "w": "How much air is packed into a space."},
+ {"m": 1, "t": "law", "q": "Climbing vs descending: what happens to air pressure and density?", "a": "Both <b>drop as you climb</b> and both <b>rise as you descend</b>.", "w": "Less air stacked above you up high, so it is thinner and presses down less."},
+ {"m": 2, "t": "law", "q": "Bernoulli: air speeds up over the wing. What happens to static pressure?", "a": "<b>Static pressure drops.</b> Total pressure stays the same: dynamic goes up, static goes down.", "w": "Total = static + dynamic. When one rises, the other falls."},
+ {"m": 2, "t": "term", "q": "Airfoil", "a": "A shape built to make <b>lift with the least possible drag</b>.", "w": "Wings, propeller blades, tail surfaces and rotor blades are all airfoils."},
+ {"m": 2, "t": "term", "q": "Chord line", "a": "The <b>straight line from the leading edge to the trailing edge</b>.", "w": "Not the camber line. That one curves."},
+ {"m": 2, "t": "term", "q": "Camber", "a": "The <b>curve</b> of an airfoil. The mean camber line runs halfway between the top and bottom surfaces.", "w": "More camber = more lift at low speed. That is what flaps and slats add."},
+ {"m": 2, "t": "term", "q": "Symmetrical airfoil", "a": "Same curve on the <b>top and bottom</b>. Makes no lift at 0° angle of attack.", "w": "Common on aerobatic wings and tail surfaces."},
+ {"m": 2, "t": "term", "q": "Angle of attack", "a": "The angle between the <b>chord line</b> and the <b>relative wind</b>.", "w": "Don't mix it up with angle of incidence: chord line vs the aircraft's longitudinal axis."},
+ {"m": 2, "t": "law", "q": "Which way does lift act?", "a": "<b>Perpendicular</b> (90°) to the relative airflow.", "w": "Not straight up. It tilts when the wing tilts."},
+ {"m": 2, "t": "law", "q": "Which way does drag act?", "a": "<b>Parallel</b> to the relative airflow and <b>opposite the direction of flight</b>.", "w": "Drag holds the aircraft back; thrust pulls it forward."},
+ {"m": 2, "t": "term", "q": "Induced drag", "a": "Drag that comes <b>from making lift</b>.", "w": "Biggest at low speed and high angle of attack."},
+ {"m": 2, "t": "term", "q": "Parasite drag", "a": "<b>All drag not caused by making lift</b>: skin friction, form and interference drag.", "w": "Grows with speed: double the speed ≈ four times the parasite drag. Total drag = induced + parasite."},
+ {"m": 2, "t": "law", "q": "The lift equation: name its four factors", "a": "<span class=\"f\">L = C<sub>L</sub> · ½ρV² · A</span><br><b>Lift coefficient</b> (shape + angle of attack) · <b>air density</b> (ρ) · <b>velocity</b> (V) · <b>wing area</b> (A).", "w": "Speed is squared: double it and lift goes up four times."},
+ {"m": 2, "t": "number", "q": "Aspect ratio", "a": "<span class=\"f\">span ÷ average chord</span> (same as span² ÷ area).", "w": "High aspect ratio = long and skinny = less induced drag. Think gliders."},
+ {"m": 2, "t": "law", "q": "Why do wingtip vortices form?", "a": "<b>High pressure under the wing</b> spills around the tip to the <b>low pressure on top</b>.", "w": "It is the same pressure difference that makes lift."},
+ {"m": 2, "t": "term", "q": "Winglet", "a": "A turned-up wingtip that <b>weakens wingtip vortices</b>, so there is less induced drag.", "w": "Less drag = less fuel burned in cruise."},
+ {"m": 2, "t": "term", "q": "Boundary layer", "a": "The thin layer of air between the <b>aircraft skin</b> and the <b>free-stream air</b>. Speed goes from zero at the skin to full speed at its edge.", "w": "When it separates from the wing, you get a stall."},
+ {"m": 3, "t": "law", "q": "The three axes, and the motion around each", "a": "<b>Longitudinal</b> (nose to tail) = roll · <b>Lateral</b> (wingtip to wingtip) = pitch · <b>Vertical / normal</b> = yaw.", "w": "The axis is the line the aircraft rotates around."},
+ {"m": 3, "t": "law", "q": "Stability around the LATERAL axis is called…?", "a": "<b>Longitudinal stability</b> (pitch stability).", "w": "The classic trap. Pitch happens around the lateral axis, but the stability is named \"longitudinal\"."},
+ {"m": 3, "t": "law", "q": "Which part of the aircraft gives pitch (longitudinal) stability?", "a": "The <b>horizontal stabilizer</b>.", "w": "Vertical stabilizer = directional (yaw). Dihedral = lateral (roll)."},
+ {"m": 3, "t": "term", "q": "Dihedral vs anhedral", "a": "<b>Dihedral</b>: wingtips <b>higher</b> than the root, which adds roll stability. <b>Anhedral</b>: tips <b>lower</b> than the root.", "w": "Look at the aircraft head-on: dihedral makes a shallow V."},
+ {"m": 3, "t": "law", "q": "Static vs dynamic stability", "a": "<b>Static</b> = the first tendency after a disturbance. <b>Dynamic</b> = what happens over time: do the swings shrink, stay the same, or grow?", "w": "Positive dynamic = damps out. Neutral = steady swings. Negative = swings grow."},
+ {"m": 3, "t": "apply", "q": "A gust bumps the nose up. It heads back toward level, overshoots, and keeps swinging by the same amount. Describe its stability.", "a": "<b>Positive static, neutral dynamic.</b> It wants to return, but the oscillations never die out or grow.", "w": "Positive dynamic stability would damp the swings out."},
+ {"m": 3, "t": "term", "q": "Dutch roll", "a": "The aircraft <b>wanders about the roll and yaw axes together</b>: it rocks and fishtails at the same time.", "w": "Strong roll stability plus weak directional stability. Many jets fix it with a yaw damper."},
+ {"m": 4, "t": "law", "q": "The primary flight controls, and the axis each one works", "a": "<b>Ailerons</b> = roll · <b>Elevator</b> = pitch · <b>Rudder</b> = yaw.", "w": "Flaps, slats, spoilers and tabs are secondary (auxiliary) controls."},
+ {"m": 4, "t": "term", "q": "Empennage", "a": "The <b>tail section</b>: horizontal and vertical stabilizers, plus the elevator and rudder.", "w": "From the French word for putting feathers on an arrow."},
+ {"m": 4, "t": "term", "q": "Trim tab", "a": "A small hinged surface on the <b>trailing edge of a primary control</b>. It holds the control in place so the pilot doesn't have to.", "w": "It takes the pressure off the controls in steady flight."},
+ {"m": 4, "t": "term", "q": "Servo tab", "a": "Moves <b>opposite</b> to the control surface. The air pushing on it helps move the surface, so the pilot needs <b>less force</b>.", "w": "Found on larger aircraft with manual controls."},
+ {"m": 4, "t": "term", "q": "Anti-servo tab", "a": "Moves the <b>same way</b> as the control surface. It adds resistance and <b>decreases sensitivity</b>.", "w": "Fitted to stabilators so the pilot can't over-control pitch."},
+ {"m": 4, "t": "term", "q": "Stabilator", "a": "A <b>one-piece horizontal tail</b> that pivots: the <b>stabilizer and elevator in one</b>.", "w": "The Piper Cherokee is the classic example."},
+ {"m": 4, "t": "term", "q": "Spoiler", "a": "A panel on <b>top of the wing</b> that pops up to <b>kill lift and add drag</b>.", "w": "Flight spoilers help roll and slow the aircraft in the air. Ground spoilers dump lift after touchdown."},
+ {"m": 4, "t": "term", "q": "Leading-edge slat", "a": "A panel on the leading edge that slides <b>forward and down</b>, adding <b>camber and wing area</b> for take-off and landing.", "w": "The wing can reach a higher angle of attack before it stalls."},
+ {"m": 4, "t": "law", "q": "Plain vs split vs Fowler flap", "a": "<b>Plain</b>: the whole trailing edge hinges down. <b>Split</b>: only the bottom skin drops. <b>Fowler</b>: slides back and down, adding camber <i>and</i> area.", "w": "Fowler is the most effective type and is used on airliners."},
+ {"m": 4, "t": "apply", "q": "A wing section: the top surface stays put and only the lower skin at the trailing edge swings down. Which flap is it?", "a": "<b>Split flap.</b>", "w": "Makes lots of drag, which is useful for steep approaches."},
+ {"m": 4, "t": "law", "q": "Name four devices that change how much lift a wing makes", "a": "Typical answers: <b>flaps</b>, <b>slats / slots</b>, <b>spoilers</b>, <b>ailerons</b>.", "w": "Vortex generators also count. Check which four your instructor expects."},
+ {"m": 4, "t": "apply", "q": "Airliner walk-around: what do you find at the wingtip's trailing edge, on top of the wing ahead of the flaps, and along the leading edge?", "a": "<b>Outboard aileron</b> at the tip · <b>spoilers</b> on top, ahead of the flaps · <b>leading-edge slats or flaps</b> along the front.", "w": "Trailing-edge flaps fill the rest of the back edge. Many jets also have an inboard aileron between the flaps."},
+ {"m": 4, "t": "apply", "q": "T-tail walk-around: name the fixed fin, the hinged part behind it, and the surface mounted on top", "a": "<b>Vertical stabilizer</b> (fixed fin) · <b>rudder</b> (hinged behind it) · <b>horizontal stabilizer</b> on top, with the <b>elevator</b> hinged behind that.", "w": "Together they make up the empennage."},
+ {"m": 5, "t": "law", "q": "The three basic phases of flight", "a": "<b>Climb, cruise, descent.</b>", "w": "Take-off and landing sit at either end."},
+ {"m": 5, "t": "law", "q": "Best angle of climb (Vx) vs best rate of climb (Vy)", "a": "<b>Vx</b> = most height per <b>distance</b> (clear the trees). <b>Vy</b> = most height per <b>time</b> (reach altitude fastest).", "w": "Angle = distance. Rate = time."},
+ {"m": 5, "t": "term", "q": "Best endurance vs best range", "a": "<b>Endurance</b> = most <b>time</b> in the air on the fuel you have. <b>Range</b> = most <b>distance</b>.", "w": "Endurance speed is slower than range speed."},
+ {"m": 5, "t": "apply", "q": "Same 75% power setting, but you cruise 6,000 ft higher. What changes?", "a": "<b>True airspeed goes up</b> because thinner air means less drag, and fuel burn stays about the same.", "w": "Fuel burn follows the power setting, not the altitude."},
+ {"m": 5, "t": "term", "q": "True airspeed (TAS)", "a": "Indicated airspeed <b>corrected for altitude and temperature</b> (air density). It is your real speed through the air.", "w": "Up high, TAS is higher than what the airspeed indicator shows."},
+ {"m": 6, "t": "term", "q": "Mach number", "a": "Aircraft speed <b>÷ the speed of sound</b>.", "w": "Mach 0.8 = 80% of the speed of sound."},
+ {"m": 6, "t": "term", "q": "Critical Mach number", "a": "The <b>aircraft</b> speed at which air somewhere over the <b>wing</b> first reaches <b>Mach 1</b>.", "w": "The air over the top goes faster than the aircraft, so it gets there first."},
+ {"m": 6, "t": "law", "q": "Subsonic vs transonic vs supersonic", "a": "<b>Subsonic</b>: all the air around the aircraft is below Mach 1. <b>Transonic</b>: a mix of subsonic and supersonic. <b>Supersonic</b>: all of it is above Mach 1.", "w": "Transonic runs from about critical Mach (~0.8) to about Mach 1.3."},
+ {"m": 6, "t": "term", "q": "Shock wave", "a": "A very thin wall where the airflow drops <b>from supersonic to subsonic</b>.", "w": "It forms on the wing as soon as you pass critical Mach."},
+ {"m": 6, "t": "law", "q": "Air passes through a shock wave. What changes?", "a": "<b>Velocity down</b>; pressure, temperature and density <b>up</b>.", "w": "Picture a traffic jam: the air slows and gets squeezed."},
+ {"m": 6, "t": "term", "q": "Shock stall", "a": "A stall caused when a <b>shock wave separates the boundary layer</b>.", "w": "Caused by speed, not by a high angle of attack."}
+];
+(function(){
+  var KEY='asys245-cards-final';
+  var st={set:'all',mod:'all',mast:{}};
+  try{ st=Object.assign(st,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(st)); }catch(e){} }
+  var queue=[],cur=null,flipped=false,seen=0,total=0;
+  var card=document.getElementById('card'),q=document.getElementById('q'),a=document.getElementById('a'),why=document.getElementById('why'),kf=document.getElementById('kfront');
+  var done=document.getElementById('done'),actions=document.getElementById('actions'),scene=document.getElementById('scene');
+  var labels={term:'Term',law:'Rule',number:'Number',apply:'Apply it'};
+  function pool(){ return CARDS.map(function(c,i){c.id=i;return c}).filter(function(c){return (st.set==='all'||c.t===st.set)&&(st.mod==='all'||String(c.m)===st.mod)}); }
+  function build(fresh){ var p=pool(); total=p.length; if(fresh){ p.forEach(function(c){ delete st.mast[c.id]; }); save(); } queue=p.filter(function(c){ return (st.mast[c.id]||0)<2; }).sort(function(){return Math.random()-.5}); seen=0; next(); }
+  function stats(){ var p=pool(); var m=p.filter(function(c){return (st.mast[c.id]||0)>=2}).length; document.getElementById('tot').textContent=total; document.getElementById('mast').textContent=m; document.getElementById('rev').textContent=queue.length+(cur?1:0); document.getElementById('pos').textContent=Math.min(seen,total); document.getElementById('pbar').style.width=(total?100*m/total:0)+'%'; }
+  function next(){ flipped=false; card.classList.remove('flipped'); if(!queue.length){ cur=null; scene.hidden=true; actions.hidden=true; done.hidden=false; document.getElementById('doneMsg').textContent='All '+total+' cards mastered twice. Try another set, or restart to run it cold.'; stats(); return; } scene.hidden=false; actions.hidden=true; done.hidden=true; cur=queue.shift(); seen++; kf.textContent=labels[cur.t]+' · Mod '+cur.m; q.innerHTML=cur.q; a.innerHTML=cur.a; why.innerHTML=cur.w; stats(); }
+  function flip(){ if(!cur) return; flipped=!flipped; card.classList.toggle('flipped',flipped); actions.hidden=!flipped; }
+  function grade(ok){ if(!cur||!flipped) return; if(ok){ st.mast[cur.id]=(st.mast[cur.id]||0)+1; if(st.mast[cur.id]<2) queue.push(cur); } else { st.mast[cur.id]=0; queue.splice(Math.min(3,queue.length),0,cur); } save(); next(); }
+  card.addEventListener('click',flip);
+  document.getElementById('got').addEventListener('click',function(){grade(true)});
+  document.getElementById('again').addEventListener('click',function(){grade(false)});
+  document.getElementById('restart').addEventListener('click',function(){build(true)});
+  document.getElementById('doneRestart').addEventListener('click',function(){build(true)});
+  document.querySelectorAll('.chip[data-set]').forEach(function(c){ c.setAttribute('aria-pressed',c.dataset.set===st.set?'true':'false'); c.addEventListener('click',function(){ st.set=c.dataset.set; save(); document.querySelectorAll('.chip[data-set]').forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false')}); build(false); }); });
+  document.querySelectorAll('.chip[data-mod]').forEach(function(c){ c.setAttribute('aria-pressed',c.dataset.mod===st.mod?'true':'false'); c.addEventListener('click',function(){ st.mod=c.dataset.mod; save(); document.querySelectorAll('.chip[data-mod]').forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false')}); build(false); }); });
+  document.addEventListener('keydown',function(e){ if(e.target.tagName==='INPUT') return; if(e.key===' '){e.preventDefault();flip();} else if(e.key==='1') grade(false); else if(e.key==='2') grade(true); });
+  build(false);
+})();
+</script>
+
+<script src="../../assets/safa.js" defer></script>
+</body>
+</html>
