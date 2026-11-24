@@ -48,6 +48,32 @@ header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
 .done h2{font-size:1.8rem}
 .done p{color:var(--muted)}
 .foot{font-size:.85rem;color:var(--muted);margin-top:2rem}
+
+#printset{display:none}
+@media print{
+ @page{size:letter;margin:.45in}
+ html,body{background:#fff!important;color:#000!important}
+ body.study-page>*:not(.wrap){display:none!important}
+ .wrap{max-width:none!important;padding:0!important;margin:0!important}
+ .wrap>*:not(#printset){display:none!important}
+ #printset{display:block;font:9.5pt/1.35 Inter,Arial,sans-serif;color:#000}
+ #printset .ph{display:flex;align-items:center;gap:12pt;border-bottom:2pt solid #0b0b0c;padding-bottom:6pt;margin-bottom:6pt}
+ #printset .ph img{height:30pt;width:auto}
+ #printset .ph .tt{flex:1}
+ #printset .ph b{display:block;font:700 17pt "Barlow Condensed",Arial,sans-serif}
+ #printset .ph span{font-size:8.5pt;color:#444}
+ #printset .how{font-size:8.5pt;color:#333;margin:0 0 8pt}
+ #printset h2{font:700 12pt "Barlow Condensed",Arial,sans-serif;text-transform:uppercase;letter-spacing:.06em;border-left:4pt solid #d8b358;padding-left:6pt;margin:10pt 0 4pt;break-after:avoid}
+ #printset .pc{display:grid;grid-template-columns:1fr 1fr;border:1pt solid #9aa5b1;border-top:0;break-inside:avoid}
+ #printset h2+.pc{border-top:1pt solid #9aa5b1}
+ #printset .pf,#printset .pb{padding:6pt 8pt;min-height:52pt}
+ #printset .pf{border-right:1pt dashed #9aa5b1;display:flex;flex-direction:column;justify-content:center}
+ #printset .pk{font:500 6.5pt "JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.06em;color:#666}
+ #printset .pf b{font:700 12pt/1.15 "Barlow Condensed",Arial,sans-serif}
+ #printset .pb small{display:block;color:#555;font-size:8pt;margin-top:2pt}
+ #printset .f{color:#000;background:#f1ece0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ #printset .pfoot{font-size:7.5pt;color:#666;margin-top:8pt}
+}
 @media (prefers-reduced-motion:reduce){.card{transition:none}.progress i{transition:none}}
 </style>
 <link rel="manifest" href="../../manifest.webmanifest">
@@ -74,6 +100,7 @@ header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
   <button class="chip" data-set="number" aria-pressed="false" type="button">Numbers</button>
   <button class="chip" data-set="apply" aria-pressed="false" type="button">Apply it</button>
   <span style="flex:1"></span>
+  <button class="btn" id="print" type="button">Print cards</button>
   <button class="btn" id="restart" type="button">Restart set</button>
 </div>
 <div class="bar" role="toolbar" aria-label="Module" style="padding-top:0">
@@ -101,6 +128,7 @@ header.top p{margin:.25rem 0 0;color:var(--muted);max-width:60ch}
 <div class="kbd">Space = flip · 1 = Again · 2 = Got it</div>
 <div class="done" id="done" hidden><h2>Set complete</h2><p id="doneMsg"></p><button class="btn" id="doneRestart" type="button">Go again</button></div>
 
+<section id="printset"></section>
 <p class="foot">Built from the topics on the ASYS 245 Aerodynamics final, checked against the Module 1–6 class notes on this site. Standard values (ISA, air composition) are typical; confirm against the manual.</p>
 </div>
 
@@ -181,6 +209,20 @@ var CARDS=[
   document.querySelectorAll('.chip[data-mod]').forEach(function(c){ c.setAttribute('aria-pressed',c.dataset.mod===st.mod?'true':'false'); c.addEventListener('click',function(){ st.mod=c.dataset.mod; save(); document.querySelectorAll('.chip[data-mod]').forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false')}); build(false); }); });
   document.addEventListener('keydown',function(e){ if(e.target.tagName==='INPUT') return; if(e.key===' '){e.preventDefault();flip();} else if(e.key==='1') grade(false); else if(e.key==='2') grade(true); });
   build(false);
+
+  (function(){
+    var names={1:'The Atmosphere',2:'Lift & Drag',3:'Stability & Control',4:'Flight Controls',5:'Phases of Flight',6:'Stall & High-Speed Flight'};
+    var h='<div class="ph"><img src="../../assets/sait-logo.png" alt="SAIT"><img src="../../assets/safa-black.png" alt="SAFA"><div class="tt"><b>ASYS 245 · Aerodynamics Final · Flashcards</b><span>Modules 1–6 · '+CARDS.length+' cards</span></div></div>'+
+      '<p class="how">Fold along the dashed line so the question is on one side and the answer on the other, or cut out each row and fold it into a card. Cover the right column and quiz yourself.</p>';
+    [1,2,3,4,5,6].forEach(function(m){
+      var cs=CARDS.filter(function(c){return c.m===m}); if(!cs.length) return;
+      h+='<h2>Module '+m+' · '+names[m].replace(/&/g,'&amp;')+'</h2>';
+      cs.forEach(function(c){ h+='<div class="pc"><div class="pf"><span class="pk">'+labels[c.t]+' · Mod '+m+'</span><b>'+c.q+'</b></div><div class="pb">'+c.a+'<small>'+c.w+'</small></div></div>'; });
+    });
+    h+='<p class="pfoot">South Alberta Flight Academy study set for ASYS 245. Not an official SAIT publication. Confirm anything safety-critical against the manual.</p>';
+    document.getElementById('printset').innerHTML=h;
+    document.getElementById('print').addEventListener('click',function(){ window.print(); });
+  })();
 })();
 </script>
 
